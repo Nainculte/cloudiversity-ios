@@ -1,1 +1,3 @@
-Cloudiversity.xcodeproj/project.xcworkspace/xcuserdata/*
+Cloudiversity.xcodeproj/project.xcworkspace/*
+.DS_Store
+Cloudiversity.xcodeproj/xcuserdata/*
