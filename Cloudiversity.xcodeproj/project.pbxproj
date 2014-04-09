@@ -174,7 +174,7 @@
 				E478BBA818A156660068DEB1 /* NSString+WebService.h */,
 				E478BBA918A156660068DEB1 /* NSString+WebService.m */,
 			);
-			name = WebServices;
+			path = WebServices;
 			sourceTree = "<group>";
 		};
 		E478BBAB18A2A1500068DEB1 /* Objects */ = {
@@ -185,7 +185,7 @@
 				E478BBB818A2A2DB0068DEB1 /* User.h */,
 				E478BBB918A2A2DB0068DEB1 /* User.m */,
 			);
-			name = Objects;
+			path = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -501,6 +501,7 @@
 				E478BB7D18A0E8290068DEB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E478BB7E18A0E8290068DEB1 /* Build configuration list for PBXNativeTarget "CloudiversityTests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +510,7 @@
 				E478BB8018A0E8290068DEB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
