@@ -30,6 +30,19 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FiraMonoOT-Bold.otf</string>
+		<string>FiraMonoOT-Regular.otf</string>
+		<string>FiraSansOT-Bold.otf</string>
+		<string>FiraSansOT-BoldItalic.otf</string>
+		<string>FiraSansOT-Light.otf</string>
+		<string>FiraSansOT-LightItalic.otf</string>
+		<string>FiraSansOT-Medium.otf</string>
+		<string>FiraSansOT-MediumItalic.otf</string>
+		<string>FiraSansOT-Regular.otf</string>
+		<string>FiraSansOT-RegularItalic.otf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
