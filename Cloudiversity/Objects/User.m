@@ -22,4 +22,12 @@
     return user;
 }
 
++ (User *)withName:(NSString *)name lastName:(NSString *)lastName andEmail:(NSString *)email {
+    User *user = [[User alloc] init];
+    user.firstName = name;
+    user.lastName = lastName;
+    user.email = email;
+    return user;
+}
+
 @end

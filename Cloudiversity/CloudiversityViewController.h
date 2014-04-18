@@ -7,6 +7,8 @@
 //
 
 #import "User.h"
+#import "CloudLabel.h"
+#import "UIColor+CloudColor.h"
 #import <UIKit/UIKit.h>
 
 @interface CloudiversityViewController : UIViewController <UITextFieldDelegate>
@@ -18,5 +20,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (nonatomic, strong) User *_user;
+
+@property (nonatomic, strong) NSArray *logins;
+@property (nonatomic, strong) NSArray *passwords;
+@property (nonatomic, strong) NSArray *users;
+
+// Labels outlet for logo
+@property (weak, nonatomic) IBOutlet UIView *logoView;
+@property (weak, nonatomic) IBOutlet UIImageView *cloudLogo;
+@property (weak, nonatomic) IBOutlet CloudLabel *cloudLabel;
+@property (weak, nonatomic) IBOutlet CloudLabel *iversityLabel;
+
+- (IBAction)backgroundTap:(id)sender;
 
 @end

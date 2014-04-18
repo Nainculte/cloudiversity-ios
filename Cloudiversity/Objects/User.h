@@ -16,4 +16,6 @@
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *school;
 
++ (User *)withName:(NSString *)name lastName:(NSString *)lastName andEmail:(NSString *)email;
+
 @end

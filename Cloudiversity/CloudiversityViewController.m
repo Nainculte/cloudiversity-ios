@@ -22,9 +22,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    loginField.delegate = self;
-    passwordField.delegate = self;
 	// Do any additional setup after loading the view, typically from a nib.
+
+	// Labels modifications (font, color...)
+	[self.cloudLabel setFont:[UIFont fontWithName:@"FiraSansOt-Bold" size:self.cloudLabel.font.pointSize]];
+	[self.cloudLabel setTextColor:[UIColor cloudDarkBlue]];
+	[self.iversityLabel setTextColor:[UIColor cloudLightBlue]];
+
+	// setting arrays for fake users
+	self.logins = @[@"merle_a", @"dumeni_o", @"hamel_t"];
+	self.passwords = @[@"anthony", @"olivier", @"thibault"];
+	self.users = @[[User withName:@"anthony" lastName:@"merle" andEmail:@"anthony.merle@mail.ru"],
+				   [User withName:@"olivier" lastName:@"dumenil" andEmail:@"olivier.dumenil@mail.ru"],
+				   [User withName:@"thibault" lastName:@"hamel" andEmail:@"thibault.hamel@mail.ru"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,19 +45,24 @@
 
 -(void)loginWithID:(NSString *)userName andPassword:(NSString *)password
 {
+	User *user;
     if ([userName isEqual:NULL] || [userName isEqualToString:@""] || [password isEqual:NULL] || [password isEqualToString:@""]) {
         //ERROR PASSWORD || USERNAME == NULL
         NSLog(@"UserName or password is NULL");
         [self endLogin];
-         } else {
-             [IOSRequest loginWithId:userName andPassword:password onCompletion:^(User *user){
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                      NSLog(@"GOGO request over");
-                     [self setUser:user];
-                     [self endLogin];
-                 });
-             }];
-         }
+	} else {
+		int idx = [self.logins indexOfObject:userName];
+		if (idx != NSNotFound) {
+			if ([[self.passwords objectAtIndex:idx] isEqualToString:password]) {
+				[self setUser:user];
+				// login succes
+				[self performSegueWithIdentifier:@"login_success" sender:self];
+			} else
+				[self alertStatus:@"Mauvais mot de Pass" :@"Connection echouee" :0];
+		} else
+			[self alertStatus:@"Mauvais nom d'utilisateur" :@"Connection echouee" :0];
+		[self endLogin];
+	}
 }
 
 -(void) setUser:(User *)user {
@@ -82,4 +97,49 @@
     [passwordField resignFirstResponder];
     return YES;
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	[UIView animateWithDuration:0.3 animations:^{
+		[self.cloudLogo setAlpha:0];
+		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y - 100,
+										   self.logoView.frame.size.width, self.logoView.frame.size.height)];
+		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y - 100,
+											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
+		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y - 100,
+												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
+		[self.loginBtn setFrame:CGRectMake(self.loginBtn.frame.origin.x, self.loginBtn.frame.origin.y - 200,
+										   self.loginBtn.frame.size.width, self.loginBtn.frame.size.height)];
+	}];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	[UIView animateWithDuration:0.3 animations:^{
+		[self.cloudLogo setAlpha:1];
+		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y + 100,
+										   self.logoView.frame.size.width, self.logoView.frame.size.height)];
+		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y + 100,
+											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
+		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y + 100,
+												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
+		[self.loginBtn setFrame:CGRectMake(self.loginBtn.frame.origin.x, self.loginBtn.frame.origin.y + 200,
+										   self.loginBtn.frame.size.width, self.loginBtn.frame.size.height)];
+	}];
+}
+
+- (IBAction)backgroundTap:(id)sender {
+	[self.view endEditing:YES];
+}
+
+// Pop up de message d'erreur
+- (void) alertStatus:(NSString *)msg :(NSString *)title :(int) tag
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                        message:msg
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil, nil];
+    alertView.tag = tag;
+    [alertView show];
+}
+
 @end

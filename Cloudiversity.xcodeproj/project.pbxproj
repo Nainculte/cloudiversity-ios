@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		920FC9611901784F0070D70E /* HomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920FC9601901784F0070D70E /* HomeScreenViewController.m */; };
+		920FC9621901784F0070D70E /* HomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920FC9601901784F0070D70E /* HomeScreenViewController.m */; };
+		92DD1E0018FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
+		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
 		E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */; };
 		E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB5018A0E8290068DEB1 /* UIKit.framework */; };
@@ -59,6 +63,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		920FC95F1901784F0070D70E /* HomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScreenViewController.h; sourceTree = "<group>"; };
+		920FC9601901784F0070D70E /* HomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScreenViewController.m; sourceTree = "<group>"; };
+		92DD1DFE18FC4F2F000386EE /* UIColor+CloudColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CloudColor.h"; sourceTree = "<group>"; };
+		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		E478BB4918A0E8290068DEB1 /* Cloudiversity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudiversity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -174,6 +182,10 @@
 				E478BBAB18A2A1500068DEB1 /* Objects */,
 				E478BB8118A0E9350068DEB1 /* WebServices */,
 				E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */,
+				920FC95F1901784F0070D70E /* HomeScreenViewController.h */,
+				920FC9601901784F0070D70E /* HomeScreenViewController.m */,
+				92DD1DFE18FC4F2F000386EE /* UIColor+CloudColor.h */,
+				92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */,
 				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
 				E478BB5E18A0E8290068DEB1 /* Main.storyboard */,
 				E478BB6118A0E8290068DEB1 /* CloudiversityViewController.h */,
@@ -414,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E478BBB718A2A2820068DEB1 /* Object.m in Sources */,
+				92DD1E0018FC4F2F000386EE /* UIColor+CloudColor.m in Sources */,
 				E478BBBA18A2A2DB0068DEB1 /* User.m in Sources */,
 				E478BB5918A0E8290068DEB1 /* main.m in Sources */,
 				FDDA095F18F5BEC4000A1029 /* CloudButton.m in Sources */,
@@ -421,6 +434,7 @@
 				FDDA096218F5BF2D000A1029 /* CloudTextField.m in Sources */,
 				E478BBAA18A156660068DEB1 /* NSString+WebService.m in Sources */,
 				E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */,
+				920FC9611901784F0070D70E /* HomeScreenViewController.m in Sources */,
 				FDDA095C18F5BC92000A1029 /* CloudLabel.m in Sources */,
 				E478BBA718A0FDCB0068DEB1 /* IOSRequest.m in Sources */,
 			);
@@ -430,7 +444,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				920FC9621901784F0070D70E /* HomeScreenViewController.m in Sources */,
 				E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */,
+				92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
