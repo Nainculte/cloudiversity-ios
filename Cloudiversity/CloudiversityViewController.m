@@ -10,6 +10,8 @@
 #import "IOSRequest.h"
 
 @interface CloudiversityViewController ()
+@property (nonatomic) BOOL shouldAnimate;
+@property (nonatomic) BOOL hasSelected;
 @end
 
 @implementation CloudiversityViewController
@@ -35,6 +37,8 @@
 	self.users = @[[User withName:@"anthony" lastName:@"merle" andEmail:@"anthony.merle@mail.ru"],
 				   [User withName:@"olivier" lastName:@"dumenil" andEmail:@"olivier.dumenil@mail.ru"],
 				   [User withName:@"thibault" lastName:@"hamel" andEmail:@"thibault.hamel@mail.ru"]];
+    self.shouldAnimate = YES;
+    self.hasSelected = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,14 +95,32 @@
     [self loginWithID:self.loginField.text andPassword:self.passwordField.text];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [loginField resignFirstResponder];
-    [passwordField resignFirstResponder];
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+
     return YES;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([loginField isFirstResponder]) {
+        self.shouldAnimate = NO;
+        [self.loginField resignFirstResponder];
+        [passwordField becomeFirstResponder];
+    } else {
+        self.shouldAnimate = YES;
+        self.hasSelected = NO;
+        [passwordField resignFirstResponder];
+    }
+    return NO;
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (!self.shouldAnimate) {
+        return ;
+    }
+    if (self.hasSelected) {
+        return;
+    }
+
 	[UIView animateWithDuration:0.3 animations:^{
 		[self.cloudLogo setAlpha:0];
 		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y - 100,
@@ -110,9 +132,17 @@
 		[self.loginBtn setFrame:CGRectMake(self.loginBtn.frame.origin.x, self.loginBtn.frame.origin.y - 200,
 										   self.loginBtn.frame.size.width, self.loginBtn.frame.size.height)];
 	}];
+    self.hasSelected = YES;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (!self.shouldAnimate) {
+        return ;
+    }
+    if (self.hasSelected) {
+        return ;
+    }
+
 	[UIView animateWithDuration:0.3 animations:^{
 		[self.cloudLogo setAlpha:1];
 		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y + 100,
@@ -127,6 +157,8 @@
 }
 
 - (IBAction)backgroundTap:(id)sender {
+    self.shouldAnimate = YES;
+    self.hasSelected = NO;
 	[self.view endEditing:YES];
 }
 
