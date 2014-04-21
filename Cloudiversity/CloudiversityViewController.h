@@ -8,7 +8,7 @@
 
 #import "User.h"
 #import "CloudLabel.h"
-#import "UIColor+CloudColor.h"
+#import "UIColor+Cloud.h"
 #import <UIKit/UIKit.h>
 
 @interface CloudiversityViewController : UIViewController <UITextFieldDelegate>

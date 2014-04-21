@@ -39,6 +39,9 @@
 				   [User withName:@"thibault" lastName:@"hamel" andEmail:@"thibault.hamel@mail.ru"]];
     self.shouldAnimate = YES;
     self.hasSelected = NO;
+
+    self.view.backgroundColor = [UIColor cloudGrey];
+    self.logoView.backgroundColor = [UIColor cloudGrey];
 }
 
 - (void)didReceiveMemoryWarning

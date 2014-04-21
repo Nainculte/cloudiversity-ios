@@ -1,16 +1,15 @@
 //
-//  UIColor+CloudColor.h
+//  NSObject+UIColor_Cloud.h
 //  Cloudiversity
 //
-//  Created by Anthony MERLE on 14/04/2014.
+//  Created by Nainculte on 4/21/14.
 //  Copyright (c) 2014 Rémy Marty. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (CloudColor)
-
+@interface UIColor (Cloud)
 + (UIColor *)cloudDarkBlue;
 + (UIColor *)cloudLightBlue;
-	
++ (UIColor *)cloudGrey;
 @end
