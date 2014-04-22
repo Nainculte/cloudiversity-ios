@@ -10,23 +10,18 @@
 
 @implementation User
 
-+ (User *)fromJSON:(id)json {
-    if (json == (id)[NSNull null]) {
-        return nil;
-    }
-    User *user = [[User alloc] init];
-    user.uid = [json valueForKey:@"id"];
-    user.firstName = [json valueForKey:@"firstName"];
-    user.lastName = [json valueForKey:@"lastName"];
-    user.email = [json valueForKey:@"email"];
-    return user;
-}
-
 + (User *)withName:(NSString *)name lastName:(NSString *)lastName andEmail:(NSString *)email {
     User *user = [[User alloc] init];
     user.firstName = name;
     user.lastName = lastName;
     user.email = email;
+    return user;
+}
+
++ (User *)withEmail:(NSString *)email andToken:(NSString *)token {
+    User *user = [[User alloc] init];
+    user.email = email;
+    user.token = token;
     return user;
 }
 

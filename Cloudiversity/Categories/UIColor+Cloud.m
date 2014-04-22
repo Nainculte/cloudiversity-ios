@@ -22,4 +22,8 @@
     return [UIColor colorWithRed:224.0/255.0 green:224.0/255.0 blue:229.0/255.0 alpha:1];
 }
 
++ (UIColor *)cloudRed {
+    return [UIColor colorWithRed:146/255.0f green:60/255.0f blue:58/255.0f alpha:1.0f];
+}
+
 @end

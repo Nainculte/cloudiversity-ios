@@ -9,14 +9,14 @@
 #import "User.h"
 #import <Foundation/Foundation.h>
 
-typedef void(^RequestCompletionHandler)(NSString*, NSError*);
-typedef void(^RequestUserCompletionHandler)(User *);
+typedef void(^RequestCompletionHandler)(NSData *, NSError *);
+typedef void(^RequestUserCompletionHandler)(id);
 
 @interface IOSRequest : NSObject
 
 @property (nonatomic, strong) NSDictionary *user;
 
-+(void)requestToPath:(NSString *)path onCompletion:(RequestCompletionHandler)complete;
++(void)requestToPath:(NSString *)path withParams:(NSString *)params onCompletion:(RequestCompletionHandler)complete;
 
 +(void)loginWithId:(NSString *)userName
        andPassword:(NSString *)password

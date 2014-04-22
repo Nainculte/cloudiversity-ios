@@ -8,6 +8,8 @@
 
 #import "User.h"
 #import "CloudLabel.h"
+#import "CloudTextField.h"
+#import "CloudButton.h"
 #import "UIColor+Cloud.h"
 #import <UIKit/UIKit.h>
 
@@ -15,9 +17,10 @@
 
 - (IBAction)loginBtn:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet UITextField *loginField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet CloudButton *loginBtn;
+@property (weak, nonatomic) IBOutlet CloudTextField *loginField;
+@property (weak, nonatomic) IBOutlet CloudTextField *passwordField;
+@property (weak, nonatomic) IBOutlet CloudLabel *errorLabel;
 
 @property (nonatomic, strong) User *_user;
 

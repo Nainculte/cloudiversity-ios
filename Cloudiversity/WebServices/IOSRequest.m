@@ -12,22 +12,25 @@
 
 @implementation IOSRequest
 
-+(void) requestToPath:(NSString *)path onCompletion:(RequestCompletionHandler)complete
++(void) requestToPath:(NSString *)path withParams:(NSString *)params onCompletion:(RequestCompletionHandler)complete
 {
     NSOperationQueue *backgroundQueue = [[NSOperationQueue alloc] init];
     
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:path]
-                                                  cachePolicy:NSURLCacheStorageAllowedInMemoryOnly
-                                            timeoutInterval:10];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:path]
+                                                                cachePolicy:NSURLCacheStorageAllowedInMemoryOnly
+                                                            timeoutInterval:10];
+    request.HTTPMethod = @"POST";
+    request.HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
+    [request setValue:[NSString stringWithFormat:@"%d", [params length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
-[NSURLConnection sendAsynchronousRequest:request
-                                   queue:backgroundQueue
-                       completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-    NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                           if (complete) {
-                              complete(result, error);
-                           }
-}];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:backgroundQueue
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if (complete) {
+                                   complete(data, error);
+                               }
+                           }];
 }
 
 +(void) loginWithId:(NSString *)userName
@@ -35,20 +38,25 @@
        onCompletion:(RequestUserCompletionHandler)complete {
     userName = [userName URLEncode];
     password = [password URLEncode];
-    NSLog(@"On va préparer la requete");
-    //TODO
-    NSString *basePath = @"http://joox/tutorial/index.php";
-    NSString *fullpath = [basePath stringByAppendingFormat:@"user_name=%@&password=%@", userName, password];
-    [IOSRequest requestToPath:fullpath onCompletion:^(NSString *result, NSError *error) {
-        if (error || [result isEqualToString:@""]) {
-            //login failed
-            NSLog(@"Login failed");
-            complete(nil);
+
+    NSString *path = @"http://testapp.cloudiversity.eu/users/sign_in";
+    NSString *params = [NSString stringWithFormat:@"user[login]=%@&user[password]=%@", userName, password];
+    [IOSRequest requestToPath:path withParams:params onCompletion:^(NSData *result, NSError *error) {
+        if (!result) {
+            complete(@"No internet Connection");
+            return ;
+        }
+        NSError *err;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:result
+                                                               options:NSJSONReadingMutableLeaves | NSJSONReadingMutableContainers
+                                                                 error:&err];
+        if ([json valueForKey:@"error"]) {
+            complete([json valueForKey:@"error"]);
+        } else if (error) {
+            complete(error);
         } else {
-             User *user = (User *)[User fromJSON:result];
-            if (complete) {
-                complete(user);
-            }
+            User *user = [User withEmail:[json objectForKey:@"email"] andToken:[json objectForKey:@"token"]];
+            complete(user);
         }
     }];
 }

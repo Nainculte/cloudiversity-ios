@@ -12,4 +12,5 @@
 + (UIColor *)cloudDarkBlue;
 + (UIColor *)cloudLightBlue;
 + (UIColor *)cloudGrey;
++ (UIColor *)cloudRed;
 @end
