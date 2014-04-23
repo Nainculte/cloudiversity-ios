@@ -95,14 +95,14 @@
     if (success) {
         [self performSegueWithIdentifier:@"login_success" sender:self];
         self.errorLabel.alpha = 0.0;
+        [CloudKeychainManager saveToken:_user.token forEmail:_user.email];
+        [self._user saveUser];
     } else {
         [UIView animateWithDuration:0.3 animations:^{
             self.errorLabel.alpha = 1.0;
         }];
     }
     self.loginBtn.enabled = YES;
-    [CloudKeychainManager saveToken:_user.token forEmail:_user.email];
-    [self._user saveUser];
 }
 
 - (void)saveServer {
@@ -117,6 +117,11 @@
 }
 
 - (IBAction)loginBtn:(id)sender {
+    if ([self.loginField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""] || [self.serverField.text isEqualToString:@""]) {
+        self.errorLabel.text = @"Vous devez remplir tout les champs";
+        [self endLoginWithSuccess:false];
+        return ;
+    }
     [self startLogin];
     [IOSRequest loginWithId:loginField.text andPassword:self.passwordField.text onCompletion:^(id i){
         if ([i isKindOfClass:[User class]]) {
