@@ -3,11 +3,12 @@
 //  Cloudiversity
 //
 //  Created by Rémy Marty on 04/02/2014.
-//  Copyright (c) 2014 Rémy Marty. All rights reserved.
+//  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
 #import "CloudiversityViewController.h"
 #import "IOSRequest.h"
+#import "CloudKeychainManager.h"
 
 @interface CloudiversityViewController ()
 @property (nonatomic) BOOL shouldAnimate;
@@ -87,6 +88,7 @@
     self.hasSelected = NO;
     [self.view endEditing:YES];
     self.loginBtn.enabled = NO;
+    [self saveServer];
 }
 
 - (void) endLoginWithSuccess:(BOOL)success {
@@ -99,6 +101,19 @@
         }];
     }
     self.loginBtn.enabled = YES;
+    [CloudKeychainManager saveToken:_user.token forEmail:_user.email];
+    [self._user saveUser];
+}
+
+- (void)saveServer {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *server = self.serverField.text;
+    const char *s = [server cStringUsingEncoding:NSUTF8StringEncoding];
+    if (s[server.length - 1] == '/') {
+        server = [server substringToIndex:server.length - 1];
+    }
+    [defaults setObject:server forKey:@"server"];
+    [defaults synchronize];
 }
 
 - (IBAction)loginBtn:(id)sender {
@@ -146,13 +161,15 @@
 
 	[UIView animateWithDuration:0.3 animations:^{
 		[self.cloudLogo setAlpha:0];
-		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y - 100,
+		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y - 130,
 										   self.logoView.frame.size.width, self.logoView.frame.size.height)];
-		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y - 100,
+		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y - 130,
 											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
-		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y - 100,
+		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y - 130,
 												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
-        [self.errorLabel setFrame:CGRectMake(self.errorLabel.frame.origin.x, self.errorLabel.frame.origin.y - 100,
+        [self.serverField setFrame:CGRectMake(self.serverField.frame.origin.x, self.serverField.frame.origin.y - 130,
+												self.serverField.frame.size.width, self.serverField.frame.size.height)];
+        [self.errorLabel setFrame:CGRectMake(self.errorLabel.frame.origin.x, self.errorLabel.frame.origin.y - 130,
                                             self.errorLabel.frame.size.width, self.errorLabel.frame.size.height)];
 		[self.loginBtn setFrame:CGRectMake(self.loginBtn.frame.origin.x, self.loginBtn.frame.origin.y - 200,
 										   self.loginBtn.frame.size.width, self.loginBtn.frame.size.height)];
@@ -170,13 +187,15 @@
 
 	[UIView animateWithDuration:0.3 animations:^{
 		[self.cloudLogo setAlpha:1];
-		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y + 100,
+		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y + 130,
 										   self.logoView.frame.size.width, self.logoView.frame.size.height)];
-		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y + 100,
+		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y + 130,
 											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
-		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y + 100,
+		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y + 130,
 												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
-        [self.errorLabel setFrame:CGRectMake(self.errorLabel.frame.origin.x, self.errorLabel.frame.origin.y + 100,
+        [self.serverField setFrame:CGRectMake(self.serverField.frame.origin.x, self.serverField.frame.origin.y + 130,
+												self.serverField.frame.size.width, self.serverField.frame.size.height)];
+        [self.errorLabel setFrame:CGRectMake(self.errorLabel.frame.origin.x, self.errorLabel.frame.origin.y + 130,
                                              self.errorLabel.frame.size.width, self.errorLabel.frame.size.height)];
 		[self.loginBtn setFrame:CGRectMake(self.loginBtn.frame.origin.x, self.loginBtn.frame.origin.y + 200,
 										   self.loginBtn.frame.size.width, self.loginBtn.frame.size.height)];

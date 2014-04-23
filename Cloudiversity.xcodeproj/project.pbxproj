@@ -36,6 +36,8 @@
 		FD3FA7D518FC3A160072B731 /* Icon_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D118FC3A160072B731 /* Icon_40x40.png */; };
 		FD3FA7D618FC3A160072B731 /* Icon_60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D218FC3A160072B731 /* Icon_60x60.png */; };
 		FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D318FC3A160072B731 /* Icon_500x500.png */; };
+		FD8F82D61908072C00EDBDBE /* CloudKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F82D51908072C00EDBDBE /* CloudKeychainManager.m */; };
+		FD8F82D819080AAA00EDBDBE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8F82D719080AAA00EDBDBE /* Security.framework */; };
 		FDDA094F18F5BA9F000A1029 /* FiraMonoOT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094518F5BA9F000A1029 /* FiraMonoOT-Bold.otf */; };
 		FDDA095018F5BA9F000A1029 /* FiraMonoOT-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094618F5BA9F000A1029 /* FiraMonoOT-Regular.otf */; };
 		FDDA095118F5BA9F000A1029 /* FiraSansOT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094718F5BA9F000A1029 /* FiraSansOT-Bold.otf */; };
@@ -101,6 +103,10 @@
 		FD3FA7D118FC3A160072B731 /* Icon_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_40x40.png; sourceTree = "<group>"; };
 		FD3FA7D218FC3A160072B731 /* Icon_60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_60x60.png; sourceTree = "<group>"; };
 		FD3FA7D318FC3A160072B731 /* Icon_500x500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_500x500.png; sourceTree = "<group>"; };
+		FD8F82D41908072C00EDBDBE /* CloudKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKeychainManager.h; sourceTree = "<group>"; };
+		FD8F82D51908072C00EDBDBE /* CloudKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKeychainManager.m; sourceTree = "<group>"; };
+		FD8F82D719080AAA00EDBDBE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FD8F82D91908244A00EDBDBE /* UICloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICloud.h; sourceTree = "<group>"; };
 		FDDA094518F5BA9F000A1029 /* FiraMonoOT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMonoOT-Bold.otf"; sourceTree = "<group>"; };
 		FDDA094618F5BA9F000A1029 /* FiraMonoOT-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMonoOT-Regular.otf"; sourceTree = "<group>"; };
 		FDDA094718F5BA9F000A1029 /* FiraSansOT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSansOT-Bold.otf"; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD8F82D819080AAA00EDBDBE /* Security.framework in Frameworks */,
 				E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */,
 				E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */,
 				E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */,
@@ -166,6 +173,7 @@
 		E478BB4B18A0E8290068DEB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FD8F82D719080AAA00EDBDBE /* Security.framework */,
 				E478BB4C18A0E8290068DEB1 /* Foundation.framework */,
 				E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */,
 				E478BB5018A0E8290068DEB1 /* UIKit.framework */,
@@ -181,15 +189,17 @@
 				E478BBAB18A2A1500068DEB1 /* Objects */,
 				E478BB8118A0E9350068DEB1 /* WebServices */,
 				E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */,
+				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
 				920FC95F1901784F0070D70E /* HomeScreenViewController.h */,
 				920FC9601901784F0070D70E /* HomeScreenViewController.m */,
 				FD1569D0190516B1002F8978 /* Categories */,
-				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
 				E478BB5E18A0E8290068DEB1 /* Main.storyboard */,
 				E478BB6118A0E8290068DEB1 /* CloudiversityViewController.h */,
 				E478BB6218A0E8290068DEB1 /* CloudiversityViewController.m */,
 				E478BB6418A0E8290068DEB1 /* Images.xcassets */,
 				E478BB5318A0E8290068DEB1 /* Supporting Files */,
+				FD8F82D41908072C00EDBDBE /* CloudKeychainManager.h */,
+				FD8F82D51908072C00EDBDBE /* CloudKeychainManager.m */,
 			);
 			path = Cloudiversity;
 			sourceTree = "<group>";
@@ -312,6 +322,7 @@
 				FDDA095E18F5BEC4000A1029 /* CloudButton.m */,
 				FDDA096018F5BF2D000A1029 /* CloudTextField.h */,
 				FDDA096118F5BF2D000A1029 /* CloudTextField.m */,
+				FD8F82D91908244A00EDBDBE /* UICloud.h */,
 			);
 			path = UISubclasses;
 			sourceTree = "<group>";
@@ -362,7 +373,7 @@
 			attributes = {
 				CLASSPREFIX = Cloud;
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Rémy Marty";
+				ORGANIZATIONNAME = Cloudiversity;
 				TargetAttributes = {
 					E478BB6918A0E8290068DEB1 = {
 						TestTargetID = E478BB4818A0E8290068DEB1;
@@ -435,6 +446,7 @@
 				E478BBB718A2A2820068DEB1 /* Object.m in Sources */,
 				E478BBBA18A2A2DB0068DEB1 /* User.m in Sources */,
 				E478BB5918A0E8290068DEB1 /* main.m in Sources */,
+				FD8F82D61908072C00EDBDBE /* CloudKeychainManager.m in Sources */,
 				FDDA095F18F5BEC4000A1029 /* CloudButton.m in Sources */,
 				E478BB6318A0E8290068DEB1 /* CloudiversityViewController.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,

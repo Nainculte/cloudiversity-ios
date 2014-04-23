@@ -3,7 +3,7 @@
 //  Cloudiversity
 //
 //  Created by Rémy Marty on 04/02/2014.
-//  Copyright (c) 2014 Rémy Marty. All rights reserved.
+//  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
 #import "IOSRequest.h"
@@ -39,7 +39,9 @@
     userName = [userName URLEncode];
     password = [password URLEncode];
 
-    NSString *path = @"http://testapp.cloudiversity.eu/users/sign_in";
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *path = [defaults objectForKey:@"server"];
+    path = [NSString stringWithFormat:@"%@/users/sign_in", path];
     NSString *params = [NSString stringWithFormat:@"user[login]=%@&user[password]=%@", userName, password];
     [IOSRequest requestToPath:path withParams:params onCompletion:^(NSData *result, NSError *error) {
         if (!result) {
