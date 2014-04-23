@@ -11,6 +11,9 @@
 #import "UIColor+CloudColor.h"
 #import <UIKit/UIKit.h>
 
+#define DEFAULT_PASS_USER_KEY	@"passwordDefault"
+#define DEFAULT_LOG_USER_KEY	@"loginDefault"
+
 @interface CloudiversityViewController : UIViewController <UITextFieldDelegate>
 
 - (IBAction)loginBtn:(id)sender;

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		920FC9611901784F0070D70E /* HomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920FC9601901784F0070D70E /* HomeScreenViewController.m */; };
 		920FC9621901784F0070D70E /* HomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920FC9601901784F0070D70E /* HomeScreenViewController.m */; };
+		92B4A9191905917B00BB76BB /* CloudCahierDeTexteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B4A9181905917B00BB76BB /* CloudCahierDeTexteViewController.m */; };
+		92B4A91A1905917B00BB76BB /* CloudCahierDeTexteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B4A9181905917B00BB76BB /* CloudCahierDeTexteViewController.m */; };
+		92B4A91C1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92B4A91B1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard */; };
+		92B4A91D1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92B4A91B1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard */; };
 		92DD1E0018FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
@@ -65,6 +69,9 @@
 /* Begin PBXFileReference section */
 		920FC95F1901784F0070D70E /* HomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScreenViewController.h; sourceTree = "<group>"; };
 		920FC9601901784F0070D70E /* HomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScreenViewController.m; sourceTree = "<group>"; };
+		92B4A9171905917B00BB76BB /* CloudCahierDeTexteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudCahierDeTexteViewController.h; sourceTree = "<group>"; };
+		92B4A9181905917B00BB76BB /* CloudCahierDeTexteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudCahierDeTexteViewController.m; sourceTree = "<group>"; };
+		92B4A91B1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CloudCahierDeTexteStoryboard.storyboard; sourceTree = "<group>"; };
 		92DD1DFE18FC4F2F000386EE /* UIColor+CloudColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CloudColor.h"; sourceTree = "<group>"; };
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		E478BB4918A0E8290068DEB1 /* Cloudiversity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudiversity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +151,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92B4A915190590F400BB76BB /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				92B4A9161905914500BB76BB /* cahierDeTexte */,
+			);
+			name = Modules;
+			path = WebServices;
+			sourceTree = "<group>";
+		};
+		92B4A9161905914500BB76BB /* cahierDeTexte */ = {
+			isa = PBXGroup;
+			children = (
+				92B4A9171905917B00BB76BB /* CloudCahierDeTexteViewController.h */,
+				92B4A9181905917B00BB76BB /* CloudCahierDeTexteViewController.m */,
+				92B4A91B1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard */,
+			);
+			name = cahierDeTexte;
+			sourceTree = "<group>";
+		};
 		E478BB4018A0E8290068DEB1 = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +207,7 @@
 				FDDA095918F5BC45000A1029 /* UISubclasses */,
 				E478BBAB18A2A1500068DEB1 /* Objects */,
 				E478BB8118A0E9350068DEB1 /* WebServices */,
+				92B4A915190590F400BB76BB /* Modules */,
 				E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */,
 				920FC95F1901784F0070D70E /* HomeScreenViewController.h */,
 				920FC9601901784F0070D70E /* HomeScreenViewController.m */,
@@ -415,6 +442,7 @@
 				FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */,
 				E478BB6018A0E8290068DEB1 /* Main.storyboard in Resources */,
 				FDDA095218F5BA9F000A1029 /* FiraSansOT-BoldItalic.otf in Resources */,
+				92B4A91C1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E478BB7618A0E8290068DEB1 /* InfoPlist.strings in Resources */,
+				92B4A91D1905919A00BB76BB /* CloudCahierDeTexteStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +469,7 @@
 				FDDA095F18F5BEC4000A1029 /* CloudButton.m in Sources */,
 				E478BB6318A0E8290068DEB1 /* CloudiversityViewController.m in Sources */,
 				FDDA096218F5BF2D000A1029 /* CloudTextField.m in Sources */,
+				92B4A9191905917B00BB76BB /* CloudCahierDeTexteViewController.m in Sources */,
 				E478BBAA18A156660068DEB1 /* NSString+WebService.m in Sources */,
 				E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */,
 				920FC9611901784F0070D70E /* HomeScreenViewController.m in Sources */,
@@ -454,6 +484,7 @@
 			files = (
 				920FC9621901784F0070D70E /* HomeScreenViewController.m in Sources */,
 				E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */,
+				92B4A91A1905917B00BB76BB /* CloudCahierDeTexteViewController.m in Sources */,
 				92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -41,6 +41,18 @@
     self.hasSelected = NO;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	// trying to get userDefaults
+	NSUserDefaults *defaultUserData = [NSUserDefaults standardUserDefaults];
+	NSString *password = [defaultUserData objectForKey:DEFAULT_PASS_USER_KEY];
+	NSString *login = [defaultUserData objectForKey:DEFAULT_LOG_USER_KEY];
+	if (password && login) {
+		[self performSegueWithIdentifier:@"login_success" sender:self];
+	}
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -49,7 +61,7 @@
 
 -(void)loginWithID:(NSString *)userName andPassword:(NSString *)password
 {
-	User *user;
+	User *user = [[User alloc] init];
     if ([userName isEqual:NULL] || [userName isEqualToString:@""] || [password isEqual:NULL] || [password isEqualToString:@""]) {
         //ERROR PASSWORD || USERNAME == NULL
         NSLog(@"UserName or password is NULL");
@@ -58,8 +70,14 @@
 		int idx = [self.logins indexOfObject:userName];
 		if (idx != NSNotFound) {
 			if ([[self.passwords objectAtIndex:idx] isEqualToString:password]) {
-				[self setUser:user];
 				// login succes
+				[self setUser:user];
+				
+				// Saving user's informations
+				NSUserDefaults *defaultUser = [NSUserDefaults standardUserDefaults];
+				[defaultUser setObject:userName forKey:DEFAULT_LOG_USER_KEY];
+				[defaultUser setObject:password forKey:DEFAULT_PASS_USER_KEY];
+				
 				[self performSegueWithIdentifier:@"login_success" sender:self];
 			} else
 				[self alertStatus:@"Mauvais mot de Pass" :@"Connection echouee" :0];
@@ -96,7 +114,6 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-
     return YES;
 }
 
