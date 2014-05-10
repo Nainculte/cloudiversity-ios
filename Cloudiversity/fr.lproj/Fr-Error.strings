@@ -1,0 +1,17 @@
+/* 
+  Fr-Error.strings
+  Cloudiversity
+
+  Created by Nainculte on 4/23/14.
+  Copyright (c) 2014 Cloudiversity. All rights reserved.
+*/
+
+"INCORRECT" = "Erreur : Nom d'utilisateur ou mot de passe incorrect";
+"FILLFIELDS" = "Vous devez remplir tout les champs";
+"NOCONNECTION" = "Serveur indisponnible";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";
+"" = "";

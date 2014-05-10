@@ -20,6 +20,7 @@
 @synthesize loginField;
 @synthesize passwordField;
 @synthesize loginBtn;
+@synthesize serverField;
 @synthesize _user;
 
 - (void)viewDidLoad
@@ -34,12 +35,6 @@
     
     [self.errorLabel setTextColor:[UIColor cloudRed]];
 
-	// setting arrays for fake users
-//	self.logins = @[@"merle_a", @"dumeni_o", @"hamel_t"];
-//	self.passwords = @[@"anthony", @"olivier", @"thibault"];
-//	self.users = @[[User withName:@"anthony" lastName:@"merle" andEmail:@"anthony.merle@mail.ru"],
-//				   [User withName:@"olivier" lastName:@"dumenil" andEmail:@"olivier.dumenil@mail.ru"],
-//				   [User withName:@"thibault" lastName:@"hamel" andEmail:@"thibault.hamel@mail.ru"]];
     self.shouldAnimate = YES;
     self.hasSelected = NO;
 
@@ -52,28 +47,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//-(void)loginWithID:(NSString *)userName andPassword:(NSString *)password
-//{
-//	User *user;
-//    if ([userName isEqual:NULL] || [userName isEqualToString:@""] || [password isEqual:NULL] || [password isEqualToString:@""]) {
-//        //ERROR PASSWORD || USERNAME == NULL
-//        NSLog(@"UserName or password is NULL");
-//        [self endLogin];
-//	} else {
-//		int idx = [self.logins indexOfObject:userName];
-//		if (idx != NSNotFound) {
-//			if ([[self.passwords objectAtIndex:idx] isEqualToString:password]) {
-//				[self setUser:user];
-//				// login succes
-//				[self performSegueWithIdentifier:@"login_success" sender:self];
-//			} else
-//				[self alertStatus:@"Mauvais mot de Pass" :@"Connection echouee" :0];
-//		} else
-//			[self alertStatus:@"Mauvais nom d'utilisateur" :@"Connection echouee" :0];
-//		[self endLogin];
-//	}
-//}
 
 -(void) setUser:(User *)user {
     //NSLog(@"set user: %@", user.email);
@@ -123,24 +96,35 @@
         return ;
     }
     [self startLogin];
-    [IOSRequest loginWithId:loginField.text andPassword:self.passwordField.text onCompletion:^(id i){
-        if ([i isKindOfClass:[User class]]) {
-            [self setUser:i];
-            [self endLoginWithSuccess:true];
-        } else {
-            if ([i isKindOfClass:[NSString class]]) {
-                self.errorLabel.text = i;
-            } else {
-                self.errorLabel.text = ((NSError *)i).domain;
-            }
-            [self endLoginWithSuccess:false];
+    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *response = (NSDictionary *)responseObject;
+        User *user = [User withEmail:[response objectForKey:@"email"] andToken:[response objectForKey:@"token"]];
+        [self setUser:user];
+        [self endLoginWithSuccess:true];
+    };
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        switch (operation.response.statusCode) {
+            default:
+                break;
         }
-    }];
-}
+        [self endLoginWithSuccess:false];
+    };
+    [IOSRequest loginWithId:loginField.text andPassword:self.passwordField.text onSuccess:success onFailure:failure];
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-
-    return YES;
+//               onCompletion:^(id i){
+//        if ([i isKindOfClass:[User class]]) {
+//            [self setUser:i];
+//            [self endLoginWithSuccess:true];
+//        } else {
+//            if ([i isKindOfClass:[NSString class]]) {
+//                self.errorLabel.text = i;
+//            } else {
+//                self.errorLabel.text = ((NSError *)i).domain;
+//            }
+//            [self endLoginWithSuccess:false];
+//        }
+//    }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -148,10 +132,14 @@
         self.shouldAnimate = NO;
         [self.loginField resignFirstResponder];
         [passwordField becomeFirstResponder];
+    } else if ([passwordField isFirstResponder]) {
+        self.shouldAnimate = NO;
+        [self.passwordField resignFirstResponder];
+        [serverField becomeFirstResponder];
     } else {
         self.shouldAnimate = YES;
         self.hasSelected = NO;
-        [passwordField resignFirstResponder];
+        [serverField resignFirstResponder];
     }
     return NO;
 }
