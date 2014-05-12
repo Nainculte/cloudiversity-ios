@@ -12,27 +12,22 @@
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
 		E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */; };
 		E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB5018A0E8290068DEB1 /* UIKit.framework */; };
-		E478BB5718A0E8290068DEB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E478BB5518A0E8290068DEB1 /* InfoPlist.strings */; };
 		E478BB5918A0E8290068DEB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB5818A0E8290068DEB1 /* main.m */; };
 		E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */; };
 		E478BB6018A0E8290068DEB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E478BB5E18A0E8290068DEB1 /* Main.storyboard */; };
-		E478BB6318A0E8290068DEB1 /* CloudiversityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB6218A0E8290068DEB1 /* CloudiversityViewController.m */; };
 		E478BB6518A0E8290068DEB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E478BB6418A0E8290068DEB1 /* Images.xcassets */; };
 		E478BB6C18A0E8290068DEB1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB6B18A0E8290068DEB1 /* XCTest.framework */; };
 		E478BB6D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
 		E478BB6E18A0E8290068DEB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB5018A0E8290068DEB1 /* UIKit.framework */; };
-		E478BB7618A0E8290068DEB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E478BB7418A0E8290068DEB1 /* InfoPlist.strings */; };
 		E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB7718A0E8290068DEB1 /* CloudiversityTests.m */; };
 		E478BBA718A0FDCB0068DEB1 /* IOSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BBA618A0FDCB0068DEB1 /* IOSRequest.m */; };
 		E478BBB718A2A2820068DEB1 /* Object.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BBB618A2A2820068DEB1 /* Object.m */; };
 		E478BBBA18A2A2DB0068DEB1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BBB918A2A2DB0068DEB1 /* User.m */; };
 		FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = FD19FB2119059006000B4688 /* UIColor+Cloud.m */; };
-		FD1B99BD190860E000530A0D /* Fr-Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD1B99BF190860E000530A0D /* Fr-Error.strings */; };
-		FD1B99C0190860E800530A0D /* En-Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD1B99C2190860E800530A0D /* En-Error.strings */; };
-		FD1B99C3190860EF00530A0D /* Fr-CloudiversityVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD1B99C5190860EF00530A0D /* Fr-CloudiversityVC.strings */; };
-		FD1B99C6190860F800530A0D /* En-CloudiversityVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD1B99C8190860F800530A0D /* En-CloudiversityVC.strings */; };
-		FD1B99C9190860FF00530A0D /* Fr-HomeScreenVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD1B99CB190860FF00530A0D /* Fr-HomeScreenVC.strings */; };
-		FD1B99CC1908610400530A0D /* En-HomeScreenVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD1B99CE1908610400530A0D /* En-HomeScreenVC.strings */; };
+		FD3B79981920E1D4000579DE /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD3B79961920DFE6000579DE /* AuthenticationViewController.m */; };
+		FD3B799D1920E4EF000579DE /* HomeScreenVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD3B799F1920E4EF000579DE /* HomeScreenVC.strings */; };
+		FD3B79A11920E4FD000579DE /* AuthenticationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD3B79A31920E4FD000579DE /* AuthenticationVC.strings */; };
+		FD3B79A71920E582000579DE /* HTTPErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD3B79A91920E582000579DE /* HTTPErrors.strings */; };
 		FD3FA7CC18FC2F0A0072B731 /* Logo_29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7C818FC2F0A0072B731 /* Logo_29x29.png */; };
 		FD3FA7CD18FC2F0A0072B731 /* Logo_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7C918FC2F0A0072B731 /* Logo_40x40.png */; };
 		FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7CA18FC2F0A0072B731 /* Logo_60x60.png */; };
@@ -88,24 +83,19 @@
 /* Begin PBXFileReference section */
 		920FC95F1901784F0070D70E /* HomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScreenViewController.h; sourceTree = "<group>"; };
 		920FC9601901784F0070D70E /* HomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScreenViewController.m; sourceTree = "<group>"; };
-		E478BB4918A0E8290068DEB1 /* Cloudiversity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Cloudiversity.app; path = "/Users/nainculte/Documents/work/eip/ios/build/Debug-iphoneos/Cloudiversity.app"; sourceTree = "<absolute>"; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E478BB5018A0E8290068DEB1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E478BB5418A0E8290068DEB1 /* Cloudiversity-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Cloudiversity-Info.plist"; sourceTree = "<group>"; };
-		E478BB5618A0E8290068DEB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E478BB5818A0E8290068DEB1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E478BB5A18A0E8290068DEB1 /* Cloudiversity-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cloudiversity-Prefix.pch"; sourceTree = "<group>"; };
 		E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudiversityAppDelegate.h; sourceTree = "<group>"; };
 		E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudiversityAppDelegate.m; sourceTree = "<group>"; };
 		E478BB5F18A0E8290068DEB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E478BB6118A0E8290068DEB1 /* CloudiversityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudiversityViewController.h; sourceTree = "<group>"; };
-		E478BB6218A0E8290068DEB1 /* CloudiversityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudiversityViewController.m; sourceTree = "<group>"; };
+		E478BB6118A0E8290068DEB1 /* AuthenticationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
 		E478BB6418A0E8290068DEB1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E478BB6A18A0E8290068DEB1 /* CloudiversityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = CloudiversityTests.xctest; path = "/Users/nainculte/Documents/work/eip/ios/build/Debug-iphoneos/CloudiversityTests.xctest"; sourceTree = "<absolute>"; };
 		E478BB6B18A0E8290068DEB1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E478BB7318A0E8290068DEB1 /* CloudiversityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudiversityTests-Info.plist"; sourceTree = "<group>"; };
-		E478BB7518A0E8290068DEB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E478BB7718A0E8290068DEB1 /* CloudiversityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudiversityTests.m; sourceTree = "<group>"; };
 		E478BBA518A0FDCB0068DEB1 /* IOSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSRequest.h; sourceTree = "<group>"; };
 		E478BBA618A0FDCB0068DEB1 /* IOSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOSRequest.m; sourceTree = "<group>"; };
@@ -115,14 +105,15 @@
 		E478BBB918A2A2DB0068DEB1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		FD19FB2019059006000B4688 /* UIColor+Cloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Cloud.h"; sourceTree = "<group>"; };
 		FD19FB2119059006000B4688 /* UIColor+Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Cloud.m"; sourceTree = "<group>"; };
-		FD1B99AC19085EAB00530A0D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FD1B99AD19085EAB00530A0D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FD1B99BE190860E000530A0D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Fr-Error.strings"; sourceTree = "<group>"; };
-		FD1B99C1190860E800530A0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/En-Error.strings"; sourceTree = "<group>"; };
-		FD1B99C4190860EF00530A0D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Fr-CloudiversityVC.strings"; sourceTree = "<group>"; };
-		FD1B99C7190860F800530A0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/En-CloudiversityVC.strings"; sourceTree = "<group>"; };
-		FD1B99CA190860FF00530A0D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = "fr.lproj/Fr-HomeScreenVC.strings"; sourceTree = "<group>"; };
-		FD1B99CD1908610400530A0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/En-HomeScreenVC.strings"; sourceTree = "<group>"; };
+		FD1D4F01191E79ED008B530E /* Cloudiversity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudiversity.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudiversityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD3B79961920DFE6000579DE /* AuthenticationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
+		FD3B799E1920E4EF000579DE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/HomeScreenVC.strings; sourceTree = "<group>"; };
+		FD3B79A01920E4F4000579DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HomeScreenVC.strings; sourceTree = "<group>"; };
+		FD3B79A21920E4FD000579DE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AuthenticationVC.strings; sourceTree = "<group>"; };
+		FD3B79A41920E501000579DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AuthenticationVC.strings; sourceTree = "<group>"; };
+		FD3B79A81920E582000579DE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/HTTPErrors.strings; sourceTree = "<group>"; };
+		FD3B79AA1920E584000579DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HTTPErrors.strings; sourceTree = "<group>"; };
 		FD3FA7C818FC2F0A0072B731 /* Logo_29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_29x29.png; sourceTree = "<group>"; };
 		FD3FA7C918FC2F0A0072B731 /* Logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_40x40.png; sourceTree = "<group>"; };
 		FD3FA7CA18FC2F0A0072B731 /* Logo_60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_60x60.png; sourceTree = "<group>"; };
@@ -221,6 +212,8 @@
 				E478BB5218A0E8290068DEB1 /* Cloudiversity */,
 				E478BB7118A0E8290068DEB1 /* CloudiversityTests */,
 				E478BB4B18A0E8290068DEB1 /* Frameworks */,
+				FD1D4F01191E79ED008B530E /* Cloudiversity.app */,
+				FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -240,18 +233,14 @@
 			isa = PBXGroup;
 			children = (
 				FD56867E191D42500019415B /* Vendors */,
-				FD1B99B019085FFC00530A0D /* Localisation */,
 				FDDA095918F5BC45000A1029 /* UISubclasses */,
 				E478BBAB18A2A1500068DEB1 /* Objects */,
 				E478BB8118A0E9350068DEB1 /* WebServices */,
 				E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */,
 				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
-				920FC95F1901784F0070D70E /* HomeScreenViewController.h */,
-				920FC9601901784F0070D70E /* HomeScreenViewController.m */,
+				FD3B79931920D9E2000579DE /* ViewControllers */,
 				FD1569D0190516B1002F8978 /* Categories */,
 				E478BB5E18A0E8290068DEB1 /* Main.storyboard */,
-				E478BB6118A0E8290068DEB1 /* CloudiversityViewController.h */,
-				E478BB6218A0E8290068DEB1 /* CloudiversityViewController.m */,
 				E478BB6418A0E8290068DEB1 /* Images.xcassets */,
 				E478BB5318A0E8290068DEB1 /* Supporting Files */,
 				FD8F82D41908072C00EDBDBE /* CloudKeychainManager.h */,
@@ -264,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				E478BB5418A0E8290068DEB1 /* Cloudiversity-Info.plist */,
-				E478BB5518A0E8290068DEB1 /* InfoPlist.strings */,
 				E478BB5818A0E8290068DEB1 /* main.m */,
 				E478BB5A18A0E8290068DEB1 /* Cloudiversity-Prefix.pch */,
 			);
@@ -284,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				E478BB7318A0E8290068DEB1 /* CloudiversityTests-Info.plist */,
-				E478BB7418A0E8290068DEB1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -294,6 +281,7 @@
 			children = (
 				E478BBA518A0FDCB0068DEB1 /* IOSRequest.h */,
 				E478BBA618A0FDCB0068DEB1 /* IOSRequest.m */,
+				FD3B79A91920E582000579DE /* HTTPErrors.strings */,
 			);
 			path = WebServices;
 			sourceTree = "<group>";
@@ -318,17 +306,33 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		FD1B99B019085FFC00530A0D /* Localisation */ = {
+		FD3B79931920D9E2000579DE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				FD1B99BF190860E000530A0D /* Fr-Error.strings */,
-				FD1B99C2190860E800530A0D /* En-Error.strings */,
-				FD1B99C5190860EF00530A0D /* Fr-CloudiversityVC.strings */,
-				FD1B99C8190860F800530A0D /* En-CloudiversityVC.strings */,
-				FD1B99CB190860FF00530A0D /* Fr-HomeScreenVC.strings */,
-				FD1B99CE1908610400530A0D /* En-HomeScreenVC.strings */,
+				FD3B79941920DA5D000579DE /* HomeScreen */,
+				FD3B79951920DAAE000579DE /* Authentication */,
 			);
-			name = Localisation;
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		FD3B79941920DA5D000579DE /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				920FC95F1901784F0070D70E /* HomeScreenViewController.h */,
+				920FC9601901784F0070D70E /* HomeScreenViewController.m */,
+				FD3B799F1920E4EF000579DE /* HomeScreenVC.strings */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		FD3B79951920DAAE000579DE /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				E478BB6118A0E8290068DEB1 /* AuthenticationViewController.h */,
+				FD3B79961920DFE6000579DE /* AuthenticationViewController.m */,
+				FD3B79A31920E4FD000579DE /* AuthenticationVC.strings */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		FD3FA7BE18FC2D8B0072B731 /* Images */ = {
@@ -478,7 +482,7 @@
 			);
 			name = Cloudiversity;
 			productName = Cloudiversity;
-			productReference = E478BB4918A0E8290068DEB1 /* Cloudiversity.app */;
+			productReference = FD1D4F01191E79ED008B530E /* Cloudiversity.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E478BB6918A0E8290068DEB1 /* CloudiversityTests */ = {
@@ -496,7 +500,7 @@
 			);
 			name = CloudiversityTests;
 			productName = CloudiversityTests;
-			productReference = E478BB6A18A0E8290068DEB1 /* CloudiversityTests.xctest */;
+			productReference = FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -543,29 +547,25 @@
 				FDDA095418F5BA9F000A1029 /* FiraSansOT-LightItalic.otf in Resources */,
 				FD3FA7CD18FC2F0A0072B731 /* Logo_40x40.png in Resources */,
 				E478BB6518A0E8290068DEB1 /* Images.xcassets in Resources */,
-				FD1B99C6190860F800530A0D /* En-CloudiversityVC.strings in Resources */,
 				FDDA095818F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf in Resources */,
-				FD1B99C9190860FF00530A0D /* Fr-HomeScreenVC.strings in Resources */,
 				FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */,
-				FD1B99C3190860EF00530A0D /* Fr-CloudiversityVC.strings in Resources */,
 				FDDA095318F5BA9F000A1029 /* FiraSansOT-Light.otf in Resources */,
 				FDDA095118F5BA9F000A1029 /* FiraSansOT-Bold.otf in Resources */,
-				E478BB5718A0E8290068DEB1 /* InfoPlist.strings in Resources */,
 				FD3FA7D618FC3A160072B731 /* Icon_60x60.png in Resources */,
 				FDDA095718F5BA9F000A1029 /* FiraSansOT-Regular.otf in Resources */,
 				FD3FA7CF18FC2F0A0072B731 /* Logo_500x500.png in Resources */,
 				FDDA095518F5BA9F000A1029 /* FiraSansOT-Medium.otf in Resources */,
-				FD1B99BD190860E000530A0D /* Fr-Error.strings in Resources */,
 				FD3FA7CC18FC2F0A0072B731 /* Logo_29x29.png in Resources */,
 				FD3FA7D418FC3A160072B731 /* Icon_29x29.png in Resources */,
+				FD3B799D1920E4EF000579DE /* HomeScreenVC.strings in Resources */,
 				FDDA095618F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf in Resources */,
-				FD1B99CC1908610400530A0D /* En-HomeScreenVC.strings in Resources */,
 				FD3FA7D518FC3A160072B731 /* Icon_40x40.png in Resources */,
 				FDDA094F18F5BA9F000A1029 /* FiraMonoOT-Bold.otf in Resources */,
 				FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */,
-				FD1B99C0190860E800530A0D /* En-Error.strings in Resources */,
 				E478BB6018A0E8290068DEB1 /* Main.storyboard in Resources */,
 				FDDA095218F5BA9F000A1029 /* FiraSansOT-BoldItalic.otf in Resources */,
+				FD3B79A71920E582000579DE /* HTTPErrors.strings in Resources */,
+				FD3B79A11920E4FD000579DE /* AuthenticationVC.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +573,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E478BB7618A0E8290068DEB1 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,13 +595,13 @@
 				FD568725191D48830019415B /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				FDDA095F18F5BEC4000A1029 /* CloudButton.m in Sources */,
 				FD568721191D48830019415B /* AFURLRequestSerialization.m in Sources */,
-				E478BB6318A0E8290068DEB1 /* CloudiversityViewController.m in Sources */,
 				FD56871D191D48830019415B /* AFHTTPSessionManager.m in Sources */,
 				FD56871B191D48830019415B /* AFHTTPRequestOperation.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,
 				FD568724191D48830019415B /* AFNetworkActivityIndicatorManager.m in Sources */,
 				FD56871F191D48830019415B /* AFSecurityPolicy.m in Sources */,
 				FDDA096218F5BF2D000A1029 /* CloudTextField.m in Sources */,
+				FD3B79981920E1D4000579DE /* AuthenticationViewController.m in Sources */,
 				FD568728191D48830019415B /* UIImageView+AFNetworking.m in Sources */,
 				FD56871E191D48830019415B /* AFNetworkReachabilityManager.m in Sources */,
 				FD568723191D48830019415B /* AFURLSessionManager.m in Sources */,
@@ -636,15 +635,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E478BB5518A0E8290068DEB1 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E478BB5618A0E8290068DEB1 /* en */,
-				FD1B99AC19085EAB00530A0D /* fr */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		E478BB5E18A0E8290068DEB1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -653,61 +643,31 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		E478BB7418A0E8290068DEB1 /* InfoPlist.strings */ = {
+		FD3B799F1920E4EF000579DE /* HomeScreenVC.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E478BB7518A0E8290068DEB1 /* en */,
-				FD1B99AD19085EAB00530A0D /* fr */,
+				FD3B799E1920E4EF000579DE /* fr */,
+				FD3B79A01920E4F4000579DE /* en */,
 			);
-			name = InfoPlist.strings;
+			name = HomeScreenVC.strings;
 			sourceTree = "<group>";
 		};
-		FD1B99BF190860E000530A0D /* Fr-Error.strings */ = {
+		FD3B79A31920E4FD000579DE /* AuthenticationVC.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FD1B99BE190860E000530A0D /* fr */,
+				FD3B79A21920E4FD000579DE /* fr */,
+				FD3B79A41920E501000579DE /* en */,
 			);
-			name = "Fr-Error.strings";
+			name = AuthenticationVC.strings;
 			sourceTree = "<group>";
 		};
-		FD1B99C2190860E800530A0D /* En-Error.strings */ = {
+		FD3B79A91920E582000579DE /* HTTPErrors.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FD1B99C1190860E800530A0D /* en */,
+				FD3B79A81920E582000579DE /* fr */,
+				FD3B79AA1920E584000579DE /* en */,
 			);
-			name = "En-Error.strings";
-			sourceTree = "<group>";
-		};
-		FD1B99C5190860EF00530A0D /* Fr-CloudiversityVC.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FD1B99C4190860EF00530A0D /* fr */,
-			);
-			name = "Fr-CloudiversityVC.strings";
-			sourceTree = "<group>";
-		};
-		FD1B99C8190860F800530A0D /* En-CloudiversityVC.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FD1B99C7190860F800530A0D /* en */,
-			);
-			name = "En-CloudiversityVC.strings";
-			sourceTree = "<group>";
-		};
-		FD1B99CB190860FF00530A0D /* Fr-HomeScreenVC.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FD1B99CA190860FF00530A0D /* fr */,
-			);
-			name = "Fr-HomeScreenVC.strings";
-			sourceTree = "<group>";
-		};
-		FD1B99CE1908610400530A0D /* En-HomeScreenVC.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FD1B99CD1908610400530A0D /* en */,
-			);
-			name = "En-HomeScreenVC.strings";
+			name = HTTPErrors.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

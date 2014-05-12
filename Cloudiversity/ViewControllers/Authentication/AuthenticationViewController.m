@@ -6,16 +6,18 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "CloudiversityViewController.h"
+#import "AuthenticationViewController.h"
 #import "IOSRequest.h"
 #import "CloudKeychainManager.h"
 
-@interface CloudiversityViewController ()
+#define LOCALIZEDString(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"AuthenticationVC"]
+
+@interface AuthenticationViewController ()
 @property (nonatomic) BOOL shouldAnimate;
 @property (nonatomic) BOOL hasSelected;
 @end
 
-@implementation CloudiversityViewController
+@implementation AuthenticationViewController
 
 @synthesize loginField;
 @synthesize passwordField;
@@ -111,20 +113,6 @@
         [self endLoginWithSuccess:false];
     };
     [IOSRequest loginWithId:loginField.text andPassword:self.passwordField.text onSuccess:success onFailure:failure];
-
-//               onCompletion:^(id i){
-//        if ([i isKindOfClass:[User class]]) {
-//            [self setUser:i];
-//            [self endLoginWithSuccess:true];
-//        } else {
-//            if ([i isKindOfClass:[NSString class]]) {
-//                self.errorLabel.text = i;
-//            } else {
-//                self.errorLabel.text = ((NSError *)i).domain;
-//            }
-//            [self endLoginWithSuccess:false];
-//        }
-//    }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

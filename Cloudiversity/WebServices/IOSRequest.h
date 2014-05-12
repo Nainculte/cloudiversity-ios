@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #import "User.h"
 
+#define LOCALIZEDHTTPERROR(error) [[NSBundle mainBundle] localizedStringForKey:error value:@"Unknown error" table:@"HTTPErrors"]
+
 typedef void (^HTTPSuccessHandler)(AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *error);
 

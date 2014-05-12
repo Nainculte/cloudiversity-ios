@@ -8,6 +8,8 @@
 
 #import "HomeScreenViewController.h"
 
+#define LOCALIZEDString(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"HomeScreenVC"]
+
 @interface HomeScreenViewController ()
 
 @end

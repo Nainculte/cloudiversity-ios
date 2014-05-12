@@ -7,11 +7,11 @@
 //
 
 #import "User.h"
-#import "UISubclasses/UICloud.h"
+#import "UICloud.h"
 #import "UIColor+Cloud.h"
 #import <UIKit/UIKit.h>
 
-@interface CloudiversityViewController : UIViewController <UITextFieldDelegate>
+@interface AuthenticationViewController : UIViewController <UITextFieldDelegate>
 
 - (IBAction)loginBtn:(id)sender;
 

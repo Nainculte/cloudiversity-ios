@@ -20,14 +20,6 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:path]
-//                                                                cachePolicy:NSURLCacheStorageAllowedInMemoryOnly
-//                                                            timeoutInterval:10];
-//    request.HTTPMethod = @"POST";
-//    request.HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
-//    [request setValue:[NSString stringWithFormat:@"%d", [params length]] forHTTPHeaderField:@"Content-Length"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-
     AFHTTPRequestOperation *operation = [manager POST:path parameters:params success:success failure:failure];
     [operation start];
 }
