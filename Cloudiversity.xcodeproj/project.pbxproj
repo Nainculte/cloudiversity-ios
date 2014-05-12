@@ -232,19 +232,17 @@
 		E478BB5218A0E8290068DEB1 /* Cloudiversity */ = {
 			isa = PBXGroup;
 			children = (
-				FD56867E191D42500019415B /* Vendors */,
-				FDDA095918F5BC45000A1029 /* UISubclasses */,
-				E478BBAB18A2A1500068DEB1 /* Objects */,
-				E478BB8118A0E9350068DEB1 /* WebServices */,
+				FD1569D0190516B1002F8978 /* Categories */,
 				E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */,
 				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
-				FD3B79931920D9E2000579DE /* ViewControllers */,
-				FD1569D0190516B1002F8978 /* Categories */,
-				E478BB5E18A0E8290068DEB1 /* Main.storyboard */,
 				E478BB6418A0E8290068DEB1 /* Images.xcassets */,
+				E478BB5E18A0E8290068DEB1 /* Main.storyboard */,
+				E478BBAB18A2A1500068DEB1 /* Objects */,
 				E478BB5318A0E8290068DEB1 /* Supporting Files */,
-				FD8F82D41908072C00EDBDBE /* CloudKeychainManager.h */,
-				FD8F82D51908072C00EDBDBE /* CloudKeychainManager.m */,
+				FDDA095918F5BC45000A1029 /* UISubclasses */,
+				E478BB8118A0E9350068DEB1 /* Utils */,
+				FD56867E191D42500019415B /* Vendors */,
+				FD3B79931920D9E2000579DE /* ViewControllers */,
 			);
 			path = Cloudiversity;
 			sourceTree = "<group>";
@@ -276,14 +274,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E478BB8118A0E9350068DEB1 /* WebServices */ = {
+		E478BB8118A0E9350068DEB1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				E478BBA518A0FDCB0068DEB1 /* IOSRequest.h */,
 				E478BBA618A0FDCB0068DEB1 /* IOSRequest.m */,
 				FD3B79A91920E582000579DE /* HTTPErrors.strings */,
+				FD8F82D41908072C00EDBDBE /* CloudKeychainManager.h */,
+				FD8F82D51908072C00EDBDBE /* CloudKeychainManager.m */,
 			);
-			path = WebServices;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		E478BBAB18A2A1500068DEB1 /* Objects */ = {
