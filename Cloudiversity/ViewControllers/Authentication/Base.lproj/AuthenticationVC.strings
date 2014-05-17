@@ -6,12 +6,11 @@
   Copyright (c) 2014 Cloudiversity. All rights reserved.
 */
 
-
 //Printed localized strings
-"USERNAME" = "Nom d'utilisateur";
-"PASSWORD" = "Mot de passe";
-"ADDRESS" = "Addresse du serveur";
-"CONNECT" = "Connexion";
+"USERNAME" = "Username";
+"PASSWORD" = "Password";
+"ADDRESS" = "Server's address";
+"CONNECT" = "Connect";
 
 //Error messages
-"FILLITALL" = "Vous devez remplir tout les champs";
+"FILLITALL" = "You have to fill every field";

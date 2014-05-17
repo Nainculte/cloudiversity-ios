@@ -10,7 +10,7 @@
 #import "IOSRequest.h"
 #import "CloudKeychainManager.h"
 
-#define LOCALIZEDString(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"AuthenticationVC"]
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"AuthenticationVC"]
 
 @interface AuthenticationViewController ()
 @property (nonatomic) BOOL shouldAnimate;
@@ -42,6 +42,21 @@
 
     self.view.backgroundColor = [UIColor cloudGrey];
     self.logoView.backgroundColor = [UIColor cloudGrey];
+
+    [self localize];
+}
+
+- (void)localize {
+    self.loginField.placeholder = LOCALIZEDSTRING(@"USERNAME");
+    self.passwordField.placeholder = LOCALIZEDSTRING(@"PASSWORD");
+    self.serverField.placeholder = LOCALIZEDSTRING(@"ADDRESS");
+    NSString *title = LOCALIZEDSTRING(@"CONNECT");
+    [self.loginBtn setTitle:title forState:UIControlStateNormal];
+    [self.loginBtn setTitle:title forState:UIControlStateApplication];
+    [self.loginBtn setTitle:title forState:UIControlStateDisabled];
+    [self.loginBtn setTitle:title forState:UIControlStateHighlighted];
+    [self.loginBtn setTitle:title forState:UIControlStateReserved];
+    [self.loginBtn setTitle:title forState:UIControlStateSelected];
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,7 +108,7 @@
 
 - (IBAction)loginBtn:(id)sender {
     if ([self.loginField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""] || [self.serverField.text isEqualToString:@""]) {
-        self.errorLabel.text = @"Vous devez remplir tout les champs";
+        self.errorLabel.text = LOCALIZEDSTRING(@"FILLITALL");
         [self endLoginWithSuccess:false];
         return ;
     }

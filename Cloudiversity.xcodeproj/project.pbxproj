@@ -14,7 +14,6 @@
 		E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB5018A0E8290068DEB1 /* UIKit.framework */; };
 		E478BB5918A0E8290068DEB1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB5818A0E8290068DEB1 /* main.m */; };
 		E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */; };
-		E478BB6018A0E8290068DEB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E478BB5E18A0E8290068DEB1 /* Main.storyboard */; };
 		E478BB6518A0E8290068DEB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E478BB6418A0E8290068DEB1 /* Images.xcassets */; };
 		E478BB6C18A0E8290068DEB1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB6B18A0E8290068DEB1 /* XCTest.framework */; };
 		E478BB6D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
@@ -23,6 +22,7 @@
 		E478BBA718A0FDCB0068DEB1 /* IOSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BBA618A0FDCB0068DEB1 /* IOSRequest.m */; };
 		E478BBB718A2A2820068DEB1 /* Object.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BBB618A2A2820068DEB1 /* Object.m */; };
 		E478BBBA18A2A2DB0068DEB1 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BBB918A2A2DB0068DEB1 /* User.m */; };
+		FD0F98751923ED72002DF049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD0F98741923ED72002DF049 /* Main.storyboard */; };
 		FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = FD19FB2119059006000B4688 /* UIColor+Cloud.m */; };
 		FD3B79981920E1D4000579DE /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD3B79961920DFE6000579DE /* AuthenticationViewController.m */; };
 		FD3B799D1920E4EF000579DE /* HomeScreenVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD3B799F1920E4EF000579DE /* HomeScreenVC.strings */; };
@@ -91,7 +91,6 @@
 		E478BB5A18A0E8290068DEB1 /* Cloudiversity-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cloudiversity-Prefix.pch"; sourceTree = "<group>"; };
 		E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudiversityAppDelegate.h; sourceTree = "<group>"; };
 		E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudiversityAppDelegate.m; sourceTree = "<group>"; };
-		E478BB5F18A0E8290068DEB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E478BB6118A0E8290068DEB1 /* AuthenticationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
 		E478BB6418A0E8290068DEB1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E478BB6B18A0E8290068DEB1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -103,17 +102,15 @@
 		E478BBB618A2A2820068DEB1 /* Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Object.m; sourceTree = "<group>"; };
 		E478BBB818A2A2DB0068DEB1 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		E478BBB918A2A2DB0068DEB1 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		FD0F98741923ED72002DF049 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FD19FB2019059006000B4688 /* UIColor+Cloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Cloud.h"; sourceTree = "<group>"; };
 		FD19FB2119059006000B4688 /* UIColor+Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Cloud.m"; sourceTree = "<group>"; };
 		FD1D4F01191E79ED008B530E /* Cloudiversity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudiversity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudiversityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD3B79961920DFE6000579DE /* AuthenticationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
 		FD3B799E1920E4EF000579DE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/HomeScreenVC.strings; sourceTree = "<group>"; };
-		FD3B79A01920E4F4000579DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HomeScreenVC.strings; sourceTree = "<group>"; };
 		FD3B79A21920E4FD000579DE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AuthenticationVC.strings; sourceTree = "<group>"; };
-		FD3B79A41920E501000579DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AuthenticationVC.strings; sourceTree = "<group>"; };
 		FD3B79A81920E582000579DE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/HTTPErrors.strings; sourceTree = "<group>"; };
-		FD3B79AA1920E584000579DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HTTPErrors.strings; sourceTree = "<group>"; };
 		FD3FA7C818FC2F0A0072B731 /* Logo_29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_29x29.png; sourceTree = "<group>"; };
 		FD3FA7C918FC2F0A0072B731 /* Logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_40x40.png; sourceTree = "<group>"; };
 		FD3FA7CA18FC2F0A0072B731 /* Logo_60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_60x60.png; sourceTree = "<group>"; };
@@ -158,6 +155,9 @@
 		FD568718191D48830019415B /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		FD568719191D48830019415B /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		FD56871A191D48830019415B /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		FD6B84241923E36C0093C534 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/AuthenticationVC.strings; sourceTree = "<group>"; };
+		FD6B84251923E38D0093C534 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/HomeScreenVC.strings; sourceTree = "<group>"; };
+		FD6B84261923E3A60093C534 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/HTTPErrors.strings; sourceTree = "<group>"; };
 		FD8F82D41908072C00EDBDBE /* CloudKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKeychainManager.h; sourceTree = "<group>"; };
 		FD8F82D51908072C00EDBDBE /* CloudKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKeychainManager.m; sourceTree = "<group>"; };
 		FD8F82D719080AAA00EDBDBE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -208,12 +208,12 @@
 		E478BB4018A0E8290068DEB1 = {
 			isa = PBXGroup;
 			children = (
-				FDDA094318F5BA62000A1029 /* Resources */,
+				FD1D4F01191E79ED008B530E /* Cloudiversity.app */,
+				FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */,
 				E478BB5218A0E8290068DEB1 /* Cloudiversity */,
 				E478BB7118A0E8290068DEB1 /* CloudiversityTests */,
 				E478BB4B18A0E8290068DEB1 /* Frameworks */,
-				FD1D4F01191E79ED008B530E /* Cloudiversity.app */,
-				FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */,
+				FDDA094318F5BA62000A1029 /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -236,7 +236,7 @@
 				E478BB5B18A0E8290068DEB1 /* CloudiversityAppDelegate.h */,
 				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
 				E478BB6418A0E8290068DEB1 /* Images.xcassets */,
-				E478BB5E18A0E8290068DEB1 /* Main.storyboard */,
+				FD0F98741923ED72002DF049 /* Main.storyboard */,
 				E478BBAB18A2A1500068DEB1 /* Objects */,
 				E478BB5318A0E8290068DEB1 /* Supporting Files */,
 				FDDA095918F5BC45000A1029 /* UISubclasses */,
@@ -555,6 +555,7 @@
 				FDDA095718F5BA9F000A1029 /* FiraSansOT-Regular.otf in Resources */,
 				FD3FA7CF18FC2F0A0072B731 /* Logo_500x500.png in Resources */,
 				FDDA095518F5BA9F000A1029 /* FiraSansOT-Medium.otf in Resources */,
+				FD0F98751923ED72002DF049 /* Main.storyboard in Resources */,
 				FD3FA7CC18FC2F0A0072B731 /* Logo_29x29.png in Resources */,
 				FD3FA7D418FC3A160072B731 /* Icon_29x29.png in Resources */,
 				FD3B799D1920E4EF000579DE /* HomeScreenVC.strings in Resources */,
@@ -562,7 +563,6 @@
 				FD3FA7D518FC3A160072B731 /* Icon_40x40.png in Resources */,
 				FDDA094F18F5BA9F000A1029 /* FiraMonoOT-Bold.otf in Resources */,
 				FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */,
-				E478BB6018A0E8290068DEB1 /* Main.storyboard in Resources */,
 				FDDA095218F5BA9F000A1029 /* FiraSansOT-BoldItalic.otf in Resources */,
 				FD3B79A71920E582000579DE /* HTTPErrors.strings in Resources */,
 				FD3B79A11920E4FD000579DE /* AuthenticationVC.strings in Resources */,
@@ -635,19 +635,11 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E478BB5E18A0E8290068DEB1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E478BB5F18A0E8290068DEB1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FD3B799F1920E4EF000579DE /* HomeScreenVC.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FD3B799E1920E4EF000579DE /* fr */,
-				FD3B79A01920E4F4000579DE /* en */,
+				FD6B84251923E38D0093C534 /* Base */,
 			);
 			name = HomeScreenVC.strings;
 			sourceTree = "<group>";
@@ -656,7 +648,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FD3B79A21920E4FD000579DE /* fr */,
-				FD3B79A41920E501000579DE /* en */,
+				FD6B84241923E36C0093C534 /* Base */,
 			);
 			name = AuthenticationVC.strings;
 			sourceTree = "<group>";
@@ -665,7 +657,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FD3B79A81920E582000579DE /* fr */,
-				FD3B79AA1920E584000579DE /* en */,
+				FD6B84261923E3A60093C534 /* Base */,
 			);
 			name = HTTPErrors.strings;
 			sourceTree = "<group>";
