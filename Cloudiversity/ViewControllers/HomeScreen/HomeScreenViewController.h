@@ -10,5 +10,6 @@
 
 @interface HomeScreenViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
 
 @end
