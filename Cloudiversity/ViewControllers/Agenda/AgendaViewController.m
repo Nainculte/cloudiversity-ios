@@ -1,14 +1,14 @@
 //
-//  CloudCahierDeTexteViewController.m
+//  AgendaViewController.m
 //  Cloudiversity
 //
 //  Created by Anthony MERLE on 21/04/2014.
-//  Copyright (c) 2014 Rémy Marty. All rights reserved.
+//  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "CloudCahierDeTexteViewController.h"
+#import "AgendaViewController.h"
 
-@interface CloudCahierDeTexteViewController ()
+@interface AgendaViewController ()
 
 @property BOOL isFilteringExams;
 @property BOOL isFilteringExercices;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation CloudCahierDeTexteViewController
+@implementation AgendaViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

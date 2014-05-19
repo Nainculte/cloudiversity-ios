@@ -1,15 +1,15 @@
 //
-//  CloudCahierDeTexteViewController.h
+//  AgendaViewController.h
 //  Cloudiversity
 //
 //  Created by Anthony MERLE on 21/04/2014.
-//  Copyright (c) 2014 Rémy Marty. All rights reserved.
+//  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "CloudTextField.h"
+#import "UICloud.h"
 
-@interface CloudCahierDeTexteViewController : UIViewController <UITextFieldDelegate>
+@interface AgendaViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *filterView;
 @property (weak, nonatomic) IBOutlet UISwitch *controlSwitchFilter;

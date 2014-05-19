@@ -14,7 +14,7 @@
 #define DEFAULT_PASS_USER_KEY	@"passwordDefault"
 #define DEFAULT_LOG_USER_KEY	@"loginDefault"
 
-@interface CloudiversityViewController : UIViewController <UITextFieldDelegate>
+@interface AuthenticationViewController : UIViewController <UITextFieldDelegate>
 
 - (IBAction)loginBtn:(id)sender;
 

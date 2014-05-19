@@ -7,8 +7,8 @@
 //
 
 #import "HomeScreenViewController.h"
-#import "CloudCahierDeTexteViewController.h"
-#import "CloudiversityViewController.h"
+#import "AgendaViewController.h"
+#import "AuthenticationViewController.h"
 
 #define LOCALIZEDString(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"HomeScreenVC"]
 
@@ -62,9 +62,9 @@
 }
 
 - (IBAction)goToCahierDeTexte:(id)sender {
-	UIStoryboard *cahierDeTexteSBoard = [UIStoryboard storyboardWithName:@"CloudCahierDeTexteStoryboard" bundle:nil];
-	CloudCahierDeTexteViewController *cahierDeTexteVController = (CloudCahierDeTexteViewController*)[cahierDeTexteSBoard instantiateInitialViewController];
-	[self presentViewController:cahierDeTexteVController animated:YES completion:nil];
+	UIStoryboard *agendaSBoard = [UIStoryboard storyboardWithName:@"AgendaStoryboard" bundle:nil];
+	AgendaViewController *agendaVController = (AgendaViewController*)[agendaSBoard instantiateInitialViewController];
+	[self presentViewController:agendaVController animated:YES completion:nil];
 }
 
 @end

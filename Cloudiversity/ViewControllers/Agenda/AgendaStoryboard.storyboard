@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9e7-Ot-FSZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="9e7-Ot-FSZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Cloud Cahier De Texte View Controller-->
+        <!--Agenda View Controller-->
         <scene sceneID="GbB-ip-NT2">
             <objects>
-                <viewController id="9e7-Ot-FSZ" customClass="CloudCahierDeTexteViewController" sceneMemberID="viewController">
+                <viewController id="9e7-Ot-FSZ" customClass="AgendaViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pf4-8V-aQK"/>
                         <viewControllerLayoutGuide type="bottom" id="dd8-Al-2am"/>

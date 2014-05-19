@@ -1,5 +1,5 @@
 //
-//  CloudiversityViewController.m
+//  AuthenticationViewController.m
 //  Cloudiversity
 //
 //  Created by Rémy Marty on 04/02/2014.
