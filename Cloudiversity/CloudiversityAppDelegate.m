@@ -3,16 +3,24 @@
 //  Cloudiversity
 //
 //  Created by Rémy Marty on 04/02/2014.
-//  Copyright (c) 2014 Rémy Marty. All rights reserved.
+//  Copyright (c) 2014 Cloudiversity All rights reserved.
 //
 
 #import "CloudiversityAppDelegate.h"
+#import "CloudKeychainManager.h"
+#import "User.h"
 
 @implementation CloudiversityAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    User *user = [User fromUserDefaults];
+    if (!user) {
+        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"AuthenticationViewController"];
+    } else if ((user.token = [CloudKeychainManager retrieveTokenWithEmail:user.email])) {
+
+        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenViewController"];
+    }
     return YES;
 }
 							
