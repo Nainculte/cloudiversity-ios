@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		928721091944658500C70168 /* AMPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928721081944658500C70168 /* AMPieChartView.m */; };
+		9287210A1944658500C70168 /* AMPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928721081944658500C70168 /* AMPieChartView.m */; };
+		9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287210C194466A200C70168 /* AgendaFilterViewController.m */; };
+		9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287210C194466A200C70168 /* AgendaFilterViewController.m */; };
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
 		E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */; };
@@ -84,6 +88,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		928721071944658500C70168 /* AMPieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPieChartView.h; sourceTree = "<group>"; };
+		928721081944658500C70168 /* AMPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPieChartView.m; sourceTree = "<group>"; };
+		9287210B194466A200C70168 /* AgendaFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaFilterViewController.h; sourceTree = "<group>"; };
+		9287210C194466A200C70168 /* AgendaFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaFilterViewController.m; sourceTree = "<group>"; };
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -213,6 +221,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		928721061944658500C70168 /* AMPieChartView */ = {
+			isa = PBXGroup;
+			children = (
+				928721071944658500C70168 /* AMPieChartView.h */,
+				928721081944658500C70168 /* AMPieChartView.m */,
+			);
+			path = AMPieChartView;
+			sourceTree = "<group>";
+		};
 		E478BB4018A0E8290068DEB1 = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +350,7 @@
 				FDC907E2192A847000646A68 /* CloudKeychainManager.m */,
 				FDC907E4192A847000646A68 /* IOSRequest.h */,
 				FDC907E5192A847000646A68 /* IOSRequest.m */,
+				928721061944658500C70168 /* AMPieChartView */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -440,6 +458,8 @@
 			children = (
 				FDC90836192A851600646A68 /* AgendaStoryboard.storyboard */,
 				FDC90837192A851600646A68 /* AgendaViewController.h */,
+				9287210B194466A200C70168 /* AgendaFilterViewController.h */,
+				9287210C194466A200C70168 /* AgendaFilterViewController.m */,
 				FDC90838192A851600646A68 /* AgendaViewController.m */,
 			);
 			path = Agenda;
@@ -631,7 +651,9 @@
 				FDC90834192A847000646A68 /* HomeScreenViewController.m in Sources */,
 				FDC9081D192A847000646A68 /* CloudKeychainManager.m in Sources */,
 				FDC90823192A847000646A68 /* AFSecurityPolicy.m in Sources */,
+				928721091944658500C70168 /* AMPieChartView.m in Sources */,
 				E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */,
+				9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */,
 				FDC90830192A847000646A68 /* UIWebView+AFNetworking.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
 				FDC9082B192A847000646A68 /* UIAlertView+AFNetworking.m in Sources */,
@@ -642,6 +664,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */,
+				9287210A1944658500C70168 /* AMPieChartView.m in Sources */,
 				E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */,
 				92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */,
 			);
