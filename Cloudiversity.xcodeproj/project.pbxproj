@@ -11,7 +11,11 @@
 		9287210A1944658500C70168 /* AMPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928721081944658500C70168 /* AMPieChartView.m */; };
 		9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287210C194466A200C70168 /* AgendaFilterViewController.m */; };
 		9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287210C194466A200C70168 /* AgendaFilterViewController.m */; };
+		92C2120D19471D510059B6B4 /* AgendaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */; };
+		92C2120E19471D510059B6B4 /* AgendaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */; };
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
+		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
+		92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
 		E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */; };
 		E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB5018A0E8290068DEB1 /* UIKit.framework */; };
@@ -92,7 +96,11 @@
 		928721081944658500C70168 /* AMPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPieChartView.m; sourceTree = "<group>"; };
 		9287210B194466A200C70168 /* AgendaFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaFilterViewController.h; sourceTree = "<group>"; };
 		9287210C194466A200C70168 /* AgendaFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaFilterViewController.m; sourceTree = "<group>"; };
+		92C2120B19471D510059B6B4 /* AgendaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaTableViewCell.h; sourceTree = "<group>"; };
+		92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaTableViewCell.m; sourceTree = "<group>"; };
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
+		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
+		92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTaskViewController.m; sourceTree = "<group>"; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E478BB5018A0E8290068DEB1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -228,6 +236,13 @@
 				928721081944658500C70168 /* AMPieChartView.m */,
 			);
 			path = AMPieChartView;
+			sourceTree = "<group>";
+		};
+		92C21207194717570059B6B4 /* testDatas */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = testDatas;
 			sourceTree = "<group>";
 		};
 		E478BB4018A0E8290068DEB1 = {
@@ -456,11 +471,16 @@
 		FDC90835192A851600646A68 /* Agenda */ = {
 			isa = PBXGroup;
 			children = (
+				92C21207194717570059B6B4 /* testDatas */,
 				FDC90836192A851600646A68 /* AgendaStoryboard.storyboard */,
+				92C2120B19471D510059B6B4 /* AgendaTableViewCell.h */,
+				92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */,
+				92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */,
+				92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */,
 				FDC90837192A851600646A68 /* AgendaViewController.h */,
+				FDC90838192A851600646A68 /* AgendaViewController.m */,
 				9287210B194466A200C70168 /* AgendaFilterViewController.h */,
 				9287210C194466A200C70168 /* AgendaFilterViewController.m */,
-				FDC90838192A851600646A68 /* AgendaViewController.m */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -630,6 +650,7 @@
 				FDC907DC192A83D900646A68 /* Object.m in Sources */,
 				FDC9081E192A847000646A68 /* IOSRequest.m in Sources */,
 				FDC90829192A847000646A68 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
 				FDC90827192A847000646A68 /* AFURLSessionManager.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
 				FDC90821192A847000646A68 /* AFHTTPSessionManager.m in Sources */,
@@ -637,6 +658,7 @@
 				FDC90822192A847000646A68 /* AFNetworkReachabilityManager.m in Sources */,
 				FDC9083A192A851600646A68 /* AgendaViewController.m in Sources */,
 				FDC90843192A863E00646A68 /* CloudButton.m in Sources */,
+				92C2120D19471D510059B6B4 /* AgendaTableViewCell.m in Sources */,
 				FDC9082D192A847000646A68 /* UIImageView+AFNetworking.m in Sources */,
 				FDC90844192A863E00646A68 /* CloudLabel.m in Sources */,
 				FDC9082E192A847000646A68 /* UIProgressView+AFNetworking.m in Sources */,
@@ -665,8 +687,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */,
+				92C2120E19471D510059B6B4 /* AgendaTableViewCell.m in Sources */,
 				9287210A1944658500C70168 /* AMPieChartView.m in Sources */,
 				E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */,
+				92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
 				92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

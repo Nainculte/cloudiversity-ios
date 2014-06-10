@@ -10,4 +10,8 @@
 
 @interface AgendaFilterViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UISwitch *controlSwitchFilter;
+@property (weak, nonatomic) IBOutlet UISwitch *exercicesSwitchFilter;
+@property (weak, nonatomic) IBOutlet UISwitch *markesTasksSwitchFilter;
+
 @end

@@ -17,6 +17,12 @@
 
 @implementation AMPieChartView
 
+-(void)awakeFromNib {
+	self.backgroundColor = [UIColor clearColor];
+	self.internalColor = (self.internalColor ? self.internalColor : [UIColor lightGrayColor]);
+	self.externalColor = (self.externalColor ? self.externalColor : [UIColor grayColor]);
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

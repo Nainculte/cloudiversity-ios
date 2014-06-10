@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UICloud.h"
 
-@interface AgendaViewController : UIViewController <UITextFieldDelegate>
-
-@property (weak, nonatomic) IBOutlet UIView *filterView;
-@property (weak, nonatomic) IBOutlet UISwitch *controlSwitchFilter;
-@property (weak, nonatomic) IBOutlet UISwitch *exercicesSwitchFilter;
-@property (weak, nonatomic) IBOutlet UISwitch *markesTasksSwitchFilter;
-@property (weak, nonatomic) IBOutlet CloudTextField *fieldFilterTextField;
+@interface AgendaViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

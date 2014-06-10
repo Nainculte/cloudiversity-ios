@@ -7,13 +7,17 @@
 //
 
 #import "AgendaViewController.h"
+#import "AgendaTableViewCell.h"
+
+// id for cells in the tableView
+#define REUSE_IDENTIFIER	@"agendaCell"
 
 @interface AgendaViewController ()
 
 @property BOOL isFilteringExams;
 @property BOOL isFilteringExercices;
 @property BOOL isFilteringNotedTasks;
-@property (nonatomic, strong) NSString *filteringMatiere;
+@property (nonatomic, strong) NSMutableArray *materialsToFilter;
 
 @end
 
@@ -32,10 +36,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	[self.controlSwitchFilter setOn:NO];
-	[self.exercicesSwitchFilter setOn:NO];
-	[self.markesTasksSwitchFilter setOn:NO];
-	[self.filterView setAlpha:0];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,56 +44,49 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)returnButton:(id)sender {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)updateSwitches:(id)sender {
-	if ([sender isEqual:self.controlSwitchFilter]) {
-		if ([self.controlSwitchFilter isOn]) {
-			[self.exercicesSwitchFilter setOn:NO animated:YES];
-			[self.markesTasksSwitchFilter setOn:NO animated:YES];
-		}
-	} else if ([sender isEqual:self.exercicesSwitchFilter]) {
-		if ([self.exercicesSwitchFilter isOn]) {
-			[self.controlSwitchFilter setOn:NO animated:YES];
-			[self.markesTasksSwitchFilter setOn:NO animated:YES];
-		}
-	} else {
-		if ([self.markesTasksSwitchFilter isOn]) {
-			[self.controlSwitchFilter setOn:NO animated:YES];
-			[self.exercicesSwitchFilter setOn:NO animated:YES];
-		}
+#pragma mark - UITableView management
+
+/*
+ For getting the number of rows in a section, we check the number of assignement per day
+*/
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return 10;
+}
+
+/*
+ Maybe a number like 10, to have assignements for the 10 next days
+ (have to talk about it)
+*/
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 10;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	AgendaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:REUSE_IDENTIFIER];
+	if (!cell) {
+		cell = [[AgendaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REUSE_IDENTIFIER];
 	}
+	
+	return cell;
 }
 
-- (IBAction)updateFilters:(id)sender {
-	[UIView animateWithDuration:0.5 animations:^{
-		[self.filterView setAlpha:0];
-	}];
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[self.fieldFilterTextField resignFirstResponder];
-	[self.fieldFilterTextField endEditing:YES];
-	return NO;
-}
-
-- (IBAction)showFilterOptionsAsked:(id)sender {
-	[UIView animateWithDuration:0.5 animations:^{
-		[self.filterView setAlpha:1];
-	}];
-}
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -27,12 +27,38 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	[self.controlSwitchFilter setOn:NO];
+	[self.exercicesSwitchFilter setOn:NO];
+	[self.markesTasksSwitchFilter setOn:NO];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)updateSwitches:(id)sender {
+	if ([sender isEqual:self.controlSwitchFilter]) {
+		if ([self.controlSwitchFilter isOn]) {
+			[self.exercicesSwitchFilter setOn:NO animated:YES];
+			[self.markesTasksSwitchFilter setOn:NO animated:YES];
+		}
+	} else if ([sender isEqual:self.exercicesSwitchFilter]) {
+		if ([self.exercicesSwitchFilter isOn]) {
+			[self.controlSwitchFilter setOn:NO animated:YES];
+			[self.markesTasksSwitchFilter setOn:NO animated:YES];
+		}
+	} else {
+		if ([self.markesTasksSwitchFilter isOn]) {
+			[self.controlSwitchFilter setOn:NO animated:YES];
+			[self.exercicesSwitchFilter setOn:NO animated:YES];
+		}
+	}
+}
+
+- (IBAction)returnButton:(id)sender {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*
