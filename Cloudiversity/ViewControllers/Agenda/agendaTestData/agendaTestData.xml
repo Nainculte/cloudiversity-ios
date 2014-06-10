@@ -1,0 +1,52 @@
+<student>
+	<assigment>
+		<title>Essay on Napoleon</title>
+		<description>Write something about Napoleon</description>
+		<field>History</field>
+		<date>2014-07-16</date>
+		<isMarked>true</isMarked>
+		<isExam>false</isExam>
+	</assigment>
+	<assigment>
+		<title>Pythagore's test</title>
+		<description>Exam about Pythagore theorem</description>
+		<field>Mathematics</field>
+		<date>2014-08-04</date>
+		<isMarked>true</isMarked>
+		<isExam>true</isExam>
+	</assigment>
+	<assigment>
+		<title>"Le Scaphandrier et le Papillon"</title>
+		<description>Read "Le Scaphandrier et le Papillon"</description>
+		<field>Litterature</field>
+		<date>2014-07-31</date>
+		<isMarked>false</isMarked>
+		<isExam>false</isExam>
+	</assigment>
+</student>
+<teacher>
+	<assigment>
+		<title>Essay on Napoleon</title>
+		<description>Write something about Napoleon</description>
+		<field>History</field>
+		<date>2014-07-16</date>
+		<isMarked>true</isMarked>
+		<isExam>false</isExam>
+	</assigment>
+	<assigment>
+		<title>Pythagore's test</title>
+		<description>Exam about Pythagore theorem</description>
+		<field>Mathematics</field>
+		<date>2014-08-04</date>
+		<isMarked>true</isMarked>
+		<isExam>true</isExam>
+	</assigment>
+	<assigment>
+		<title>"Le Scaphandrier et le Papillon"</title>
+		<description>Read "Le Scaphandrier et le Papillon"</description>
+		<field>Litterature</field>
+		<date>2014-07-31</date>
+		<isMarked>false</isMarked>
+		<isExam>false</isExam>
+	</assigment>
+</teacher>

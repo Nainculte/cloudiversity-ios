@@ -13,6 +13,10 @@
 		9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287210C194466A200C70168 /* AgendaFilterViewController.m */; };
 		92C2120D19471D510059B6B4 /* AgendaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */; };
 		92C2120E19471D510059B6B4 /* AgendaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */; };
+		92C21211194731CC0059B6B4 /* AgendaAssgment.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C21210194731CC0059B6B4 /* AgendaAssgment.m */; };
+		92C21212194731CC0059B6B4 /* AgendaAssgment.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C21210194731CC0059B6B4 /* AgendaAssgment.m */; };
+		92C2121419475DDE0059B6B4 /* agendaTestData.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C2121319475DDE0059B6B4 /* agendaTestData.xml */; };
+		92C2121519475DDE0059B6B4 /* agendaTestData.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92C2121319475DDE0059B6B4 /* agendaTestData.xml */; };
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
 		92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
@@ -98,6 +102,9 @@
 		9287210C194466A200C70168 /* AgendaFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaFilterViewController.m; sourceTree = "<group>"; };
 		92C2120B19471D510059B6B4 /* AgendaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaTableViewCell.h; sourceTree = "<group>"; };
 		92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaTableViewCell.m; sourceTree = "<group>"; };
+		92C2120F194731CC0059B6B4 /* AgendaAssgment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaAssgment.h; sourceTree = "<group>"; };
+		92C21210194731CC0059B6B4 /* AgendaAssgment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaAssgment.m; sourceTree = "<group>"; };
+		92C2121319475DDE0059B6B4 /* agendaTestData.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = agendaTestData.xml; path = agendaTestData/agendaTestData.xml; sourceTree = "<group>"; };
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
 		92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTaskViewController.m; sourceTree = "<group>"; };
@@ -241,6 +248,7 @@
 		92C21207194717570059B6B4 /* testDatas */ = {
 			isa = PBXGroup;
 			children = (
+				92C2121319475DDE0059B6B4 /* agendaTestData.xml */,
 			);
 			name = testDatas;
 			sourceTree = "<group>";
@@ -476,6 +484,8 @@
 				92C2120B19471D510059B6B4 /* AgendaTableViewCell.h */,
 				92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */,
 				92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */,
+				92C2120F194731CC0059B6B4 /* AgendaAssgment.h */,
+				92C21210194731CC0059B6B4 /* AgendaAssgment.m */,
 				92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */,
 				FDC90837192A851600646A68 /* AgendaViewController.h */,
 				FDC90838192A851600646A68 /* AgendaViewController.m */,
@@ -626,6 +636,7 @@
 				FDDA095618F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf in Resources */,
 				FD3FA7D518FC3A160072B731 /* Icon_40x40.png in Resources */,
 				FDDA094F18F5BA9F000A1029 /* FiraMonoOT-Bold.otf in Resources */,
+				92C2121419475DDE0059B6B4 /* agendaTestData.xml in Resources */,
 				FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */,
 				FDDA095218F5BA9F000A1029 /* FiraSansOT-BoldItalic.otf in Resources */,
 			);
@@ -635,6 +646,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92C2121519475DDE0059B6B4 /* agendaTestData.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,6 +691,7 @@
 				FDC90830192A847000646A68 /* UIWebView+AFNetworking.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
 				FDC9082B192A847000646A68 /* UIAlertView+AFNetworking.m in Sources */,
+				92C21211194731CC0059B6B4 /* AgendaAssgment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +705,7 @@
 				E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */,
 				92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
 				92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */,
+				92C21212194731CC0059B6B4 /* AgendaAssgment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
