@@ -19,7 +19,7 @@
         _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"AuthenticationViewController"];
     } else if ((user.token = [CloudKeychainManager retrieveTokenWithEmail:user.email])) {
 
-        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenViewController"];
+        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"RevealViewController"];
     }
     return YES;
 }
