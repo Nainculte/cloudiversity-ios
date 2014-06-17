@@ -9,6 +9,8 @@
 #import "HomeScreenViewController.h"
 #import "AgendaViewController.h"
 #import "AuthenticationViewController.h"
+#import "SWRevealViewController.h"
+#import "UIColor+Cloud.h"
 
 #define LOCALIZEDString(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"HomeScreenVC"]
 
@@ -30,7 +32,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.title = @"Home";
+
+
+    self.leftButton.target = self.revealViewController;
+    self.leftButton.action = @selector(revealToggle:);
+
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    self.view.backgroundColor = [UIColor cloudGrey];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudBlue]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor cloudBlue]];
+    self.leftButton.tintColor = [UIColor whiteColor];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
 }
 
 - (void)didReceiveMemoryWarning

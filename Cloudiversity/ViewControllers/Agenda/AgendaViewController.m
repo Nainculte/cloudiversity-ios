@@ -8,6 +8,7 @@
 
 #import "AgendaViewController.h"
 #import "AgendaTableViewCell.h"
+#import "SWRevealViewController.h"
 
 // id for cells in the tableView
 #define REUSE_IDENTIFIER	@"agendaCell"
@@ -35,6 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.leftButton.target = self.revealViewController;
+    self.leftButton.action = @selector(revealToggle:);
     // Do any additional setup after loading the view.
 }
 
