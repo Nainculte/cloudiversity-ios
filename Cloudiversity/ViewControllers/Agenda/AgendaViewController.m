@@ -54,7 +54,7 @@
  For getting the number of rows in a section, we check the number of assignement per day
 */
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 10;
+	return 1;
 }
 
 /*
@@ -62,7 +62,7 @@
  (have to talk about it)
 */
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 10;
+	return 3;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,8 +74,27 @@
 	return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+}*/
+
+#pragma mark - testDatas
+
+- (NSDictionary*)datasForTest {
+	return @{@"student":
+				 @[
+					 @{@"title": @"Essay on Napoleon",
+					   @"description": @"Write something about Napoleon",
+					   @"field": @"History",
+					   @"date": @"2014-07-16"},
+					 @{@"title": @"Pythagore's test",
+					   @"description": @"Exam about Pythagore theorem",
+					   @"field": @"Mathematics",
+					   @"date": @"2014-08-04"},
+					 @{@"title": @"\"Le Scaphandrier et le Papillon\"",
+					   @"description": @"Read \"Le Scaphandrier et le Papillon\"",
+					   @"field": @"Litterature",
+					   @"date": @"2014-07-31"},
+					 ]};
 }
 
 /*
