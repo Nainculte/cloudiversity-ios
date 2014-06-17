@@ -9,11 +9,11 @@
 #import "NavigationViewController.h"
 #import "SWRevealViewController.h"
 #import "AgendaViewController.h"
+#import "UIColor+Cloud.h"
 
 @interface NavigationViewController ()
 
 @property (nonatomic, strong)NSMutableArray *menuItems;
-@property (nonatomic, strong)NSMutableArray *menuSegues;
 
 @end
 
@@ -32,8 +32,11 @@
 {
     [super viewDidLoad];
 
-    self.menuItems = [NSMutableArray arrayWithObjects:@"cloudiversity", @"agenda", nil];
-    self.menuSegues = [NSMutableArray arrayWithObjects:@"segueToHomeScreen", @"segueToAgenda", nil];
+    self.menuItems = [NSMutableArray arrayWithObjects:@"cloudiversity", @"agenda", @"disconnect", nil];
+    self.view.backgroundColor = [UIColor cloudDarkGrey];
+    self.tableView.backgroundColor = [UIColor cloudDarkGrey];
+    self.tableView.separatorColor = [UIColor cloudLightBlack];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -53,6 +56,8 @@
 
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         
+    } else if ([segue.identifier isEqualToString:@"disconnect"]) {
+        //virer les credentials
     }
 
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
@@ -77,52 +82,13 @@
 {
     NSString *CellIdentifier = [self.menuItems objectAtIndex:indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
+    cell.backgroundColor = [UIColor cloudDarkGrey];
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UIStoryboard *sb;
-//    UIViewController *vc;
-//    SWRevealViewControllerSegue *segue;
-//    switch (indexPath.row) {
-//        case 1:
-//            sb = [UIStoryboard storyboardWithName:@"AgendaStoryboard" bundle:nil];
-//            vc = [sb instantiateInitialViewController];
-//            segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Agenda"
-//                                                                     source:self
-//                                                                destination:vc];
-//            break;
-//
-//        default:
-//            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenViewController"];
-//            segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Homescreen"
-//                                                                     source:self
-//                                                                destination:vc];
-//            break;
-//    }
-//    [segue perform];
-//    
-//}
-//
-//- (void)segueToHomeScreen
-//{
-//    UIVideoEditorController *HomeScreenVC = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenViewController"];
-//    SWRevealViewControllerSegue *segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Homescreen"
-//                                                                                          source:self
-//                                                                                     destination:HomeScreenVC];
-//    [segue perform];
-//}
-//
-//- (void)segueToAgenda
-//{
-//    UIStoryboard *agendaSBoard = [UIStoryboard storyboardWithName:@"AgendaStoryboard" bundle:nil];
-//	UIViewController *agendaVC = (AgendaViewController*)[agendaSBoard instantiateInitialViewController];
-//    SWRevealViewControllerSegue *segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Agenda"
-//                                                                                          source:self
-//                                                                                     destination:agendaVC];
-//    [segue perform];
-//}
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 @end

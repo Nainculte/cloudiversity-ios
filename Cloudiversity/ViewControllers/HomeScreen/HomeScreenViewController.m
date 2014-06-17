@@ -40,8 +40,8 @@
 
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     self.view.backgroundColor = [UIColor cloudGrey];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudBlue]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor cloudBlue]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
     self.leftButton.tintColor = [UIColor whiteColor];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
 }
@@ -72,12 +72,6 @@
 	[userDefault setObject:nil forKey:DEFAULT_PASS_USER_KEY];
 	
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)goToCahierDeTexte:(id)sender {
-	UIStoryboard *agendaSBoard = [UIStoryboard storyboardWithName:@"AgendaStoryboard" bundle:nil];
-	AgendaViewController *agendaVController = (AgendaViewController*)[agendaSBoard instantiateInitialViewController];
-	[self presentViewController:agendaVController animated:YES completion:nil];
 }
 
 @end
