@@ -69,7 +69,6 @@
 		FDC90832192A847000646A68 /* AuthenticationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FDC90813192A847000646A68 /* AuthenticationVC.strings */; };
 		FDC90833192A847000646A68 /* HomeScreenVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FDC90817192A847000646A68 /* HomeScreenVC.strings */; };
 		FDC90834192A847000646A68 /* HomeScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC9081B192A847000646A68 /* HomeScreenViewController.m */; };
-		FDC90839192A851600646A68 /* AgendaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDC90836192A851600646A68 /* AgendaStoryboard.storyboard */; };
 		FDC9083A192A851600646A68 /* AgendaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC90838192A851600646A68 /* AgendaViewController.m */; };
 		FDC90843192A863E00646A68 /* CloudButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC9083D192A863E00646A68 /* CloudButton.m */; };
 		FDC90844192A863E00646A68 /* CloudLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC9083F192A863E00646A68 /* CloudLabel.m */; };
@@ -84,6 +83,7 @@
 		FDDA095618F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094C18F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf */; };
 		FDDA095718F5BA9F000A1029 /* FiraSansOT-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094D18F5BA9F000A1029 /* FiraSansOT-Regular.otf */; };
 		FDDA095818F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094E18F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf */; };
+		FDEA48DB19509A270026210D /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDEA48DA19509A270026210D /* NavigationViewController.m */; };
 		FDF8DDFB19280AFE00237054 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = FDF8DDF919280AFE00237054 /* menu.png */; };
 		FDF8DDFC19280AFE00237054 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDF8DDFA19280AFE00237054 /* menu@2x.png */; };
 /* End PBXBuildFile section */
@@ -194,7 +194,6 @@
 		FDC90819192A847000646A68 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/HomeScreenVC.strings; sourceTree = "<group>"; };
 		FDC9081A192A847000646A68 /* HomeScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeScreenViewController.h; sourceTree = "<group>"; };
 		FDC9081B192A847000646A68 /* HomeScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeScreenViewController.m; sourceTree = "<group>"; };
-		FDC90836192A851600646A68 /* AgendaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AgendaStoryboard.storyboard; sourceTree = "<group>"; };
 		FDC90837192A851600646A68 /* AgendaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaViewController.h; sourceTree = "<group>"; };
 		FDC90838192A851600646A68 /* AgendaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaViewController.m; sourceTree = "<group>"; };
 		FDC9083C192A863E00646A68 /* CloudButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudButton.h; sourceTree = "<group>"; };
@@ -214,6 +213,8 @@
 		FDDA094C18F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSansOT-MediumItalic.otf"; sourceTree = "<group>"; };
 		FDDA094D18F5BA9F000A1029 /* FiraSansOT-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSansOT-Regular.otf"; sourceTree = "<group>"; };
 		FDDA094E18F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSansOT-RegularItalic.otf"; sourceTree = "<group>"; };
+		FDEA48D919509A270026210D /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		FDEA48DA19509A270026210D /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		FDF8DDF919280AFE00237054 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = ../menu.png; sourceTree = "<group>"; };
 		FDF8DDFA19280AFE00237054 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu@2x.png"; path = "../menu@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -363,6 +364,32 @@
 			path = Logos;
 			sourceTree = "<group>";
 		};
+		FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FD49BC6B1927C92500AAA3A6 /* SWRevealViewController.h */,
+				FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		FD49BC6E1927D9EA00AAA3A6 /* Fira */ = {
+			isa = PBXGroup;
+			children = (
+				FDDA094518F5BA9F000A1029 /* FiraMonoOT-Bold.otf */,
+				FDDA094618F5BA9F000A1029 /* FiraMonoOT-Regular.otf */,
+				FDDA094718F5BA9F000A1029 /* FiraSansOT-Bold.otf */,
+				FDDA094818F5BA9F000A1029 /* FiraSansOT-BoldItalic.otf */,
+				FDDA094918F5BA9F000A1029 /* FiraSansOT-Light.otf */,
+				FDDA094A18F5BA9F000A1029 /* FiraSansOT-LightItalic.otf */,
+				FDDA094B18F5BA9F000A1029 /* FiraSansOT-Medium.otf */,
+				FDDA094C18F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf */,
+				FDDA094D18F5BA9F000A1029 /* FiraSansOT-Regular.otf */,
+				FDDA094E18F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf */,
+			);
+			name = Fira;
+			sourceTree = "<group>";
+		};
 		FDC907D7192A83D900646A68 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,35 +479,14 @@
 				FDC9080C192A847000646A68 /* UIRefreshControl+AFNetworking.m */,
 				FDC9080D192A847000646A68 /* UIWebView+AFNetworking.h */,
 				FDC9080E192A847000646A68 /* UIWebView+AFNetworking.m */,
-		FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */ = {
-			isa = PBXGroup;
-			children = (
-				FD49BC6B1927C92500AAA3A6 /* SWRevealViewController.h */,
-				FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */,
 			);
-			path = SWRevealViewController;
-			sourceTree = "<group>";
-		};
-		FD49BC6E1927D9EA00AAA3A6 /* Fira */ = {
-			isa = PBXGroup;
-			children = (
-				FDDA094518F5BA9F000A1029 /* FiraMonoOT-Bold.otf */,
-				FDDA094618F5BA9F000A1029 /* FiraMonoOT-Regular.otf */,
-				FDDA094718F5BA9F000A1029 /* FiraSansOT-Bold.otf */,
-				FDDA094818F5BA9F000A1029 /* FiraSansOT-BoldItalic.otf */,
-				FDDA094918F5BA9F000A1029 /* FiraSansOT-Light.otf */,
-				FDDA094A18F5BA9F000A1029 /* FiraSansOT-LightItalic.otf */,
-				FDDA094B18F5BA9F000A1029 /* FiraSansOT-Medium.otf */,
-				FDDA094C18F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf */,
-				FDDA094D18F5BA9F000A1029 /* FiraSansOT-Regular.otf */,
-				FDDA094E18F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf */,
-			);
-			name = Fira;
+			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
 		FDC9080F192A847000646A68 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				FDEA48D8195099920026210D /* Navigation */,
 				FDC90835192A851600646A68 /* Agenda */,
 				FDC90810192A847000646A68 /* Authentication */,
 				FDC90816192A847000646A68 /* HomeScreen */,
@@ -512,13 +518,12 @@
 			isa = PBXGroup;
 			children = (
 				92C21207194717570059B6B4 /* testDatas */,
-				FDC90836192A851600646A68 /* AgendaStoryboard.storyboard */,
 				92C2120B19471D510059B6B4 /* AgendaTableViewCell.h */,
 				92C2120C19471D510059B6B4 /* AgendaTableViewCell.m */,
 				92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */,
+				92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */,
 				92C2120F194731CC0059B6B4 /* AgendaAssgment.h */,
 				92C21210194731CC0059B6B4 /* AgendaAssgment.m */,
-				92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */,
 				FDC90837192A851600646A68 /* AgendaViewController.h */,
 				FDC90838192A851600646A68 /* AgendaViewController.m */,
 				9287210B194466A200C70168 /* AgendaFilterViewController.h */,
@@ -556,6 +561,15 @@
 				FD49BC6E1927D9EA00AAA3A6 /* Fira */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		FDEA48D8195099920026210D /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				FDEA48D919509A270026210D /* NavigationViewController.h */,
+				FDEA48DA19509A270026210D /* NavigationViewController.m */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -649,7 +663,6 @@
 				FDF8DDFB19280AFE00237054 /* menu.png in Resources */,
 				FD3FA7D618FC3A160072B731 /* Icon_60x60.png in Resources */,
 				FDC9081C192A847000646A68 /* HTTPErrors.strings in Resources */,
-				FDC90839192A851600646A68 /* AgendaStoryboard.storyboard in Resources */,
 				FDDA095718F5BA9F000A1029 /* FiraSansOT-Regular.otf in Resources */,
 				FD3FA7CF18FC2F0A0072B731 /* Logo_500x500.png in Resources */,
 				FDDA095518F5BA9F000A1029 /* FiraSansOT-Medium.otf in Resources */,
@@ -699,6 +712,7 @@
 				FDC9082D192A847000646A68 /* UIImageView+AFNetworking.m in Sources */,
 				FDC90844192A863E00646A68 /* CloudLabel.m in Sources */,
 				FDC9082E192A847000646A68 /* UIProgressView+AFNetworking.m in Sources */,
+				FDEA48DB19509A270026210D /* NavigationViewController.m in Sources */,
 				FDC90845192A863E00646A68 /* CloudTextField.m in Sources */,
 				FDC90826192A847000646A68 /* AFURLResponseSerialization.m in Sources */,
 				FDC9082F192A847000646A68 /* UIRefreshControl+AFNetworking.m in Sources */,
