@@ -15,6 +15,7 @@
 @interface AuthenticationViewController ()
 @property (nonatomic) BOOL shouldAnimate;
 @property (nonatomic) BOOL hasSelected;
+@property (nonatomic) BOOL shouldSegue;
 @end
 
 @implementation AuthenticationViewController
@@ -42,6 +43,10 @@
 
     self.view.backgroundColor = [UIColor cloudGrey];
     self.logoView.backgroundColor = [UIColor cloudGrey];
+
+    for (UIView *v in self.borders) {
+        v.backgroundColor = [UIColor cloudBorderGrey];
+    }
 
     [self localize];
 }
@@ -83,11 +88,13 @@
 
 - (void) endLoginWithSuccess:(BOOL)success {
     if (success) {
+        self.shouldSegue = YES;
         [self performSegueWithIdentifier:@"login_success" sender:self];
         self.errorLabel.alpha = 0.0;
         [CloudKeychainManager saveToken:_user.token forEmail:_user.email];
         [self._user saveUser];
     } else {
+        self.shouldSegue = NO;
         [UIView animateWithDuration:0.3 animations:^{
             self.errorLabel.alpha = 1.0;
         }];
@@ -130,6 +137,17 @@
     [IOSRequest loginWithId:loginField.text andPassword:self.passwordField.text onSuccess:success onFailure:failure];
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([self.loginField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""] || [self.serverField.text isEqualToString:@""]) {
+        self.errorLabel.text = LOCALIZEDSTRING(@"FILLITALL");
+        [self endLoginWithSuccess:false];
+        return NO;
+    } else if (!self.shouldSegue) {
+        return NO;
+    }
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if ([loginField isFirstResponder]) {
         self.shouldAnimate = NO;
@@ -142,6 +160,7 @@
     } else {
         self.shouldAnimate = YES;
         self.hasSelected = NO;
+        [self loginBtn:nil];
         [serverField resignFirstResponder];
     }
     return NO;
@@ -159,12 +178,14 @@
 		[self.cloudLogo setAlpha:0];
 		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y - 130,
 										   self.logoView.frame.size.width, self.logoView.frame.size.height)];
-		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y - 130,
-											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
-		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y - 130,
-												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
-        [self.serverField setFrame:CGRectMake(self.serverField.frame.origin.x, self.serverField.frame.origin.y - 130,
-												self.serverField.frame.size.width, self.serverField.frame.size.height)];
+//		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y - 130,
+//											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
+//		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y - 130,
+//												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
+//      [self.serverField setFrame:CGRectMake(self.serverField.frame.origin.x, self.serverField.frame.origin.y - 130,
+//												self.serverField.frame.size.width, self.serverField.frame.size.height)];
+        [self.textfields setFrame:CGRectMake(self.textfields.frame.origin.x, self.textfields.frame.origin.y - 130,
+                                            self.textfields.frame.size.width, self.textfields.frame.size.height)];
         [self.errorLabel setFrame:CGRectMake(self.errorLabel.frame.origin.x, self.errorLabel.frame.origin.y - 130,
                                             self.errorLabel.frame.size.width, self.errorLabel.frame.size.height)];
 		[self.loginBtn setFrame:CGRectMake(self.loginBtn.frame.origin.x, self.loginBtn.frame.origin.y - 200,
@@ -185,12 +206,14 @@
 		[self.cloudLogo setAlpha:1];
 		[self.logoView setFrame:CGRectMake(self.logoView.frame.origin.x, self.logoView.frame.origin.y + 130,
 										   self.logoView.frame.size.width, self.logoView.frame.size.height)];
-		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y + 130,
-											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
-		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y + 130,
-												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
-        [self.serverField setFrame:CGRectMake(self.serverField.frame.origin.x, self.serverField.frame.origin.y + 130,
-												self.serverField.frame.size.width, self.serverField.frame.size.height)];
+//		[self.loginField setFrame:CGRectMake(self.loginField.frame.origin.x, self.loginField.frame.origin.y + 130,
+//											 self.loginField.frame.size.width, self.loginField.frame.size.height)];
+//		[self.passwordField setFrame:CGRectMake(self.passwordField.frame.origin.x, self.passwordField.frame.origin.y + 130,
+//												self.passwordField.frame.size.width, self.passwordField.frame.size.height)];
+//      [self.serverField setFrame:CGRectMake(self.serverField.frame.origin.x, self.serverField.frame.origin.y + 130,
+//												self.serverField.frame.size.width, self.serverField.frame.size.height)];
+        [self.textfields setFrame:CGRectMake(self.textfields.frame.origin.x, self.textfields.frame.origin.y + 130,
+                                             self.textfields.frame.size.width, self.textfields.frame.size.height)];
         [self.errorLabel setFrame:CGRectMake(self.errorLabel.frame.origin.x, self.errorLabel.frame.origin.y + 130,
                                              self.errorLabel.frame.size.width, self.errorLabel.frame.size.height)];
 		[self.loginBtn setFrame:CGRectMake(self.loginBtn.frame.origin.x, self.loginBtn.frame.origin.y + 200,
@@ -202,18 +225,6 @@
     self.shouldAnimate = YES;
     self.hasSelected = NO;
 	[self.view endEditing:YES];
-}
-
-// Pop up de message d'erreur
-- (void) alertStatus:(NSString *)msg :(NSString *)title :(int) tag
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                        message:msg
-                                                       delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil, nil];
-    alertView.tag = tag;
-    [alertView show];
 }
 
 @end

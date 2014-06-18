@@ -32,6 +32,11 @@
 @property (weak, nonatomic) IBOutlet CloudLabel *cloudLabel;
 @property (weak, nonatomic) IBOutlet CloudLabel *iversityLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *textfields;
+
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *borders;
+
+
 - (IBAction)backgroundTap:(id)sender;
 
 @end
