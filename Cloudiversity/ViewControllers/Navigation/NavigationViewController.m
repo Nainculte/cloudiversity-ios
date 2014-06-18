@@ -34,8 +34,6 @@
 
     self.menuItems = [NSMutableArray arrayWithObjects:@"cloudiversity", @"agenda", @"disconnect", nil];
     self.view.backgroundColor = [UIColor cloudDarkGrey];
-    self.tableView.backgroundColor = [UIColor cloudDarkGrey];
-    self.tableView.separatorColor = [UIColor cloudLightBlack];
     
     // Do any additional setup after loading the view.
 }
@@ -48,15 +46,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSIndexPath* path = [self.tableView indexPathForSelectedRow];
-    UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
-    dest.title = [[self.menuItems objectAtIndex:path.row] capitalizedString];
+    //NSIndexPath* path = [self.tableView indexPathForSelectedRow];
+    //UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
+    //dest.title = [[self.menuItems objectAtIndex:path.row] capitalizedString];
 
     if ([segue.identifier isEqualToString:@"Agenda"]) {
 
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         
-    } else if ([segue.identifier isEqualToString:@"disconnect"]) {
+    } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
         //virer les credentials
     }
 
@@ -71,19 +69,6 @@
         };
 
     }
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.menuItems.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *CellIdentifier = [self.menuItems objectAtIndex:indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor cloudDarkGrey];
-    return cell;
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle
