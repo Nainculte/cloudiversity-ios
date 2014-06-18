@@ -164,7 +164,8 @@
                                 <rect key="frame" x="0.0" y="70" width="320" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Agenda" image="calendar.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -176,12 +177,13 @@
                                 <rect key="frame" x="0.0" y="424" width="320" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Disconnect" image="sign-out.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="vXZ-lx-hvc" kind="modal" id="zEV-YY-LlN"/>
+                                    <segue destination="vXZ-lx-hvc" kind="modal" identifier="Disconnect" id="zEV-YY-LlN"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -482,9 +484,9 @@
     <resources>
         <image name="Icon_clear_42x42.png" width="42" height="42"/>
         <image name="Logo_500x500.png" width="500" height="500"/>
-        <image name="calendar.png" width="36" height="36"/>
+        <image name="calendar.png" width="30" height="30"/>
         <image name="menu.png" width="24" height="20"/>
-        <image name="sign-out.png" width="36" height="36"/>
+        <image name="sign-out.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

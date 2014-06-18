@@ -10,6 +10,8 @@
 #import "SWRevealViewController.h"
 #import "AgendaViewController.h"
 #import "UIColor+Cloud.h"
+#import "User.h"
+#import "CloudKeychainManager.h"
 
 @interface NavigationViewController ()
 
@@ -31,8 +33,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.menuItems = [NSMutableArray arrayWithObjects:@"cloudiversity", @"agenda", @"disconnect", nil];
     self.view.backgroundColor = [UIColor cloudDarkGrey];
     
     // Do any additional setup after loading the view.
@@ -46,16 +46,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //NSIndexPath* path = [self.tableView indexPathForSelectedRow];
-    //UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
-    //dest.title = [[self.menuItems objectAtIndex:path.row] capitalizedString];
+    UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
 
     if ([segue.identifier isEqualToString:@"Agenda"]) {
-
+        dest.title = @"Agenda";
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
-        
+        dest.title = @"Home";
     } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
-        //virer les credentials
+        User *u = [User fromUserDefaults];
+        [CloudKeychainManager deleteTokenWithEmail:u.email];
+        [u deleteUser];
     }
 
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
