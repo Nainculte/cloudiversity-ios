@@ -11,19 +11,6 @@
 
 @implementation IOSRequest
 
-+(void) requestToPath:(NSString *)path
-           withParams:(NSDictionary *)params
-            onSuccess:(HTTPSuccessHandler)success
-            onFailure:(HTTPFailureHandler)failure {
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
-    AFHTTPRequestOperation *operation = [manager POST:path parameters:params success:success failure:failure];
-    [operation start];
-}
-
 +(void) loginWithId:(NSString *)userName
         andPassword:(NSString *)password
           onSuccess:(HTTPSuccessHandler)success
@@ -33,7 +20,25 @@
     NSString *path = [defaults objectForKey:@"server"];
     path = [NSString stringWithFormat:@"%@/users/sign_in", path];
     NSDictionary * params = @{@"user[login]": userName, @"user[password]": password};
-    [IOSRequest requestToPath:path withParams:params onSuccess:success onFailure:failure];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
+    AFHTTPRequestOperation *operation = [manager POST:path parameters:params success:success failure:failure];
+    [operation start];
+}
+
++ (void) isCloudiversityServer:(NSString *)server
+                     onSuccess:(HTTPSuccessHandler)success
+                     onFailure:(HTTPFailureHandler)failure {
+
+    NSString *path = [NSString stringWithFormat:@"%@/version", server];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
+    AFHTTPRequestOperation *operation = [manager GET:path parameters:nil success:success failure:failure];
+    [operation start];
 }
 
 @end
