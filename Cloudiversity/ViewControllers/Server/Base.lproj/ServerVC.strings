@@ -1,0 +1,12 @@
+/* 
+  ServerVC.strings
+  Cloudiversity
+
+  Created by Nainculte on 6/19/14.
+  Copyright (c) 2014 Cloudiversity. All rights reserved.
+*/
+
+"ADDRESS" = "Server address";
+"SERVER" = "Choose server";
+
+"FILLITALL" = "You have to fill the field";

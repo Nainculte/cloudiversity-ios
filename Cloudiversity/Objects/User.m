@@ -8,6 +8,12 @@
 
 #import "User.h"
 
+@interface User()
+
+@property (nonatomic, strong)User *singleton;
+
+@end
+
 @implementation User
 
 + (User *)withName:(NSString *)name lastName:(NSString *)lastName andEmail:(NSString *)email {
@@ -42,6 +48,14 @@
     [userDefaults setObject:self.firstName forKey:@"firstname"];
     [userDefaults setObject:self.lastName forKey:@"lastname"];
     [userDefaults setObject:self.email forKey:@"email"];
+    [userDefaults synchronize];
+}
+
+- (void)deleteUser {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:@"firstname"];
+    [userDefaults removeObjectForKey:@"lastname"];
+    [userDefaults removeObjectForKey:@"email"];
     [userDefaults synchronize];
 }
 

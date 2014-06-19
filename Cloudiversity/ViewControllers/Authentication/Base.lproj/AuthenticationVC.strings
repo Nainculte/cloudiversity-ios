@@ -9,7 +9,6 @@
 //Printed localized strings
 "USERNAME" = "Username";
 "PASSWORD" = "Password";
-"ADDRESS" = "Server's address";
 "CONNECT" = "Connect";
 
 //Error messages

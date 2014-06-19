@@ -30,4 +30,16 @@
     return [UIColor colorWithRed:64.0/255.0f green:85.0/255.0f blue:112.0/255.0f alpha:1.0f];
 }
 
++ (UIColor *)cloudDarkGrey {
+    return [UIColor colorWithRed:51/255.0f green:51/255.0f blue:51/255.0f alpha:1.0f];
+}
+
++ (UIColor *)cloudLightBlack {
+    return [UIColor colorWithRed:35/255.0f green:35/255.0f blue:35/255.0f alpha:1.0f];
+}
+
++ (UIColor *)cloudBorderGrey {
+    return [UIColor colorWithRed:0XC8/255.0f green:0XCE/255.0f blue:0XD8/255.0f alpha:1.0];
+}
+
 @end

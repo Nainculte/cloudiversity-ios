@@ -9,11 +9,13 @@
 #import "NavigationViewController.h"
 #import "SWRevealViewController.h"
 #import "AgendaViewController.h"
+#import "UIColor+Cloud.h"
+#import "User.h"
+#import "CloudKeychainManager.h"
 
 @interface NavigationViewController ()
 
 @property (nonatomic, strong)NSMutableArray *menuItems;
-@property (nonatomic, strong)NSMutableArray *menuSegues;
 
 @end
 
@@ -31,9 +33,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.menuItems = [NSMutableArray arrayWithObjects:@"cloudiversity", @"agenda", nil];
-    self.menuSegues = [NSMutableArray arrayWithObjects:@"segueToHomeScreen", @"segueToAgenda", nil];
+    self.view.backgroundColor = [UIColor cloudDarkGrey];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -45,14 +46,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSIndexPath* path = [self.tableView indexPathForSelectedRow];
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
-    dest.title = [[self.menuItems objectAtIndex:path.row] capitalizedString];
 
     if ([segue.identifier isEqualToString:@"Agenda"]) {
-
+        dest.title = @"Agenda";
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
-        
+        dest.title = @"Home";
+    } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
+        User *u = [User fromUserDefaults];
+        [CloudKeychainManager deleteTokenWithEmail:u.email];
+        [u deleteUser];
     }
 
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
@@ -68,61 +71,9 @@
     }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(UIStatusBarStyle)preferredStatusBarStyle
 {
-    return self.menuItems.count;
+    return UIStatusBarStyleLightContent;
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *CellIdentifier = [self.menuItems objectAtIndex:indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    return cell;
-}
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UIStoryboard *sb;
-//    UIViewController *vc;
-//    SWRevealViewControllerSegue *segue;
-//    switch (indexPath.row) {
-//        case 1:
-//            sb = [UIStoryboard storyboardWithName:@"AgendaStoryboard" bundle:nil];
-//            vc = [sb instantiateInitialViewController];
-//            segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Agenda"
-//                                                                     source:self
-//                                                                destination:vc];
-//            break;
-//
-//        default:
-//            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenViewController"];
-//            segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Homescreen"
-//                                                                     source:self
-//                                                                destination:vc];
-//            break;
-//    }
-//    [segue perform];
-//    
-//}
-//
-//- (void)segueToHomeScreen
-//{
-//    UIVideoEditorController *HomeScreenVC = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeScreenViewController"];
-//    SWRevealViewControllerSegue *segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Homescreen"
-//                                                                                          source:self
-//                                                                                     destination:HomeScreenVC];
-//    [segue perform];
-//}
-//
-//- (void)segueToAgenda
-//{
-//    UIStoryboard *agendaSBoard = [UIStoryboard storyboardWithName:@"AgendaStoryboard" bundle:nil];
-//	UIViewController *agendaVC = (AgendaViewController*)[agendaSBoard instantiateInitialViewController];
-//    SWRevealViewControllerSegue *segue = [[SWRevealViewControllerSegue alloc] initWithIdentifier:@"Agenda"
-//                                                                                          source:self
-//                                                                                     destination:agendaVC];
-//    [segue perform];
-//}
 
 @end

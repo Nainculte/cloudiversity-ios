@@ -20,5 +20,6 @@
 + (User *)withEmail:(NSString *)email andToken:(NSString *)token;
 + (User *)fromUserDefaults;
 - (void)saveUser;
+- (void)deleteUser;
 
 @end
