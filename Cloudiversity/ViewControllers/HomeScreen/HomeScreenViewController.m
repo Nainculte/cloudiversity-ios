@@ -63,15 +63,4 @@
 }
 */
 
-- (IBAction)logOut:(id)sender {
-	NSLog(@"Log out...");
-	
-	// ereasing userDefaults
-	NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-	[userDefault setObject:nil forKey:DEFAULT_LOG_USER_KEY];
-	[userDefault setObject:nil forKey:DEFAULT_PASS_USER_KEY];
-	
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
 @end

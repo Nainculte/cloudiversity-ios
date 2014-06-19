@@ -41,6 +41,9 @@
 		FD3FA7D618FC3A160072B731 /* Icon_60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D218FC3A160072B731 /* Icon_60x60.png */; };
 		FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D318FC3A160072B731 /* Icon_500x500.png */; };
 		FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */; };
+		FD854A471952DB37008F046D /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A461952DB37008F046D /* ServerViewController.m */; };
+		FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */; };
+		FD854A4E1952E3FD008F046D /* ServerVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD854A501952E3FD008F046D /* ServerVC.strings */; };
 		FD8F82D819080AAA00EDBDBE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8F82D719080AAA00EDBDBE /* Security.framework */; };
 		FDAFAFCD1951CA030070F396 /* sign-out.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFCB1951CA030070F396 /* sign-out.png */; };
 		FDAFAFCE1951CA030070F396 /* sign-out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFCC1951CA030070F396 /* sign-out@2x.png */; };
@@ -144,6 +147,12 @@
 		FD3FA7D318FC3A160072B731 /* Icon_500x500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_500x500.png; sourceTree = "<group>"; };
 		FD49BC6B1927C92500AAA3A6 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		FD854A451952DB37008F046D /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerViewController.h; sourceTree = "<group>"; };
+		FD854A461952DB37008F046D /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
+		FD854A491952DDC2008F046D /* AbstractLogoViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractLogoViewViewController.h; sourceTree = "<group>"; };
+		FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractLogoViewViewController.m; sourceTree = "<group>"; };
+		FD854A4F1952E3FD008F046D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/ServerVC.strings; sourceTree = "<group>"; };
+		FD854A511952E404008F046D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ServerVC.strings; sourceTree = "<group>"; };
 		FD8F82D719080AAA00EDBDBE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FDAFAFCB1951CA030070F396 /* sign-out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sign-out.png"; sourceTree = "<group>"; };
 		FDAFAFCC1951CA030070F396 /* sign-out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sign-out@2x.png"; sourceTree = "<group>"; };
@@ -411,6 +420,25 @@
 			name = Fira;
 			sourceTree = "<group>";
 		};
+		FD854A441952DB0A008F046D /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				FD854A451952DB37008F046D /* ServerViewController.h */,
+				FD854A461952DB37008F046D /* ServerViewController.m */,
+				FD854A501952E3FD008F046D /* ServerVC.strings */,
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
+		FD854A481952DD87008F046D /* Abstracts */ = {
+			isa = PBXGroup;
+			children = (
+				FD854A491952DDC2008F046D /* AbstractLogoViewViewController.h */,
+				FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */,
+			);
+			path = Abstracts;
+			sourceTree = "<group>";
+		};
 		FDC907D7192A83D900646A68 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,6 +535,8 @@
 		FDC9080F192A847000646A68 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				FD854A481952DD87008F046D /* Abstracts */,
+				FD854A441952DB0A008F046D /* Server */,
 				FDEA48D8195099920026210D /* Navigation */,
 				FDC90835192A851600646A68 /* Agenda */,
 				FDC90810192A847000646A68 /* Authentication */,
@@ -528,9 +558,9 @@
 		FDC90816192A847000646A68 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				FDC90817192A847000646A68 /* HomeScreenVC.strings */,
 				FDC9081A192A847000646A68 /* HomeScreenViewController.h */,
 				FDC9081B192A847000646A68 /* HomeScreenViewController.m */,
+				FDC90817192A847000646A68 /* HomeScreenVC.strings */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -690,6 +720,7 @@
 				FDAFAFCE1951CA030070F396 /* sign-out@2x.png in Resources */,
 				FDC9081C192A847000646A68 /* HTTPErrors.strings in Resources */,
 				FDDA095718F5BA9F000A1029 /* FiraSansOT-Regular.otf in Resources */,
+				FD854A4E1952E3FD008F046D /* ServerVC.strings in Resources */,
 				FD3FA7CF18FC2F0A0072B731 /* Logo_500x500.png in Resources */,
 				FDDA095518F5BA9F000A1029 /* FiraSansOT-Medium.otf in Resources */,
 				FDC90828192A847000646A68 /* LICENSE in Resources */,
@@ -729,9 +760,11 @@
 				FDC9081E192A847000646A68 /* IOSRequest.m in Sources */,
 				FDC90829192A847000646A68 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
+				FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */,
 				FDC90827192A847000646A68 /* AFURLSessionManager.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
 				FDC90821192A847000646A68 /* AFHTTPSessionManager.m in Sources */,
+				FD854A471952DB37008F046D /* ServerViewController.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,
 				FDC90822192A847000646A68 /* AFNetworkReachabilityManager.m in Sources */,
 				FDC9083A192A851600646A68 /* AgendaViewController.m in Sources */,
@@ -788,6 +821,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		FD854A501952E3FD008F046D /* ServerVC.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD854A4F1952E3FD008F046D /* Base */,
+				FD854A511952E404008F046D /* fr */,
+			);
+			name = ServerVC.strings;
+			sourceTree = "<group>";
+		};
 		FDC907DF192A847000646A68 /* HTTPErrors.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

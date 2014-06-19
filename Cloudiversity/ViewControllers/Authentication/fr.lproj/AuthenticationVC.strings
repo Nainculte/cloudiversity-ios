@@ -10,7 +10,6 @@
 //Printed localized strings
 "USERNAME" = "Nom d'utilisateur";
 "PASSWORD" = "Mot de passe";
-"ADDRESS" = "Addresse du serveur";
 "CONNECT" = "Connexion";
 
 //Error messages
