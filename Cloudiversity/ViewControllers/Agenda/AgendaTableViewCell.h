@@ -14,5 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet AMPieChartView *pieChartView;
 @property (weak, nonatomic) IBOutlet CloudLabel *workTitle;
+@property (weak, nonatomic) IBOutlet CloudLabel *fieldLabel;
+@property (weak, nonatomic) IBOutlet CloudLabel *dueTimeLabel;
 
 @end

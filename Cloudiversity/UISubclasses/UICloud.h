@@ -9,3 +9,12 @@
 #import "CloudLabel.h"
 #import "CloudButton.h"
 #import "CloudTextField.h"
+
+#define CLOUD_FONT_BOLD				@"FiraSansOT-Bold"
+#define CLOUD_FONT_BOLD_ITALIC		@"FiraSansOT-BoldItalic"
+#define CLOUD_FONT_LIGHT			@"FiraSansOT-Light"
+#define CLOUD_FONT_LIGHT_ITALIC		@"FiraSansOT-LightItalic"
+#define CLOUD_FONT_MEDIUM			@"FiraSansOT-Medium"
+#define CLOUD_FONT_MEDIUM_ITALIC	@"FiraSansOT-MediumItalic"
+#define CLOUD_FONT_REGULAR			@"FiraSansOT-Regular"
+#define CLOUD_FONT_REGULAR_ITALIC	@"FiraSansOT-RegularItalic"
