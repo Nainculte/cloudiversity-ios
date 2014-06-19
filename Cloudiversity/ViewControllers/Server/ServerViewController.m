@@ -9,7 +9,7 @@
 #import "ServerViewController.h"
 #import "IOSRequest.h"
 
-#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"ServerVC"]
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"ServerVC"]
 
 @interface ServerViewController ()
 @property (nonatomic) BOOL shouldSegue;

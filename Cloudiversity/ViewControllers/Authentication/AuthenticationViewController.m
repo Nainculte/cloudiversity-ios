@@ -10,7 +10,7 @@
 #import "IOSRequest.h"
 #import "CloudKeychainManager.h"
 
-#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"AuthenticationVC"]
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AuthenticationVC"]
 
 @interface AuthenticationViewController ()
 @property (nonatomic) BOOL shouldSegue;
@@ -92,11 +92,7 @@
         [self endLoginWithSuccess:true];
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        self.errorLabel.text = [((NSDictionary *)operation.responseObject) objectForKey:@"error"];
         [self endLoginWithSuccess:false];
     };
     [IOSRequest loginWithId:loginField.text andPassword:self.passwordField.text onSuccess:success onFailure:failure];

@@ -12,7 +12,7 @@
 #import "SWRevealViewController.h"
 #import "UIColor+Cloud.h"
 
-#define LOCALIZEDString(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Unknown error" table:@"HomeScreenVC"]
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"HomeScreenVC"]
 
 @interface HomeScreenViewController ()
 
@@ -32,7 +32,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Home";
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"HomeScreenVC" ofType:@"strings"];
+    NSDictionary *d =  [NSDictionary dictionaryWithContentsOfFile:path];
+    NSLog(@"%@ -> %@", path, d);
+    self.title = LOCALIZEDSTRING(@"TITLE");
 
 
     self.leftButton.target = self.revealViewController;
