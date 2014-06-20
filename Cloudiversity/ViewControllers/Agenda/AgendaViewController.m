@@ -14,6 +14,19 @@
 // id for cells in the tableView
 #define REUSE_IDENTIFIER	@"agendaCell"
 
+#define DATE_AND_TIME_FORMAT	@"yyyy-MM-dd HH:mm"
+#define DATE_FORMAT				@"yyyy-MM-dd"
+#define TIME_FORMAT				@"HH:mm"
+
+#define DICO_ID					@"id"
+#define DICO_TITLE 				@"title"
+#define DICO_DEADLINE 			@"deadline"
+#define DICO_DUETIME 			@"duetime"
+#define DICO_PROGRESS 			@"progress"
+#define DICO_DISCIPLINE 		@"discipline"
+#define DICO_DISCIPLINE_ID			@"id"
+#define DICO_DISCIPLINE_NAME		@"name"
+
 @interface AgendaViewController ()
 
 @property BOOL isFilteringExams;
@@ -22,6 +35,11 @@
 @property (nonatomic, strong) NSMutableArray *materialsToFilter;
 
 @property (nonatomic, strong) NSMutableDictionary *assigmentsByDate;
+@property (nonatomic, strong) NSArray *sortedDates;
+
+@property (nonatomic, strong) NSDateFormatter *dateAndTimeFormatter;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) NSDateFormatter *timeFormatter;
 
 @end
 
@@ -39,9 +57,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	/*[self.navigationController.toolbar setBackgroundColor:[UIColor cloudLightBlue]];
+    [self.navigationController.toolbar setBarTintColor:[UIColor cloudLightBlue]];*/
+	
+	[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+
     self.leftButton.target = self.revealViewController;
     self.leftButton.action = @selector(revealToggle:);
 	self.assigmentsByDate = [[NSMutableDictionary alloc] init];
+	
+	// setting the timeZone in UTC
+	NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+
+	self.dateAndTimeFormatter = [[NSDateFormatter alloc] init];
+	[self.dateAndTimeFormatter setDateFormat:DATE_AND_TIME_FORMAT];
+    [self.dateAndTimeFormatter setTimeZone:timeZone];
+	self.dateFormatter = [[NSDateFormatter alloc] init];
+	[self.dateFormatter setDateFormat:DATE_FORMAT];
+    [self.dateFormatter setTimeZone:timeZone];
+	self.timeFormatter = [[NSDateFormatter alloc] init];
+	[self.timeFormatter setDateFormat:TIME_FORMAT];
+    [self.timeFormatter setTimeZone:timeZone];
+
 	[self initAssigmentsByDates];
     // Do any additional setup after loading the view.
 }
@@ -59,8 +97,12 @@
 - (void)initAssigmentsByDates {
 	NSArray *assigments = [self datasForTest];
 	
+	// Adding assigments in Arrays grouped by date
 	for (NSDictionary *assigment in assigments) {
-		NSString *date = [assigment objectForKey:@"date"];
+		NSString *dateString = [assigment objectForKey:@"date"];
+				
+		NSDate* date = [self.dateFormatter dateFromString:dateString];
+
 		NSMutableArray *assigmentsByDatesArray = [self.assigmentsByDate objectForKey:date];
 		
 		if (assigmentsByDatesArray == nil) {
@@ -70,6 +112,36 @@
 		
 		[assigmentsByDatesArray addObject:assigment];
 	}
+	
+	// Sorting keys from  earliest to latest
+	self.sortedDates = [self.assigmentsByDate allKeys];
+	self.sortedDates = [self.sortedDates sortedArrayUsingSelector:@selector(compare:)];
+	
+	// Sorting assigments of each array by dueTime
+	for (NSDate *date in self.sortedDates) {
+		NSArray *assigments = [self.assigmentsByDate objectForKey:date];
+		
+		assigments = [assigments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+			NSDictionary *dico1 = (NSDictionary *)obj1;
+			NSDictionary *dico2 = (NSDictionary *)obj2;
+			
+			NSString *dateString1 = [dico1 objectForKey:@"dueTime"];
+			if (dateString1 == nil) dateString1 = @"00:00";
+			NSString *dateString2 = [dico2 objectForKey:@"dueTime"];
+			if (dateString2 == nil) dateString2 = @"00:00";
+			
+			NSDate *date1 = [self.timeFormatter dateFromString:dateString1];
+			NSDate *date2 = [self.timeFormatter dateFromString:dateString2];
+			
+			return [date1 compare:date2];
+		}];
+		
+		// remove the unsorted array...
+		[self.assigmentsByDate removeObjectForKey:date];
+		// ...then replace it by the sorted one
+		[self.assigmentsByDate setObject:assigments forKey:date];
+	}
+	
 	return;
 }
 
@@ -87,14 +159,11 @@
  For getting the number of rows in a section, we check the number of assignement per day
 */
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSEnumerator *enumerator = [self.assigmentsByDate objectEnumerator];
-	NSArray *assigments;
+	NSString *keyForSection = [self.sortedDates objectAtIndex:section];
+	
+	NSLog(@">>> Asking for numberOfRowsInSection : %d", section);
 
-	for (int cnt = 0; cnt <= section; cnt++) {
-		assigments = [enumerator nextObject];
-	}
-
-	return [assigments count];
+	return [[self.assigmentsByDate objectForKey:keyForSection] count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -105,12 +174,7 @@
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     /* Create custom view to display section header... */
     CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-	NSString *headerTitle = @"";
-
-	NSEnumerator *enumerator = [self.assigmentsByDate keyEnumerator];
-	for (int cnt = 0; cnt <= section; cnt++) {
-		headerTitle = [enumerator nextObject];
-	}
+	NSString *headerTitle = [self.dateFormatter stringFromDate:[self.sortedDates objectAtIndex:section]];
 
     [label setText:headerTitle];
     [view addSubview:label];
@@ -124,14 +188,13 @@
 		cell = [[AgendaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REUSE_IDENTIFIER];
 	}
 	
-	NSArray *assigments;
+	NSLog(@">>>>> Asking for cellForRowAtIndexPath : %@", indexPath);
+
 	int *indexes = malloc(sizeof(int) * [indexPath length]);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 	
-	NSEnumerator *enumerator = [self.assigmentsByDate objectEnumerator];
-	for (int cnt = 0; cnt <= indexes[0]; cnt++) {
-		assigments = [enumerator nextObject];
-	}
+	NSArray *assigments = [self.assigmentsByDate objectForKey:[self.sortedDates objectAtIndex:indexes[0]]];
+	NSLog(@">>>>>>>> assigments : %@\n", assigments);
 	
 	NSDictionary *assigment = [assigments objectAtIndex:indexes[1]];
 	
@@ -150,6 +213,20 @@
 }*/
 
 #pragma mark - testDatas
+
+#define SAVING_PLACE_ASSIGMENT	@"agendaTmpPlaceForAssigment"
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	int *indexes = malloc(sizeof(int) * [indexPath length]);
+	[indexPath getIndexes:(NSUInteger*)indexes];
+	
+	NSArray *assigments = [self.assigmentsByDate objectForKey:[self.sortedDates objectAtIndex:indexes[0]]];
+	
+	NSDictionary *assigment = [assigments objectAtIndex:indexes[1]];
+	
+	NSUserDefaults *uDefault = [NSUserDefaults standardUserDefaults];
+	[uDefault setObject:assigment forKey:SAVING_PLACE_ASSIGMENT];
+}
 
 - (NSArray*)datasForTest {
 	return @[
@@ -175,6 +252,11 @@
 			   @"field": @"Litterature",
 			   @"progression": @"99",
 			   @"date": @"2014-07-31"},
+			 @{@"title": @"Happy Bloody Christmas !",
+			   @"description": @"Kill Santa Claus",
+			   @"field": @"Cereal Killer for dummies",
+			   @"progression": @"10",
+			   @"date": @"2014-12-25"}
 			 ];
 }
 
