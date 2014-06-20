@@ -11,6 +11,8 @@
 #import "AuthenticationViewController.h"
 #import "SWRevealViewController.h"
 #import "UIColor+Cloud.h"
+#import "User.h"
+#import "IOSRequest.h"
 
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"HomeScreenVC"]
 
@@ -47,6 +49,21 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
     self.leftButton.tintColor = [UIColor whiteColor];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+
+}
+
+- (void)checkLogin {
+    User *user = [User sharedUser];
+    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *response = (NSDictionary *)responseObject;
+        user.firstName = [response objectForKey:@"first_name"];
+        user.lastName = [response objectForKey:@"last_name"];
+        user.roles = [response objectForKey:@"roles"];
+    };
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        //display an error
+    };
+    [IOSRequest getCurrentUserOnSuccess:success onFailure:failure];
 }
 
 - (void)didReceiveMemoryWarning

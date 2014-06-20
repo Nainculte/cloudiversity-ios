@@ -311,6 +311,7 @@
 		E478BB5218A0E8290068DEB1 /* Cloudiversity */ = {
 			isa = PBXGroup;
 			children = (
+				FD0F98741923ED72002DF049 /* Main.storyboard */,
 				FDC9083B192A863E00646A68 /* UISubclasses */,
 				FDC907DE192A847000646A68 /* Utils */,
 				FDC907E6192A847000646A68 /* Vendors */,
@@ -320,7 +321,6 @@
 				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
 				FDC907D6192A83A700646A68 /* CloudiversityAppDelegate.h */,
 				E478BB6418A0E8290068DEB1 /* Images.xcassets */,
-				FD0F98741923ED72002DF049 /* Main.storyboard */,
 				E478BB5318A0E8290068DEB1 /* Supporting Files */,
 			);
 			path = Cloudiversity;

@@ -13,12 +13,11 @@
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *firstName;
 @property (nonatomic, copy) NSString *lastName;
-@property (nonatomic, copy) NSString *school;
 @property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy) NSArray *roles;
 
-+ (User *)withName:(NSString *)name lastName:(NSString *)lastName andEmail:(NSString *)email;
++ (User *)sharedUser;
 + (User *)withEmail:(NSString *)email andToken:(NSString *)token;
-+ (User *)fromUserDefaults;
 - (void)saveUser;
 - (void)deleteUser;
 

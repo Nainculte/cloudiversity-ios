@@ -19,12 +19,15 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 @property (nonatomic, strong) NSDictionary *user;
 
-+(void)loginWithId:(NSString *)userName
-       andPassword:(NSString *)password
-         onSuccess:(HTTPSuccessHandler)success
-         onFailure:(HTTPFailureHandler)failure;
++ (void)loginWithId:(NSString *)userName
+        andPassword:(NSString *)password
+          onSuccess:(HTTPSuccessHandler)success
+          onFailure:(HTTPFailureHandler)failure;
 
-+ (void) isCloudiversityServer:(NSString *)server
-                     onSuccess:(HTTPSuccessHandler)success
-                     onFailure:(HTTPFailureHandler)failure;
++ (void)isCloudiversityServer:(NSString *)server
+                    onSuccess:(HTTPSuccessHandler)success
+                    onFailure:(HTTPFailureHandler)failure;
+
++ (void)getCurrentUserOnSuccess:(HTTPSuccessHandler)success
+                      onFailure:(HTTPFailureHandler)failure;
 @end

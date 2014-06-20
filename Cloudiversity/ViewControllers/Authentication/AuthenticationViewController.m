@@ -13,14 +13,16 @@
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AuthenticationVC"]
 
 @interface AuthenticationViewController ()
+
 @property (nonatomic) BOOL shouldSegue;
+@property (nonatomic, strong)User *user;
+
 @end
 
 @implementation AuthenticationViewController
 
 @synthesize loginField;
 @synthesize passwordField;
-@synthesize _user;
 
 - (void)viewDidLoad
 {
@@ -47,14 +49,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) setUser:(User *)user {
-    //NSLog(@"set user: %@", user.email);
-    if (_user != user)
-    {
-        _user = user;
-    }
-}
-
 - (void) startLogin {
     self.shouldAnimate = YES;
     self.hasSelected = NO;
@@ -68,7 +62,7 @@
         [self performSegueWithIdentifier:@"login_success" sender:self];
         self.errorLabel.alpha = 0.0;
         [CloudKeychainManager saveToken:_user.token forEmail:_user.email];
-        [self._user saveUser];
+        [self.user saveUser];
     } else {
         self.shouldSegue = NO;
         [UIView animateWithDuration:0.3 animations:^{
@@ -88,7 +82,7 @@
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
         User *user = [User withEmail:[response objectForKey:@"email"] andToken:[response objectForKey:@"token"]];
-        [self setUser:user];
+        self.user = user;
         [self endLoginWithSuccess:true];
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {

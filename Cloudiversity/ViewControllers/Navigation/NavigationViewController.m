@@ -53,7 +53,7 @@
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         dest.title = @"Home";
     } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
-        User *u = [User fromUserDefaults];
+        User *u = [User sharedUser];
         [CloudKeychainManager deleteTokenWithEmail:u.email];
         [u deleteUser];
     }

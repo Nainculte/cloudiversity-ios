@@ -19,12 +19,17 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *path = [defaults objectForKey:@"server"];
     path = [NSString stringWithFormat:@"%@/users/sign_in", path];
-    NSDictionary * params = @{@"user[login]": userName, @"user[password]": password};
+    NSDictionary * params = @{@"user[login]":userName,
+                              @"user[password]":password};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
-    AFHTTPRequestOperation *operation = [manager POST:path parameters:params success:success failure:failure];
+    [manager.requestSerializer setValue:@"application/json"
+                     forHTTPHeaderField:@"accept"];
+    AFHTTPRequestOperation *operation = [manager POST:path
+                                           parameters:params
+                                              success:success
+                                              failure:failure];
     [operation start];
 }
 
@@ -36,8 +41,35 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
-    AFHTTPRequestOperation *operation = [manager GET:path parameters:nil success:success failure:failure];
+    [manager.requestSerializer setValue:@"application/json"
+                     forHTTPHeaderField:@"accept"];
+    AFHTTPRequestOperation *operation = [manager GET:path
+                                          parameters:nil
+                                             success:success
+                                             failure:failure];
+    [operation start];
+}
+
++ (void)getCurrentUserOnSuccess:(HTTPSuccessHandler)success
+                      onFailure:(HTTPFailureHandler)failure {
+
+    User *user = [User sharedUser];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *path = [NSString stringWithFormat:@"%@/users/current",
+                      [defaults objectForKey:@"server"]];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json"
+                     forHTTPHeaderField:@"accept"];
+    [manager.requestSerializer setValue:user.email
+                     forHTTPHeaderField:@"X-User-Email"];
+    [manager.requestSerializer setValue:user.token
+                     forHTTPHeaderField:@"X-User-Token"];
+    AFHTTPRequestOperation *operation = [manager GET:path
+                                          parameters:nil
+                                             success:success
+                                             failure:failure];
     [operation start];
 }
 
