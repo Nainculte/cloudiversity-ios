@@ -12,6 +12,7 @@
 #import "SWRevealViewController.h"
 #import "UIColor+Cloud.h"
 #import "CloudDateConverter.h"
+#import "IOSRequest.h"
 
 // id for cells in the tableView
 #define REUSE_IDENTIFIER	@"agendaCell"
@@ -62,6 +63,7 @@
 	self.assigmentsByDate = [[NSMutableDictionary alloc] init];
 	
 	[self initAssigmentsByDates];
+	[self initAssigmentsByHTTPRequest];
     // Do any additional setup after loading the view.
 }
 
@@ -73,6 +75,20 @@
 
 - (IBAction)returnButton:(id)sender {
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)initAssigmentsByHTTPRequest {
+    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *response = (NSDictionary *)responseObject;
+    };
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        switch (operation.response.statusCode) {
+            default:
+                break;
+        }
+    };
+    [IOSRequest getAssigmentsForUserAsRole:nil onSuccess:success onFailure:failure];
 }
 
 - (void)initAssigmentsByDates {

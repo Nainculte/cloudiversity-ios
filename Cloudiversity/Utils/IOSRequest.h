@@ -19,13 +19,28 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 @property (nonatomic, strong) NSDictionary *user;
 
+#pragma mark - Basic HTTP requests
+
 +(void)requestToPath:(NSString *)path
           withParams:(NSDictionary *)params
            onSuccess:(HTTPSuccessHandler)success
            onFailure:(HTTPFailureHandler)failure;
 
++(void) requestGetToPath:(NSString *)path
+			  withParams:(NSDictionary *)params
+			   onSuccess:(HTTPSuccessHandler)success
+			   onFailure:(HTTPFailureHandler)failure;
+
+#pragma mark - HTTP request for loging in
+
 +(void)loginWithId:(NSString *)userName
        andPassword:(NSString *)password
          onSuccess:(HTTPSuccessHandler)success
          onFailure:(HTTPFailureHandler)failure;
+
+#pragma mark - HTTP requests for Agenda
+
++(void)getAssigmentsForUserAsRole:(NSString*)role
+						onSuccess:(HTTPSuccessHandler)success
+						onFailure:(HTTPFailureHandler)failure;
 @end
