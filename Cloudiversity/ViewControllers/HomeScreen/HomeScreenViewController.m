@@ -34,9 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"HomeScreenVC" ofType:@"strings"];
-    NSDictionary *d =  [NSDictionary dictionaryWithContentsOfFile:path];
-    NSLog(@"%@ -> %@", path, d);
     self.title = LOCALIZEDSTRING(@"TITLE");
 
 
@@ -49,6 +46,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
     self.leftButton.tintColor = [UIColor whiteColor];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    [self checkLogin];
 
 }
 
@@ -59,6 +57,9 @@
         user.firstName = [response objectForKey:@"first_name"];
         user.lastName = [response objectForKey:@"last_name"];
         user.roles = [response objectForKey:@"roles"];
+        if (!user.currentRole && user.roles.count) {
+            user.currentRole = user.roles[0];
+        }
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         //display an error

@@ -10,4 +10,6 @@
 
 @interface NavigationViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *roleSwitcher;
+
 @end

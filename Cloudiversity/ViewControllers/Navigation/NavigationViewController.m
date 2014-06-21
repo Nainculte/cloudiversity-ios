@@ -10,12 +10,13 @@
 #import "SWRevealViewController.h"
 #import "AgendaViewController.h"
 #import "UIColor+Cloud.h"
+#import "UICloud.h"
 #import "User.h"
 #import "CloudKeychainManager.h"
 
 @interface NavigationViewController ()
 
-@property (nonatomic, strong)NSMutableArray *menuItems;
+@property (nonatomic, strong)NSString *current;
 
 @end
 
@@ -34,8 +35,14 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor cloudDarkGrey];
-    
+
+    [self initRoleSwitcher];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self initRoleSwitcher];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,15 +51,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)initRoleSwitcher {
+    User *user = [User sharedUser];
+    if (user.roles.count > 1) {
+        [self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
+        [self.roleSwitcher removeAllSegments];
+        for (int i = 0; i < user.roles.count; i++) {
+            NSString *title = [user.roles[i] capitalizedString];
+            [self.roleSwitcher insertSegmentWithTitle:title atIndex:i animated:NO];
+            if ([user.currentRole isEqualToString:user.roles[i]]) {
+                self.roleSwitcher.selectedSegmentIndex = i;
+            }
+        }
+        self.roleSwitcher.hidden = NO;
+    } else {
+        self.roleSwitcher.hidden = YES;
+    }
+}
+
+- (void)changeRole {
+    User *user = [User sharedUser];
+    user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
+
+    //do stuff to change the front view controller depending on the role
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
 
     if ([segue.identifier isEqualToString:@"Agenda"]) {
         dest.title = @"Agenda";
+        self.current = @"Agenda";
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
-        dest.title = @"Home";
+        self.current = @"HomeScreen";
     } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
+        self.current = @"HomeScreen";
         User *u = [User sharedUser];
         [CloudKeychainManager deleteTokenWithEmail:u.email];
         [u deleteUser];

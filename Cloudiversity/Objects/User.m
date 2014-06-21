@@ -38,6 +38,7 @@
     user.lastName = [userDefaults objectForKey:@"lastname"];
     user.email = [userDefaults objectForKey:@"email"];
     user.roles = [userDefaults objectForKey:@"roles"];
+    user.currentRole = [userDefaults objectForKey:@"currentRole"];
     if (!user.email) {
         return nil;
     }
@@ -51,6 +52,7 @@
     [userDefaults setObject:self.lastName forKey:@"lastname"];
     [userDefaults setObject:self.email forKey:@"email"];
     [userDefaults setObject:self.roles forKey:@"roles"];
+    [userDefaults setObject:self.currentRole forKey:@"currentRole"];
     [userDefaults synchronize];
 }
 
@@ -60,6 +62,7 @@
     [userDefaults removeObjectForKey:@"lastname"];
     [userDefaults removeObjectForKey:@"email"];
     [userDefaults removeObjectForKey:@"roles"];
+    [userDefaults removeObjectForKey:@"currentRole"];
     [userDefaults synchronize];
 }
 
