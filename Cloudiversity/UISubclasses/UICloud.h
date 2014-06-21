@@ -10,6 +10,7 @@
 #import "CloudButton.h"
 #import "CloudTextField.h"
 
+#define CLOUD_FONT					@"FiraSansOT"
 #define CLOUD_FONT_BOLD				@"FiraSansOT-Bold"
 #define CLOUD_FONT_BOLD_ITALIC		@"FiraSansOT-BoldItalic"
 #define CLOUD_FONT_LIGHT			@"FiraSansOT-Light"

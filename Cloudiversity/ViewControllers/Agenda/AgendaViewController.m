@@ -8,15 +8,13 @@
 
 #import "AgendaViewController.h"
 #import "AgendaTableViewCell.h"
+#import "AgendaAssgment.h"
 #import "SWRevealViewController.h"
 #import "UIColor+Cloud.h"
+#import "CloudDateConverter.h"
 
 // id for cells in the tableView
 #define REUSE_IDENTIFIER	@"agendaCell"
-
-#define DATE_AND_TIME_FORMAT	@"yyyy-MM-dd HH:mm"
-#define DATE_FORMAT				@"yyyy-MM-dd"
-#define TIME_FORMAT				@"HH:mm"
 
 #define DICO_ID					@"id"
 #define DICO_TITLE 				@"title"
@@ -36,10 +34,6 @@
 
 @property (nonatomic, strong) NSMutableDictionary *assigmentsByDate;
 @property (nonatomic, strong) NSArray *sortedDates;
-
-@property (nonatomic, strong) NSDateFormatter *dateAndTimeFormatter;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
-@property (nonatomic, strong) NSDateFormatter *timeFormatter;
 
 @end
 
@@ -67,19 +61,6 @@
     self.leftButton.action = @selector(revealToggle:);
 	self.assigmentsByDate = [[NSMutableDictionary alloc] init];
 	
-	// setting the timeZone in UTC
-	NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-
-	self.dateAndTimeFormatter = [[NSDateFormatter alloc] init];
-	[self.dateAndTimeFormatter setDateFormat:DATE_AND_TIME_FORMAT];
-    [self.dateAndTimeFormatter setTimeZone:timeZone];
-	self.dateFormatter = [[NSDateFormatter alloc] init];
-	[self.dateFormatter setDateFormat:DATE_FORMAT];
-    [self.dateFormatter setTimeZone:timeZone];
-	self.timeFormatter = [[NSDateFormatter alloc] init];
-	[self.timeFormatter setDateFormat:TIME_FORMAT];
-    [self.timeFormatter setTimeZone:timeZone];
-
 	[self initAssigmentsByDates];
     // Do any additional setup after loading the view.
 }
@@ -101,7 +82,7 @@
 	for (NSDictionary *assigment in assigments) {
 		NSString *dateString = [assigment objectForKey:@"date"];
 				
-		NSDate* date = [self.dateFormatter dateFromString:dateString];
+		NSDate* date = [[CloudDateConverter sharedMager] dateFromString:dateString];
 
 		NSMutableArray *assigmentsByDatesArray = [self.assigmentsByDate objectForKey:date];
 		
@@ -130,8 +111,8 @@
 			NSString *dateString2 = [dico2 objectForKey:@"dueTime"];
 			if (dateString2 == nil) dateString2 = @"00:00";
 			
-			NSDate *date1 = [self.timeFormatter dateFromString:dateString1];
-			NSDate *date2 = [self.timeFormatter dateFromString:dateString2];
+			NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
+			NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
 			
 			return [date1 compare:date2];
 		}];
@@ -174,7 +155,7 @@
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     /* Create custom view to display section header... */
     CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-	NSString *headerTitle = [self.dateFormatter stringFromDate:[self.sortedDates objectAtIndex:section]];
+	NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:[self.sortedDates objectAtIndex:section]];
 
     [label setText:headerTitle];
     [view addSubview:label];
@@ -221,11 +202,21 @@
 	[indexPath getIndexes:(NSUInteger*)indexes];
 	
 	NSArray *assigments = [self.assigmentsByDate objectForKey:[self.sortedDates objectAtIndex:indexes[0]]];
+	NSDictionary *assigmentDico = [assigments objectAtIndex:indexes[1]];
 	
-	NSDictionary *assigment = [assigments objectAtIndex:indexes[1]];
+	AgendaAssgment *assigment = [[AgendaAssgment alloc]
+								 initWithTitle:[assigmentDico objectForKey:@"title"]
+								 description:[assigmentDico objectForKey:@"description"]
+								 DueDateByString:[assigmentDico objectForKey:@"date"]
+								 inField:[assigmentDico objectForKey:@"field"]
+								 withPercentageOfCompletion:[[assigmentDico objectForKey:@"progression"] intValue]
+								 andIsMarked:NO
+								 orAnExam:NO
+								 forClass:@"3C"];
 	
 	NSUserDefaults *uDefault = [NSUserDefaults standardUserDefaults];
-	[uDefault setObject:assigment forKey:SAVING_PLACE_ASSIGMENT];
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:assigment];
+	[uDefault setObject:data forKey:SAVING_PLACE_ASSIGMENT];
 }
 
 - (NSArray*)datasForTest {
