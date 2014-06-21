@@ -22,7 +22,7 @@
 
 	if (self) {
 		self.title = title;
-		self.description = description;
+		self.assigmentDescription = description;
 		self.dueDate = dueDate;
 		self.percentageCompletion = 0.f;
 		self.field = field;
@@ -38,6 +38,7 @@
 		description:(NSString *)description
 	DueDateByString:(NSString *)dueDateString
 			inField:(NSString*)field
+withPercentageOfCompletion:(float)percentageCompletion
 		andIsMarked:(BOOL)isMarked
 		   orAnExam:(BOOL)isExam
 		   forClass:(NSString*)className {
@@ -52,8 +53,40 @@
 				   andIsMarked:isMarked
 					  orAnExam:isExam
 					  forClass:className];
+	if (self) {
+		self.percentageCompletion = percentageCompletion;
+	}
 	
 	return self;
+}
+
+#pragma mark - NSCoding protocol implementation
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+	self = [super init];
+	if(self) {
+        //decode properties, other class vars
+		self.title = [aDecoder decodeObjectForKey:@"title"];
+		self.assigmentDescription = [aDecoder decodeObjectForKey:@"assigmentDescription"];
+		self.field = [aDecoder decodeObjectForKey:@"field"];
+		self.className = [aDecoder decodeObjectForKey:@"className"];
+		self.dueDate = [aDecoder decodeObjectForKey:@"dueDate"];
+		self.isMarked = [aDecoder decodeBoolForKey:@"isMarked"];
+		self.isExam = [aDecoder decodeBoolForKey:@"isExam"];
+		self.percentageCompletion = [aDecoder decodeFloatForKey:@"percentageCompletion"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeObject:self.title forKey:@"title"];
+	[aCoder encodeObject:self.assigmentDescription forKey:@"assigmentDescription"];
+	[aCoder encodeObject:self.field forKey:@"field"];
+	[aCoder encodeObject:self.className forKey:@"className"];
+	[aCoder encodeObject:self.dueDate forKey:@"dueDate"];
+	[aCoder encodeBool:self.isMarked forKey:@"isMarked"];
+	[aCoder encodeBool:self.isExam forKey:@"isExam"];
+	[aCoder encodeFloat:self.percentageCompletion forKey:@"percentageCompletion"];
 }
 
 @end

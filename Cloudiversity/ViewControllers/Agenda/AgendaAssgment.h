@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AgendaAssgment : NSObject
+@interface AgendaAssgment : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString	*title;
-@property (strong, nonatomic) NSString	*description;
+@property (strong, nonatomic) NSString	*assigmentDescription;
 @property (strong, nonatomic) NSDate	*dueDate;
 @property (strong, nonatomic) NSString	*field;
 @property (strong, nonatomic) NSString	*className;
@@ -31,8 +31,14 @@
 		description:(NSString*)description
 	DueDateByString:(NSString*)dueDateString
 			inField:(NSString*)field
+withPercentageOfCompletion:(float)percentageCompletion
 		andIsMarked:(BOOL)isMarked
 		   orAnExam:(BOOL)isExam
 		   forClass:(NSString*)className;
+
+#pragma mark - NSCoding protocol implemantation
+
+-(id)initWithCoder:(NSCoder *)aDecoder;
+-(void)encodeWithCoder:(NSCoder *)aCoder;
 
 @end
