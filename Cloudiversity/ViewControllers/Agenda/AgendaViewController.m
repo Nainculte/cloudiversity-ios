@@ -221,7 +221,7 @@
 
 - (NSArray*)datasForTest {
 	return @[
-			 @{@"title": @"Etude étymologique et philosophique approfondie de la pensée de sois du mot \"anticonstitutionellement\"",
+			 @{@"title": @"Etude étymologique et philosophique approfondie de la pensée de soi du mot \"anticonstitutionellement\"",
 			   @"description": @"Write something about Napoleon",
 			   @"field": @"History",
 			   @"progression": @"80",
