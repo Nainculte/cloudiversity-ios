@@ -9,6 +9,7 @@
 #import "AgendaViewController.h"
 #import "AgendaTableViewCell.h"
 #import "AgendaAssgment.h"
+#import "AgendaFilterViewController.h"
 #import "SWRevealViewController.h"
 #import "UIColor+Cloud.h"
 #import "CloudDateConverter.h"
@@ -52,13 +53,19 @@
 {
     [super viewDidLoad];
 	
-	/*[self.navigationController.toolbar setBackgroundColor:[UIColor cloudLightBlue]];
-    [self.navigationController.toolbar setBarTintColor:[UIColor cloudLightBlue]];*/
+	[self.toolbar setBackgroundColor:[UIColor cloudLightBlue]];
+    [self.toolbar setBarTintColor:[UIColor cloudLightBlue]];
 	
 	[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
 
     self.leftButton.target = self.revealViewController;
     self.leftButton.action = @selector(revealToggle:);
+
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
+    self.filters.target = self.revealViewController;
+    self.filters.action = @selector(rightRevealToggle:);
 	self.assigmentsByDate = [[NSMutableDictionary alloc] init];
 	
 	[self initAssigmentsByDates];

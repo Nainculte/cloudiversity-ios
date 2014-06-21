@@ -46,7 +46,8 @@
 	[self.pieChartView setInternalColor:[UIColor cloudLightBlue]];
 	[self.pieChartView setExternalColor:[UIColor cloudBlue]];
 	[self.workTitleLabel setFont:[UIFont fontWithName:CLOUD_FONT_BOLD size:self.workTitleLabel.font.pointSize]];
-	//[[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
 }
 

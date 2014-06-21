@@ -453,11 +453,6 @@
                                 <items>
                                     <barButtonItem title="To Do" id="YZP-DL-EZ6"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="KY1-lA-pM6"/>
-                                    <barButtonItem title="Filtres" id="TfP-yu-gm0">
-                                        <connections>
-                                            <segue destination="zQ7-Eu-hVe" kind="push" id="gjy-CR-Nuo"/>
-                                        </connections>
-                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -467,14 +462,20 @@
                         <barButtonItem image="menu.png" id="auM-eI-iQd"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Title" id="PXu-Av-w31">
-                        <barButtonItem key="rightBarButtonItem" title="Date" id="YkN-af-eah"/>
+                        <barButtonItem key="rightBarButtonItem" image="filter.png" id="YkN-af-eah">
+                            <connections>
+                                <segue destination="zQ7-Eu-hVe" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegue" id="d6L-WG-j2p"/>
+                            </connections>
+                        </barButtonItem>
                         <connections>
                             <outlet property="leftBarButtonItem" destination="auM-eI-iQd" id="4Va-hB-B9i"/>
                         </connections>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="filters" destination="YkN-af-eah" id="JYP-Ve-2vd"/>
                         <outlet property="leftButton" destination="auM-eI-iQd" id="FKT-Av-iHY"/>
+                        <outlet property="toolbar" destination="b2E-yY-g7M" id="dMo-i3-qIg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="64t-Xf-r7m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -551,6 +552,7 @@
                     <navigationItem key="navigationItem" id="Wws-jj-fJe"/>
                     <connections>
                         <outlet property="assigmentDescriptionTextView" destination="sCp-uD-Ck0" id="4Zh-7S-A9i"/>
+                        <outlet property="backButton" destination="Wws-jj-fJe" id="xNk-a9-bDa"/>
                         <outlet property="dueToDateLabel" destination="vNe-Ka-ahb" id="7a9-ab-kkO"/>
                         <outlet property="dueToLabel" destination="nZ5-MN-esg" id="yBq-o9-Rr8"/>
                         <outlet property="givenDateLabel" destination="4fE-HN-ceI" id="kmY-wd-gQX"/>
@@ -566,7 +568,7 @@
         <!--Agenda Filter View Controller-->
         <scene sceneID="REj-Ce-Wmf">
             <objects>
-                <viewController id="zQ7-Eu-hVe" customClass="AgendaFilterViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AgendaFilterViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zQ7-Eu-hVe" customClass="AgendaFilterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QtR-sb-7I5"/>
                         <viewControllerLayoutGuide type="bottom" id="HkL-QO-Afk"/>
@@ -575,13 +577,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3p-iQ-O2t">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="XSa-1J-LLW"/>
-                                </items>
-                            </navigationBar>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chc-qe-whI">
                                 <rect key="frame" x="251" y="60" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -646,7 +641,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="CtM-Zx-mNN"/>
                     <connections>
                         <outlet property="controlSwitchFilter" destination="Chc-qe-whI" id="DVF-0N-WXh"/>
                         <outlet property="exercicesSwitchFilter" destination="ecJ-KC-vBz" id="aFF-0e-UUy"/>
@@ -662,6 +656,7 @@
         <image name="Icon_clear_42x42.png" width="42" height="42"/>
         <image name="Logo_500x500.png" width="500" height="500"/>
         <image name="calendar.png" width="30" height="30"/>
+        <image name="filter.png" width="24" height="24"/>
         <image name="menu.png" width="24" height="20"/>
         <image name="sign-out.png" width="30" height="30"/>
     </resources>

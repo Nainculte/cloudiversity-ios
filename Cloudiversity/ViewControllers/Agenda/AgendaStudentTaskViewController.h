@@ -23,5 +23,6 @@
 #define DICO_SCHOOL_CLASS_NAME		@"name"
 
 @interface AgendaStudentTaskViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UINavigationItem *backButton;
 
 @end
