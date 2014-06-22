@@ -14,7 +14,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    User *user = [User fromUserDefaults];
+    User *user = [User sharedUser];
     if (!user) {
         _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"ServerViewController"];
     } else if ((user.token = [CloudKeychainManager retrieveTokenWithEmail:user.email])) {
@@ -32,6 +32,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    [[User sharedUser] saveUser];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }

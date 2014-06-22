@@ -32,6 +32,8 @@
 		E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB7718A0E8290068DEB1 /* CloudiversityTests.m */; };
 		FD0F98751923ED72002DF049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD0F98741923ED72002DF049 /* Main.storyboard */; };
 		FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = FD19FB2119059006000B4688 /* UIColor+Cloud.m */; };
+		FD35BC391955F27200091678 /* filter.png in Resources */ = {isa = PBXBuildFile; fileRef = FD35BC371955F27200091678 /* filter.png */; };
+		FD35BC3A1955F27200091678 /* filter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD35BC381955F27200091678 /* filter@2x.png */; };
 		FD3FA7CC18FC2F0A0072B731 /* Logo_29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7C818FC2F0A0072B731 /* Logo_29x29.png */; };
 		FD3FA7CD18FC2F0A0072B731 /* Logo_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7C918FC2F0A0072B731 /* Logo_40x40.png */; };
 		FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7CA18FC2F0A0072B731 /* Logo_60x60.png */; };
@@ -137,6 +139,8 @@
 		FD19FB2119059006000B4688 /* UIColor+Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Cloud.m"; sourceTree = "<group>"; };
 		FD1D4F01191E79ED008B530E /* Cloudiversity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudiversity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudiversityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD35BC371955F27200091678 /* filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter.png; sourceTree = "<group>"; };
+		FD35BC381955F27200091678 /* filter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter@2x.png"; sourceTree = "<group>"; };
 		FD3FA7C818FC2F0A0072B731 /* Logo_29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_29x29.png; sourceTree = "<group>"; };
 		FD3FA7C918FC2F0A0072B731 /* Logo_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_40x40.png; sourceTree = "<group>"; };
 		FD3FA7CA18FC2F0A0072B731 /* Logo_60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_60x60.png; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 		E478BB5218A0E8290068DEB1 /* Cloudiversity */ = {
 			isa = PBXGroup;
 			children = (
+				FD0F98741923ED72002DF049 /* Main.storyboard */,
 				FDC9083B192A863E00646A68 /* UISubclasses */,
 				FDC907DE192A847000646A68 /* Utils */,
 				FDC907E6192A847000646A68 /* Vendors */,
@@ -312,7 +317,6 @@
 				E478BB5C18A0E8290068DEB1 /* CloudiversityAppDelegate.m */,
 				FDC907D6192A83A700646A68 /* CloudiversityAppDelegate.h */,
 				E478BB6418A0E8290068DEB1 /* Images.xcassets */,
-				FD0F98741923ED72002DF049 /* Main.storyboard */,
 				E478BB5318A0E8290068DEB1 /* Supporting Files */,
 			);
 			path = Cloudiversity;
@@ -357,6 +361,8 @@
 		FD3FA7BE18FC2D8B0072B731 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FD35BC371955F27200091678 /* filter.png */,
+				FD35BC381955F27200091678 /* filter@2x.png */,
 				FDAFAFDD1951D4F40070F396 /* calendar.png */,
 				FDAFAFDE1951D4F40070F396 /* calendar@2x.png */,
 				FDAFAFCB1951CA030070F396 /* sign-out.png */,
@@ -703,6 +709,7 @@
 				FDAFAFDC1951D3230070F396 /* Icon_clear_42x42@2x.png in Resources */,
 				FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */,
 				FDC90833192A847000646A68 /* HomeScreenVC.strings in Resources */,
+				FD35BC391955F27200091678 /* filter.png in Resources */,
 				FDDA095318F5BA9F000A1029 /* FiraSansOT-Light.otf in Resources */,
 				FDAFAFDF1951D4F40070F396 /* calendar.png in Resources */,
 				FDAFAFDA1951D2C90070F396 /* Icon_clear_42x42.png in Resources */,
@@ -726,6 +733,7 @@
 				FD3FA7D518FC3A160072B731 /* Icon_40x40.png in Resources */,
 				FDDA094F18F5BA9F000A1029 /* FiraMonoOT-Bold.otf in Resources */,
 				FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */,
+				FD35BC3A1955F27200091678 /* filter@2x.png in Resources */,
 				FDDA095218F5BA9F000A1029 /* FiraSansOT-BoldItalic.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

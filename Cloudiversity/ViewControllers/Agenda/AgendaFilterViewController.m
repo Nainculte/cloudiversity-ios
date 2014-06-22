@@ -30,6 +30,8 @@
 	[self.controlSwitchFilter setOn:NO];
 	[self.exercicesSwitchFilter setOn:NO];
 	[self.markesTasksSwitchFilter setOn:NO];
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSLog(@"%d", self.view.subviews.count);
 }
 
 - (void)didReceiveMemoryWarning

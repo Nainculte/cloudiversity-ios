@@ -7,20 +7,20 @@
 //
 
 #import "User.h"
+#import "CloudKeyChainManager.h"
 
 @interface User()
-
-@property (nonatomic, strong)User *singleton;
 
 @end
 
 @implementation User
 
-+ (User *)withName:(NSString *)name lastName:(NSString *)lastName andEmail:(NSString *)email {
-    User *user = [[User alloc] init];
-    user.firstName = name;
-    user.lastName = lastName;
-    user.email = email;
++ (User *)sharedUser {
+    static User *user = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        user = [User fromUserDefaults];
+    });
     return user;
 }
 
@@ -37,9 +37,12 @@
     user.firstName = [userDefaults objectForKey:@"firstname"];
     user.lastName = [userDefaults objectForKey:@"lastname"];
     user.email = [userDefaults objectForKey:@"email"];
+    user.roles = [userDefaults objectForKey:@"roles"];
+    user.currentRole = [userDefaults objectForKey:@"currentRole"];
     if (!user.email) {
         return nil;
     }
+    user.token = [CloudKeychainManager retrieveTokenWithEmail:user.email];
     return user;
 }
 
@@ -48,6 +51,8 @@
     [userDefaults setObject:self.firstName forKey:@"firstname"];
     [userDefaults setObject:self.lastName forKey:@"lastname"];
     [userDefaults setObject:self.email forKey:@"email"];
+    [userDefaults setObject:self.roles forKey:@"roles"];
+    [userDefaults setObject:self.currentRole forKey:@"currentRole"];
     [userDefaults synchronize];
 }
 
@@ -56,6 +61,8 @@
     [userDefaults removeObjectForKey:@"firstname"];
     [userDefaults removeObjectForKey:@"lastname"];
     [userDefaults removeObjectForKey:@"email"];
+    [userDefaults removeObjectForKey:@"roles"];
+    [userDefaults removeObjectForKey:@"currentRole"];
     [userDefaults synchronize];
 }
 

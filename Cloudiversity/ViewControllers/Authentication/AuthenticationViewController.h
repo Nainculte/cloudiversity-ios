@@ -18,6 +18,4 @@
 @property (weak, nonatomic) IBOutlet CloudTextField *loginField;
 @property (weak, nonatomic) IBOutlet CloudTextField *passwordField;
 
-@property (nonatomic, strong) User *_user;
-
 @end

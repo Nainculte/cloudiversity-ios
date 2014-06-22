@@ -10,3 +10,4 @@
 "SERVER" = "Choose server";
 
 "FILLITALL" = "You have to fill the field";
+"INVALIDSERVER" = "It is not a Cloudiversity server";

@@ -12,5 +12,7 @@
 @interface AgendaViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;
 
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @end

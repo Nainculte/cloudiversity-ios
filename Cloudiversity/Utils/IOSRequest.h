@@ -10,7 +10,7 @@
 #import "AFNetworking.h"
 #import "User.h"
 
-#define LOCALIZEDHTTPERROR(error) [[NSBundle mainBundle] localizedStringForKey:error value:@"Unknown error" table:@"HTTPErrors"]
+#define LOCALIZEDHTTPERROR(error) [[NSBundle mainBundle] localizedStringForKey:error value:@"Localization error" table:@"HTTPErrors"]
 
 typedef void (^HTTPSuccessHandler)(AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *error);
@@ -19,28 +19,29 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 @property (nonatomic, strong) NSDictionary *user;
 
-#pragma mark - Basic HTTP requests
+#pragma mark - HTTP request for loging in
 
-+(void)requestToPath:(NSString *)path
-          withParams:(NSDictionary *)params
-           onSuccess:(HTTPSuccessHandler)success
-           onFailure:(HTTPFailureHandler)failure;
++ (void)loginWithId:(NSString *)userName
+        andPassword:(NSString *)password
+          onSuccess:(HTTPSuccessHandler)success
+          onFailure:(HTTPFailureHandler)failure;
+
++ (void)isCloudiversityServer:(NSString *)server
+                    onSuccess:(HTTPSuccessHandler)success
+                    onFailure:(HTTPFailureHandler)failure;
+
++ (void)getCurrentUserOnSuccess:(HTTPSuccessHandler)success
+                      onFailure:(HTTPFailureHandler)failure;
+
+#pragma mark - HTTP requests for Agenda
 
 +(void) requestGetToPath:(NSString *)path
 			  withParams:(NSDictionary *)params
 			   onSuccess:(HTTPSuccessHandler)success
 			   onFailure:(HTTPFailureHandler)failure;
 
-#pragma mark - HTTP request for loging in
-
-+(void)loginWithId:(NSString *)userName
-       andPassword:(NSString *)password
-         onSuccess:(HTTPSuccessHandler)success
-         onFailure:(HTTPFailureHandler)failure;
-
-#pragma mark - HTTP requests for Agenda
-
 +(void)getAssigmentsForUserAsRole:(NSString*)role
 						onSuccess:(HTTPSuccessHandler)success
 						onFailure:(HTTPFailureHandler)failure;
+
 @end
