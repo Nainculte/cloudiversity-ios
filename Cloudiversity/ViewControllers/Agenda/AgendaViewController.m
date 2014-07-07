@@ -37,6 +37,10 @@
 @property (nonatomic, strong) NSMutableDictionary *assigmentsByDate;
 @property (nonatomic, strong) NSArray *sortedDates;
 
+@property (nonatomic) BOOL recievedResponseFromServer;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @end
 
 @implementation AgendaViewController
@@ -69,7 +73,7 @@
     self.filters.action = @selector(rightRevealToggle:);
 	self.assigmentsByDate = [[NSMutableDictionary alloc] init];
 	
-	[self initAssigmentsByDates];
+	//[self initAssigmentsByDates];
 	[self initAssigmentsByHTTPRequest];
     // Do any additional setup after loading the view.
 }
@@ -83,6 +87,53 @@
 - (void)initAssigmentsByHTTPRequest {
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
+
+		// Adding assigments in Arrays grouped by date
+		for (NSDictionary *assigment in response) {
+			NSString *dateString = [assigment objectForKey:DICO_DEADLINE];
+			
+			NSDate* date = [[CloudDateConverter sharedMager] dateFromString:dateString];
+			
+			NSMutableArray *assigmentsByDatesArray = [self.assigmentsByDate objectForKey:date];
+			
+			if (assigmentsByDatesArray == nil) {
+				assigmentsByDatesArray = [NSMutableArray array];
+				[self.assigmentsByDate setObject:assigmentsByDatesArray forKey:date];
+			}
+			
+			[assigmentsByDatesArray addObject:assigment];
+		}
+		
+		// Sorting keys from  earliest to latest
+		self.sortedDates = [self.assigmentsByDate allKeys];
+		self.sortedDates = [self.sortedDates sortedArrayUsingSelector:@selector(compare:)];
+		
+		// Sorting assigments of each array by dueTime
+		for (NSDate *date in self.sortedDates) {
+			NSArray *assigments = [self.assigmentsByDate objectForKey:date];
+			
+			assigments = [assigments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+				NSDictionary *dico1 = (NSDictionary *)obj1;
+				NSDictionary *dico2 = (NSDictionary *)obj2;
+				
+				NSString *dateString1 = [dico1 objectForKey:DICO_DUETIME];
+				if (dateString1 == nil) dateString1 = @"00:00";
+				NSString *dateString2 = [dico2 objectForKey:DICO_DUETIME];
+				if (dateString2 == nil) dateString2 = @"00:00";
+				
+				NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
+				NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
+				
+				return [date1 compare:date2];
+			}];
+			
+			// remove the unsorted array...
+			[self.assigmentsByDate removeObjectForKey:date];
+			// ...then replace it by the sorted one
+			[self.assigmentsByDate setObject:assigments forKey:date];
+		}
+		[self.tableView reloadData];
+		[self.activityIndicator setHidden:YES];
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -91,7 +142,8 @@
                 break;
         }
     };
-    [IOSRequest getAssigmentsForUserAsRole:nil onSuccess:success onFailure:failure];
+	[self.activityIndicator setHidden:NO];
+    [IOSRequest getAssigmentsForUserAsRole:nil onSuccess:success onFailure:failure andActivityIndicator:self.activityIndicator];
 }
 
 - (void)initAssigmentsByDates {
@@ -212,8 +264,6 @@
 /*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 }*/
 
-#pragma mark - testDatas
-
 #define SAVING_PLACE_ASSIGMENT	@"agendaTmpPlaceForAssigment"
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -223,20 +273,27 @@
 	NSArray *assigments = [self.assigmentsByDate objectForKey:[self.sortedDates objectAtIndex:indexes[0]]];
 	NSDictionary *assigmentDico = [assigments objectAtIndex:indexes[1]];
 	
+	NSString *dueTime = nil;
+	if (!([[assigmentDico objectForKey:DICO_DUETIME] class] == [NSNull class]))
+		dueTime = [assigmentDico objectForKey:DICO_DUETIME];
+	if (dueTime == nil) dueTime = @"00:00";
+	NSString *assigmentDateString = [[assigmentDico objectForKey:DICO_DEADLINE] stringByAppendingString:[NSString stringWithFormat:@" %@", dueTime]];
+	NSDate *assigmentDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:assigmentDateString];
+	
 	AgendaAssgment *assigment = [[AgendaAssgment alloc]
-								 initWithTitle:[assigmentDico objectForKey:@"title"]
-								 description:[assigmentDico objectForKey:@"description"]
-								 DueDateByString:[assigmentDico objectForKey:@"date"]
-								 inField:[assigmentDico objectForKey:@"field"]
-								 withPercentageOfCompletion:[[assigmentDico objectForKey:@"progression"] intValue]
-								 andIsMarked:NO
-								 orAnExam:NO
-								 forClass:@"3C"];
+								 initWithTitle:[assigmentDico objectForKey:DICO_TITLE]
+								 withId:[[assigmentDico objectForKey:DICO_ID] intValue]
+								 dueDate:assigmentDate
+								 progress:[[assigmentDico objectForKey:DICO_PROGRESS] intValue]
+								 forDissipline:[assigmentDico objectForKey:DICO_DISCIPLINE]];
 	
 	NSUserDefaults *uDefault = [NSUserDefaults standardUserDefaults];
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:assigment];
 	[uDefault setObject:data forKey:SAVING_PLACE_ASSIGMENT];
+	[uDefault synchronize];
 }
+
+#pragma mark - testDatas
 
 - (NSArray*)datasForTest {
 	return @[

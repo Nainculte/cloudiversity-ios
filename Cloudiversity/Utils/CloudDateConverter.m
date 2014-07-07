@@ -12,8 +12,11 @@
 
 @property (nonatomic, strong) NSDateFormatter *dateAndTimeFormatter;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) NSDateFormatter *fullDateFormatter;
 @property (nonatomic, strong) NSDateFormatter *timeFormatter;
 @property (nonatomic, strong) NSDateFormatter *dateAtTimeFormatter;
+@property (nonatomic, strong) NSDateFormatter *fullDateAtTimeFormatter;
+@property (nonatomic, strong) NSDateFormatter *dateAndTimeWithSecondsFormatter;
 
 @end
 
@@ -47,6 +50,15 @@
 		self.timeFormatter = [[NSDateFormatter alloc] init];
 		[self.timeFormatter setDateFormat:TIME_FORMAT];
 		[self.timeFormatter setTimeZone:timeZone];
+		self.dateAndTimeWithSecondsFormatter = [[NSDateFormatter alloc] init];
+		[self.dateAndTimeWithSecondsFormatter setDateFormat:DATE_AND_TIME_FORMAT_WITH_SECONDS];
+		[self.dateAndTimeWithSecondsFormatter setTimeZone:timeZone];
+		self.fullDateAtTimeFormatter = [[NSDateFormatter alloc] init];
+		[self.fullDateAtTimeFormatter setDateFormat:FULL_DATE_AT_TIME_FORMAT];
+		[self.fullDateAtTimeFormatter setTimeZone:timeZone];
+		self.fullDateFormatter = [[NSDateFormatter alloc] init];
+		[self.fullDateFormatter setDateFormat:FULL_DATE_FORMAT];
+		[self.fullDateFormatter setTimeZone:timeZone];
 	}
 	
 	return self;
@@ -69,6 +81,10 @@
 	return [self.timeFormatter dateFromString:timeString];
 }
 
+- (NSDate*)dateAndTimeWithSecondsFromString:(NSString*)dateAndTimeWithSecondsString {
+	return [self.dateAndTimeWithSecondsFormatter dateFromString:dateAndTimeWithSecondsString];
+}
+
 #pragma mark - Converting NSDate to NSSrting
 - (NSString*)stringFromDateAndTime:(NSDate *)dateAndTime {
 	return [self.dateAndTimeFormatter stringFromDate:dateAndTime];
@@ -78,12 +94,24 @@
 	return [self.dateAtTimeFormatter stringFromDate:dateAtTime];
 }
 
+- (NSString *)stringFromFullDateAtTime:(NSDate *)dateAtTime {
+	return [self.fullDateAtTimeFormatter stringFromDate:dateAtTime];
+}
+
 - (NSString*)stringFromDate:(NSDate *)date {
 	return [self.dateFormatter stringFromDate:date];
 }
 
+- (NSString*)stringFromFullDate:(NSDate *)date {
+	return [self.fullDateFormatter stringFromDate:date];
+}
+
 - (NSString*)stringFromTime:(NSDate *)time {
 	return [self.timeFormatter stringFromDate:time];
+}
+
+- (NSString*)stringFromDateAndTimeWithSeconds:(NSDate *)dateAndTimeWithSeconds {
+	return [self.dateAndTimeWithSecondsFormatter stringFromDate:dateAndTimeWithSeconds];
 }
 
 @end

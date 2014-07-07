@@ -93,7 +93,7 @@
         }];
         self.button.enabled = YES;
     }
-    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    /*void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
         if ([response objectForKey:@"version"]) {
             [self validURL];
@@ -104,7 +104,8 @@
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         [self invalidURL];
     };
-    [IOSRequest isCloudiversityServer:self.server onSuccess:success onFailure:failure];
+    [IOSRequest isCloudiversityServer:self.server onSuccess:success onFailure:failure];*/
+	[self validURL];
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {

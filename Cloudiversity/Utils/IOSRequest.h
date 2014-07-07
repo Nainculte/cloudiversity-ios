@@ -38,10 +38,20 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 +(void) requestGetToPath:(NSString *)path
 			  withParams:(NSDictionary *)params
 			   onSuccess:(HTTPSuccessHandler)success
-			   onFailure:(HTTPFailureHandler)failure;
+			   onFailure:(HTTPFailureHandler)failure
+	andActivityIndicator:(UIActivityIndicatorView *)activityIndicator;
+
++(void)getAssigmentsForUserAsRole:(NSString *)role
+						onSuccess:(HTTPSuccessHandler)success
+						onFailure:(HTTPFailureHandler)failure
+			 andActivityIndicator:(UIActivityIndicatorView *)activityIndicator;
 
 +(void)getAssigmentsForUserAsRole:(NSString*)role
 						onSuccess:(HTTPSuccessHandler)success
 						onFailure:(HTTPFailureHandler)failure;
+
++(void)getAssigmentInformation:(int)assigmentId
+					 onSuccess:(HTTPSuccessHandler)success
+					 onFailure:(HTTPFailureHandler)failure;
 
 @end

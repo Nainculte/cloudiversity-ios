@@ -10,14 +10,54 @@
 
 @interface AgendaAssgment : NSObject <NSCoding>
 
-@property (strong, nonatomic) NSString	*title;
-@property (strong, nonatomic) NSString	*assigmentDescription;
-@property (strong, nonatomic) NSDate	*dueDate;
-@property (strong, nonatomic) NSString	*field;
-@property (strong, nonatomic) NSString	*className;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSDate *dueDate; // and time
+@property (strong, nonatomic) NSDictionary *dissiplineInformation;
+@property (strong, nonatomic) NSDictionary *classInformation;
+@property (strong, nonatomic) NSString *assigmentDescription;
+@property (strong, nonatomic) NSDate *creationDate;
+@property (strong, nonatomic) NSDate *lastUpdate;
+@property (nonatomic) int assigmentId;
+@property (nonatomic) int progress;
+
+// In prevention for filtering assigments
 @property (nonatomic) BOOL	isMarked;
 @property (nonatomic) BOOL	isExam;
-@property (nonatomic) float	percentageCompletion;
+
+// Creation of an Assigment with general informations
+// For student
+- (id)initWithTitle:(NSString*)title
+			 withId:(int)assigmentId
+			dueDate:(NSDate*)dueDate
+		   progress:(int)progress
+	  forDissipline:(NSDictionary*)dissipline;
+
+// For teacher
+- (id)initWithTitle:(NSString*)title
+			 withId:(int)assigmentId
+			dueDate:(NSDate*)dueDate
+	  forDissipline:(NSDictionary*)dissipline
+			inClass:(NSDictionary*)classInfo;
+
+// Creation of an Assigment with detailed informations
+// For teacher
+- (id)initWithTitle:(NSString*)title
+			 withId:(int)assigmentId
+			dueTime:(NSDate*)dueTime
+		description:(NSString*)description
+   withCreationDate:(NSDate*)creationDate
+	  andLastUpdate:(NSDate*)lastUpdate
+	  forDissipline:(NSDictionary*)dissipline
+			inClass:(NSDictionary*)classInfo;
+
+// For student
+- (id)initWithTitle:(NSString*)title
+			 withId:(int)assigmentId
+			dueTime:(NSDate*)dueTime
+		description:(NSString*)description
+		andProgress:(int)progress;
+
+#pragma mark - Old initializers for testing
 
 - (id)initWithTitle:(NSString*)title
 		description:(NSString*)description
