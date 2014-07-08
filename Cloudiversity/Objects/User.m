@@ -15,8 +15,9 @@
 
 @implementation User
 
+static User *user;
+
 + (User *)sharedUser {
-    static User *user = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
         user = [User fromUserDefaults];
@@ -25,14 +26,14 @@
 }
 
 + (User *)withEmail:(NSString *)email andToken:(NSString *)token {
-    User *user = [[User alloc] init];
+    user = [[User alloc] init];
     user.email = email;
     user.token = token;
     return user;
 }
 
 + (User *)fromUserDefaults {
-    User *user = [[User alloc] init];
+    user = [[User alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     user.firstName = [userDefaults objectForKey:@"firstname"];
     user.lastName = [userDefaults objectForKey:@"lastname"];
