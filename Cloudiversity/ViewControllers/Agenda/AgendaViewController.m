@@ -14,6 +14,7 @@
 #import "UIColor+Cloud.h"
 #import "CloudDateConverter.h"
 #import "IOSRequest.h"
+#import "DejalActivityView.h"
 
 // id for cells in the tableView
 #define REUSE_IDENTIFIER	@"agendaCell"
@@ -39,7 +40,6 @@
 
 @property (nonatomic) BOOL recievedResponseFromServer;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -133,7 +133,7 @@
 			[self.assigmentsByDate setObject:assigments forKey:date];
 		}
 		[self.tableView reloadData];
-		[self.activityIndicator setHidden:YES];
+        [DejalActivityView removeView];
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -141,9 +141,11 @@
             default:
                 break;
         }
+        [DejalActivityView removeView];
     };
-	[self.activityIndicator setHidden:NO];
-    [IOSRequest getAssigmentsForUserAsRole:nil onSuccess:success onFailure:failure andActivityIndicator:self.activityIndicator];
+	//[self.activityIndicator setHidden:NO];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [IOSRequest getAssigmentsForUserOnSuccess:success onFailure:failure];
 }
 
 - (void)initAssigmentsByDates {
@@ -242,7 +244,7 @@
 	
 	NSLog(@">>>>> Asking for cellForRowAtIndexPath : %@", indexPath);
 
-	int *indexes = malloc(sizeof(int) * [indexPath length]);
+	NSUInteger *indexes = calloc(sizeof(NSUInteger), indexPath.length);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 	
 	NSArray *assigments = [self.assigmentsByDate objectForKey:[self.sortedDates objectAtIndex:indexes[0]]];

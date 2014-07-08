@@ -9,6 +9,7 @@
 #import "AuthenticationViewController.h"
 #import "IOSRequest.h"
 #import "CloudKeychainManager.h"
+#import "DejalActivityView.h"
 
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AuthenticationVC"]
 
@@ -54,9 +55,11 @@
     self.hasSelected = NO;
     [self.view endEditing:YES];
     self.button.enabled = NO;
+    [DejalActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"CONNECTING")].showNetworkActivityIndicator = YES;
 }
 
 - (void) endLoginWithSuccess:(BOOL)success {
+    [DejalActivityView removeView];
     if (success) {
         self.shouldSegue = YES;
         [self performSegueWithIdentifier:@"login_success" sender:self];

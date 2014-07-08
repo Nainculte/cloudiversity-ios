@@ -82,8 +82,7 @@
 +(void) requestGetToPath:(NSString *)path
 			  withParams:(NSDictionary *)params
 			   onSuccess:(HTTPSuccessHandler)success
-			   onFailure:(HTTPFailureHandler)failure
-	andActivityIndicator:(UIActivityIndicatorView *)activityIndicator {
+			   onFailure:(HTTPFailureHandler)failure {
 	
     User *user = [User sharedUser];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -93,36 +92,21 @@
     [manager.requestSerializer setValue:user.email forHTTPHeaderField:@"X-User-Email"];
     [manager.requestSerializer setValue:user.token forHTTPHeaderField:@"X-User-Token"];
     AFHTTPRequestOperation *operation = [manager GET:path parameters:params success:success failure:failure];
-	if (activityIndicator) {
-		[activityIndicator setAnimatingWithStateOfOperation:operation];
-	}
     [operation start];
 }
 
-+(void)getAssigmentsForUserAsRole:(NSString *)role
-						onSuccess:(HTTPSuccessHandler)success
-						onFailure:(HTTPFailureHandler)failure
-			 andActivityIndicator:(UIActivityIndicatorView *)activityIndicator {
++(void)getAssigmentsForUserOnSuccess:(HTTPSuccessHandler)success
+                           onFailure:(HTTPFailureHandler)failure {
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [defaults objectForKey:@"server"];
-	if (role && [role length] != 0) {
-		role = [@"?as=" stringByAppendingString:role];
-	} else {
-		role = @"";
+    NSString *role = @"";
+    User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
 	}
 	path = [NSString stringWithFormat:@"%@/agenda%@", path, role];
-	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure andActivityIndicator:activityIndicator];
-}
-
-+(void)getAssigmentsForUserAsRole:(NSString *)role
-						onSuccess:(HTTPSuccessHandler)success
-						onFailure:(HTTPFailureHandler)failure {
-	
-	[self getAssigmentsForUserAsRole:role
-						   onSuccess:success
-						   onFailure:failure
-				andActivityIndicator:nil];
+	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
 +(void)getAssigmentInformation:(int)assigmentId
@@ -131,7 +115,7 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [defaults objectForKey:@"server"];
 	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assigmentId];
-	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure andActivityIndicator:nil];
+	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
 @end

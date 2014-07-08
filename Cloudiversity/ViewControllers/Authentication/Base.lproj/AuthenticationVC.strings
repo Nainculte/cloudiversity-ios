@@ -10,6 +10,7 @@
 "USERNAME" = "Username";
 "PASSWORD" = "Password";
 "CONNECT" = "Connect";
+"CONNECTING" = "Connecting...";
 
 //Error messages
 "FILLITALL" = "You have to fill every field";

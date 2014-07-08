@@ -53,6 +53,9 @@
 		FDAFAFDC1951D3230070F396 /* Icon_clear_42x42@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFDB1951D3230070F396 /* Icon_clear_42x42@2x.png */; };
 		FDAFAFDF1951D4F40070F396 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFDD1951D4F40070F396 /* calendar.png */; };
 		FDAFAFE01951D4F40070F396 /* calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFDE1951D4F40070F396 /* calendar@2x.png */; };
+		FDC1FA60196C488300150F66 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC1FA5F196C488300150F66 /* QuartzCore.framework */; };
+		FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC1FA63196C5C3100150F66 /* DejalActivityView.m */; };
+		FDC1FA66196C5C3100150F66 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = FDC1FA64196C5C3100150F66 /* License.txt */; };
 		FDC907DC192A83D900646A68 /* Object.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907D9192A83D900646A68 /* Object.m */; };
 		FDC907DD192A83D900646A68 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907DB192A83D900646A68 /* User.m */; };
 		FDC9081C192A847000646A68 /* HTTPErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = FDC907DF192A847000646A68 /* HTTPErrors.strings */; };
@@ -165,6 +168,10 @@
 		FDAFAFDB1951D3230070F396 /* Icon_clear_42x42@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon_clear_42x42@2x.png"; sourceTree = "<group>"; };
 		FDAFAFDD1951D4F40070F396 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		FDAFAFDE1951D4F40070F396 /* calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar@2x.png"; sourceTree = "<group>"; };
+		FDC1FA5F196C488300150F66 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FDC1FA62196C5C3100150F66 /* DejalActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
+		FDC1FA63196C5C3100150F66 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
+		FDC1FA64196C5C3100150F66 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
 		FDC907D6192A83A700646A68 /* CloudiversityAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudiversityAppDelegate.h; sourceTree = "<group>"; };
 		FDC907D8192A83D900646A68 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
 		FDC907D9192A83D900646A68 /* Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Object.m; sourceTree = "<group>"; };
@@ -251,6 +258,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDC1FA60196C488300150F66 /* QuartzCore.framework in Frameworks */,
 				FD8F82D819080AAA00EDBDBE /* Security.framework in Frameworks */,
 				E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */,
 				E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */,
@@ -295,6 +303,7 @@
 		E478BB4B18A0E8290068DEB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FDC1FA5F196C488300150F66 /* QuartzCore.framework */,
 				FD8F82D719080AAA00EDBDBE /* Security.framework */,
 				E478BB4C18A0E8290068DEB1 /* Foundation.framework */,
 				E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */,
@@ -437,6 +446,16 @@
 			path = Abstracts;
 			sourceTree = "<group>";
 		};
+		FDC1FA61196C5C0200150F66 /* DejalActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				FDC1FA62196C5C3100150F66 /* DejalActivityView.h */,
+				FDC1FA63196C5C3100150F66 /* DejalActivityView.m */,
+				FDC1FA64196C5C3100150F66 /* License.txt */,
+			);
+			path = DejalActivityView;
+			sourceTree = "<group>";
+		};
 		FDC907D7192A83D900646A68 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,6 +485,7 @@
 		FDC907E6192A847000646A68 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				FDC1FA61196C5C0200150F66 /* DejalActivityView */,
 				FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */,
 				FDC907E7192A847000646A68 /* AFNetworking */,
 			);
@@ -706,6 +726,7 @@
 				FD3FA7CD18FC2F0A0072B731 /* Logo_40x40.png in Resources */,
 				E478BB6518A0E8290068DEB1 /* Images.xcassets in Resources */,
 				FDDA095818F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf in Resources */,
+				FDC1FA66196C5C3100150F66 /* License.txt in Resources */,
 				FDAFAFDC1951D3230070F396 /* Icon_clear_42x42@2x.png in Resources */,
 				FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */,
 				FDC90833192A847000646A68 /* HomeScreenVC.strings in Resources */,
@@ -758,6 +779,7 @@
 				FDC9081E192A847000646A68 /* IOSRequest.m in Sources */,
 				FDC90829192A847000646A68 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
+				FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */,
 				FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */,
 				FDC90827192A847000646A68 /* AFURLSessionManager.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
