@@ -67,11 +67,17 @@
     } else {
         self.roleSwitcher.hidden = YES;
     }
+    [self changeRole];
 }
 
 - (void)changeRole {
     User *user = [User sharedUser];
     user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
+    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
+        self.agendaButton.hidden = YES;
+    } else {
+        self.agendaButton.hidden = NO;
+    }
 
     //do stuff to change the front view controller depending on the role
 }
