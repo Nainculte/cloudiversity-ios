@@ -14,3 +14,4 @@
 
 //Error messages
 "FILLITALL" = "You have to fill every field";
+"FAILCHECKLOGIN" = "Could not retrieve your information. Try again";

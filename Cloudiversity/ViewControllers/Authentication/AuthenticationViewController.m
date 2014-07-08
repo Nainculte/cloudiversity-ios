@@ -32,6 +32,12 @@
     [self localize];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.loginField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
+}
+
 - (void)localize {
     self.loginField.placeholder = LOCALIZEDSTRING(@"USERNAME");
     self.passwordField.placeholder = LOCALIZEDSTRING(@"PASSWORD");
@@ -59,20 +65,43 @@
 }
 
 - (void) endLoginWithSuccess:(BOOL)success {
-    [DejalActivityView removeView];
     if (success) {
         self.shouldSegue = YES;
-        [self performSegueWithIdentifier:@"login_success" sender:self];
         self.errorLabel.alpha = 0.0;
         [CloudKeychainManager saveToken:_user.token forEmail:_user.email];
-        [self.user saveUser];
+        [self checkLogin];
     } else {
+        [DejalActivityView removeView];
         self.shouldSegue = NO;
         [UIView animateWithDuration:0.3 animations:^{
             self.errorLabel.alpha = 1.0;
         }];
     }
     self.button.enabled = YES;
+}
+
+- (void)checkLogin {
+    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *response = (NSDictionary *)responseObject;
+        self.user.firstName = [response objectForKey:@"first_name"];
+        self.user.lastName = [response objectForKey:@"last_name"];
+        self.user.roles = [response objectForKey:@"roles"];
+        if (!self.user.currentRole && self.user.roles.count) {
+            self.user.currentRole = self.user.roles[0];
+        }
+        [self.user saveUser];
+        [DejalActivityView removeView];
+        [self performSegueWithIdentifier:@"login_success" sender:self];
+    };
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        self.errorLabel.text = LOCALIZEDSTRING(@"FAILCHECKLOGIN");
+        [DejalActivityView removeView];
+        self.shouldSegue = NO;
+        [UIView animateWithDuration:0.3 animations:^{
+            self.errorLabel.alpha = 1.0;
+        }];
+    };
+    [IOSRequest getCurrentUserOnSuccess:success onFailure:failure];
 }
 
 - (IBAction)loginBtn:(id)sender {

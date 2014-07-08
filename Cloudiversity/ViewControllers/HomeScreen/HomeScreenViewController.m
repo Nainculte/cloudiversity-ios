@@ -46,25 +46,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
     self.leftButton.tintColor = [UIColor whiteColor];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
-    [self checkLogin];
 
-}
-
-- (void)checkLogin {
-    User *user = [User sharedUser];
-    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *response = (NSDictionary *)responseObject;
-        user.firstName = [response objectForKey:@"first_name"];
-        user.lastName = [response objectForKey:@"last_name"];
-        user.roles = [response objectForKey:@"roles"];
-        if (!user.currentRole && user.roles.count) {
-            user.currentRole = user.roles[0];
-        }
-    };
-    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        //display an error
-    };
-    [IOSRequest getCurrentUserOnSuccess:success onFailure:failure];
 }
 
 - (void)didReceiveMemoryWarning

@@ -15,3 +15,4 @@
 
 //Error messages
 "FILLITALL" = "Vous devez remplir tout les champs";
+"FAILCHECKLOGIN" = "Erreur lors de la récupération de vous informations. Réessayez";
