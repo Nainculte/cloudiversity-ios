@@ -7,12 +7,13 @@
 //
 
 #import "AgendaStudentTaskViewController.h"
-#import "AgendaAssgment.h"
+#import "AgendaAssignment.h"
 #import "UICloud.h"
 #import "CloudDateConverter.h"
 #import "AMPieChartView.h"
 #import "UIColor+Cloud.h"
 #import "IOSRequest.h"
+#import "DejalActivityView.h"
 
 #define DICO_ID					@"id"
 #define DICO_TITLE				@"title"
@@ -38,10 +39,10 @@
 @property (weak, nonatomic) IBOutlet CloudLabel *dueToLabel;
 @property (weak, nonatomic) IBOutlet CloudLabel *dueToDateLabel;
 @property (weak, nonatomic) IBOutlet CloudLabel *dissiplineNameLabel;
-@property (weak, nonatomic) IBOutlet UITextView *assigmentDescriptionTextView;
+@property (weak, nonatomic) IBOutlet UITextView *assignmentDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UISlider *progressBarInput;
 
-@property (nonatomic, strong) AgendaAssgment *assigment;
+@property (nonatomic, strong) AgendaAssignment *assignment;
 
 @end
 
@@ -59,7 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[self initAssigment];
+	[self initAssignment];
 	
 	[self.pieChartView setInternalColor:[UIColor cloudLightBlue]];
 	[self.pieChartView setExternalColor:[UIColor cloudBlue]];
@@ -67,6 +68,28 @@
 
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+		NSDictionary *response = (NSDictionary*)responseObject;
+		
+		self.pieChartView.percentage = [[response objectForKey:DICO_PROGRESS] intValue];
+		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
+		[self.progressBarInput setValue:[[response objectForKey:DICO_PROGRESS] intValue]];
+        [DejalActivityView removeView];
+	};
+	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        switch (operation.response.statusCode) {
+            default:
+                break;
+        }
+	};
+	[DejalActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+	[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
+	
+	[super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,38 +100,39 @@
 
 #pragma mark - testDatas
 
-#define SAVING_PLACE_ASSIGMENT	@"agendaTmpPlaceForAssigment"
+#define SAVING_PLACE_ASSIGNMENT	@"agendaTmpPlaceForAssignment"
 
-- (void)initAssigment {
+- (void)initAssignment {
 	NSUserDefaults *uDefault = [NSUserDefaults standardUserDefaults];
-	NSData *data = [uDefault objectForKey:SAVING_PLACE_ASSIGMENT];
-	self.assigment = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	NSData *data = [uDefault objectForKey:SAVING_PLACE_ASSIGNMENT];
+	self.assignment = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 	
 	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		NSDictionary *response = (NSDictionary *)responseObject;
 
-		self.assigment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
-		self.assigment.assigmentDescription = [response objectForKey:DICO_WORDING];
-		self.assigment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:[response objectForKey:DICO_CREATED_AT]];
-		if (self.assigment.creationDate == nil)
-			self.assigment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:[response objectForKey:DICO_CREATED_AT]];
-		self.assigment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeFromString:[response objectForKey:DICO_UPDATE_AT]];
-		if (self.assigment.lastUpdate == nil)
-			self.assigment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:[response objectForKey:DICO_UPDATE_AT]];
+		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
+		self.assignment.assignmentDescription = [response objectForKey:DICO_WORDING];
+		self.assignment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:[response objectForKey:DICO_CREATED_AT]];
+		if (self.assignment.creationDate == nil)
+			self.assignment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:[response objectForKey:DICO_CREATED_AT]];
+		self.assignment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeFromString:[response objectForKey:DICO_UPDATE_AT]];
+		if (self.assignment.lastUpdate == nil)
+			self.assignment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:[response objectForKey:DICO_UPDATE_AT]];
 		
-		self.workTitleLabel.text = self.assigment.title;
-		self.assigmentDescriptionTextView.text = self.assigment.assigmentDescription;
-		self.pieChartView.percentage = self.assigment.progress;
-		if ([[[CloudDateConverter sharedMager] stringFromTime:self.assigment.dueDate] isEqualToString:@"00:00"]) {
-			self.dueToDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDate:self.assigment.dueDate];
+		self.workTitleLabel.text = self.assignment.title;
+		self.assignmentDescriptionTextView.text = self.assignment.assignmentDescription;
+		self.pieChartView.percentage = self.assignment.progress;
+		if ([[[CloudDateConverter sharedMager] stringFromTime:self.assignment.dueDate] isEqualToString:[CloudDateConverter nullTime]]) {
+			self.dueToDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDate:self.assignment.dueDate];
 		} else {
-			self.dueToDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDateAtTime:self.assigment.dueDate];
+			self.dueToDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDateAtTime:self.assignment.dueDate];
 		}
-		self.givenDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDateAtTime:self.assigment.creationDate];
-		self.dissiplineNameLabel.text = [self.assigment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME];
+		self.givenDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDateAtTime:self.assignment.creationDate];
+		self.dissiplineNameLabel.text = [self.assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME];
 		
-		[self.progressBarInput setValue:self.assigment.progress];
+		[self.progressBarInput setValue:self.assignment.progress];
 		[self.progressBarInput addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -117,7 +141,8 @@
                 break;
         }
 	};
-	[IOSRequest getAssigmentInformation:self.assigment.assigmentId onSuccess:success onFailure:failure];
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
 }
 
 /*

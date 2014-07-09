@@ -32,6 +32,10 @@
     return sharedCloudDateConverter;
 }
 
++ (NSString *)nullTime {
+	return @"00:00";
+}
+
 - (id)init {
 	self = [super init];
 	if (self) {

@@ -544,7 +544,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4B3-8H-wrI">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="4B3-8H-wrI">
                                 <rect key="frame" x="18" y="240" width="284" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </slider>
@@ -560,7 +560,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Wws-jj-fJe"/>
                     <connections>
-                        <outlet property="assigmentDescriptionTextView" destination="sCp-uD-Ck0" id="4Zh-7S-A9i"/>
+                        <outlet property="assignmentDescriptionTextView" destination="sCp-uD-Ck0" id="Px5-Wj-PV5"/>
                         <outlet property="backButton" destination="Wws-jj-fJe" id="xNk-a9-bDa"/>
                         <outlet property="dissiplineNameLabel" destination="uQj-jq-PvP" id="5fr-Eh-bub"/>
                         <outlet property="dueToDateLabel" destination="vNe-Ka-ahb" id="7a9-ab-kkO"/>

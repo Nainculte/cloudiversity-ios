@@ -22,6 +22,8 @@
 
 + (CloudDateConverter*)sharedMager;
 
++ (NSString *)nullTime;
+
 #pragma mark - Converting NSString to NSDate
 - (NSDate*)dateAndTimeFromString:(NSString*)dateAndTimeString;	// Use a string in the DATE_AND_TIME_FORMAT format
 - (NSDate*)dateAtTimeFromString:(NSString*)dateAtTimeString;	// Use a string in the DATE_AT_TIME_FORMAT format
