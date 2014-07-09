@@ -10,11 +10,7 @@
 #import "AgendaTableViewCell.h"
 #import "AgendaAssgment.h"
 #import "AgendaFilterViewController.h"
-#import "SWRevealViewController.h"
-#import "UIColor+Cloud.h"
 #import "CloudDateConverter.h"
-#import "IOSRequest.h"
-#import "DejalActivityView.h"
 
 // id for cells in the tableView
 #define REUSE_IDENTIFIER	@"agendaCell"
@@ -60,11 +56,6 @@
 	
 	[self.toolbar setBackgroundColor:[UIColor cloudLightBlue]];
     [self.toolbar setBarTintColor:[UIColor cloudLightBlue]];
-	
-	[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-
-    self.leftButton.target = self.revealViewController;
-    self.leftButton.action = @selector(revealToggle:);
 
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 

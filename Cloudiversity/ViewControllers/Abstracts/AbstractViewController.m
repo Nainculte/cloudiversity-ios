@@ -1,20 +1,18 @@
 //
-//  HomeScreenViewController.m
+//  AbstractViewController.m
 //  Cloudiversity
 //
-//  Created by Anthony MERLE on 18/04/2014.
+//  Created by Nainculte on 7/9/14.
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "HomeScreenViewController.h"
+#import "AbstractViewController.h"
 
-#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"HomeScreenVC"]
-
-@interface HomeScreenViewController ()
+@interface AbstractViewController ()
 
 @end
 
-@implementation HomeScreenViewController
+@implementation AbstractViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,7 +26,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = LOCALIZEDSTRING(@"TITLE");
+
+    self.leftButton.target = self.revealViewController;
+    self.leftButton.action = @selector(revealToggle:);
+
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    self.view.backgroundColor = [UIColor cloudGrey];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
+    self.leftButton.tintColor = [UIColor whiteColor];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    
+
 }
 
 - (void)didReceiveMemoryWarning

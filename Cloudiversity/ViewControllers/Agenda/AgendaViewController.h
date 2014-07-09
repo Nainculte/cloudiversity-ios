@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UICloud.h"
+#import "AbstractViewController.h"
 
-@interface AgendaViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AgendaViewController : AbstractViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;
