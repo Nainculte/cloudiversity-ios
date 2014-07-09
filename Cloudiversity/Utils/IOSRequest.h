@@ -35,16 +35,30 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 #pragma mark - HTTP requests for Agenda
 
+#pragma GET Requests
+
 +(void) requestGetToPath:(NSString *)path
 			  withParams:(NSDictionary *)params
 			   onSuccess:(HTTPSuccessHandler)success
 			   onFailure:(HTTPFailureHandler)failure;
 
-+(void)getAssigmentsForUserOnSuccess:(HTTPSuccessHandler)success
++(void)getAssignmentsForUserOnSuccess:(HTTPSuccessHandler)success
                            onFailure:(HTTPFailureHandler)failure;
 
-+(void)getAssigmentInformation:(int)assigmentId
++(void)getAssignmentInformation:(int)assignmentId
 					 onSuccess:(HTTPSuccessHandler)success
 					 onFailure:(HTTPFailureHandler)failure;
+
+#pragma Updating Progress Requests
+
++(void)requestPatchToPath:(NSString*)path
+			   withParams:(NSDictionary *)params
+				onSuccess:(HTTPSuccessHandler)success
+				onFailure:(HTTPFailureHandler)failure;
+
++(void)updateAssignmentWithId:(int)assignmentId
+			  withProgression:(int)progress
+					onSuccess:(HTTPSuccessHandler)success
+					onFailure:(HTTPFailureHandler)failure;
 
 @end

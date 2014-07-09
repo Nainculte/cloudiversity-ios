@@ -95,7 +95,7 @@
     [operation start];
 }
 
-+(void)getAssigmentsForUserOnSuccess:(HTTPSuccessHandler)success
++(void)getAssignmentsForUserOnSuccess:(HTTPSuccessHandler)success
                            onFailure:(HTTPFailureHandler)failure {
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -109,13 +109,43 @@
 	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
-+(void)getAssigmentInformation:(int)assigmentId
++(void)getAssignmentInformation:(int)assignmentId
 					 onSuccess:(HTTPSuccessHandler)success
 					 onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [defaults objectForKey:@"server"];
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assigmentId];
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assignmentId];
 	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
+#pragma Update Progress Requests
+
++(void)requestPatchToPath:(NSString*)path
+			   withParams:(NSDictionary *)params
+				onSuccess:(HTTPSuccessHandler)success
+				onFailure:(HTTPFailureHandler)failure {
+	User *user = [User sharedUser];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
+    [manager.requestSerializer setValue:user.email forHTTPHeaderField:@"X-User-Email"];
+    [manager.requestSerializer setValue:user.token forHTTPHeaderField:@"X-User-Token"];
+	AFHTTPRequestOperation *operation = [manager PATCH:path parameters:params success:success failure:failure];
+	[operation start];
+}
+
++(void)updateAssignmentWithId:(int)assignmentId
+			  withProgression:(int)progress
+					onSuccess:(HTTPSuccessHandler)success
+					onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [uDefaults objectForKey:@"server"];
+	path = [NSString stringWithFormat:@"%@/agenda/assignment/%d", path, assignmentId];
+	
+	NSDictionary *params = @{@"assignment": @{@"progress": [NSNumber numberWithInt:progress]}};
+	
+	[IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
 }
 
 @end
