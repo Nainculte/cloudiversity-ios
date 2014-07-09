@@ -70,6 +70,28 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+		NSDictionary *response = (NSDictionary*)responseObject;
+		
+		self.pieChartView.percentage = [[response objectForKey:DICO_PROGRESS] intValue];
+		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
+		[self.progressBarInput setValue:[[response objectForKey:DICO_PROGRESS] intValue]];
+        [DejalActivityView removeView];
+	};
+	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        switch (operation.response.statusCode) {
+            default:
+                break;
+        }
+	};
+	[DejalActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+	[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
+	
+	[super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -100,7 +122,7 @@
 		self.workTitleLabel.text = self.assignment.title;
 		self.assignmentDescriptionTextView.text = self.assignment.assignmentDescription;
 		self.pieChartView.percentage = self.assignment.progress;
-		if ([[[CloudDateConverter sharedMager] stringFromTime:self.assignment.dueDate] isEqualToString:@"00:00"]) {
+		if ([[[CloudDateConverter sharedMager] stringFromTime:self.assignment.dueDate] isEqualToString:[CloudDateConverter nullTime]]) {
 			self.dueToDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDate:self.assignment.dueDate];
 		} else {
 			self.dueToDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDateAtTime:self.assignment.dueDate];
@@ -110,7 +132,7 @@
 		
 		[self.progressBarInput setValue:self.assignment.progress];
 		[self.progressBarInput addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-		[self.progressBarInput addTarget:self action:@selector(updateProgressAfterDragingSlider:) forControlEvents:UIControlEventTouchUpInside];
+        [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -136,24 +158,6 @@
 
 - (void)sliderValueChanged:(UISlider*)slider {
 	self.pieChartView.percentage = slider.value;
-}
-
-- (void)updateProgressAfterDragingSlider:(UISlider*)slider {
-	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-		NSDictionary *response = (NSDictionary*)responseObject;
-		
-		self.pieChartView.percentage = [[response objectForKey:DICO_PROGRESS] intValue];
-		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
-	};
-	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
-	};
-	[DejalActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
-	[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:slider.value onSuccess:success onFailure:failure];
 }
 
 @end

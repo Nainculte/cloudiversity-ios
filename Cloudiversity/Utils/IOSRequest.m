@@ -141,7 +141,7 @@
 					onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [uDefaults objectForKey:@"server"];
-	path = [NSString stringWithFormat:@"%@/agenda/assignment/%d", path, assignmentId];
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assignmentId];
 	
 	NSDictionary *params = @{@"assignment": @{@"progress": [NSNumber numberWithInt:progress]}};
 	

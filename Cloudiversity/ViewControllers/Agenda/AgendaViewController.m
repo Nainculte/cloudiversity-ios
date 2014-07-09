@@ -117,9 +117,9 @@
 				NSDictionary *dico2 = (NSDictionary *)obj2;
 				
 				NSString *dateString1 = [dico1 objectForKey:DICO_DUETIME];
-				if (dateString1 == nil) dateString1 = @"00:00";
+				if (dateString1 == nil) dateString1 = [CloudDateConverter nullTime];
 				NSString *dateString2 = [dico2 objectForKey:DICO_DUETIME];
-				if (dateString2 == nil) dateString2 = @"00:00";
+				if (dateString2 == nil) dateString2 = [CloudDateConverter nullTime];
 				
 				NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
 				NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
@@ -227,7 +227,7 @@
 	NSString *dueTime = nil;
 	if (!([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class]))
 		dueTime = [assignmentDico objectForKey:DICO_DUETIME];
-	if (dueTime == nil) dueTime = @"00:00";
+	if (dueTime == nil) dueTime = [CloudDateConverter nullTime];
 	NSString *assignmentDateString = [[assignmentDico objectForKey:DICO_DEADLINE] stringByAppendingString:[NSString stringWithFormat:@" %@", dueTime]];
 	NSDate *assignmentDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:assignmentDateString];
 	
