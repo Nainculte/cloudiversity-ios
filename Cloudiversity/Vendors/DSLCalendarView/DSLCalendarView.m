@@ -35,7 +35,6 @@
 #import "DSLCalendarMonthSelectorView.h"
 #import "DSLCalendarMonthView.h"
 #import "DSLCalendarView.h"
-#import "DSLCalendarDayView.h"
 
 
 @interface DSLCalendarView ()
@@ -86,7 +85,7 @@
 }
 
 - (void)commonInit {
-    _dayViewHeight = 44;
+    _dayViewHeight = 25;
     
     _visibleMonth = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSCalendarCalendarUnit fromDate:[NSDate date]];
     _visibleMonth.day = 1;
@@ -132,6 +131,10 @@
 
 + (Class)dayViewClass {
     return [DSLCalendarDayView class];
+}
+
+- (DSLCalendarMonthSelectorView*)calendarMonthSelector {
+	return self.monthSelectorView;
 }
 
 - (void)setSelectedRange:(DSLCalendarRange *)selectedRange {

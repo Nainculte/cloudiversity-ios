@@ -122,19 +122,19 @@
                 break;
                 
             case DSLCalendarDayViewStartOfSelection:
-                [[[UIImage imageNamed:@"DSLCalendarDaySelection-left"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
+                [[[UIImage imageNamed:@"DSLCalendarDaySelection-left"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeStretch] drawInRect:self.bounds];
                 break;
                 
             case DSLCalendarDayViewEndOfSelection:
-                [[[UIImage imageNamed:@"DSLCalendarDaySelection-right"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
+                [[[UIImage imageNamed:@"DSLCalendarDaySelection-right"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeStretch] drawInRect:self.bounds];
                 break;
                 
             case DSLCalendarDayViewWithinSelection:
-                [[[UIImage imageNamed:@"DSLCalendarDaySelection-middle"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
+                [[[UIImage imageNamed:@"DSLCalendarDaySelection-middle"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeStretch] drawInRect:self.bounds];
                 break;
                 
             case DSLCalendarDayViewWholeSelection:
-                [[[UIImage imageNamed:@"DSLCalendarDaySelection"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
+                [[[UIImage imageNamed:@"DSLCalendarDaySelection"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5) resizingMode:UIImageResizingModeStretch] drawInRect:self.bounds];
                 break;
         }
     }
@@ -176,10 +176,12 @@
     }
     
     UIFont *textFont = [UIFont boldSystemFontOfSize:17.0];
-    CGSize textSize = [_labelText sizeWithFont:textFont];
+    //CGSize textSize = [_labelText sizeWithFont:textFont];
+	CGSize textSize = [_labelText sizeWithAttributes:@{NSFontAttributeName: textFont}];
     
     CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), ceilf(CGRectGetMidY(self.bounds) - (textSize.height / 2.0)), textSize.width, textSize.height);
-    [_labelText drawInRect:textRect withFont:textFont];
+    //[_labelText drawInRect:textRect withFont:textFont];
+	[_labelText drawInRect:textRect withAttributes:@{NSFontAttributeName: textFont}];
 }
 
 @end
