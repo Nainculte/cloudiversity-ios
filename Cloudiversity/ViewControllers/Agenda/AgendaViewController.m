@@ -108,9 +108,9 @@
 				NSDictionary *dico2 = (NSDictionary *)obj2;
 				
 				NSString *dateString1 = [dico1 objectForKey:DICO_DUETIME];
-				if (dateString1 == nil) dateString1 = [CloudDateConverter nullTime];
+				if (dateString1 == nil || [[dico1 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString1 = [CloudDateConverter nullTime];
 				NSString *dateString2 = [dico2 objectForKey:DICO_DUETIME];
-				if (dateString2 == nil) dateString2 = [CloudDateConverter nullTime];
+				if (dateString2 == nil || [[dico2 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString2 = [CloudDateConverter nullTime];
 				
 				NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
 				NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
@@ -198,7 +198,11 @@
 	cell.workTitle.text = [assignment objectForKey:DICO_TITLE];
 	cell.workTitle.font = [UIFont fontWithName:CLOUD_FONT_BOLD size:cell.workTitle.font.pointSize];
 	cell.fieldLabel.text = [[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME];
-	cell.dueTimeLabel.text = [[CloudDateConverter sharedMager] stringFromTime:[assignment objectForKey:DICO_DUETIME]];
+	if ([[assignment objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) {
+		cell.dueTimeLabel.text = @"";
+	} else {
+		cell.dueTimeLabel.text = [assignment objectForKey:DICO_DUETIME];
+	}
 	
 	return cell;
 }
