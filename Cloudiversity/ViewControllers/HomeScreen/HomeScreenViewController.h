@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbstractViewController.h"
 
-@interface HomeScreenViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
+@interface HomeScreenViewController : AbstractViewController
 
 @end

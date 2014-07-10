@@ -135,6 +135,7 @@
 		FDC90843192A863E00646A68 /* CloudButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC9083D192A863E00646A68 /* CloudButton.m */; };
 		FDC90844192A863E00646A68 /* CloudLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC9083F192A863E00646A68 /* CloudLabel.m */; };
 		FDC90845192A863E00646A68 /* CloudTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC90841192A863E00646A68 /* CloudTextField.m */; };
+		FDCEE15E196D8B9D002B3579 /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDCEE15D196D8B9D002B3579 /* AbstractViewController.m */; };
 		FDDA094F18F5BA9F000A1029 /* FiraMonoOT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094518F5BA9F000A1029 /* FiraMonoOT-Bold.otf */; };
 		FDDA095018F5BA9F000A1029 /* FiraMonoOT-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094618F5BA9F000A1029 /* FiraMonoOT-Regular.otf */; };
 		FDDA095118F5BA9F000A1029 /* FiraSansOT-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FDDA094718F5BA9F000A1029 /* FiraSansOT-Bold.otf */; };
@@ -316,6 +317,8 @@
 		FDC90840192A863E00646A68 /* CloudTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudTextField.h; sourceTree = "<group>"; };
 		FDC90841192A863E00646A68 /* CloudTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudTextField.m; sourceTree = "<group>"; };
 		FDC90842192A863E00646A68 /* UICloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICloud.h; sourceTree = "<group>"; };
+		FDCEE15C196D8B9D002B3579 /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractViewController.h; sourceTree = "<group>"; };
+		FDCEE15D196D8B9D002B3579 /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractViewController.m; sourceTree = "<group>"; };
 		FDDA094518F5BA9F000A1029 /* FiraMonoOT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMonoOT-Bold.otf"; sourceTree = "<group>"; };
 		FDDA094618F5BA9F000A1029 /* FiraMonoOT-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraMonoOT-Regular.otf"; sourceTree = "<group>"; };
 		FDDA094718F5BA9F000A1029 /* FiraSansOT-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraSansOT-Bold.otf"; sourceTree = "<group>"; };
@@ -567,6 +570,8 @@
 			children = (
 				FD854A491952DDC2008F046D /* AbstractLogoViewViewController.h */,
 				FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */,
+				FDCEE15C196D8B9D002B3579 /* AbstractViewController.h */,
+				FDCEE15D196D8B9D002B3579 /* AbstractViewController.m */,
 			);
 			path = Abstracts;
 			sourceTree = "<group>";
@@ -980,6 +985,7 @@
 				929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
 				FDC9082B192A847000646A68 /* UIAlertView+AFNetworking.m in Sources */,
+				FDCEE15E196D8B9D002B3579 /* AbstractViewController.m in Sources */,
 				92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
