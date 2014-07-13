@@ -395,7 +395,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YtY-fP-VQq">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YtY-fP-VQq" customClass="CloudTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -454,6 +454,11 @@
                                 <items>
                                     <barButtonItem title="To Do" id="YZP-DL-EZ6"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="KY1-lA-pM6"/>
+                                    <barButtonItem systemItem="refresh" id="xcj-Fn-MP7">
+                                        <connections>
+                                            <action selector="refresh:" destination="4ak-9I-cu1" id="FTZ-bJ-F2e"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -476,6 +481,7 @@
                     <connections>
                         <outlet property="filters" destination="YkN-af-eah" id="JYP-Ve-2vd"/>
                         <outlet property="leftButton" destination="auM-eI-iQd" id="FKT-Av-iHY"/>
+                        <outlet property="refreshButton" destination="xcj-Fn-MP7" id="0Hh-LT-3FJ"/>
                         <outlet property="tableView" destination="YtY-fP-VQq" id="tvH-ew-uFZ"/>
                         <outlet property="toolbar" destination="b2E-yY-g7M" id="dMo-i3-qIg"/>
                     </connections>
@@ -650,7 +656,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cqy-yk-qZe" customClass="DSLCalendarView">
-                                <rect key="frame" x="60" y="0.0" width="260" height="169"/>
+                                <rect key="frame" x="60" y="20" width="260" height="169"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>

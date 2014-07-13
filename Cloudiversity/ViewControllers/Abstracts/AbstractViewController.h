@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CloudiversityAppDelegate.h"
 #import "UICloud.h"
 #import "UIColor+Cloud.h"
 #import "IOSRequest.h"
 #import "DejalActivityView.h"
 #import "SWRevealViewController.h"
+#import "EGOCache.h"
 #import "User.h"
 
 @interface AbstractViewController : UIViewController
