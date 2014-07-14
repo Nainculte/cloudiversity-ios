@@ -87,7 +87,7 @@
 {
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
 
-    if ([segue.identifier isEqualToString:@"Agenda"]) {
+    if ([segue.identifier isEqualToString:@"AgendaStudent"] || [segue.identifier isEqualToString:@"AgendaTeacher"]) {
         dest.title = @"Agenda";
         self.current = @"Agenda";
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {

@@ -32,7 +32,6 @@
 @property (nonatomic, strong) NSMutableArray *materialsToFilter;
 
 @property (nonatomic) BOOL recievedResponseFromServer;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
@@ -54,7 +53,7 @@
 
 - (void)setupHandlers
 {
-    __weak typeof(self) weakSelf = self;
+    BSELF(self)
     self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
         
@@ -109,9 +108,9 @@
 
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsList"];
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedDates"];
-        weakSelf.sections = assignmentsByDates;
-        weakSelf.sortedSections = sortedDates;
-		[weakSelf.tableView reloadData];
+        bself.sections = assignmentsByDates;
+        bself.sortedSections = sortedDates;
+		[bself.tableView reloadData];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };

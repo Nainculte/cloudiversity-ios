@@ -16,6 +16,8 @@
 #import "EGOCache.h"
 #import "User.h"
 
+#define BSELF(ptr) __weak typeof(ptr) bself = ptr;
+
 @interface AbstractViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;

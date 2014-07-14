@@ -411,8 +411,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="bh0-iK-MN0" customClass="CloudTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="426"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="bh0-iK-MN0" customClass="CloudTableView">
+                                <rect key="frame" x="0.0" y="20" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -423,20 +423,29 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FX-bf-hEW" customClass="CloudLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FX-bf-hEW" customClass="CloudLabel">
                                                     <rect key="frame" x="20" y="0.0" width="257" height="39"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNk-5A-wxB" customClass="CloudLabel">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNk-5A-wxB" customClass="CloudLabel">
                                                     <rect key="frame" x="20" y="38" width="257" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4FX-bf-hEW" firstAttribute="leading" secondItem="whX-la-P3r" secondAttribute="leading" constant="20" symbolic="YES" id="D87-FY-SZC"/>
+                                                <constraint firstItem="bNk-5A-wxB" firstAttribute="trailing" secondItem="4FX-bf-hEW" secondAttribute="trailing" id="JrE-jy-z6c"/>
+                                                <constraint firstAttribute="trailing" secondItem="4FX-bf-hEW" secondAttribute="trailing" constant="10" id="OVu-rV-oHk"/>
+                                                <constraint firstAttribute="bottom" secondItem="4FX-bf-hEW" secondAttribute="bottom" constant="20" symbolic="YES" id="SoV-BV-Y7S"/>
+                                                <constraint firstItem="4FX-bf-hEW" firstAttribute="leading" secondItem="bNk-5A-wxB" secondAttribute="leading" id="bIf-iZ-skm"/>
+                                                <constraint firstItem="4FX-bf-hEW" firstAttribute="top" secondItem="whX-la-P3r" secondAttribute="top" id="j11-nJ-I9V"/>
+                                                <constraint firstAttribute="bottom" secondItem="bNk-5A-wxB" secondAttribute="bottom" id="vgC-HU-7YI"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="assignmentsLabel" destination="bNk-5A-wxB" id="WGJ-Kd-d9O"/>
@@ -445,20 +454,24 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XZ-1s-PKM">
-                                <rect key="frame" x="0.0" y="460" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Item" id="dyf-sr-Z8w"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="bh0-iK-MN0" secondAttribute="centerX" id="7uJ-dl-vJz"/>
+                            <constraint firstItem="bh0-iK-MN0" firstAttribute="top" secondItem="nBO-ET-EBc" secondAttribute="bottom" id="gsc-U6-zCM"/>
+                            <constraint firstItem="ZFU-dy-4cQ" firstAttribute="top" secondItem="bh0-iK-MN0" secondAttribute="bottom" id="nKb-s5-q9D"/>
+                            <constraint firstItem="bh0-iK-MN0" firstAttribute="leading" secondItem="wHq-ws-DwY" secondAttribute="leading" id="yan-GM-hzj"/>
+                        </constraints>
                     </view>
                     <toolbarItems>
                         <barButtonItem image="menu.png" id="JRJ-2t-PvO"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Title" id="rSd-Cc-M3N">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="z7c-43-pab">
+                            <connections>
+                                <action selector="refresh:" destination="Iap-F3-QOX" id="f6k-ke-LAT"/>
+                            </connections>
+                        </barButtonItem>
                         <connections>
                             <outlet property="leftBarButtonItem" destination="JRJ-2t-PvO" id="hCX-HT-9t7"/>
                         </connections>
@@ -467,7 +480,6 @@
                     <connections>
                         <outlet property="leftButton" destination="JRJ-2t-PvO" id="q1c-qs-HNo"/>
                         <outlet property="tableView" destination="bh0-iK-MN0" id="bmf-GU-flq"/>
-                        <outlet property="toolbar" destination="6XZ-1s-PKM" id="Tcf-3F-akw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Scv-l9-3kF" userLabel="First Responder" sceneMemberID="firstResponder"/>

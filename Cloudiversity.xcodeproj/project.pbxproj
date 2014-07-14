@@ -80,8 +80,6 @@
 		FD0F98751923ED72002DF049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD0F98741923ED72002DF049 /* Main.storyboard */; };
 		FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = FD19FB2119059006000B4688 /* UIColor+Cloud.m */; };
 		FD24147F1973C1890069618E /* AgendaTeacherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD24147E1973C1890069618E /* AgendaTeacherViewController.m */; };
-		FD2414821973D5C50069618E /* angle-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD2414801973D5C50069618E /* angle-right@2x.png */; };
-		FD2414831973D5C50069618E /* angle-right.png in Resources */ = {isa = PBXBuildFile; fileRef = FD2414811973D5C50069618E /* angle-right.png */; };
 		FD241486197412210069618E /* AbstractTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD241485197412210069618E /* AbstractTableViewController.m */; };
 		FD24148919741B8B0069618E /* AgendaTeacherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD24148819741B8B0069618E /* AgendaTeacherTableViewCell.m */; };
 		FD35BC391955F27200091678 /* filter.png in Resources */ = {isa = PBXBuildFile; fileRef = FD35BC371955F27200091678 /* filter.png */; };
@@ -923,10 +921,8 @@
 				9244EC91196DAF55004E8434 /* DSLCalendarDaySelection-left.png in Resources */,
 				FD3FA7CF18FC2F0A0072B731 /* Logo_500x500.png in Resources */,
 				9244EC9F196DAF55004E8434 /* DSLCalendarDaySelection@2x.png in Resources */,
-				FD2414821973D5C50069618E /* angle-right@2x.png in Resources */,
 				9244EC87196DAF55004E8434 /* DSLCalendar-nextMonth@2x.png in Resources */,
 				FDDA095518F5BA9F000A1029 /* FiraSansOT-Medium.otf in Resources */,
-				FD2414831973D5C50069618E /* angle-right.png in Resources */,
 				9244EC9D196DAF55004E8434 /* DSLCalendarDaySelection.png in Resources */,
 				9244EC8D196DAF55004E8434 /* DSLCalendarDayCallout.png in Resources */,
 				9244EC95196DAF55004E8434 /* DSLCalendarDaySelection-middle.png in Resources */,
