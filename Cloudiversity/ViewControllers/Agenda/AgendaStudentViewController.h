@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractViewController.h"
+#import "AbstractTableViewController.h"
 
-@interface AgendaViewController : AbstractViewController <UITableViewDataSource, CloudTableViewDelegate>
+@interface AgendaStudentViewController : AbstractTableViewController
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;

@@ -10,7 +10,7 @@
 #import "CloudLabel.h"
 #import "AMPieChartView.h"
 
-@interface AgendaTableViewCell : UITableViewCell
+@interface AgendaStudentTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet AMPieChartView *pieChartView;
 @property (weak, nonatomic) IBOutlet CloudLabel *workTitle;

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "AgendaTableViewCell.h"
+#import "AgendaStudentTableViewCell.h"
 
-@implementation AgendaTableViewCell
+@implementation AgendaStudentTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
