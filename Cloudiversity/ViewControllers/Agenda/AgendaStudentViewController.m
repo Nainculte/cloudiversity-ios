@@ -172,6 +172,14 @@
     [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([[segue identifier] isEqualToString:@"segueForAssignmentDetails"]) {
+		AgendaStudentTaskViewController *assignmentDetailsVC = [segue destinationViewController];
+		
+		[assignmentDetailsVC setDataSource:self];
+	}
+}
+
 #pragma mark - UITableView management
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -233,10 +241,9 @@
 /*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 }*/
 
-#define SAVING_PLACE_ASSIGNMENT	@"agendaTmpPlaceForAssignment"
+-(AgendaAssignment *)getSelectedAssignment {
+	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
 	int *indexes = malloc(sizeof(int) * [indexPath length]);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 	
@@ -251,16 +258,13 @@
 	NSDate *assignmentDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:assignmentDateString];
 	
 	AgendaAssignment *assignment = [[AgendaAssignment alloc]
-								 initWithTitle:[assignmentDico objectForKey:DICO_TITLE]
-								 withId:[[assignmentDico objectForKey:DICO_ID] intValue]
-								 dueDate:assignmentDate
-								 progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue]
-								 forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
+									initWithTitle:[assignmentDico objectForKey:DICO_TITLE]
+									withId:[[assignmentDico objectForKey:DICO_ID] intValue]
+									dueDate:assignmentDate
+									progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue]
+									forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
 	
-	NSUserDefaults *uDefault = [NSUserDefaults standardUserDefaults];
-	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:assignment];
-	[uDefault setObject:data forKey:SAVING_PLACE_ASSIGNMENT];
-	[uDefault synchronize];
+	return assignment;
 }
 
 /*

@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "AbstractTableViewController.h"
+#import "AgendaStudentTaskViewController.h"
 
-@interface AgendaStudentViewController : AbstractTableViewController
+@interface AgendaViewController : AbstractTableViewController <UITableViewDataSource, AgendaStudentTaskDataSource, CloudTableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;
 
