@@ -439,7 +439,7 @@
                                             <outlet property="fieldLabel" destination="LAb-dS-G12" id="ZmM-6a-xJL"/>
                                             <outlet property="pieChartView" destination="kLU-4t-Y0K" id="536-p6-acu"/>
                                             <outlet property="workTitle" destination="Vs4-BG-fzJ" id="u2q-cu-Vcs"/>
-                                            <segue destination="A4u-Lb-lHe" kind="push" id="mGu-rz-tIS"/>
+                                            <segue destination="A4u-Lb-lHe" kind="push" identifier="segueForAssignmentDetails" id="mGu-rz-tIS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractViewController.h"
+#import "AgendaStudentTaskViewController.h"
 
-@interface AgendaViewController : AbstractViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AgendaViewController : AbstractViewController <UITableViewDataSource, UITableViewDelegate, AgendaStudentTaskDataSource>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;

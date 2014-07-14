@@ -7,7 +7,6 @@
 //
 
 #import "AgendaStudentTaskViewController.h"
-#import "AgendaAssignment.h"
 #import "UICloud.h"
 #import "CloudDateConverter.h"
 #import "AMPieChartView.h"
@@ -103,9 +102,7 @@
 #define SAVING_PLACE_ASSIGNMENT	@"agendaTmpPlaceForAssignment"
 
 - (void)initAssignment {
-	NSUserDefaults *uDefault = [NSUserDefaults standardUserDefaults];
-	NSData *data = [uDefault objectForKey:SAVING_PLACE_ASSIGNMENT];
-	self.assignment = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	self.assignment = [self.dataSource getSelectedAssignment];
 	
 	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		NSDictionary *response = (NSDictionary *)responseObject;
