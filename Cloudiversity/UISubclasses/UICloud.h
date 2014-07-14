@@ -9,6 +9,7 @@
 #import "CloudLabel.h"
 #import "CloudButton.h"
 #import "CloudTextField.h"
+#import "CloudTableView.h"
 
 #define CLOUD_FONT					@"FiraSansOT"
 #define CLOUD_FONT_BOLD				@"FiraSansOT-Bold"

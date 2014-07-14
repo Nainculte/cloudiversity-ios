@@ -10,10 +10,11 @@
 #import "AbstractViewController.h"
 #import "AgendaStudentTaskViewController.h"
 
-@interface AgendaViewController : AbstractViewController <UITableViewDataSource, UITableViewDelegate, AgendaStudentTaskDataSource>
+@interface AgendaViewController : AbstractViewController <UITableViewDataSource, UITableViewDelegate, AgendaStudentTaskDataSource, CloudTableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;
 
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @end

@@ -37,6 +37,11 @@
 @property (nonatomic) BOOL recievedResponseFromServer;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (nonatomic, strong) HTTPSuccessHandler success;
+@property (nonatomic, strong) HTTPFailureHandler failure;
+
+- (IBAction)refresh:(id)sender;
+
 @end
 
 @implementation AgendaViewController
@@ -48,6 +53,80 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)setupHandlers
+{
+    __weak typeof(self) weakSelf = self;
+    self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *response = (NSDictionary *)responseObject;
+        
+        NSMutableDictionary *assignmentsByDates = [NSMutableDictionary dictionary];
+        NSArray *sortedDates;
+        
+		// Adding assignments in Arrays grouped by date
+		for (NSDictionary *assignment in response) {
+			NSString *dateString = [assignment objectForKey:DICO_DEADLINE];
+            
+			NSDate* date = [[CloudDateConverter sharedMager] dateFromString:dateString];
+            
+			NSMutableArray *assignmentsByDatesArray = [assignmentsByDates objectForKey:date];
+            
+			if (assignmentsByDatesArray == nil) {
+				assignmentsByDatesArray = [NSMutableArray array];
+				[assignmentsByDates setObject:assignmentsByDatesArray forKey:date];
+			}
+
+			[assignmentsByDatesArray addObject:assignment];
+		}
+
+		// Sorting keys from  earliest to latest
+		sortedDates = [assignmentsByDates allKeys];
+		sortedDates = [sortedDates sortedArrayUsingSelector:@selector(compare:)];
+
+		// Sorting assignments of each array by dueTime
+
+		for (NSDate *date in sortedDates) {
+			NSArray *assignments = [assignmentsByDates objectForKey:date];
+
+			assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+				NSDictionary *dico1 = (NSDictionary *)obj1;
+				NSDictionary *dico2 = (NSDictionary *)obj2;
+
+				NSString *dateString1 = [dico1 objectForKey:DICO_DUETIME];
+				if (dateString1 == nil || [[dico1 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString1 = [CloudDateConverter nullTime];
+				NSString *dateString2 = [dico2 objectForKey:DICO_DUETIME];
+				if (dateString2 == nil || [[dico2 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString2 = [CloudDateConverter nullTime];
+
+				NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
+				NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
+
+				return [date1 compare:date2];
+			}];
+
+			// remove the unsorted array...
+			[assignmentsByDates removeObjectForKey:date];
+			// ...then replace it by the sorted one
+			[assignmentsByDates setObject:assignments forKey:date];
+		}
+
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsList"];
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedDates"];
+        weakSelf.assignmentsByDate = assignmentsByDates;
+        weakSelf.sortedDates = sortedDates;
+		[weakSelf.tableView reloadData];
+        [DejalActivityView removeView];
+        [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+    };
+    self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        switch (operation.response.statusCode) {
+            default:
+                break;
+        }
+        [DejalActivityView removeView];
+        [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+    };
 }
 
 - (void)viewDidLoad
@@ -62,10 +141,19 @@
     self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
     self.filters.target = self.revealViewController;
     self.filters.action = @selector(rightRevealToggle:);
-	self.assignmentsByDate = [[NSMutableDictionary alloc] init];
+
+
+    self.assignmentsByDate = [NSMutableDictionary dictionary];
+
+    [self setupHandlers];
 	
 	//[self initAssignmentsByDates];
-	[self initAssignmentsByHTTPRequest];
+
+    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
+        [self.tableView reloadData];
+    } else {
+        [self initAssignmentsByHTTPRequest];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -75,68 +163,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initAssignmentsByHTTPRequest {
-    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *response = (NSDictionary *)responseObject;
+- (IBAction)refresh:(id)sender
+{
+    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
+    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
+}
 
-		// Adding assignments in Arrays grouped by date
-		for (NSDictionary *assignment in response) {
-			NSString *dateString = [assignment objectForKey:DICO_DEADLINE];
-			
-			NSDate* date = [[CloudDateConverter sharedMager] dateFromString:dateString];
-			
-			NSMutableArray *assignmentsByDatesArray = [self.assignmentsByDate objectForKey:date];
-			
-			if (assignmentsByDatesArray == nil) {
-				assignmentsByDatesArray = [NSMutableArray array];
-				[self.assignmentsByDate setObject:assignmentsByDatesArray forKey:date];
-			}
-			
-			[assignmentsByDatesArray addObject:assignment];
-		}
-		
-		// Sorting keys from  earliest to latest
-		self.sortedDates = [self.assignmentsByDate allKeys];
-		self.sortedDates = [self.sortedDates sortedArrayUsingSelector:@selector(compare:)];
-		
-		// Sorting assignments of each array by dueTime
-		for (NSDate *date in self.sortedDates) {
-			NSArray *assignments = [self.assignmentsByDate objectForKey:date];
-			
-			assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-				NSDictionary *dico1 = (NSDictionary *)obj1;
-				NSDictionary *dico2 = (NSDictionary *)obj2;
-				
-				NSString *dateString1 = [dico1 objectForKey:DICO_DUETIME];
-				if (dateString1 == nil || [[dico1 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString1 = [CloudDateConverter nullTime];
-				NSString *dateString2 = [dico2 objectForKey:DICO_DUETIME];
-				if (dateString2 == nil || [[dico2 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString2 = [CloudDateConverter nullTime];
-				
-				NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
-				NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
-				
-				return [date1 compare:date2];
-			}];
-			
-			// remove the unsorted array...
-			[self.assignmentsByDate removeObjectForKey:date];
-			// ...then replace it by the sorted one
-			[self.assignmentsByDate setObject:assignments forKey:date];
-		}
-		[self.tableView reloadData];
-        [DejalActivityView removeView];
-    };
-    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
-        [DejalActivityView removeView];
-    };
-	//[self.activityIndicator setHidden:NO];
+- (void)initAssignmentsByHTTPRequest
+{
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
-    [IOSRequest getAssignmentsForUserOnSuccess:success onFailure:failure];
+    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -213,6 +249,18 @@
 	}
 	
 	return cell;
+}
+
+- (void)tableViewWillReloadData:(UITableView *)tableView
+{
+    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
+        NSMutableDictionary *assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"assignmentsList"]];
+        NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedDates"]];
+        if (assignments && dates) {
+            self.assignmentsByDate = assignments;
+            self.sortedDates = dates;
+        }
+    }
 }
 
 /*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

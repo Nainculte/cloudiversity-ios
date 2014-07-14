@@ -91,6 +91,9 @@
 		FD3FA7D618FC3A160072B731 /* Icon_60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D218FC3A160072B731 /* Icon_60x60.png */; };
 		FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D318FC3A160072B731 /* Icon_500x500.png */; };
 		FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */; };
+		FD6717D01972B586001C81B3 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717CE1972B586001C81B3 /* EGOCache.m */; };
+		FD6717D11972B586001C81B3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = FD6717CF1972B586001C81B3 /* LICENSE */; };
+		FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717D31972C2AE001C81B3 /* CloudTableView.m */; };
 		FD854A471952DB37008F046D /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A461952DB37008F046D /* ServerViewController.m */; };
 		FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */; };
 		FD854A4E1952E3FD008F046D /* ServerVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD854A501952E3FD008F046D /* ServerVC.strings */; };
@@ -234,6 +237,12 @@
 		FD3FA7D318FC3A160072B731 /* Icon_500x500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_500x500.png; sourceTree = "<group>"; };
 		FD49BC6B1927C92500AAA3A6 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		FD6717CD1972B586001C81B3 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
+		FD6717CE1972B586001C81B3 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
+		FD6717CF1972B586001C81B3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		FD6717D21972C2AE001C81B3 /* CloudTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudTableView.h; sourceTree = "<group>"; };
+		FD6717D31972C2AE001C81B3 /* CloudTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudTableView.m; sourceTree = "<group>"; };
+		FD6717D51972C2F6001C81B3 /* CloudTableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudTableViewDelegate.h; sourceTree = "<group>"; };
 		FD854A451952DB37008F046D /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerViewController.h; sourceTree = "<group>"; };
 		FD854A461952DB37008F046D /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
 		FD854A491952DDC2008F046D /* AbstractLogoViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractLogoViewViewController.h; sourceTree = "<group>"; };
@@ -555,6 +564,16 @@
 			name = Fira;
 			sourceTree = "<group>";
 		};
+		FD6717CC1972B551001C81B3 /* EGOCache */ = {
+			isa = PBXGroup;
+			children = (
+				FD6717CD1972B586001C81B3 /* EGOCache.h */,
+				FD6717CE1972B586001C81B3 /* EGOCache.m */,
+				FD6717CF1972B586001C81B3 /* LICENSE */,
+			);
+			path = EGOCache;
+			sourceTree = "<group>";
+		};
 		FD854A441952DB0A008F046D /* Server */ = {
 			isa = PBXGroup;
 			children = (
@@ -615,6 +634,7 @@
 		FDC907E6192A847000646A68 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				FD6717CC1972B551001C81B3 /* EGOCache */,
 				9244EC55196DAF55004E8434 /* DSLCalendarView */,
 				FDC1FA61196C5C0200150F66 /* DejalActivityView */,
 				FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */,
@@ -743,6 +763,9 @@
 				FDC90840192A863E00646A68 /* CloudTextField.h */,
 				FDC90841192A863E00646A68 /* CloudTextField.m */,
 				FDC90842192A863E00646A68 /* UICloud.h */,
+				FD6717D21972C2AE001C81B3 /* CloudTableView.h */,
+				FD6717D31972C2AE001C81B3 /* CloudTableView.m */,
+				FD6717D51972C2F6001C81B3 /* CloudTableViewDelegate.h */,
 			);
 			path = UISubclasses;
 			sourceTree = "<group>";
@@ -893,6 +916,7 @@
 				9244EC95196DAF55004E8434 /* DSLCalendarDaySelection-middle.png in Resources */,
 				FD0F98751923ED72002DF049 /* Main.storyboard in Resources */,
 				FD3FA7CC18FC2F0A0072B731 /* Logo_29x29.png in Resources */,
+				FD6717D11972B586001C81B3 /* LICENSE in Resources */,
 				FD3FA7D418FC3A160072B731 /* Icon_29x29.png in Resources */,
 				FDC90832192A847000646A68 /* AuthenticationVC.strings in Resources */,
 				FDDA095618F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf in Resources */,
@@ -945,6 +969,7 @@
 				FDC907DC192A83D900646A68 /* Object.m in Sources */,
 				9244EC79196DAF55004E8434 /* DSLCalendarDayView.m in Sources */,
 				FDC9081E192A847000646A68 /* IOSRequest.m in Sources */,
+				FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */,
 				FDC90829192A847000646A68 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
 				9244EC7B196DAF55004E8434 /* DSLCalendarMonthSelectorView.m in Sources */,
@@ -962,6 +987,7 @@
 				92C2120D19471D510059B6B4 /* AgendaTableViewCell.m in Sources */,
 				FDC9082D192A847000646A68 /* UIImageView+AFNetworking.m in Sources */,
 				9244EC83196DAF55004E8434 /* DSLCalendarView.m in Sources */,
+				FD6717D01972B586001C81B3 /* EGOCache.m in Sources */,
 				FDC90844192A863E00646A68 /* CloudLabel.m in Sources */,
 				FDC9082E192A847000646A68 /* UIProgressView+AFNetworking.m in Sources */,
 				FDEA48DB19509A270026210D /* NavigationViewController.m in Sources */,
