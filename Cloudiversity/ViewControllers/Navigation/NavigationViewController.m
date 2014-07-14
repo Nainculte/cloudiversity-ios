@@ -8,7 +8,7 @@
 
 #import "NavigationViewController.h"
 #import "SWRevealViewController.h"
-#import "AgendaViewController.h"
+#import "AgendaStudentViewController.h"
 #import "UIColor+Cloud.h"
 #import "UICloud.h"
 #import "User.h"
@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong)NSString *current;
 
+- (IBAction)agendaClicked:(id)sender;
 @end
 
 @implementation NavigationViewController
@@ -116,4 +117,11 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (IBAction)agendaClicked:(id)sender {
+    if ([[User sharedUser].currentRole isEqualToString:@"Student"]) {
+        [self performSegueWithIdentifier:@"AgendaStudent" sender:self];
+    } else {
+        [self performSegueWithIdentifier:@"AgendaTeacher" sender:self];
+    }
+}
 @end

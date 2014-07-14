@@ -114,7 +114,12 @@
 					 onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [defaults objectForKey:@"server"];
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assignmentId];
+    NSString *role = @"";
+    User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+	}
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d%@", path, assignmentId, role];
 	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
@@ -141,7 +146,12 @@
 					onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [uDefaults objectForKey:@"server"];
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assignmentId];
+    NSString *role = @"";
+    User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+	}
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d%@", path, assignmentId, role];
 	
 	NSDictionary *params = @{@"assignment": @{@"progress": [NSNumber numberWithInt:progress]}};
 	

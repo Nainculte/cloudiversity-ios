@@ -20,4 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
 
+- (void)setRightViewController:(NSString *)name withButton:(UIBarButtonItem *)button;
+- (void)setRightViewController:(NSString *)name;
+
 @end

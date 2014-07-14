@@ -46,6 +46,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setRightViewController:(NSString *)name withButton:(UIBarButtonItem *)button
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:name];
+    if (button) {
+        button.target = self.revealViewController;
+        button.action = @selector(rightRevealToggle:);
+    }
+}
+
+- (void)setRightViewController:(NSString *)name
+{
+    [self setRightViewController:name withButton:nil];
+}
+
 /*
 #pragma mark - Navigation
 
