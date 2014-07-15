@@ -359,6 +359,11 @@
     return (month.weekday - month.calendar.firstWeekday == 0);
 }
 
+- (void)deselectSelectedDay:(NSDateComponents*)day {
+	DSLCalendarMonthView *month = [self.monthViews objectForKey:[self monthViewKeyForMonth:day]];
+	
+	[month updateDaySelectionStatesForRange:nil];
+}
 
 #pragma mark - Touches
 

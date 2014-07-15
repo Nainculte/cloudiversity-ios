@@ -16,7 +16,7 @@
 #import "EGOCache.h"
 #import "User.h"
 
-@interface AbstractViewController : UIViewController
+@interface AbstractViewController : UIViewController <SWRevealViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
 

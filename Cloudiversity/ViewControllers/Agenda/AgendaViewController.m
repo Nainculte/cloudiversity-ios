@@ -9,7 +9,6 @@
 #import "AgendaViewController.h"
 #import "AgendaTableViewCell.h"
 #import "AgendaAssignment.h"
-#import "AgendaFilterViewController.h"
 #import "CloudDateConverter.h"
 
 // id for cells in the tableView
@@ -26,13 +25,16 @@
 
 @interface AgendaViewController ()
 
+// Properties for filtering
 @property BOOL isFilteringExams;
 @property BOOL isFilteringExercices;
 @property BOOL isFilteringNotedTasks;
+@property (nonatomic, strong) NSDate *dateToFilter;
 @property (nonatomic, strong) NSMutableArray *materialsToFilter;
 
 @property (nonatomic, strong) NSMutableDictionary *assignmentsByDate;
 @property (nonatomic, strong) NSArray *sortedDates;
+@property (nonatomic, strong) NSMutableArray *allDisciplinesName;
 
 @property (nonatomic) BOOL recievedResponseFromServer;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -63,6 +65,7 @@
         
         NSMutableDictionary *assignmentsByDates = [NSMutableDictionary dictionary];
         NSArray *sortedDates;
+		NSMutableArray *allDisciplinesName = [NSMutableArray array];
         
 		// Adding assignments in Arrays grouped by date
 		for (NSDictionary *assignment in response) {
@@ -78,6 +81,12 @@
 			}
 
 			[assignmentsByDatesArray addObject:assignment];
+			
+			// Geting discipline's name, and adding it in allDisciplines if it doesn't exist
+			NSString *disciplineName = [[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME];
+			
+			if (![allDisciplinesName containsObject:disciplineName])
+				[allDisciplinesName addObject:disciplineName];
 		}
 
 		// Sorting keys from  earliest to latest
@@ -112,8 +121,10 @@
 
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsList"];
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedDates"];
+		[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
         weakSelf.assignmentsByDate = assignmentsByDates;
         weakSelf.sortedDates = sortedDates;
+		weakSelf.allDisciplinesName = allDisciplinesName;
 		[weakSelf.tableView reloadData];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
@@ -138,12 +149,17 @@
 
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 
-    self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
+    //self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
+	UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
+	[self.revealViewController setRightViewController:vc animated:NO];
+	[((AgendaFilterViewController*)vc) setDelegate:self];
+	[self.revealViewController setDelegate:(id <SWRevealViewControllerDelegate>)vc];
     self.filters.target = self.revealViewController;
     self.filters.action = @selector(rightRevealToggle:);
 
 
     self.assignmentsByDate = [NSMutableDictionary dictionary];
+	self.allDisciplinesName = [NSMutableArray array];
 
     [self setupHandlers];
 	
@@ -256,15 +272,19 @@
     if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
         NSMutableDictionary *assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"assignmentsList"]];
         NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedDates"]];
-        if (assignments && dates) {
+		NSMutableArray *allDisciplinesName = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"allDisciplinesName"]];
+        if (assignments && dates && allDisciplinesName) {
             self.assignmentsByDate = assignments;
             self.sortedDates = dates;
+			self.allDisciplinesName = allDisciplinesName;
         }
     }
 }
 
 /*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
 }*/
+
+#pragma mark - AgendaStudentTaskDataSource protocol
 
 -(AgendaAssignment *)getSelectedAssignment {
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -290,6 +310,16 @@
 									forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
 	
 	return assignment;
+}
+
+#pragma mark - AgendaFilterViewDelegate protocol
+
+-(void)filtersUpdated:(NSDictionary *)newFilters {
+	NSLog(@"%@", newFilters);
+}
+
+- (NSArray*)getDisciplineFilters {
+	return self.allDisciplinesName;
 }
 
 #pragma mark - testDatas

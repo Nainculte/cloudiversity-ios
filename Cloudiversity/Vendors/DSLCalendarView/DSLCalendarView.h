@@ -50,6 +50,7 @@
 
 - (DSLCalendarMonthSelectorView*)calendarMonthSelector;
 - (void)setVisibleMonth:(NSDateComponents *)visibleMonth animated:(BOOL)animated;
+- (void)deselectSelectedDay:(NSDateComponents*)day;
 
 @end
 

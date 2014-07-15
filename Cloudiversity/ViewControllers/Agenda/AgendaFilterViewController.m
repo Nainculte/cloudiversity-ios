@@ -8,13 +8,28 @@
 
 #import "AgendaFilterViewController.h"
 
+#define REUSE_IDENTIFIER	@"fieldCell"
+
 @interface AgendaFilterViewController ()
 
 @property (weak, nonatomic) IBOutlet DSLCalendarView *calendarView;
 
+@property (strong, nonatomic) NSDateComponents *selectedDay;
+@property (strong, nonatomic) NSMutableArray *selectedDisciplines;
+
+@property BOOL dayIsSelected;
+
 @end
 
 @implementation AgendaFilterViewController
+
+- (NSMutableArray *)selectedDisciplines {
+	if (_selectedDisciplines == nil) {
+		_selectedDisciplines = [NSMutableArray array];
+	}
+	
+	return _selectedDisciplines;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +49,8 @@
 	[self.markesTasksSwitchFilter setOn:NO];
     self.view.backgroundColor = [UIColor whiteColor];
 	[self.calendarView setDelegate:self];
+
+	[self setDayIsSelected:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,11 +100,57 @@
 }
 */
 
+#pragma mark - UITableViewDelegate and dataSource protocol
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	NSLog(@">>>>>>>>\n%@\n<<<<<<<<<<", [self.delegate getDisciplineFilters]);
+	
+	return [self.delegate getDisciplineFilters].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:REUSE_IDENTIFIER];
+	if (!cell) {
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REUSE_IDENTIFIER];
+	}
+
+	cell.textLabel.text = [[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	
+	return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSString *disciplineName = [[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	
+	if (self.selectedDisciplines == nil)
+		self.selectedDisciplines = [NSMutableArray array];
+	if (![self.selectedDisciplines containsObject:disciplineName]) {
+		[self.selectedDisciplines addObject:disciplineName];
+	}
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSString *disciplineName = [[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	
+	if (self.selectedDisciplines == nil)
+		self.selectedDisciplines = [NSMutableArray array];
+	if ([self.selectedDisciplines containsObject:disciplineName]) {
+		[self.selectedDisciplines removeObject:disciplineName];
+	}
+}
+
 #pragma mark - DSLCalendarViewDelegate methods
 
 - (void)calendarView:(DSLCalendarView *)calendarView didSelectRange:(DSLCalendarRange *)range {
     if (range != nil) {
         NSLog( @"Selected %d/%d - %d/%d", range.startDay.day, range.startDay.month, range.endDay.day, range.endDay.month);
+		if ([self.selectedDay.date compare:range.startDay.date] == NSOrderedSame &&
+			self.selectedDay != nil) {
+			[self.calendarView deselectSelectedDay:self.calendarView.selectedRange.startDay];
+			self.selectedDay = nil;
+		} else {
+			self.selectedDay = range.startDay;
+		}
     }
     else {
         NSLog( @"No selection" );
@@ -96,7 +159,7 @@
 
 - (DSLCalendarRange*)calendarView:(DSLCalendarView *)calendarView didDragToDay:(NSDateComponents *)day selectingRange:(DSLCalendarRange *)range {
     if (YES) { // Only select a single day
-        return [[DSLCalendarRange alloc] initWithStartDay:day endDay:day];
+		return [[DSLCalendarRange alloc] initWithStartDay:day endDay:day];
     }
     else if (NO) { // Don't allow selections before today
         NSDateComponents *today = [[NSDate date] dslCalendarView_dayWithCalendar:calendarView.visibleMonth.calendar];
@@ -123,15 +186,41 @@
 }
 
 - (void)calendarView:(DSLCalendarView *)calendarView willChangeToVisibleMonth:(NSDateComponents *)month duration:(NSTimeInterval)duration {
-    NSLog(@"Will show %@ in %.3f seconds", month, duration);
+    //NSLog(@"Will show %@ in %.3f seconds", month, duration);
 }
 
 - (void)calendarView:(DSLCalendarView *)calendarView didChangeToVisibleMonth:(NSDateComponents *)month {
-    NSLog(@"Now showing %@", month);
+    //NSLog(@"Now showing %@", month);
 }
 
 - (BOOL)day:(NSDateComponents*)day1 isBeforeDay:(NSDateComponents*)day2 {
     return ([day1.date compare:day2.date] == NSOrderedAscending);
 }
+
+#pragma mark - SWRevealViewControllerDelegate protocol
+
+- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
+	if (self.delegate && position == FrontViewPositionLeft) {	// If the delegate is not nil AND is the frontView...
+																// ...will go back to the center from the left
+		NSMutableDictionary *filters = [NSMutableDictionary dictionary];
+		if (self.selectedDay) {
+			[filters setObject:self.selectedDay forKey:@"dateToFilter"];
+		} else {
+			[filters removeObjectForKey:@"dateToFilter"];
+		}
+		if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
+			[filters setObject:self.selectedDisciplines forKey:@"disciplinesToFilter"];
+		} else {
+			[filters removeObjectForKey:@"disciplinesToFilter"];
+		}
+		[self.delegate filtersUpdated:filters];
+	}
+}
+
+/*- (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController {
+	if (self.delegate && revealController) {
+		[self.delegate filtersUpdated:self.filters];
+	}
+}*/
 
 @end
