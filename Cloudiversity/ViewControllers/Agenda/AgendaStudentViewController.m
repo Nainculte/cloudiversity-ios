@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "AgendaViewController.h"
-#import "AgendaTableViewCell.h"
+#import "AgendaStudentViewController.h"
+#import "AgendaStudentTableViewCell.h"
 #import "AgendaAssignment.h"
 #import "CloudDateConverter.h"
 
@@ -23,7 +23,7 @@
 #define DICO_DISCIPLINE_ID			@"id"
 #define DICO_DISCIPLINE_NAME		@"name"
 
-@interface AgendaViewController ()
+@interface AgendaStudentViewController ()
 
 // Properties for filtering
 @property BOOL isFilteringExams;
@@ -37,7 +37,6 @@
 @property (nonatomic, strong) NSMutableArray *allDisciplinesName;
 
 @property (nonatomic) BOOL recievedResponseFromServer;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
@@ -46,7 +45,7 @@
 
 @end
 
-@implementation AgendaViewController
+@implementation AgendaStudentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,7 +58,7 @@
 
 - (void)setupHandlers
 {
-    __weak typeof(self) weakSelf = self;
+    BSELF(self)
     self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
         
@@ -121,7 +120,7 @@
 
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsList"];
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedDates"];
-		[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
+	[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
         weakSelf.assignmentsByDate = assignmentsByDates;
         weakSelf.sortedDates = sortedDates;
 		weakSelf.allDisciplinesName = allDisciplinesName;
@@ -143,13 +142,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	[self.toolbar setBackgroundColor:[UIColor cloudLightBlue]];
-    [self.toolbar setBarTintColor:[UIColor cloudLightBlue]];
 
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-
-    //self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
 	UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
 	[self.revealViewController setRightViewController:vc animated:NO];
 	[((AgendaFilterViewController*)vc) setDelegate:self];
@@ -162,8 +155,6 @@
 	self.allDisciplinesName = [NSMutableArray array];
 
     [self setupHandlers];
-	
-	//[self initAssignmentsByDates];
 
     if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
         [self.tableView reloadData];
@@ -177,6 +168,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSString *)reuseIdentifier
+{
+    return @"agendaStudentCell";
+}
+
++ (Class)cellClass
+{
+    return [AgendaStudentTableViewCell class];
 }
 
 - (IBAction)refresh:(id)sender
@@ -201,34 +202,17 @@
 
 #pragma mark - UITableView management
 
-/*
- Maybe a number like 10, to have assignements for the 10 next days
- (have to talk about it)
- */
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [self.assignmentsByDate count];
-}
-
-/*
- For getting the number of rows in a section, we check the number of assignement per day
-*/
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSString *keyForSection = [self.sortedDates objectAtIndex:section];
-	
-	//NSLog(@">>> Asking for numberOfRowsInSection : %d", section);
-
-	return [[self.assignmentsByDate objectForKey:keyForSection] count];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
 	return 18;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     /* Create custom view to display section header... */
     CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-	NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:[self.sortedDates objectAtIndex:section]];
+	NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:[self.sortedSections objectAtIndex:section]];
 
     [label setText:headerTitle];
     [view addSubview:label];
@@ -236,22 +220,19 @@
     return view;
 }
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	AgendaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:REUSE_IDENTIFIER];
-	if (!cell) {
-		cell = [[AgendaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REUSE_IDENTIFIER];
-	}
-	
-	//NSLog(@">>>>> Asking for cellForRowAtIndexPath : %@", indexPath);
+- (void)setupCell:(UITableViewCell *)c withIndexPath:(NSIndexPath *)indexPath
+{
+    AgendaStudentTableViewCell *cell = (AgendaStudentTableViewCell *)c;
+    //NSLog(@">>>>> Asking for cellForRowAtIndexPath : %@", indexPath);
 
 	NSUInteger *indexes = calloc(sizeof(NSUInteger), indexPath.length);
 	[indexPath getIndexes:(NSUInteger*)indexes];
-	
-	NSArray *assignments = [self.assignmentsByDate objectForKey:[self.sortedDates objectAtIndex:indexes[0]]];
+
+	NSArray *assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
 	//NSLog(@">>>>>>>> assignments : %@\n", assignments);
-	
+
 	NSDictionary *assignment = [assignments objectAtIndex:indexes[1]];
-	
+
 	[cell.pieChartView setInternalColor:[UIColor cloudLightBlue]];
 	[cell.pieChartView setExternalColor:[UIColor cloudDarkBlue]];
 	[cell.pieChartView setPercentage:[[assignment objectForKey:DICO_PROGRESS] intValue]];
@@ -263,8 +244,6 @@
 	} else {
 		cell.dueTimeLabel.text = [assignment objectForKey:DICO_DUETIME];
 	}
-	
-	return cell;
 }
 
 - (void)tableViewWillReloadData:(UITableView *)tableView
@@ -292,7 +271,7 @@
 	int *indexes = malloc(sizeof(int) * [indexPath length]);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 	
-	NSArray *assignments = [self.assignmentsByDate objectForKey:[self.sortedDates objectAtIndex:indexes[0]]];
+	NSArray *assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
 	NSDictionary *assignmentDico = [assignments objectAtIndex:indexes[1]];
 	
 	NSString *dueTime = nil;
@@ -320,40 +299,6 @@
 
 - (NSArray*)getDisciplineFilters {
 	return self.allDisciplinesName;
-}
-
-#pragma mark - testDatas
-
-- (NSArray*)datasForTest {
-	return @[
-			 @{@"title": @"Etude étymologique et philosophique approfondie de la pensée de soi du mot \"anticonstitutionellement\"",
-			   @"description": @"Write something about Napoleon",
-			   @"field": @"History",
-			   @"progression": @"80",
-			   @"date": @"2014-07-16",
-			   @"dueTime": @"23:42"},
-			 @{@"title": @"Try to fly",
-			   @"description": @"Jump from a window, and try to fly...",
-			   @"field": @"Sports",
-			   @"progression": @"100",
-			   @"date": @"2014-07-16"},
-			 @{@"title": @"Pythagore's test",
-			   @"description": @"Exam about Pythagore theorem",
-			   @"field": @"Mathematics",
-			   @"progression": @"35",
-			   @"date": @"2014-08-04",
-			   @"dueTime": @"12:00"},
-			 @{@"title": @"\"Le Scaphandrier et le Papillon\"",
-			   @"description": @"Read \"Le Scaphandrier et le Papillon\"",
-			   @"field": @"Litterature",
-			   @"progression": @"99",
-			   @"date": @"2014-07-31"},
-			 @{@"title": @"Happy Bloody Christmas !",
-			   @"description": @"Kill Santa Claus",
-			   @"field": @"Cereal Killer for dummies",
-			   @"progression": @"10",
-			   @"date": @"2014-12-25"}
-			 ];
 }
 
 /*
