@@ -121,10 +121,10 @@
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsList"];
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedDates"];
 	[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
-        weakSelf.assignmentsByDate = assignmentsByDates;
-        weakSelf.sortedDates = sortedDates;
-		weakSelf.allDisciplinesName = allDisciplinesName;
-		[weakSelf.tableView reloadData];
+        bself.sections = assignmentsByDates;
+        bself.sortedSections = sortedDates;
+		bself.allDisciplinesName = allDisciplinesName;
+		[bself.tableView reloadData];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
@@ -143,13 +143,10 @@
 {
     [super viewDidLoad];
 
-	UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"AgendaFilterViewController"];
-	[self.revealViewController setRightViewController:vc animated:NO];
-	[((AgendaFilterViewController*)vc) setDelegate:self];
-	[self.revealViewController setDelegate:(id <SWRevealViewControllerDelegate>)vc];
-    self.filters.target = self.revealViewController;
-    self.filters.action = @selector(rightRevealToggle:);
+    [self setRightViewController:@"AgendaFilterViewController" withButton:self.filters];
 
+	[((AgendaFilterViewController*)self.revealViewController.rightViewController) setDelegate:self];
+	[self.revealViewController setDelegate:(id <SWRevealViewControllerDelegate>)self.revealViewController.rightViewController];
 
     self.assignmentsByDate = [NSMutableDictionary dictionary];
 	self.allDisciplinesName = [NSMutableArray array];
@@ -253,8 +250,8 @@
         NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedDates"]];
 		NSMutableArray *allDisciplinesName = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"allDisciplinesName"]];
         if (assignments && dates && allDisciplinesName) {
-            self.assignmentsByDate = assignments;
-            self.sortedDates = dates;
+            self.sections = assignments;
+            self.sortedSections = dates;
 			self.allDisciplinesName = allDisciplinesName;
         }
     }
