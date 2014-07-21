@@ -41,8 +41,6 @@
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
-- (IBAction)refresh:(id)sender;
-
 @end
 
 @implementation AgendaStudentViewController
@@ -148,8 +146,8 @@
 	[((AgendaFilterViewController*)self.revealViewController.rightViewController) setDelegate:self];
 	[self.revealViewController setDelegate:(id <SWRevealViewControllerDelegate>)self.revealViewController.rightViewController];
 
-    self.assignmentsByDate = [NSMutableDictionary dictionary];
-	self.allDisciplinesName = [NSMutableArray array];
+    self.sections = [NSMutableDictionary dictionary];
+	self.sortedSections = [NSMutableArray array];
 
     [self setupHandlers];
 
@@ -177,7 +175,7 @@
     return [AgendaStudentTableViewCell class];
 }
 
-- (IBAction)refresh:(id)sender
+- (void)reloadTableView
 {
     [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
     [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
@@ -202,6 +200,11 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
 	return 18;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -255,6 +258,11 @@
 			self.allDisciplinesName = allDisciplinesName;
         }
     }
+}
+
+- (void)tableViewDidReloadData:(UITableView *)tableView
+{
+    [self.refreshControl endRefreshing];
 }
 
 /*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

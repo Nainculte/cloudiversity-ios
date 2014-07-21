@@ -343,13 +343,13 @@
                     <connections>
                         <outlet property="agendaButton" destination="Tbo-B9-sMm" id="iDy-QG-Xoq"/>
                         <outlet property="roleSwitcher" destination="Jhs-ht-Xik" id="s2R-nQ-C6C"/>
-                        <segue destination="Iap-F3-QOX" kind="custom" identifier="AgendaTeacher" customClass="SWRevealViewControllerSegue" id="Mie-5o-tXc"/>
-                        <segue destination="4ak-9I-cu1" kind="custom" identifier="AgendaStudent" customClass="SWRevealViewControllerSegue" id="MO7-Ng-WM6"/>
+                        <segue destination="cXZ-Oz-7Aw" kind="custom" identifier="AgendaTeacher" customClass="SWRevealViewControllerSegue" id="s6c-lu-sbO"/>
+                        <segue destination="Xsx-OA-UlT" kind="custom" identifier="AgendaStudent" customClass="SWRevealViewControllerSegue" id="Uy6-RM-pqk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lNN-aj-3Zz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="623" y="-273"/>
+            <point key="canvasLocation" x="551" y="-272"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z4q-8v-HsJ">
@@ -364,7 +364,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTq-eX-Cla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="623" y="387"/>
+            <point key="canvasLocation" x="551" y="387"/>
         </scene>
         <!--Home Screen View Controller - Title-->
         <scene sceneID="VY2-AF-bVw">
@@ -397,210 +397,196 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQl-Zj-mUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1078" y="387"/>
+            <point key="canvasLocation" x="1060" y="387"/>
         </scene>
         <!--Agenda Teacher View Controller - Title-->
-        <scene sceneID="E4r-0Y-5IV">
+        <scene sceneID="Tuy-eh-Csk">
             <objects>
-                <viewController storyboardIdentifier="AgendaTeacherViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Iap-F3-QOX" customClass="AgendaTeacherViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nBO-ET-EBc"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZFU-dy-4cQ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wHq-ws-DwY">
+                <tableViewController id="cXZ-Oz-7Aw" customClass="AgendaTeacherViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="5Rl-Bs-Mlv" customClass="CloudTableView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="bh0-iK-MN0" customClass="CloudTableView">
-                                <rect key="frame" x="0.0" y="20" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AgandaTeacherCell" rowHeight="60" id="CYl-Z0-wbl" customClass="AgendaTeacherTableViewCell">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CYl-Z0-wbl" id="whX-la-P3r">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FX-bf-hEW" customClass="CloudLabel">
-                                                    <rect key="frame" x="20" y="0.0" width="257" height="39"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNk-5A-wxB" customClass="CloudLabel">
-                                                    <rect key="frame" x="20" y="38" width="257" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="4FX-bf-hEW" firstAttribute="leading" secondItem="whX-la-P3r" secondAttribute="leading" constant="20" symbolic="YES" id="D87-FY-SZC"/>
-                                                <constraint firstItem="bNk-5A-wxB" firstAttribute="trailing" secondItem="4FX-bf-hEW" secondAttribute="trailing" id="JrE-jy-z6c"/>
-                                                <constraint firstAttribute="trailing" secondItem="4FX-bf-hEW" secondAttribute="trailing" constant="10" id="OVu-rV-oHk"/>
-                                                <constraint firstAttribute="bottom" secondItem="4FX-bf-hEW" secondAttribute="bottom" constant="20" symbolic="YES" id="SoV-BV-Y7S"/>
-                                                <constraint firstItem="4FX-bf-hEW" firstAttribute="leading" secondItem="bNk-5A-wxB" secondAttribute="leading" id="bIf-iZ-skm"/>
-                                                <constraint firstItem="4FX-bf-hEW" firstAttribute="top" secondItem="whX-la-P3r" secondAttribute="top" id="j11-nJ-I9V"/>
-                                                <constraint firstAttribute="bottom" secondItem="bNk-5A-wxB" secondAttribute="bottom" id="vgC-HU-7YI"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="assignmentsLabel" destination="bNk-5A-wxB" id="WGJ-Kd-d9O"/>
-                                            <outlet property="classLabel" destination="4FX-bf-hEW" id="oVS-Ct-umT"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="bh0-iK-MN0" secondAttribute="centerX" id="7uJ-dl-vJz"/>
-                            <constraint firstItem="bh0-iK-MN0" firstAttribute="top" secondItem="nBO-ET-EBc" secondAttribute="bottom" id="gsc-U6-zCM"/>
-                            <constraint firstItem="ZFU-dy-4cQ" firstAttribute="top" secondItem="bh0-iK-MN0" secondAttribute="bottom" id="nKb-s5-q9D"/>
-                            <constraint firstItem="bh0-iK-MN0" firstAttribute="leading" secondItem="wHq-ws-DwY" secondAttribute="leading" id="yan-GM-hzj"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems>
-                        <barButtonItem image="menu.png" id="JRJ-2t-PvO"/>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Title" id="rSd-Cc-M3N">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="z7c-43-pab">
-                            <connections>
-                                <action selector="refresh:" destination="Iap-F3-QOX" id="f6k-ke-LAT"/>
-                            </connections>
-                        </barButtonItem>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AgendaTeacherCell" rowHeight="60" id="mVN-4j-2fA" customClass="AgendaTeacherTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mVN-4j-2fA" id="yT0-eS-LKS">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FX-bf-hEW" customClass="CloudLabel">
+                                            <rect key="frame" x="31" y="0.0" width="257" height="39"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNk-5A-wxB" customClass="CloudLabel">
+                                            <rect key="frame" x="31" y="38" width="257" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="assignmentsLabel" destination="bNk-5A-wxB" id="ipo-8R-OyM"/>
+                                    <outlet property="classLabel" destination="4FX-bf-hEW" id="8I5-kf-zIr"/>
+                                    <segue destination="v1Y-yd-WR0" kind="push" identifier="AssignmentsByClass" id="WoG-73-EwI"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
-                            <outlet property="leftBarButtonItem" destination="JRJ-2t-PvO" id="hCX-HT-9t7"/>
+                            <outlet property="dataSource" destination="cXZ-Oz-7Aw" id="f55-zu-JLa"/>
+                            <outlet property="delegate" destination="cXZ-Oz-7Aw" id="NUn-tg-ja0"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem image="menu.png" id="6G9-0h-BHG"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Title" id="rLk-A0-EUx">
+                        <connections>
+                            <outlet property="leftBarButtonItem" destination="6G9-0h-BHG" id="If2-Ac-6ep"/>
                         </connections>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="leftButton" destination="JRJ-2t-PvO" id="q1c-qs-HNo"/>
-                        <outlet property="tableView" destination="bh0-iK-MN0" id="bmf-GU-flq"/>
+                        <outlet property="leftButton" destination="6G9-0h-BHG" id="YeP-Gh-8zd"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Scv-l9-3kF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DYu-7u-I0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1043" y="-1182"/>
+            <point key="canvasLocation" x="1060" y="-962"/>
+        </scene>
+        <!--Agenda Teacher Class View Controller - Title-->
+        <scene sceneID="cz9-ER-yoa">
+            <objects>
+                <tableViewController id="v1Y-yd-WR0" customClass="AgendaTeacherClassViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Mv9-ud-Fis">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AgendaTeacherAssignments" rowHeight="60" id="6lu-IP-K30" customClass="AgendaTeacherClassTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6lu-IP-K30" id="clJ-Dd-85q">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oNd-Tr-D1A" customClass="CloudLabel">
+                                            <rect key="frame" x="20" y="11" width="267" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNa-JQ-4VS" customClass="CloudLabel">
+                                            <rect key="frame" x="20" y="40" width="267" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dueLabel" destination="eNa-JQ-4VS" id="rFl-4d-VZ1"/>
+                                    <outlet property="workTitle" destination="oNd-Tr-D1A" id="2Jd-5q-Zo7"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="v1Y-yd-WR0" id="38H-pb-ZaE"/>
+                            <outlet property="delegate" destination="v1Y-yd-WR0" id="mXx-Td-2En"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="oIJ-Jd-Xmk">
+                        <barButtonItem key="rightBarButtonItem" image="plus.png" id="phB-Ka-JbD"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rdN-bv-HPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1533" y="-962"/>
         </scene>
         <!--Agenda Student View Controller - Title-->
-        <scene sceneID="44A-2p-BAu">
+        <scene sceneID="GbK-ra-Wne">
             <objects>
-                <viewController id="4ak-9I-cu1" customClass="AgendaStudentViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1c9-Z9-6OS"/>
-                        <viewControllerLayoutGuide type="bottom" id="njo-ZU-7EP"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1d7-9s-faY">
+                <tableViewController id="Xsx-OA-UlT" customClass="AgendaStudentViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="30b-Dq-B6P" customClass="CloudTableView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="YtY-fP-VQq" customClass="CloudTableView">
-                                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="agendaStudentCell" rowHeight="80" id="xbF-u3-aLm" customClass="AgendaStudentTableViewCell">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xbF-u3-aLm" id="64z-ag-LdK">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLU-4t-Y0K" customClass="AMPieChartView">
-                                                    <rect key="frame" x="7" y="0.0" width="45" height="79"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" red="0.8165665594" green="0.90231594820000005" blue="0.96715777849999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                </view>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WorkTitledmkdmkmdemkwmkoemw" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="227" translatesAutoresizingMaskIntoConstraints="NO" id="Vs4-BG-fzJ" customClass="CloudLabel">
-                                                    <rect key="frame" x="60" y="0.0" width="227" height="54"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feild" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="LAb-dS-G12" customClass="CloudLabel">
-                                                    <rect key="frame" x="60" y="55" width="149" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="due time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvX-D7-zyN" customClass="CloudLabel">
-                                                    <rect key="frame" x="217" y="55" width="70" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="dueTimeLabel" destination="zvX-D7-zyN" id="tk7-9W-D8P"/>
-                                            <outlet property="fieldLabel" destination="LAb-dS-G12" id="ZmM-6a-xJL"/>
-                                            <outlet property="pieChartView" destination="kLU-4t-Y0K" id="536-p6-acu"/>
-                                            <outlet property="workTitle" destination="Vs4-BG-fzJ" id="u2q-cu-Vcs"/>
-                                            <segue destination="A4u-Lb-lHe" kind="push" identifier="segueForAssignmentDetails" id="mGu-rz-tIS"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2E-yY-g7M">
-                                <rect key="frame" x="0.0" y="480" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Kro-Fb-CQ1"/>
-                                    <constraint firstAttribute="width" constant="320" id="SjU-c2-jJR"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="To Do" id="YZP-DL-EZ6"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="KY1-lA-pM6"/>
-                                    <barButtonItem systemItem="refresh" id="xcj-Fn-MP7">
-                                        <connections>
-                                            <action selector="refresh:" destination="4ak-9I-cu1" id="FTZ-bJ-F2e"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="b2E-yY-g7M" secondAttribute="centerX" id="FCb-z2-Q2b"/>
-                            <constraint firstAttribute="centerX" secondItem="YtY-fP-VQq" secondAttribute="centerX" id="FbK-gO-k6N"/>
-                            <constraint firstItem="b2E-yY-g7M" firstAttribute="top" secondItem="YtY-fP-VQq" secondAttribute="bottom" id="NBg-er-qQ7"/>
-                            <constraint firstItem="njo-ZU-7EP" firstAttribute="top" secondItem="b2E-yY-g7M" secondAttribute="bottom" id="ZH1-Ek-D7b"/>
-                            <constraint firstItem="YtY-fP-VQq" firstAttribute="top" secondItem="1c9-Z9-6OS" secondAttribute="bottom" id="d3T-x0-So4"/>
-                            <constraint firstItem="YtY-fP-VQq" firstAttribute="width" secondItem="1d7-9s-faY" secondAttribute="width" id="gCo-pT-jjp"/>
-                            <constraint firstItem="YtY-fP-VQq" firstAttribute="leading" secondItem="1d7-9s-faY" secondAttribute="leading" id="xXA-VE-hoP"/>
-                        </constraints>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="agendaStudentCell" rowHeight="80" id="aRS-4l-UkT" customClass="AgendaStudentTableViewCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aRS-4l-UkT" id="XhC-GM-pY0">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WorkTitledmkdmkmdemkwmkoemw" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="227" translatesAutoresizingMaskIntoConstraints="NO" id="Vs4-BG-fzJ" customClass="CloudLabel">
+                                            <rect key="frame" x="60" y="0.0" width="227" height="54"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feild" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="LAb-dS-G12" customClass="CloudLabel">
+                                            <rect key="frame" x="60" y="55" width="149" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="due time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zvX-D7-zyN" customClass="CloudLabel">
+                                            <rect key="frame" x="217" y="55" width="70" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLU-4t-Y0K" customClass="AMPieChartView">
+                                            <rect key="frame" x="7" y="0.0" width="45" height="79"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" red="0.8165665594" green="0.90231594820000005" blue="0.96715777849999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dueTimeLabel" destination="zvX-D7-zyN" id="ief-gJ-ZRQ"/>
+                                    <outlet property="fieldLabel" destination="LAb-dS-G12" id="DsY-zi-8Vn"/>
+                                    <outlet property="pieChartView" destination="kLU-4t-Y0K" id="gbi-xA-4mV"/>
+                                    <outlet property="workTitle" destination="Vs4-BG-fzJ" id="LBD-PA-Hc1"/>
+                                    <segue destination="A4u-Lb-lHe" kind="push" identifier="segueForAssignmentDetails" id="C3c-ry-68B"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Xsx-OA-UlT" id="mcA-4j-Gdq"/>
+                            <outlet property="delegate" destination="Xsx-OA-UlT" id="non-YZ-lVg"/>
+                        </connections>
+                    </tableView>
                     <toolbarItems>
-                        <barButtonItem image="menu.png" id="auM-eI-iQd"/>
+                        <barButtonItem image="menu.png" id="DB6-ss-3cP"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Title" id="PXu-Av-w31">
+                    <navigationItem key="navigationItem" title="Title" id="pX1-fk-hdO">
                         <barButtonItem key="rightBarButtonItem" image="filter.png" id="YkN-af-eah">
                             <connections>
                                 <segue destination="zQ7-Eu-hVe" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegue" id="d6L-WG-j2p"/>
                             </connections>
                         </barButtonItem>
                         <connections>
-                            <outlet property="leftBarButtonItem" destination="auM-eI-iQd" id="4Va-hB-B9i"/>
+                            <outlet property="leftBarButtonItem" destination="DB6-ss-3cP" id="ApK-ea-KrI"/>
                         </connections>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="filters" destination="YkN-af-eah" id="JYP-Ve-2vd"/>
-                        <outlet property="leftButton" destination="auM-eI-iQd" id="FKT-Av-iHY"/>
-                        <outlet property="refreshButton" destination="xcj-Fn-MP7" id="0Hh-LT-3FJ"/>
-                        <outlet property="tableView" destination="YtY-fP-VQq" id="Qr0-k8-SKe"/>
-                        <outlet property="toolbar" destination="b2E-yY-g7M" id="8vz-Uv-MN7"/>
+                        <outlet property="leftButton" destination="DB6-ss-3cP" id="tqY-Fh-N16"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="64t-Xf-r7m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zPF-n7-m4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1407" y="-507"/>
+            <point key="canvasLocation" x="1060" y="-272"/>
         </scene>
         <!--Agenda Student Task View Controller-->
         <scene sceneID="sXJ-aO-R9S">
@@ -747,7 +733,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eak-rJ-xUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="-1182"/>
+            <point key="canvasLocation" x="1968" y="-272"/>
         </scene>
         <!--Agenda Filter View Controller-->
         <scene sceneID="REj-Ce-Wmf">
@@ -872,7 +858,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXQ-b3-fr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="-507"/>
+            <point key="canvasLocation" x="1533" y="-272"/>
         </scene>
     </scenes>
     <resources>
@@ -881,6 +867,7 @@
         <image name="calendar.png" width="30" height="30"/>
         <image name="filter.png" width="24" height="24"/>
         <image name="menu.png" width="24" height="20"/>
+        <image name="plus.png" width="24" height="24"/>
         <image name="sign-out.png" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

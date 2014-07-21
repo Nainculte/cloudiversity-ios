@@ -27,18 +27,49 @@
 {
     [super viewDidLoad];
 
-    [self.toolbar setBackgroundColor:[UIColor cloudLightBlue]];
-    [self.toolbar setBarTintColor:[UIColor cloudLightBlue]];
-
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(reloadTableView) forControlEvents:UIControlEventValueChanged];
+
+    self.leftButton.target = self.revealViewController;
+    self.leftButton.action = @selector(revealToggle:);
+
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    self.view.backgroundColor = [UIColor cloudGrey];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
+}
+
+- (void)reloadTableView
+{
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setRightViewController:(NSString *)name withButton:(UIBarButtonItem *)button
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:name];
+    if (button) {
+        button.target = self.revealViewController;
+        button.action = @selector(rightRevealToggle:);
+    }
+}
+
+- (void)setRightViewController:(NSString *)name
+{
+    [self setRightViewController:name withButton:nil];
 }
 
 - (NSString *)reuseIdentifier
