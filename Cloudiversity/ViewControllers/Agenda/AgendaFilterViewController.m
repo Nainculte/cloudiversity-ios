@@ -197,30 +197,10 @@
     return ([day1.date compare:day2.date] == NSOrderedAscending);
 }
 
-#pragma mark - SWRevealViewControllerDelegate protocol
+#pragma mark - AgendaStudentDataSource protocol
 
-- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
-	if (self.delegate && position == FrontViewPositionLeft) {	// If the delegate is not nil AND is the frontView...
-																// ...will go back to the center from the left
-		NSMutableDictionary *filters = [NSMutableDictionary dictionary];
-		if (self.selectedDay) {
-			[filters setObject:self.selectedDay forKey:@"dateToFilter"];
-		} else {
-			[filters removeObjectForKey:@"dateToFilter"];
-		}
-		if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
-			[filters setObject:self.selectedDisciplines forKey:@"disciplinesToFilter"];
-		} else {
-			[filters removeObjectForKey:@"disciplinesToFilter"];
-		}
-		[self.delegate filtersUpdated:filters];
-	}
+- (NSDictionary*)getFilters {
+	
 }
-
-/*- (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController {
-	if (self.delegate && revealController) {
-		[self.delegate filtersUpdated:self.filters];
-	}
-}*/
 
 @end

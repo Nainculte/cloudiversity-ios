@@ -8,6 +8,7 @@
 
 #import "AgendaStudentViewController.h"
 #import "AgendaStudentTableViewCell.h"
+#import "AgendaFilterViewController.h"
 #import "AgendaAssignment.h"
 #import "CloudDateConverter.h"
 
@@ -40,6 +41,8 @@
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
+
+@property (nonatomic) id <AgendaStudentDataSource>dataSource;
 
 - (IBAction)refresh:(id)sender;
 
@@ -145,8 +148,7 @@
 
     [self setRightViewController:@"AgendaFilterViewController" withButton:self.filters];
 
-	[((AgendaFilterViewController*)self.revealViewController.rightViewController) setDelegate:self];
-	[self.revealViewController setDelegate:(id <SWRevealViewControllerDelegate>)self.revealViewController.rightViewController];
+	[self.revealViewController setDelegate:self];
 
     self.assignmentsByDate = [NSMutableDictionary dictionary];
 	self.allDisciplinesName = [NSMutableArray array];
@@ -288,14 +290,26 @@
 	return assignment;
 }
 
-#pragma mark - AgendaFilterViewDelegate protocol
+#pragma mark - SWRevealViewControllerDelegate protocol
 
--(void)filtersUpdated:(NSDictionary *)newFilters {
-	NSLog(@"%@", newFilters);
-}
+- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
+	AgendaFilterViewController *filterViewController = (AgendaFilterViewController*)self.revealViewController.rightViewController;
 
-- (NSArray*)getDisciplineFilters {
-	return self.allDisciplinesName;
+	/*if (self.delegate && position == FrontViewPositionLeft) {	// If the delegate is not nil AND is the frontView...
+																// ...will go back to the center from the left
+		NSMutableDictionary *filters = [NSMutableDictionary dictionary];
+		if (self.selectedDay) {
+			[filters setObject:self.selectedDay forKey:@"dateToFilter"];
+		} else {
+			[filters removeObjectForKey:@"dateToFilter"];
+		}
+		if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
+			[filters setObject:self.selectedDisciplines forKey:@"disciplinesToFilter"];
+		} else {
+			[filters removeObjectForKey:@"disciplinesToFilter"];
+		}
+		[self.delegate filtersUpdated:filters];
+	}*/
 }
 
 /*
