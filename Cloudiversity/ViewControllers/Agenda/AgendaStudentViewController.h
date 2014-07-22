@@ -11,6 +11,7 @@
 
 @protocol AgendaStudentDataSource <NSObject>
 
+- (void)setAvailableDisciplinesToFilter:(NSArray*)disciplines;
 - (NSDictionary*)getFilters;
 
 @end

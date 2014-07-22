@@ -8,7 +8,6 @@
 
 #import "AgendaStudentViewController.h"
 #import "AgendaStudentTableViewCell.h"
-#import "AgendaFilterViewController.h"
 #import "AgendaAssignment.h"
 #import "CloudDateConverter.h"
 
@@ -225,13 +224,11 @@
 - (void)setupCell:(UITableViewCell *)c withIndexPath:(NSIndexPath *)indexPath
 {
     AgendaStudentTableViewCell *cell = (AgendaStudentTableViewCell *)c;
-    //NSLog(@">>>>> Asking for cellForRowAtIndexPath : %@", indexPath);
 
 	NSUInteger *indexes = calloc(sizeof(NSUInteger), indexPath.length);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 
 	NSArray *assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
-	//NSLog(@">>>>>>>> assignments : %@\n", assignments);
 
 	NSDictionary *assignment = [assignments objectAtIndex:indexes[1]];
 
@@ -267,9 +264,6 @@
     [self.refreshControl endRefreshing];
 }
 
-/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-}*/
-
 #pragma mark - AgendaStudentTaskDataSource protocol
 
 -(AgendaAssignment *)getSelectedAssignment {
@@ -301,23 +295,15 @@
 #pragma mark - SWRevealViewControllerDelegate protocol
 
 - (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
-	AgendaFilterViewController *filterViewController = (AgendaFilterViewController*)self.revealViewController.rightViewController;
+	id <AgendaStudentDataSource>filterViewController = (id <AgendaStudentDataSource>)self.revealViewController.rightViewController;
 
-	/*if (self.delegate && position == FrontViewPositionLeft) {	// If the delegate is not nil AND is the frontView...
-																// ...will go back to the center from the left
-		NSMutableDictionary *filters = [NSMutableDictionary dictionary];
-		if (self.selectedDay) {
-			[filters setObject:self.selectedDay forKey:@"dateToFilter"];
-		} else {
-			[filters removeObjectForKey:@"dateToFilter"];
-		}
-		if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
-			[filters setObject:self.selectedDisciplines forKey:@"disciplinesToFilter"];
-		} else {
-			[filters removeObjectForKey:@"disciplinesToFilter"];
-		}
-		[self.delegate filtersUpdated:filters];
-	}*/
+	if (position == FrontViewPositionLeftSide) { // When the filterView is shown
+		[filterViewController setAvailableDisciplinesToFilter:self.allDisciplinesName];
+	} else if (position == FrontViewPositionLeft) { // When the filterView is hidden
+		NSDictionary *filters = [filterViewController getFilters];
+
+		NSLog(@">>>>>>>> %@ <<<<<<", filters);
+	}
 }
 
 /*

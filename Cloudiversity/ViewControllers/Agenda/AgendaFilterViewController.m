@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) NSDateComponents *selectedDay;
 @property (strong, nonatomic) NSMutableArray *selectedDisciplines;
+@property (strong, nonatomic) NSArray *availableDisciplines;
+@property (weak, nonatomic) IBOutlet UITableView *disciplinesTableView;
 
 @property BOOL dayIsSelected;
 
@@ -29,6 +31,11 @@
 	}
 	
 	return _selectedDisciplines;
+}
+
+-(void)setAvailableDisciplines:(NSArray *)availableDisciplines {
+	_availableDisciplines = availableDisciplines;
+	[self.disciplinesTableView reloadData];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -103,9 +110,9 @@
 #pragma mark - UITableViewDelegate and dataSource protocol
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	//NSLog(@">>>>>>>>\n%@\n<<<<<<<<<<", [self.delegate getDisciplineFilters]);
+	NSLog(@">>>>>>>>\n%@\n<<<<<<<<<<", self.availableDisciplines);
 	
-	return 1;//[self.delegate getDisciplineFilters].count;
+	return self.availableDisciplines.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,13 +121,13 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REUSE_IDENTIFIER];
 	}
 
-	cell.textLabel.text = @"toto";//[[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	cell.textLabel.text = [self.availableDisciplines objectAtIndex:[indexPath indexAtPosition:1]];
 	
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *disciplineName = @"";//[[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	NSString *disciplineName = [self.availableDisciplines objectAtIndex:[indexPath indexAtPosition:1]];
 	
 	if (self.selectedDisciplines == nil)
 		self.selectedDisciplines = [NSMutableArray array];
@@ -130,7 +137,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *disciplineName = @"";//[[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	NSString *disciplineName = [self.availableDisciplines objectAtIndex:[indexPath indexAtPosition:1]];
 	
 	if (self.selectedDisciplines == nil)
 		self.selectedDisciplines = [NSMutableArray array];
@@ -199,8 +206,24 @@
 
 #pragma mark - AgendaStudentDataSource protocol
 
+- (void)setAvailableDisciplinesToFilter:(NSArray *)disciplines {
+	[self setAvailableDisciplines:disciplines];
+}
+
 - (NSDictionary*)getFilters {
-	return nil;
+	NSMutableDictionary *filters = [NSMutableDictionary dictionary];
+	if (self.selectedDay) {
+		[filters setObject:self.selectedDay forKey:@"dateToFilter"];
+	} else {
+		[filters removeObjectForKey:@"dateToFilter"];
+	}
+	if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
+		[filters setObject:self.selectedDisciplines forKey:@"disciplinesToFilter"];
+	} else {
+		[filters removeObjectForKey:@"disciplinesToFilter"];
+	}
+	
+	return filters;
 }
 
 @end
