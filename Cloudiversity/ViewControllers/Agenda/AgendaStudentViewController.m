@@ -116,8 +116,8 @@
 			[assignmentsByDates setObject:assignments forKey:date];
 		}
 
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsList"];
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedDates"];
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsStudentList"];
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedStudentDates"];
 	[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
         bself.sections = assignmentsByDates;
         bself.sortedSections = sortedDates;
@@ -151,7 +151,7 @@
 
     [self setupHandlers];
 
-    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
+    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
         [self.tableView reloadData];
     } else {
         [self initAssignmentsByHTTPRequest];
@@ -248,9 +248,9 @@
 
 - (void)tableViewWillReloadData:(UITableView *)tableView
 {
-    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
-        NSMutableDictionary *assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"assignmentsList"]];
-        NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedDates"]];
+    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
+        NSMutableDictionary *assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"assignmentsStudentList"]];
+        NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedStudentDates"]];
 		NSMutableArray *allDisciplinesName = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"allDisciplinesName"]];
         if (assignments && dates && allDisciplinesName) {
             self.sections = assignments;
