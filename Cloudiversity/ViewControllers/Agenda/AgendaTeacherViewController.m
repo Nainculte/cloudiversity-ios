@@ -8,13 +8,13 @@
 
 #import "AgendaTeacherViewController.h"
 #import "AgendaTeacherTableViewCell.h"
+#import "AgendaTeacherClassViewController.h"
 
 @interface AgendaTeacherViewController ()
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
-- (IBAction)refresh:(id)sender;
 @end
 
 @implementation AgendaTeacherViewController
@@ -43,6 +43,15 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.revealViewController.rightViewController = nil;
+    if ([self.view.gestureRecognizers indexOfObject:self.revealViewController.panGestureRecognizer] == NSNotFound) {
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    }
+}
+
 - (void)initAssignmentsByHTTPRequest
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
@@ -54,6 +63,7 @@
     BSELF(self)
     self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *response = (NSArray *)responseObject;
+        NSLog(@"%@", response);
         NSMutableDictionary *disciplines = [NSMutableDictionary dictionary];
 
         for (NSDictionary *discipline in response) {
@@ -84,14 +94,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)refresh:(id)sender {
+- (void)reloadTableView
+{
     [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
     [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
 - (NSString *)reuseIdentifier
 {
-    return @"AgandaTeacherCell";
+    return @"AgendaTeacherCell";
 }
 
 + (Class)cellClass
@@ -143,19 +154,32 @@
     }
 }
 
+- (void)tableViewDidReloadData:(UITableView *)tableView
+{
+    [self.refreshControl endRefreshing];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[[self.sortedSections objectAtIndex:section] objectForKey:@"school_classes"] count];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"AssignmentsByClass"]) {
+        AgendaTeacherClassViewController *dest = segue.destinationViewController;
+
+        NSIndexPath *path  = [self.tableView indexPathForSelectedRow];
+        NSDictionary *discipline = [self.sortedSections objectAtIndex:path.section];
+        dest.disciplineTitle = [discipline objectForKey:@"name"];
+        dest.disciplineID = [[discipline objectForKey:@"id"] intValue];
+        NSDictionary *class = [[discipline objectForKey:@"school_classes"] objectAtIndex:path.row];
+        dest.classTitle = [class objectForKey:@"name"];
+        dest.classID = [[class objectForKey:@"id"] intValue];
+    }
 }
-*/
+
 @end

@@ -103,9 +103,9 @@
 #pragma mark - UITableViewDelegate and dataSource protocol
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSLog(@">>>>>>>>\n%@\n<<<<<<<<<<", [self.delegate getDisciplineFilters]);
+	//NSLog(@">>>>>>>>\n%@\n<<<<<<<<<<", [self.delegate getDisciplineFilters]);
 	
-	return [self.delegate getDisciplineFilters].count;
+	return 1;//[self.delegate getDisciplineFilters].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,13 +114,13 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REUSE_IDENTIFIER];
 	}
 
-	cell.textLabel.text = [[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	cell.textLabel.text = @"toto";//[[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
 	
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *disciplineName = [[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	NSString *disciplineName = @"";//[[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
 	
 	if (self.selectedDisciplines == nil)
 		self.selectedDisciplines = [NSMutableArray array];
@@ -130,7 +130,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *disciplineName = [[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
+	NSString *disciplineName = @"";//[[self.delegate getDisciplineFilters] objectAtIndex:[indexPath indexAtPosition:1]];
 	
 	if (self.selectedDisciplines == nil)
 		self.selectedDisciplines = [NSMutableArray array];
@@ -200,7 +200,7 @@
 #pragma mark - AgendaStudentDataSource protocol
 
 - (NSDictionary*)getFilters {
-	
+	return nil;
 }
 
 @end

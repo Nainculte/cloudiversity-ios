@@ -34,9 +34,7 @@
     self.view.backgroundColor = [UIColor cloudGrey];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
-    self.leftButton.tintColor = [UIColor whiteColor];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
-    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
 }
 

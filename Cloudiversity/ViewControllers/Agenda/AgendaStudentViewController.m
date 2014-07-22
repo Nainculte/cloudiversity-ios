@@ -44,8 +44,6 @@
 
 @property (nonatomic) id <AgendaStudentDataSource>dataSource;
 
-- (IBAction)refresh:(id)sender;
-
 @end
 
 @implementation AgendaStudentViewController
@@ -121,8 +119,8 @@
 			[assignmentsByDates setObject:assignments forKey:date];
 		}
 
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsList"];
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedDates"];
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsStudentList"];
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedStudentDates"];
 	[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
         bself.sections = assignmentsByDates;
         bself.sortedSections = sortedDates;
@@ -150,12 +148,12 @@
 
 	[self.revealViewController setDelegate:self];
 
-    self.assignmentsByDate = [NSMutableDictionary dictionary];
-	self.allDisciplinesName = [NSMutableArray array];
+    self.sections = [NSMutableDictionary dictionary];
+	self.sortedSections = [NSMutableArray array];
 
     [self setupHandlers];
 
-    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
+    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
         [self.tableView reloadData];
     } else {
         [self initAssignmentsByHTTPRequest];
@@ -179,7 +177,7 @@
     return [AgendaStudentTableViewCell class];
 }
 
-- (IBAction)refresh:(id)sender
+- (void)reloadTableView
 {
     [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
     [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
@@ -204,6 +202,11 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
 	return 18;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -247,9 +250,9 @@
 
 - (void)tableViewWillReloadData:(UITableView *)tableView
 {
-    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsList"]) {
-        NSMutableDictionary *assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"assignmentsList"]];
-        NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedDates"]];
+    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
+        NSMutableDictionary *assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"assignmentsStudentList"]];
+        NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedStudentDates"]];
 		NSMutableArray *allDisciplinesName = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"allDisciplinesName"]];
         if (assignments && dates && allDisciplinesName) {
             self.sections = assignments;
@@ -257,6 +260,11 @@
 			self.allDisciplinesName = allDisciplinesName;
         }
     }
+}
+
+- (void)tableViewDidReloadData:(UITableView *)tableView
+{
+    [self.refreshControl endRefreshing];
 }
 
 /*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
