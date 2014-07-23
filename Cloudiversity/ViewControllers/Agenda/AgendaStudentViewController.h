@@ -8,9 +8,15 @@
 
 #import "AbstractTableViewController.h"
 #import "AgendaStudentTaskViewController.h"
-#import "AgendaFilterViewController.h"
 
-@interface AgendaStudentViewController : AbstractTableViewController <UITableViewDataSource, AgendaStudentTaskDataSource, AgendaFilterViewDelegate, CloudTableViewDelegate>
+@protocol AgendaStudentDataSource <NSObject>
+
+- (void)setAvailableDisciplinesToFilter:(NSArray*)disciplines;
+- (NSDictionary*)getFilters;
+
+@end
+
+@interface AgendaStudentViewController : AbstractTableViewController <UITableViewDataSource, AgendaStudentTaskDataSource, CloudTableViewDelegate, SWRevealViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;
 

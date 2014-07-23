@@ -852,6 +852,7 @@
                     <connections>
                         <outlet property="calendarView" destination="cqy-yk-qZe" id="N2p-Jk-SQz"/>
                         <outlet property="controlSwitchFilter" destination="Chc-qe-whI" id="DVF-0N-WXh"/>
+                        <outlet property="disciplinesTableView" destination="b8h-Zx-Y25" id="gQD-pW-Vch"/>
                         <outlet property="exercicesSwitchFilter" destination="ecJ-KC-vBz" id="aFF-0e-UUy"/>
                         <outlet property="markesTasksSwitchFilter" destination="P0q-Ty-F0e" id="gPL-tR-ENf"/>
                     </connections>

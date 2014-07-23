@@ -41,6 +41,8 @@
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
+@property (nonatomic) id <AgendaStudentDataSource>dataSource;
+
 @end
 
 @implementation AgendaStudentViewController
@@ -143,8 +145,7 @@
 
     [self setRightViewController:@"AgendaFilterViewController" withButton:self.filters];
 
-	[((AgendaFilterViewController*)self.revealViewController.rightViewController) setDelegate:self];
-	[self.revealViewController setDelegate:(id <SWRevealViewControllerDelegate>)self.revealViewController.rightViewController];
+	[self.revealViewController setDelegate:self];
 
     self.sections = [NSMutableDictionary dictionary];
 	self.sortedSections = [NSMutableArray array];
@@ -223,13 +224,11 @@
 - (void)setupCell:(UITableViewCell *)c withIndexPath:(NSIndexPath *)indexPath
 {
     AgendaStudentTableViewCell *cell = (AgendaStudentTableViewCell *)c;
-    //NSLog(@">>>>> Asking for cellForRowAtIndexPath : %@", indexPath);
 
 	NSUInteger *indexes = calloc(sizeof(NSUInteger), indexPath.length);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 
 	NSArray *assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
-	//NSLog(@">>>>>>>> assignments : %@\n", assignments);
 
 	NSDictionary *assignment = [assignments objectAtIndex:indexes[1]];
 
@@ -265,9 +264,6 @@
     [self.refreshControl endRefreshing];
 }
 
-/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-}*/
-
 #pragma mark - AgendaStudentTaskDataSource protocol
 
 -(AgendaAssignment *)getSelectedAssignment {
@@ -296,14 +292,18 @@
 	return assignment;
 }
 
-#pragma mark - AgendaFilterViewDelegate protocol
+#pragma mark - SWRevealViewControllerDelegate protocol
 
--(void)filtersUpdated:(NSDictionary *)newFilters {
-	NSLog(@"%@", newFilters);
-}
+- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
+	id <AgendaStudentDataSource>filterViewController = (id <AgendaStudentDataSource>)self.revealViewController.rightViewController;
 
-- (NSArray*)getDisciplineFilters {
-	return self.allDisciplinesName;
+	if (position == FrontViewPositionLeftSide) { // When the filterView is shown
+		[filterViewController setAvailableDisciplinesToFilter:self.allDisciplinesName];
+	} else if (position == FrontViewPositionLeft) { // When the filterView is hidden
+		NSDictionary *filters = [filterViewController getFilters];
+
+		NSLog(@">>>>>>>> %@ <<<<<<", filters);
+	}
 }
 
 /*
