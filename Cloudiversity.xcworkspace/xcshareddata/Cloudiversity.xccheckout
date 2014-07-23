@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0EB81123-2C88-4A81-B2C1-5BF55564DCB7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Cloudiversity</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7D683EAD-ACA3-482A-8BB8-1ECDE45BEEAD</key>
+		<string>ssh://phabricator.adaedra.eu:2213/diffusion/CLOUDIOS/cloudios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Cloudiversity.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7D683EAD-ACA3-482A-8BB8-1ECDE45BEEAD</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://phabricator.adaedra.eu:2213/diffusion/CLOUDIOS/cloudios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7D683EAD-ACA3-482A-8BB8-1ECDE45BEEAD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7D683EAD-ACA3-482A-8BB8-1ECDE45BEEAD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>
