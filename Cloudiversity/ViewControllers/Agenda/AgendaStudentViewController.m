@@ -228,9 +228,19 @@
 	NSUInteger *indexes = calloc(sizeof(NSUInteger), indexPath.length);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 
-	NSArray *assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
-
-	NSDictionary *assignment = [assignments objectAtIndex:indexes[1]];
+	NSArray *assignments;
+	if (self.dateToFilter) {
+		assignments = [self.sections objectForKey:self.dateToFilter];
+	} else {
+		assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
+	}
+	
+	NSDictionary *assignment;
+	if (self.disciplinesToFilter && self.disciplinesToFilter.count > 0) {
+		assignment = [self assignmentForDisciplines:self.disciplinesToFilter atPosition:indexes[1] inArrayOfAssignments:assignments];
+	} else {
+		assignment = [assignments objectAtIndex:indexes[1]];
+	}
 
 	[cell.pieChartView setInternalColor:[UIColor cloudLightBlue]];
 	[cell.pieChartView setExternalColor:[UIColor cloudDarkBlue]];
@@ -263,13 +273,15 @@
 {
     [self.refreshControl endRefreshing];
 }
-/*
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.dateToFilter) {
-		section = [self.sortedDates indexOfObject:self.dateToFilter];
-	}
 	
-	NSArray *assignments = [self.assignmentsByDate objectForKey:[self.sortedDates objectAtIndex:section]];
+	NSArray *assignments;
+	if (self.dateToFilter) {
+		assignments = [self.sections objectForKey:self.dateToFilter];
+	} else {
+		assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:section]];
+	}
 	
 	int assignmentsCounter = 0;
 	if (self.disciplinesToFilter && self.disciplinesToFilter.count > 0) {
@@ -281,6 +293,7 @@
 		assignmentsCounter = assignments.count;
 	}
 	
+	NSLog(@"assignmentsCounter = %d", assignmentsCounter);
 	return assignmentsCounter;
 }
 
@@ -288,9 +301,10 @@
 	if (self.dateToFilter) {
 		return 1;
 	}
+	NSLog(@"self.sections.count = %d", self.sections.count);
 	return self.sections.count;
 }
-*/
+
 #pragma mark - AgendaStudentTaskDataSource protocol
 
 -(AgendaAssignment *)getSelectedAssignment {
@@ -332,6 +346,8 @@
 		
 		self.dateToFilter = [filters objectForKey:DATE_FILTER_KEY];
 		self.disciplinesToFilter = [filters objectForKey:DISCIPLINE_FILTER_KEY];
+		
+		[self reloadTableView];
 	}
 }
 
@@ -346,6 +362,28 @@
 	}
 	
 	return assignmentCounter;
+}
+
+- (NSDictionary*)assignmentForDisciplines:(NSArray*)disciplineNames
+							   atPosition:(NSInteger)position
+					 inArrayOfAssignments:(NSArray*)arrayOfAssignments {
+	int cnt = -1;
+	for (NSDictionary *assignment in arrayOfAssignments) {
+		BOOL disciplineHasToBeDisplayed = NO;
+		for (NSString *disciplineName in disciplineNames) {
+			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName]) {
+				disciplineHasToBeDisplayed = YES;
+				break;
+			}
+		}
+		if (disciplineHasToBeDisplayed) {
+			++cnt;
+			if (cnt == position)
+				return assignment;
+		}
+	}
+	
+	return nil;
 }
 
 /*

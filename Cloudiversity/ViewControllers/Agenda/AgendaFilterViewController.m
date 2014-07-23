@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSDateComponents *selectedDay;
 @property (strong, nonatomic) NSMutableArray *selectedDisciplines;
 @property (strong, nonatomic) NSArray *availableDisciplines;
+@property (strong, nonatomic) NSArray *selectedRows;
 @property (weak, nonatomic) IBOutlet UITableView *disciplinesTableView;
 
 @property BOOL dayIsSelected;
@@ -199,6 +200,10 @@
 
 - (void)setAvailableDisciplinesToFilter:(NSArray *)disciplines {
 	[self setAvailableDisciplines:disciplines];
+
+	for (NSIndexPath *indexPath in self.selectedRows) {
+		[self.disciplinesTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+	}
 }
 
 - (NSDictionary*)getFilters {
@@ -210,6 +215,7 @@
 	}
 	if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
 		[filters setObject:self.selectedDisciplines forKey:DISCIPLINE_FILTER_KEY];
+		self.selectedRows = [self.disciplinesTableView indexPathsForSelectedRows];
 	} else {
 		[filters removeObjectForKey:DISCIPLINE_FILTER_KEY];
 	}
