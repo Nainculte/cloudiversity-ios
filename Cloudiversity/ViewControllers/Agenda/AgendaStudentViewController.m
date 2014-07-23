@@ -30,7 +30,7 @@
 @property BOOL isFilteringExercices;
 @property BOOL isFilteringNotedTasks;
 @property (nonatomic, strong) NSDate *dateToFilter;
-@property (nonatomic, strong) NSMutableArray *materialsToFilter;
+@property (nonatomic, strong) NSArray *disciplinesToFilter;
 
 @property (nonatomic, strong) NSMutableDictionary *assignmentsByDate;
 @property (nonatomic, strong) NSArray *sortedDates;
@@ -263,7 +263,34 @@
 {
     [self.refreshControl endRefreshing];
 }
+/*
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if (self.dateToFilter) {
+		section = [self.sortedDates indexOfObject:self.dateToFilter];
+	}
+	
+	NSArray *assignments = [self.assignmentsByDate objectForKey:[self.sortedDates objectAtIndex:section]];
+	
+	int assignmentsCounter = 0;
+	if (self.disciplinesToFilter && self.disciplinesToFilter.count > 0) {
+		for (NSString *disciplineToFilter in self.disciplinesToFilter) {
+			assignmentsCounter += [self countNumberOfAssignmentsForDisciplineName:disciplineToFilter
+															 inArrayOfAssignments:assignments];
+		}
+	} else {
+		assignmentsCounter = assignments.count;
+	}
+	
+	return assignmentsCounter;
+}
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	if (self.dateToFilter) {
+		return 1;
+	}
+	return self.sections.count;
+}
+*/
 #pragma mark - AgendaStudentTaskDataSource protocol
 
 -(AgendaAssignment *)getSelectedAssignment {
@@ -301,9 +328,24 @@
 		[filterViewController setAvailableDisciplinesToFilter:self.allDisciplinesName];
 	} else if (position == FrontViewPositionLeft) { // When the filterView is hidden
 		NSDictionary *filters = [filterViewController getFilters];
-
 		NSLog(@">>>>>>>> %@ <<<<<<", filters);
+		
+		self.dateToFilter = [filters objectForKey:DATE_FILTER_KEY];
+		self.disciplinesToFilter = [filters objectForKey:DISCIPLINE_FILTER_KEY];
 	}
+}
+
+#pragma mark - Some methodes to make it easy !
+
+- (NSInteger)countNumberOfAssignmentsForDisciplineName:(NSString*)disciplineName
+								  inArrayOfAssignments:(NSArray*)arrayOfAssignments {
+	int assignmentCounter = 0;
+	for (NSDictionary *assignment in arrayOfAssignments) {
+		if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName])
+			++assignmentCounter;
+	}
+	
+	return assignmentCounter;
 }
 
 /*

@@ -9,6 +9,8 @@
 #import "AbstractTableViewController.h"
 #import "AgendaStudentTaskViewController.h"
 
+#define DATE_FILTER_KEY			@"dateToFilter"
+#define DISCIPLINE_FILTER_KEY	@"disciplinesToFilter"
 @protocol AgendaStudentDataSource <NSObject>
 
 - (void)setAvailableDisciplinesToFilter:(NSArray*)disciplines;

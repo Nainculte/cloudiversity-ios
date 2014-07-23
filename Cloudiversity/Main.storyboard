@@ -581,6 +581,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="filters" destination="YkN-af-eah" id="nfJ-uM-LQv"/>
                         <outlet property="leftButton" destination="DB6-ss-3cP" id="tqY-Fh-N16"/>
                     </connections>
                 </tableViewController>

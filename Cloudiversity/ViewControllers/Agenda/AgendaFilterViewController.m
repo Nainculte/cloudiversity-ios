@@ -165,39 +165,30 @@
 }
 
 - (DSLCalendarRange*)calendarView:(DSLCalendarView *)calendarView didDragToDay:(NSDateComponents *)day selectingRange:(DSLCalendarRange *)range {
-    if (YES) { // Only select a single day
-		return [[DSLCalendarRange alloc] initWithStartDay:day endDay:day];
-    }
-    else if (NO) { // Don't allow selections before today
-        NSDateComponents *today = [[NSDate date] dslCalendarView_dayWithCalendar:calendarView.visibleMonth.calendar];
-        
-        NSDateComponents *startDate = range.startDay;
-        NSDateComponents *endDate = range.endDay;
-        
-        if ([self day:startDate isBeforeDay:today] && [self day:endDate isBeforeDay:today]) {
-            return nil;
-        }
-        else {
-            if ([self day:startDate isBeforeDay:today]) {
-                startDate = [today copy];
-            }
-            if ([self day:endDate isBeforeDay:today]) {
-                endDate = [today copy];
-            }
-            
-            return [[DSLCalendarRange alloc] initWithStartDay:startDate endDay:endDate];
-        }
-    }
-    
-    return range;
-}
+    // Only select a single day
+	return [[DSLCalendarRange alloc] initWithStartDay:day endDay:day];
 
-- (void)calendarView:(DSLCalendarView *)calendarView willChangeToVisibleMonth:(NSDateComponents *)month duration:(NSTimeInterval)duration {
-    //NSLog(@"Will show %@ in %.3f seconds", month, duration);
-}
-
-- (void)calendarView:(DSLCalendarView *)calendarView didChangeToVisibleMonth:(NSDateComponents *)month {
-    //NSLog(@"Now showing %@", month);
+	// Don't allow selections before today
+	/*NSDateComponents *today = [[NSDate date] dslCalendarView_dayWithCalendar:calendarView.visibleMonth.calendar];
+	
+	NSDateComponents *startDate = range.startDay;
+	NSDateComponents *endDate = range.endDay;
+	
+	if ([self day:startDate isBeforeDay:today] && [self day:endDate isBeforeDay:today]) {
+		return nil;
+	}
+	else {
+		if ([self day:startDate isBeforeDay:today]) {
+			startDate = [today copy];
+		}
+		if ([self day:endDate isBeforeDay:today]) {
+			endDate = [today copy];
+		}
+		
+		return [[DSLCalendarRange alloc] initWithStartDay:startDate endDay:endDate];
+	}
+	return range;
+	*/
 }
 
 - (BOOL)day:(NSDateComponents*)day1 isBeforeDay:(NSDateComponents*)day2 {
@@ -213,14 +204,14 @@
 - (NSDictionary*)getFilters {
 	NSMutableDictionary *filters = [NSMutableDictionary dictionary];
 	if (self.selectedDay) {
-		[filters setObject:self.selectedDay forKey:@"dateToFilter"];
+		[filters setObject:self.selectedDay.date forKey:DATE_FILTER_KEY];
 	} else {
-		[filters removeObjectForKey:@"dateToFilter"];
+		[filters removeObjectForKey:DATE_FILTER_KEY];
 	}
 	if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
-		[filters setObject:self.selectedDisciplines forKey:@"disciplinesToFilter"];
+		[filters setObject:self.selectedDisciplines forKey:DISCIPLINE_FILTER_KEY];
 	} else {
-		[filters removeObjectForKey:@"disciplinesToFilter"];
+		[filters removeObjectForKey:DISCIPLINE_FILTER_KEY];
 	}
 	
 	return filters;
