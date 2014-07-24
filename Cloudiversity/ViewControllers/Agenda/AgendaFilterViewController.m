@@ -208,17 +208,19 @@
 
 - (NSDictionary*)getFilters {
 	NSMutableDictionary *filters = [NSMutableDictionary dictionary];
+
 	if (self.selectedDay) {
 		[filters setObject:self.selectedDay.date forKey:DATE_FILTER_KEY];
 	} else {
 		[filters removeObjectForKey:DATE_FILTER_KEY];
 	}
+	
 	if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
 		[filters setObject:self.selectedDisciplines forKey:DISCIPLINE_FILTER_KEY];
-		self.selectedRows = [self.disciplinesTableView indexPathsForSelectedRows];
 	} else {
 		[filters removeObjectForKey:DISCIPLINE_FILTER_KEY];
 	}
+	self.selectedRows = [self.disciplinesTableView indexPathsForSelectedRows];
 	
 	return filters;
 }

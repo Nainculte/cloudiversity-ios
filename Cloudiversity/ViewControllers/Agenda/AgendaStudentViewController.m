@@ -231,6 +231,8 @@
 	NSArray *assignments;
 	if (self.dateToFilter) {
 		assignments = [self.sections objectForKey:self.dateToFilter];
+	} else if (self.disciplinesToFilter) {
+		assignments = [self getArrayOfAssignmentsForDisciplines:self.disciplinesToFilter atPosition:indexes[0]];
 	} else {
 		assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
 	}
@@ -279,6 +281,8 @@
 	NSArray *assignments;
 	if (self.dateToFilter) {
 		assignments = [self.sections objectForKey:self.dateToFilter];
+	} else if (self.disciplinesToFilter) {
+		assignments = [self getArrayOfAssignmentsForDisciplines:self.disciplinesToFilter atPosition:section];
 	} else {
 		assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:section]];
 	}
@@ -293,15 +297,16 @@
 		assignmentsCounter = assignments.count;
 	}
 	
-	NSLog(@"assignmentsCounter = %d", assignmentsCounter);
 	return assignmentsCounter;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	if (self.dateToFilter) {
 		return 1;
+	} else if (self.disciplinesToFilter) {
+		return [self countNumberOfSectionsToReturnForDisciplinesNames:self.disciplinesToFilter];
 	}
-	NSLog(@"self.sections.count = %d", self.sections.count);
+	
 	return self.sections.count;
 }
 
@@ -342,7 +347,6 @@
 		[filterViewController setAvailableDisciplinesToFilter:self.allDisciplinesName];
 	} else if (position == FrontViewPositionLeft) { // When the filterView is hidden
 		NSDictionary *filters = [filterViewController getFilters];
-		NSLog(@">>>>>>>> %@ <<<<<<", filters);
 		
 		self.dateToFilter = [filters objectForKey:DATE_FILTER_KEY];
 		self.disciplinesToFilter = [filters objectForKey:DISCIPLINE_FILTER_KEY];
@@ -353,6 +357,52 @@
 
 #pragma mark - Some methodes to make it easy !
 
+// Return YES if an Array of assignments contains at least one assignment in the filtered disciplines
+- (BOOL)areDisciplines:(NSArray*)disciplinesNames inArrayOfAssignments:(NSArray*)assignments {
+	for (NSDictionary *assignment in assignments) {
+		for (NSString *disciplineName in disciplinesNames) {
+			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName]) {
+				return YES;
+			}
+		}
+	}
+	
+	return NO;
+}
+
+// Return the number of sections to display if only disciplines are filtered
+- (NSInteger)countNumberOfSectionsToReturnForDisciplinesNames:(NSArray*)disciplinesNames {
+	int numberOfSections = 0;
+	
+	for (NSDate *dateKey in self.sortedSections) {
+		NSArray *assignments = [self.sections objectForKey:dateKey];
+		
+		if ([self areDisciplines:self.disciplinesToFilter inArrayOfAssignments:assignments])
+			++numberOfSections;
+	}
+	
+	return numberOfSections;
+}
+
+// Return the correct Array of assignments for the asked position to display in the tableView, when only disciplines are filtered
+- (NSArray*)getArrayOfAssignmentsForDisciplines:(NSArray*)disciplinesNames
+									 atPosition:(NSInteger)position {
+	int counter = -1;
+	
+	for (NSString *dateKey in self.sortedSections) {
+		NSArray *assignments = [self.sections objectForKey:dateKey];
+		
+		if ([self areDisciplines:self.disciplinesToFilter inArrayOfAssignments:assignments]) {
+			++counter;
+			if (counter == position)
+				return assignments;
+		}
+	}
+	
+	return nil;
+}
+
+// Return the number of assignments that are in the filtered disciplines for the given assignments Array
 - (NSInteger)countNumberOfAssignmentsForDisciplineName:(NSString*)disciplineName
 								  inArrayOfAssignments:(NSArray*)arrayOfAssignments {
 	int assignmentCounter = 0;
@@ -364,6 +414,7 @@
 	return assignmentCounter;
 }
 
+// Return the nth assignment in the given assignments Array that match the filtered disciplines at the given position
 - (NSDictionary*)assignmentForDisciplines:(NSArray*)disciplineNames
 							   atPosition:(NSInteger)position
 					 inArrayOfAssignments:(NSArray*)arrayOfAssignments {
