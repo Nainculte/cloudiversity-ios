@@ -85,8 +85,10 @@
                 break;
         }
 	};
-	[DejalActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
-	[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
+	if (self.progressBarInput.value != self.assignment.progress) {
+		[DejalActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+		[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
+	}
 	
 	[super viewWillDisappear:animated];
 }
