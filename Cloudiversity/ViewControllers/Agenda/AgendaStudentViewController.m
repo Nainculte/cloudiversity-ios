@@ -226,25 +226,7 @@
 - (void)setupCell:(UITableViewCell *)c withIndexPath:(NSIndexPath *)indexPath
 {
     AgendaStudentTableViewCell *cell = (AgendaStudentTableViewCell *)c;
-
-	NSUInteger *indexes = calloc(sizeof(NSUInteger), indexPath.length);
-	[indexPath getIndexes:(NSUInteger*)indexes];
-
-	NSArray *assignments;
-	if (self.dateToFilter) {
-		assignments = [self.sections objectForKey:self.dateToFilter];
-	} else if (self.disciplinesToFilter) {
-		assignments = [self getArrayOfAssignmentsForDisciplines:self.disciplinesToFilter atPosition:indexes[0]];
-	} else {
-		assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
-	}
-	
-	NSDictionary *assignment;
-	if (self.disciplinesToFilter && self.disciplinesToFilter.count > 0) {
-		assignment = [self assignmentForDisciplines:self.disciplinesToFilter atPosition:indexes[1] inArrayOfAssignments:assignments];
-	} else {
-		assignment = [assignments objectAtIndex:indexes[1]];
-	}
+	NSDictionary *assignment = [self assignmentForIndexPath:indexPath];
 
 	[cell.pieChartView setInternalColor:[UIColor cloudLightBlue]];
 	[cell.pieChartView setExternalColor:[UIColor cloudDarkBlue]];
@@ -286,7 +268,7 @@
 	} else if (self.disciplinesToFilter) {
 		assignments = [self getArrayOfAssignmentsForDisciplines:self.disciplinesToFilter atPosition:section];
 	} else {
-		assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:section]];
+		assignments = [self getArrayOfAssignmentsForPosition:section];
 	}
 	
 	int assignmentsCounter = 0;
@@ -296,7 +278,7 @@
 															 inArrayOfAssignments:assignments];
 		}
 	} else {
-		assignmentsCounter = assignments.count;
+		assignmentsCounter = [self numberOfAssignmentsThatMatchTheProgressFilterInArrayOfAssignments:assignments];
 	}
 	
 	return assignmentsCounter;
@@ -309,19 +291,15 @@
 		return [self countNumberOfSectionsToReturnForDisciplinesNames:self.disciplinesToFilter];
 	}
 	
-	return self.sections.count;
+	return [self numberOfSectionsForSelectedProgressFilter];
 }
 
 #pragma mark - AgendaStudentTaskDataSource protocol
 
--(AgendaAssignment *)getSelectedAssignment {
+- (AgendaAssignment *)getSelectedAssignment {
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-
-	int *indexes = malloc(sizeof(int) * [indexPath length]);
-	[indexPath getIndexes:(NSUInteger*)indexes];
 	
-	NSArray *assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:indexes[0]]];
-	NSDictionary *assignmentDico = [assignments objectAtIndex:indexes[1]];
+	NSDictionary *assignmentDico = [self assignmentForIndexPath:indexPath];
 	
 	NSString *dueTime = nil;
 	if (!([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class]))
@@ -352,6 +330,7 @@
 		
 		self.dateToFilter = [filters objectForKey:DATE_FILTER_KEY];
 		self.disciplinesToFilter = [filters objectForKey:DISCIPLINE_FILTER_KEY];
+		self.progressFilter = [[filters objectForKey:PROGRESS_FILTER_KEY] intValue];
 		
 		[self reloadTableView];
 	}
@@ -359,11 +338,24 @@
 
 #pragma mark - Some methodes to make it easy !
 
+#pragma mark boolean methodes
+
+// Return YES if the given Assignment's progress match the progressFilter value
+- (BOOL)doesAssignmentMatchTheProgressFilterValue:(NSDictionary*)assignment {
+	if (([[assignment objectForKey:DICO_PROGRESS] intValue] == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
+		([[assignment objectForKey:DICO_PROGRESS] intValue] != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo) ||
+		self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll)
+		return YES;
+	
+	return NO;
+}
+
 // Return YES if an Array of assignments contains at least one assignment in the filtered disciplines
 - (BOOL)areDisciplines:(NSArray*)disciplinesNames inArrayOfAssignments:(NSArray*)assignments {
 	for (NSDictionary *assignment in assignments) {
 		for (NSString *disciplineName in disciplinesNames) {
-			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName]) {
+			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
+				[self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 				return YES;
 			}
 		}
@@ -371,6 +363,8 @@
 	
 	return NO;
 }
+
+#pragma mark NSInterger methodes (for number of sections and rows requests)
 
 // Return the number of sections to display if only disciplines are filtered
 - (NSInteger)countNumberOfSectionsToReturnForDisciplinesNames:(NSArray*)disciplinesNames {
@@ -385,6 +379,58 @@
 	
 	return numberOfSections;
 }
+
+// Return the number of sections to display depending on the progressFilter
+- (NSInteger)numberOfSectionsForSelectedProgressFilter {
+	if (self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll) {
+		return self.sections.count;
+	}
+	
+	int numberOfSections = 0;
+	for (NSString *dateKey in self.sortedSections) {
+		NSArray *assignments = [self.sections objectForKey:dateKey];
+		
+		for (NSDictionary *assignment in assignments) {
+			if (([[assignment objectForKey:DICO_PROGRESS] intValue] == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
+				([[assignment objectForKey:DICO_PROGRESS] intValue] != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo)) {
+				++numberOfSections;
+				break;
+			}
+		}
+	}
+	
+	return numberOfSections;
+}
+
+// Return the number of assignments that are in the filtered disciplines for the given assignments Array
+- (NSInteger)countNumberOfAssignmentsForDisciplineName:(NSString*)disciplineName
+								  inArrayOfAssignments:(NSArray*)arrayOfAssignments {
+	int assignmentCounter = 0;
+	for (NSDictionary *assignment in arrayOfAssignments) {
+		if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
+			[self doesAssignmentMatchTheProgressFilterValue:assignment])
+			++assignmentCounter;
+	}
+	
+	return assignmentCounter;
+}
+
+// Return the number of assignments to display depending on the progressFilter
+- (NSInteger)numberOfAssignmentsThatMatchTheProgressFilterInArrayOfAssignments:(NSArray*)assignments {
+	if (self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll) {
+		return assignments.count;
+	}
+	
+	int numberOfAssignments = 0;
+	for (NSDictionary *assignment in assignments) {
+		if ([self doesAssignmentMatchTheProgressFilterValue:assignment])
+			++numberOfAssignments;
+	}
+	
+	return numberOfAssignments;
+}
+
+#pragma mark Array methodes (for array of assignments request)
 
 // Return the correct Array of assignments for the asked position to display in the tableView, when only disciplines are filtered
 - (NSArray*)getArrayOfAssignmentsForDisciplines:(NSArray*)disciplinesNames
@@ -404,16 +450,49 @@
 	return nil;
 }
 
-// Return the number of assignments that are in the filtered disciplines for the given assignments Array
-- (NSInteger)countNumberOfAssignmentsForDisciplineName:(NSString*)disciplineName
-								  inArrayOfAssignments:(NSArray*)arrayOfAssignments {
-	int assignmentCounter = 0;
-	for (NSDictionary *assignment in arrayOfAssignments) {
-		if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName])
-			++assignmentCounter;
+// Return the correct Array of assignments for the asked position to display when no filters are set
+- (NSArray*)getArrayOfAssignmentsForPosition:(NSInteger)position {
+	int counter = -1;
+	
+	for (NSString *dateKey in self.sortedSections) {
+		NSArray *assignments = [self.sections objectForKey:dateKey];
+		
+		for (NSDictionary *assignment in assignments) {
+			if ([self doesAssignmentMatchTheProgressFilterValue:assignment]) {
+				++counter;
+				if (counter == position)
+					return assignments;
+			}
+		}
 	}
 	
-	return assignmentCounter;
+	return nil;
+}
+
+#pragma mark NSDictionary methodes (for single assignment requests)
+
+// Return the asked assignment for the given NSIndexPath (Just for code factoring)
+- (NSDictionary*)assignmentForIndexPath:(NSIndexPath*)indexPath {
+	int *indexes = malloc(sizeof(int) * [indexPath length]);
+	[indexPath getIndexes:(NSUInteger*)indexes];
+	
+	NSArray *assignments;
+	if (self.dateToFilter) {
+		assignments = [self.sections objectForKey:self.dateToFilter];
+	} else if (self.disciplinesToFilter) {
+		assignments = [self getArrayOfAssignmentsForDisciplines:self.disciplinesToFilter atPosition:indexes[0]];
+	} else {
+		assignments = [self getArrayOfAssignmentsForPosition:indexes[0]];
+	}
+	
+	NSDictionary *assignment;
+	if (self.disciplinesToFilter && self.disciplinesToFilter.count > 0) {
+		assignment = [self assignmentForDisciplines:self.disciplinesToFilter atPosition:indexes[1] inArrayOfAssignments:assignments];
+	} else {
+		assignment = [self assignmentInArrayOfAssignements:assignments atPosition:indexes[1]];
+	}
+	
+	return assignment;
 }
 
 // Return the nth assignment in the given assignments Array that match the filtered disciplines at the given position
@@ -424,12 +503,30 @@
 	for (NSDictionary *assignment in arrayOfAssignments) {
 		BOOL disciplineHasToBeDisplayed = NO;
 		for (NSString *disciplineName in disciplineNames) {
-			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName]) {
+			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
+				[self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 				disciplineHasToBeDisplayed = YES;
 				break;
 			}
 		}
 		if (disciplineHasToBeDisplayed) {
+			++cnt;
+			if (cnt == position)
+				return assignment;
+		}
+	}
+	
+	return nil;
+}
+
+// Return the nth assignment in the given Array of assignments that match the progressFilter's property
+- (NSDictionary*)assignmentInArrayOfAssignements:(NSArray*)assignments
+									  atPosition:(NSInteger)position
+{
+	int cnt = -1;
+	
+	for (NSDictionary *assignment in assignments) {
+		if ([self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 			++cnt;
 			if (cnt == position)
 				return assignment;

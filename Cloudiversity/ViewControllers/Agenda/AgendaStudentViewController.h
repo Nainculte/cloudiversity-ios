@@ -11,7 +11,7 @@
 
 #define DATE_FILTER_KEY			@"dateToFilter"
 #define DISCIPLINE_FILTER_KEY	@"disciplinesToFilter"
-#define PROGRESS_FILTER_KEY		@"progressFilter"
+#define PROGRESS_FILTER_KEY		@"progressFilter" // For To Do | All | Done filter
 
 typedef enum : NSUInteger {
     AgendaStudentViewControllerProgressFilterPositionToDo = 0,
