@@ -788,7 +788,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="b8h-Zx-Y25">
-                                <rect key="frame" x="60" y="274" width="260" height="294"/>
+                                <rect key="frame" x="60" y="323" width="260" height="245"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -819,7 +819,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disciplines to filter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX8-Lp-xoG">
-                                <rect key="frame" x="60" y="233" width="260" height="33"/>
+                                <rect key="frame" x="60" y="282" width="260" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="nlv-eA-v1Z"/>
@@ -838,13 +838,28 @@
                                     <constraint firstAttribute="width" constant="260" id="gtg-DE-DWS"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="r2O-wf-z3Z">
+                                <rect key="frame" x="60" y="246" width="240" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="iWh-jS-vyM"/>
+                                    <constraint firstAttribute="height" constant="28" id="s6X-iY-dnp"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="To do"/>
+                                    <segment title="All"/>
+                                    <segment title="Done"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="b8h-Zx-Y25" firstAttribute="top" secondItem="eX8-Lp-xoG" secondAttribute="bottom" constant="8" id="2Jm-0U-cS8"/>
-                            <constraint firstItem="eX8-Lp-xoG" firstAttribute="top" secondItem="QtR-sb-7I5" secondAttribute="bottom" constant="213" id="TYP-VL-KEX"/>
                             <constraint firstItem="cqy-yk-qZe" firstAttribute="leading" secondItem="irU-Me-8zb" secondAttribute="leading" constant="60" id="TZj-hQ-O5L"/>
+                            <constraint firstItem="eX8-Lp-xoG" firstAttribute="top" secondItem="r2O-wf-z3Z" secondAttribute="bottom" constant="8" id="VtL-hT-Cyj"/>
                             <constraint firstItem="eX8-Lp-xoG" firstAttribute="leading" secondItem="irU-Me-8zb" secondAttribute="leading" constant="60" id="Wjw-cv-0D5"/>
+                            <constraint firstItem="r2O-wf-z3Z" firstAttribute="top" secondItem="QtR-sb-7I5" secondAttribute="bottom" constant="226" id="ZeI-dy-llG"/>
+                            <constraint firstItem="r2O-wf-z3Z" firstAttribute="leading" secondItem="irU-Me-8zb" secondAttribute="leading" constant="60" id="l2E-V5-JSC"/>
                             <constraint firstItem="b8h-Zx-Y25" firstAttribute="leading" secondItem="irU-Me-8zb" secondAttribute="leading" constant="60" id="pPa-wP-obF"/>
                             <constraint firstItem="HkL-QO-Afk" firstAttribute="top" secondItem="b8h-Zx-Y25" secondAttribute="bottom" id="rRa-8t-LmD"/>
                             <constraint firstItem="cqy-yk-qZe" firstAttribute="top" secondItem="QtR-sb-7I5" secondAttribute="bottom" id="tnw-tc-MfZ"/>
@@ -856,6 +871,7 @@
                         <outlet property="disciplinesTableView" destination="b8h-Zx-Y25" id="gQD-pW-Vch"/>
                         <outlet property="exercicesSwitchFilter" destination="ecJ-KC-vBz" id="aFF-0e-UUy"/>
                         <outlet property="markesTasksSwitchFilter" destination="P0q-Ty-F0e" id="gPL-tR-ENf"/>
+                        <outlet property="progressFilter" destination="r2O-wf-z3Z" id="4cv-Rc-mtI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXQ-b3-fr1" userLabel="First Responder" sceneMemberID="firstResponder"/>

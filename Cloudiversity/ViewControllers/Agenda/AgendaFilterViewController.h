@@ -13,8 +13,4 @@
 
 @interface AgendaFilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DSLCalendarViewDelegate, AgendaStudentDataSource>
 
-@property (weak, nonatomic) IBOutlet UISwitch *controlSwitchFilter;
-@property (weak, nonatomic) IBOutlet UISwitch *exercicesSwitchFilter;
-@property (weak, nonatomic) IBOutlet UISwitch *markesTasksSwitchFilter;
-
 @end

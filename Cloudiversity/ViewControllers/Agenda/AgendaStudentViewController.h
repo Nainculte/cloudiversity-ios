@@ -11,6 +11,14 @@
 
 #define DATE_FILTER_KEY			@"dateToFilter"
 #define DISCIPLINE_FILTER_KEY	@"disciplinesToFilter"
+#define PROGRESS_FILTER_KEY		@"progressFilter"
+
+typedef enum : NSUInteger {
+    AgendaStudentViewControllerProgressFilterPositionToDo = 0,
+    AgendaStudentViewControllerProgressFilterPositionAll,
+    AgendaStudentViewControllerProgressFilterPositionDone,
+} AgendaStudentViewControllerProgressFilterPosition;
+
 @protocol AgendaStudentDataSource <NSObject>
 
 - (void)setAvailableDisciplinesToFilter:(NSArray*)disciplines;

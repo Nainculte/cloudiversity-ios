@@ -14,11 +14,17 @@
 
 @property (weak, nonatomic) IBOutlet DSLCalendarView *calendarView;
 
+// Not used yet, but maybe later
+@property (weak, nonatomic) IBOutlet UISwitch *controlSwitchFilter;
+@property (weak, nonatomic) IBOutlet UISwitch *exercicesSwitchFilter;
+@property (weak, nonatomic) IBOutlet UISwitch *markesTasksSwitchFilter;
+
 @property (strong, nonatomic) NSDateComponents *selectedDay;
 @property (strong, nonatomic) NSMutableArray *selectedDisciplines;
 @property (strong, nonatomic) NSArray *availableDisciplines;
 @property (strong, nonatomic) NSArray *selectedRows;
 @property (weak, nonatomic) IBOutlet UITableView *disciplinesTableView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *progressFilter;
 
 @property BOOL dayIsSelected;
 
@@ -220,6 +226,7 @@
 	} else {
 		[filters removeObjectForKey:DISCIPLINE_FILTER_KEY];
 	}
+	[filters setObject:[NSNumber numberWithInteger:self.progressFilter.selectedSegmentIndex] forKey:PROGRESS_FILTER_KEY];
 	self.selectedRows = [self.disciplinesTableView indexPathsForSelectedRows];
 	
 	return filters;

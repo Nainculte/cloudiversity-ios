@@ -35,6 +35,7 @@
 @property (nonatomic, strong) NSMutableDictionary *assignmentsByDate;
 @property (nonatomic, strong) NSArray *sortedDates;
 @property (nonatomic, strong) NSMutableArray *allDisciplinesName;
+@property (nonatomic) AgendaStudentViewControllerProgressFilterPosition progressFilter;
 
 @property (nonatomic) BOOL recievedResponseFromServer;
 
@@ -149,6 +150,7 @@
 
     self.sections = [NSMutableDictionary dictionary];
 	self.sortedSections = [NSMutableArray array];
+	self.progressFilter = AgendaStudentViewControllerProgressFilterPositionToDo;
 
     [self setupHandlers];
 
