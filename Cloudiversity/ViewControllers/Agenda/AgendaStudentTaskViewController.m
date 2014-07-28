@@ -76,6 +76,7 @@
 		self.pieChartView.percentage = [[response objectForKey:DICO_PROGRESS] intValue];
 		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
 		[self.progressBarInput setValue:[[response objectForKey:DICO_PROGRESS] intValue]];
+		[self.dataSource assignmentProgressUpdated:self.assignment];
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -7,6 +7,7 @@
 //
 
 #import "AgendaFilterViewController.h"
+#import "CloudDateConverter.h"
 
 #define REUSE_IDENTIFIER	@"fieldCell"
 
@@ -216,7 +217,8 @@
 	NSMutableDictionary *filters = [NSMutableDictionary dictionary];
 
 	if (self.selectedDay) {
-		[filters setObject:self.selectedDay.date forKey:DATE_FILTER_KEY];
+		NSString *dateString = [NSString stringWithFormat:@"%d-%d-%d", self.selectedDay.year, self.selectedDay.month, self.selectedDay.day];
+		[filters setObject:[[CloudDateConverter sharedMager] dateFromString:dateString] forKey:DATE_FILTER_KEY];
 	} else {
 		[filters removeObjectForKey:DATE_FILTER_KEY];
 	}

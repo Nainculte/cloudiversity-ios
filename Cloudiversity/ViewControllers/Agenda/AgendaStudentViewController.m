@@ -32,8 +32,6 @@
 @property (nonatomic, strong) NSDate *dateToFilter;
 @property (nonatomic, strong) NSArray *disciplinesToFilter;
 
-@property (nonatomic, strong) NSMutableDictionary *assignmentsByDate;
-@property (nonatomic, strong) NSArray *sortedDates;
 @property (nonatomic, strong) NSMutableArray *allDisciplinesName;
 @property (nonatomic) AgendaStudentViewControllerProgressFilterPosition progressFilter;
 
@@ -68,10 +66,13 @@
 		NSMutableArray *allDisciplinesName = [NSMutableArray array];
         
 		// Adding assignments in Arrays grouped by date
-		for (NSDictionary *assignment in response) {
-			NSString *dateString = [assignment objectForKey:DICO_DEADLINE];
-            
-			NSDate* date = [[CloudDateConverter sharedMager] dateFromString:dateString];
+		for (NSDictionary *assignmentDico in response) {
+			// First, we create the Assignment from the Dictionary entrie
+			NSString *dueTimeString = ([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : [assignmentDico objectForKey:DICO_DUETIME]);
+			NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", [assignmentDico objectForKey:DICO_DEADLINE], dueTimeString];
+			AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:[assignmentDico objectForKey:DICO_TITLE] withId:[[assignmentDico objectForKey:DICO_ID] intValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime] progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue] forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
+			         
+			NSDate* date = [[CloudDateConverter sharedMager] convertDate:assignment.dueDate toFormat:CloudDateConverterFormatDate];
             
 			NSMutableArray *assignmentsByDatesArray = [assignmentsByDates objectForKey:date];
             
@@ -83,7 +84,7 @@
 			[assignmentsByDatesArray addObject:assignment];
 			
 			// Geting discipline's name, and adding it in allDisciplines if it doesn't exist
-			NSString *disciplineName = [[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME];
+			NSString *disciplineName = [assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME];
 			
 			if (![allDisciplinesName containsObject:disciplineName])
 				[allDisciplinesName addObject:disciplineName];
@@ -99,16 +100,12 @@
 			NSArray *assignments = [assignmentsByDates objectForKey:date];
 
 			assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-				NSDictionary *dico1 = (NSDictionary *)obj1;
-				NSDictionary *dico2 = (NSDictionary *)obj2;
+				AgendaAssignment *assignment1 = (AgendaAssignment *)obj1;
+				AgendaAssignment *assignment2 = (AgendaAssignment *)obj2;
 
-				NSString *dateString1 = [dico1 objectForKey:DICO_DUETIME];
-				if (dateString1 == nil || [[dico1 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString1 = [CloudDateConverter nullTime];
-				NSString *dateString2 = [dico2 objectForKey:DICO_DUETIME];
-				if (dateString2 == nil || [[dico2 objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) dateString2 = [CloudDateConverter nullTime];
 
-				NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
-				NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
+				NSDate *date1 = [[CloudDateConverter sharedMager] convertDate:assignment1.dueDate toFormat:CloudDateConverterFormatTime];
+				NSDate *date2 = [[CloudDateConverter sharedMager] convertDate:assignment2.dueDate toFormat:CloudDateConverterFormatTime];
 
 				return [date1 compare:date2];
 			}];
@@ -121,7 +118,7 @@
 
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsStudentList"];
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedStudentDates"];
-	[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
+		[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
         bself.sections = assignmentsByDates;
         bself.sortedSections = sortedDates;
 		bself.allDisciplinesName = allDisciplinesName;
@@ -226,18 +223,20 @@
 - (void)setupCell:(UITableViewCell *)c withIndexPath:(NSIndexPath *)indexPath
 {
     AgendaStudentTableViewCell *cell = (AgendaStudentTableViewCell *)c;
-	NSDictionary *assignment = [self assignmentForIndexPath:indexPath];
+	AgendaAssignment *assignment = [self assignmentForIndexPath:indexPath];
 
 	[cell.pieChartView setInternalColor:[UIColor cloudLightBlue]];
 	[cell.pieChartView setExternalColor:[UIColor cloudDarkBlue]];
-	[cell.pieChartView setPercentage:[[assignment objectForKey:DICO_PROGRESS] intValue]];
-	cell.workTitle.text = [assignment objectForKey:DICO_TITLE];
+	[cell.pieChartView setPercentage:assignment.progress];
+	cell.workTitle.text = assignment.title;
 	cell.workTitle.font = [UIFont fontWithName:CLOUD_FONT_BOLD size:cell.workTitle.font.pointSize];
-	cell.fieldLabel.text = [[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME];
-	if ([[assignment objectForKey:DICO_DUETIME] isKindOfClass:[NSNull class]]) {
+	cell.fieldLabel.text = [assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME];
+
+	NSString *dueTimeString = [[CloudDateConverter sharedMager] stringFromTime:assignment.dueDate];
+	if ([dueTimeString isEqualToString:@"00:00"]) {
 		cell.dueTimeLabel.text = @"";
 	} else {
-		cell.dueTimeLabel.text = [assignment objectForKey:DICO_DUETIME];
+		cell.dueTimeLabel.text = dueTimeString;
 	}
 }
 
@@ -299,23 +298,20 @@
 - (AgendaAssignment *)getSelectedAssignment {
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	
-	NSDictionary *assignmentDico = [self assignmentForIndexPath:indexPath];
+	return [self assignmentForIndexPath:indexPath];
+}
+
+- (void)assignmentProgressUpdated:(AgendaAssignment *)assignment {
+	NSArray *assignments = [self.sections objectForKey:assignment.dueDate];
 	
-	NSString *dueTime = nil;
-	if (!([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class]))
-		dueTime = [assignmentDico objectForKey:DICO_DUETIME];
-	if (dueTime == nil) dueTime = [CloudDateConverter nullTime];
-	NSString *assignmentDateString = [[assignmentDico objectForKey:DICO_DEADLINE] stringByAppendingString:[NSString stringWithFormat:@" %@", dueTime]];
-	NSDate *assignmentDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:assignmentDateString];
-	
-	AgendaAssignment *assignment = [[AgendaAssignment alloc]
-									initWithTitle:[assignmentDico objectForKey:DICO_TITLE]
-									withId:[[assignmentDico objectForKey:DICO_ID] intValue]
-									dueDate:assignmentDate
-									progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue]
-									forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
-	
-	return assignment;
+	for (AgendaAssignment *assignmentObj in assignments) {
+		if (assignmentObj.assignmentId == assignment.assignmentId) {
+			assignmentObj.progress = assignment.progress;
+			[self initAssignmentsByHTTPRequest]; //  C'est temporaire !
+			[self reloadTableView];
+			break;
+		}
+	}
 }
 
 #pragma mark - SWRevealViewControllerDelegate protocol
@@ -341,9 +337,9 @@
 #pragma mark boolean methodes
 
 // Return YES if the given Assignment's progress match the progressFilter value
-- (BOOL)doesAssignmentMatchTheProgressFilterValue:(NSDictionary*)assignment {
-	if (([[assignment objectForKey:DICO_PROGRESS] intValue] == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
-		([[assignment objectForKey:DICO_PROGRESS] intValue] != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo) ||
+- (BOOL)doesAssignmentMatchTheProgressFilterValue:(AgendaAssignment*)assignment {
+	if ((assignment.progress == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
+		(assignment.progress != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo) ||
 		self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll)
 		return YES;
 	
@@ -352,9 +348,9 @@
 
 // Return YES if an Array of assignments contains at least one assignment in the filtered disciplines
 - (BOOL)areDisciplines:(NSArray*)disciplinesNames inArrayOfAssignments:(NSArray*)assignments {
-	for (NSDictionary *assignment in assignments) {
+	for (AgendaAssignment *assignment in assignments) {
 		for (NSString *disciplineName in disciplinesNames) {
-			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
+			if ([[assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
 				[self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 				return YES;
 			}
@@ -390,9 +386,9 @@
 	for (NSString *dateKey in self.sortedSections) {
 		NSArray *assignments = [self.sections objectForKey:dateKey];
 		
-		for (NSDictionary *assignment in assignments) {
-			if (([[assignment objectForKey:DICO_PROGRESS] intValue] == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
-				([[assignment objectForKey:DICO_PROGRESS] intValue] != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo)) {
+		for (AgendaAssignment *assignment in assignments) {
+			if ((assignment.progress == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
+				(assignment.progress != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo)) {
 				++numberOfSections;
 				break;
 			}
@@ -406,8 +402,8 @@
 - (NSInteger)countNumberOfAssignmentsForDisciplineName:(NSString*)disciplineName
 								  inArrayOfAssignments:(NSArray*)arrayOfAssignments {
 	int assignmentCounter = 0;
-	for (NSDictionary *assignment in arrayOfAssignments) {
-		if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
+	for (AgendaAssignment *assignment in arrayOfAssignments) {
+		if ([[assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
 			[self doesAssignmentMatchTheProgressFilterValue:assignment])
 			++assignmentCounter;
 	}
@@ -422,7 +418,7 @@
 	}
 	
 	int numberOfAssignments = 0;
-	for (NSDictionary *assignment in assignments) {
+	for (AgendaAssignment *assignment in assignments) {
 		if ([self doesAssignmentMatchTheProgressFilterValue:assignment])
 			++numberOfAssignments;
 	}
@@ -457,7 +453,7 @@
 	for (NSString *dateKey in self.sortedSections) {
 		NSArray *assignments = [self.sections objectForKey:dateKey];
 		
-		for (NSDictionary *assignment in assignments) {
+		for (AgendaAssignment *assignment in assignments) {
 			if ([self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 				++counter;
 				if (counter == position)
@@ -472,7 +468,7 @@
 #pragma mark NSDictionary methodes (for single assignment requests)
 
 // Return the asked assignment for the given NSIndexPath (Just for code factoring)
-- (NSDictionary*)assignmentForIndexPath:(NSIndexPath*)indexPath {
+- (AgendaAssignment*)assignmentForIndexPath:(NSIndexPath*)indexPath {
 	int *indexes = malloc(sizeof(int) * [indexPath length]);
 	[indexPath getIndexes:(NSUInteger*)indexes];
 	
@@ -485,7 +481,7 @@
 		assignments = [self getArrayOfAssignmentsForPosition:indexes[0]];
 	}
 	
-	NSDictionary *assignment;
+	AgendaAssignment *assignment;
 	if (self.disciplinesToFilter && self.disciplinesToFilter.count > 0) {
 		assignment = [self assignmentForDisciplines:self.disciplinesToFilter atPosition:indexes[1] inArrayOfAssignments:assignments];
 	} else {
@@ -496,14 +492,14 @@
 }
 
 // Return the nth assignment in the given assignments Array that match the filtered disciplines at the given position
-- (NSDictionary*)assignmentForDisciplines:(NSArray*)disciplineNames
+- (AgendaAssignment*)assignmentForDisciplines:(NSArray*)disciplineNames
 							   atPosition:(NSInteger)position
 					 inArrayOfAssignments:(NSArray*)arrayOfAssignments {
 	int cnt = -1;
-	for (NSDictionary *assignment in arrayOfAssignments) {
+	for (AgendaAssignment *assignment in arrayOfAssignments) {
 		BOOL disciplineHasToBeDisplayed = NO;
 		for (NSString *disciplineName in disciplineNames) {
-			if ([[[assignment objectForKey:DICO_DISCIPLINE] objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
+			if ([[assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName] &&
 				[self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 				disciplineHasToBeDisplayed = YES;
 				break;
@@ -520,12 +516,12 @@
 }
 
 // Return the nth assignment in the given Array of assignments that match the progressFilter's property
-- (NSDictionary*)assignmentInArrayOfAssignements:(NSArray*)assignments
+- (AgendaAssignment*)assignmentInArrayOfAssignements:(NSArray*)assignments
 									  atPosition:(NSInteger)position
 {
 	int cnt = -1;
 	
-	for (NSDictionary *assignment in assignments) {
+	for (AgendaAssignment *assignment in assignments) {
 		if ([self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 			++cnt;
 			if (cnt == position)

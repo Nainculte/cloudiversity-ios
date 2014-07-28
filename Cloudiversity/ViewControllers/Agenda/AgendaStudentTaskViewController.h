@@ -12,6 +12,7 @@
 @protocol AgendaStudentTaskDataSource <NSObject>
 
 - (AgendaAssignment*)getSelectedAssignment;
+- (void)assignmentProgressUpdated:(AgendaAssignment*)assignment;
 
 @end
 
