@@ -31,9 +31,10 @@
 @property BOOL isFilteringNotedTasks;
 @property (nonatomic, strong) NSDate *dateToFilter;
 @property (nonatomic, strong) NSArray *disciplinesToFilter;
+@property (nonatomic) AgendaStudentViewControllerProgressFilterPosition progressFilter;
 
 @property (nonatomic, strong) NSMutableArray *allDisciplinesName;
-@property (nonatomic) AgendaStudentViewControllerProgressFilterPosition progressFilter;
+@property (nonatomic, strong) NSIndexPath *selectedRowPath;
 
 @property (nonatomic) BOOL recievedResponseFromServer;
 
@@ -192,6 +193,8 @@
 		AgendaStudentTaskViewController *assignmentDetailsVC = [segue destinationViewController];
 		
 		[assignmentDetailsVC setDataSource:self];
+		
+		self.selectedRowPath = [self.tableView indexPathForSelectedRow];
 	}
 }
 
@@ -325,8 +328,8 @@
 	for (AgendaAssignment *assignmentObj in assignments) {
 		if (assignmentObj.assignmentId == assignment.assignmentId) {
 			assignmentObj.progress = assignment.progress;
-			[self initAssignmentsByHTTPRequest]; //  C'est temporaire !
-			[self reloadTableView];
+			[self.tableView reloadRowsAtIndexPaths:@[self.selectedRowPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+			[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:self.sections] forKey:@"assignmentsStudentList"];
 			break;
 		}
 	}
