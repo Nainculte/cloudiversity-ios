@@ -59,7 +59,7 @@
 {
     BSELF(self)
     self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *response = (NSDictionary *)responseObject;
+        NSArray *response = (NSArray *)responseObject;
         
         NSMutableDictionary *assignmentsByDates = [NSMutableDictionary dictionary];
         NSArray *sortedDates;
@@ -195,6 +195,13 @@
 	}
 }
 
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+	if (self.revealViewController.frontViewPosition == FrontViewPositionLeftSide)
+		return NO;
+	
+	return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
+}
+
 #pragma mark - UITableView management
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -212,7 +219,18 @@
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     /* Create custom view to display section header... */
     CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-	NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:[self.sortedSections objectAtIndex:section]];
+
+	NSInteger index;
+	if (self.dateToFilter) {
+		index = [self.sortedSections indexOfObject:self.dateToFilter];
+	} else if (self.disciplinesToFilter) {
+		index = [self getIndexOfSectionForDisciplines:self.disciplinesToFilter atPosition:section];
+	} else {
+		index = [self getIndexOfSectionForPosition:section];
+	}
+
+	NSDate *headerDate = (index == NSNotFound ? self.dateToFilter : [self.sortedSections objectAtIndex:index]);
+	NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:headerDate];
 
     [label setText:headerTitle];
     [view addSubview:label];
@@ -424,6 +442,45 @@
 	}
 	
 	return numberOfAssignments;
+}
+
+#pragma mark NSInteger methodes (for index of section for header)
+
+// Return the correct index of section for the asked position to display in the tableView, when only disciplines are filtered
+- (NSInteger)getIndexOfSectionForDisciplines:(NSArray*)disciplinesNames
+								   atPosition:(NSInteger)position {
+	int counter = -1;
+	
+	for (NSString *dateKey in self.sortedSections) {
+		NSArray *assignments = [self.sections objectForKey:dateKey];
+		
+		if ([self areDisciplines:self.disciplinesToFilter inArrayOfAssignments:assignments]) {
+			++counter;
+			if (counter == position)
+				return [self.sortedSections indexOfObject:dateKey];
+		}
+	}
+	
+	return NSNotFound;
+}
+
+// Return the correct index of section for the asked position to display when no filters are set
+- (NSInteger)getIndexOfSectionForPosition:(NSInteger)position {
+	int counter = -1;
+	
+	for (NSString *dateKey in self.sortedSections) {
+		NSArray *assignments = [self.sections objectForKey:dateKey];
+		
+		for (AgendaAssignment *assignment in assignments) {
+			if ([self doesAssignmentMatchTheProgressFilterValue:assignment]) {
+				++counter;
+				if (counter == position)
+					return [self.sortedSections indexOfObject:dateKey];
+			}
+		}
+	}
+	
+	return NSNotFound;
 }
 
 #pragma mark Array methodes (for array of assignments request)
