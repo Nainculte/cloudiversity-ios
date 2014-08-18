@@ -23,6 +23,8 @@
 #define DICO_DISCIPLINE_ID			@"id"
 #define DICO_DISCIPLINE_NAME		@"name"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaStudentVC"]
+
 @interface AgendaStudentViewController ()
 
 // Properties for filtering
@@ -128,7 +130,7 @@
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
     self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
         switch (operation.response.statusCode) {
             default:
                 break;
@@ -184,7 +186,7 @@
 
 - (void)initAssignmentsByHTTPRequest
 {
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
     [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 

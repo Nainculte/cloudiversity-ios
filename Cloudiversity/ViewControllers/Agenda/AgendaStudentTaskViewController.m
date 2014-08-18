@@ -29,6 +29,8 @@
 #define DICO_SCHOOL_CLASS_ID		@"id"
 #define DICO_SCHOOL_CLASS_NAME		@"name"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaStudentVC"]
+
 @interface AgendaStudentTaskViewController ()
 
 @property (weak, nonatomic) IBOutlet CloudLabel *workTitleLabel;
@@ -80,14 +82,14 @@
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
         switch (operation.response.statusCode) {
             default:
                 break;
         }
 	};
 	if (self.progressBarInput.value != self.assignment.progress) {
-		[DejalActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+		[DejalActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
 		[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
 	}
 	
@@ -135,13 +137,13 @@
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
         switch (operation.response.statusCode) {
             default:
                 break;
         }
 	};
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
 	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
 }
 

@@ -1,0 +1,12 @@
+/* 
+  AgendaStudentVC.strings
+  Cloudiversity
+
+  Created by Anthony MERLE on 14/08/2014.
+  Copyright (c) 2014 Cloudiversity. All rights reserved.
+*/
+
+"AGENDA_STUDENT_ERROR" = "Error";
+"AGENDA_STUDENT_LOADING" = "Loading";
+
+"AGENDA_STUDENT_MODULE_NAME" = "Agenda";
