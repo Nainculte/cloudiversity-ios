@@ -89,7 +89,10 @@
     if ([segue.identifier isEqualToString:@"Agenda"]) {
         dest.title = @"Agenda";
         self.current = @"Agenda";
-    } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
+    } else if ([segue.identifier isEqualToString:@"Evaluation"]) {
+		dest.title = @"Evaluation";
+		self.current = @"Evaluation";
+	} else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         self.current = @"HomeScreen";
     } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
         self.current = @"HomeScreen";

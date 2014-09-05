@@ -20,6 +20,12 @@
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
 		92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
+		92F0E74019B9BE5500F30BE2 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */; };
+		92F0E74119B9BE5500F30BE2 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */; };
+		92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
+		92F0E74419B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
+		92F0E74619B9C17300F30BE2 /* combo_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */; };
+		92F0E74719B9C17300F30BE2 /* combo_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */; };
 		CE5DACE308E34EB6B7960896 /* libPods-Cloudiversity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */; };
 		DF8DEFCA714840E8879CAA58 /* libPods-CloudiversityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
@@ -114,6 +120,10 @@
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
 		92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTaskViewController.m; sourceTree = "<group>"; };
+		92F0E73E19B9BE5500F30BE2 /* EvaluationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationViewController.h; path = Evaluation/EvaluationViewController.h; sourceTree = "<group>"; };
+		92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationViewController.m; path = Evaluation/EvaluationViewController.m; sourceTree = "<group>"; };
+		92F0E74219B9C16100F30BE2 /* combo_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combo_chart.png; sourceTree = "<group>"; };
+		92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "combo_chart@2x.png"; sourceTree = "<group>"; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E478BB5018A0E8290068DEB1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -244,6 +254,15 @@
 			path = AMPieChartView;
 			sourceTree = "<group>";
 		};
+		92F0E73D19B9BDF300F30BE2 /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				92F0E73E19B9BE5500F30BE2 /* EvaluationViewController.h */,
+				92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */,
+			);
+			name = Evaluation;
+			sourceTree = "<group>";
+		};
 		E478BB4018A0E8290068DEB1 = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +349,8 @@
 		FD3FA7BE18FC2D8B0072B731 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				92F0E74219B9C16100F30BE2 /* combo_chart.png */,
+				92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */,
 				FD35BC371955F27200091678 /* filter.png */,
 				FD35BC381955F27200091678 /* filter@2x.png */,
 				FDAFAFDD1951D4F40070F396 /* calendar.png */,
@@ -460,6 +481,7 @@
 				FD854A441952DB0A008F046D /* Server */,
 				FDEA48D8195099920026210D /* Navigation */,
 				FDC90835192A851600646A68 /* Agenda */,
+				92F0E73D19B9BDF300F30BE2 /* Evaluation */,
 				FDC90810192A847000646A68 /* Authentication */,
 				FDC90816192A847000646A68 /* HomeScreen */,
 			);
@@ -628,6 +650,7 @@
 				FDDA095018F5BA9F000A1029 /* FiraMonoOT-Regular.otf in Resources */,
 				FDDA095418F5BA9F000A1029 /* FiraSansOT-LightItalic.otf in Resources */,
 				FDF8DDFC19280AFE00237054 /* menu@2x.png in Resources */,
+				92F0E74619B9C17300F30BE2 /* combo_chart@2x.png in Resources */,
 				FD3FA7CD18FC2F0A0072B731 /* Logo_40x40.png in Resources */,
 				E478BB6518A0E8290068DEB1 /* Images.xcassets in Resources */,
 				FDDA095818F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf in Resources */,
@@ -636,6 +659,7 @@
 				FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */,
 				FDC90833192A847000646A68 /* HomeScreenVC.strings in Resources */,
 				FD35BC391955F27200091678 /* filter.png in Resources */,
+				92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */,
 				FDDA095318F5BA9F000A1029 /* FiraSansOT-Light.otf in Resources */,
 				FDAFAFDF1951D4F40070F396 /* calendar.png in Resources */,
 				FDAFAFDA1951D2C90070F396 /* Icon_clear_42x42.png in Resources */,
@@ -667,6 +691,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92F0E74719B9C17300F30BE2 /* combo_chart@2x.png in Resources */,
+				92F0E74419B9C16100F30BE2 /* combo_chart.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,6 +790,7 @@
 				929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
 				FDCEE15E196D8B9D002B3579 /* AbstractViewController.m in Sources */,
+				92F0E74019B9BE5500F30BE2 /* EvaluationViewController.m in Sources */,
 				92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -774,6 +801,7 @@
 			files = (
 				9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */,
 				92C2120E19471D510059B6B4 /* AgendaTableViewCell.m in Sources */,
+				92F0E74119B9BE5500F30BE2 /* EvaluationViewController.m in Sources */,
 				9287210A1944658500C70168 /* AMPieChartView.m in Sources */,
 				E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */,
 				929F47331955CB2B003CC61B /* CloudDateConverter.m in Sources */,
