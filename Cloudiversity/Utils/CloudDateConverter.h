@@ -18,6 +18,15 @@
 // Bonus
 #define DATE_AND_TIME_FORMAT_WITH_SECONDS	@"yyyy-MM-dd HH:mm:ss"
 
+typedef enum : NSUInteger {
+    CloudDateConverterFormatDateAndTime = 0,
+    CloudDateConverterFormatDateAtTime,
+    CloudDateConverterFormatFullDateAtTime,
+	CloudDateConverterFormatDate,
+	CloudDateConverterFormatFullDate,
+	CloudDateConverterFormatTime
+} CloudDateConverterFormat;
+
 @interface CloudDateConverter : NSObject
 
 + (CloudDateConverter*)sharedMager;
@@ -40,5 +49,8 @@
 - (NSString*)stringFromFullDate:(NSDate*)date;					// Gives a string in the DATE_FOMART format
 - (NSString*)stringFromTime:(NSDate*)time;					// Gives a string in the TIME_FORMAT format
 - (NSString*)stringFromDateAndTimeWithSeconds:(NSDate*)dateAndTimeWithSeconds;	// Gives a string in the DATE_AND_TIME_FORMAT_SECONDS format
+
+#pragma mark - Converting NSDate to another NSDate
+- (NSDate*)convertDate:(NSDate*)date toFormat:(CloudDateConverterFormat)outputFormat;
 
 @end
