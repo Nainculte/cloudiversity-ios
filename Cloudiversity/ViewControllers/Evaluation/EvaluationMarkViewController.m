@@ -1,18 +1,18 @@
 //
-//  EvaluationViewController.m
+//  EvaluationMarkViewController.m
 //  Cloudiversity
 //
-//  Created by Anthony MERLE on 05/09/2014.
+//  Created by Anthony MERLE on 11/09/2014.
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "EvaluationViewController.h"
+#import "EvaluationMarkViewController.h"
 
-@interface EvaluationViewController ()
+@interface EvaluationMarkViewController ()
 
 @end
 
-@implementation EvaluationViewController
+@implementation EvaluationMarkViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,18 +33,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - UITableView protocols implementation
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-	
-	return cell;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 10;
 }
 
 /*
