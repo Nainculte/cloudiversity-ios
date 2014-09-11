@@ -8,13 +8,24 @@
 
 #import "AgendaTeacherClassViewController.h"
 #import "AgendaTeacherClassTableViewCell.h"
+#import "AgendaTeacherEditAssignmentViewController.h"
 #import "CloudDateConverter.h"
+
+#define DICO_ID					@"id"
+#define DICO_TITLE 				@"title"
+#define DICO_DEADLINE 			@"deadline"
+#define DICO_DUETIME 			@"duetime"
+#define DICO_PROGRESS 			@"progress"
+#define DICO_DISCIPLINE 		@"discipline"
+#define DICO_DISCIPLINE_ID			@"id"
+#define DICO_DISCIPLINE_NAME		@"name"
 
 @interface AgendaTeacherClassViewController ()
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
+- (IBAction)newAssignment:(UIBarButtonItem *)sender;
 @end
 
 @implementation AgendaTeacherClassViewController
@@ -76,9 +87,12 @@
         NSMutableDictionary *assignmentsByDates = [NSMutableDictionary dictionary];
         NSArray *sortedDates;
 
-        for (NSDictionary *assignment in response) {
-            NSString *dueString = [assignment objectForKey:@"deadline"];
-            NSDate* date = [[CloudDateConverter sharedMager] dateFromString:dueString];
+        for (NSDictionary *assignmentDico in response) {
+            NSString *dueTimeString = ([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : [assignmentDico objectForKey:DICO_DUETIME]);
+            NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", [assignmentDico objectForKey:DICO_DEADLINE], dueTimeString];
+            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:[assignmentDico objectForKey:DICO_TITLE] withId:[[assignmentDico objectForKey:DICO_ID] intValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime] progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue] forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
+
+            NSDate* date = [[CloudDateConverter sharedMager] convertDate:assignment.dueDate toFormat:CloudDateConverterFormatDate];
 
 			NSMutableArray *assignmentsByDatesArray = [assignmentsByDates objectForKey:date];
 
@@ -100,16 +114,11 @@
 			NSArray *assignments = [assignmentsByDates objectForKey:date];
 
 			assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-				NSDictionary *dico1 = (NSDictionary *)obj1;
-				NSDictionary *dico2 = (NSDictionary *)obj2;
+                AgendaAssignment *assignment1 = (AgendaAssignment *)obj1;
+				AgendaAssignment *assignment2 = (AgendaAssignment *)obj2;
 
-				NSString *dateString1 = [dico1 objectForKey:@"deadline"];
-				if (dateString1 == nil || [[dico1 objectForKey:@"deadline"] isKindOfClass:[NSNull class]]) dateString1 = [CloudDateConverter nullTime];
-				NSString *dateString2 = [dico2 objectForKey:@"deadline"];
-				if (dateString2 == nil || [[dico2 objectForKey:@"deadline"] isKindOfClass:[NSNull class]]) dateString2 = [CloudDateConverter nullTime];
-
-				NSDate *date1 = [[CloudDateConverter sharedMager] timeFromString:dateString1];
-				NSDate *date2 = [[CloudDateConverter sharedMager] timeFromString:dateString2];
+                NSDate *date1 = [[CloudDateConverter sharedMager] convertDate:assignment1.dueDate toFormat:CloudDateConverterFormatTime];
+                NSDate *date2 = [[CloudDateConverter sharedMager] convertDate:assignment2.dueDate toFormat:CloudDateConverterFormatTime];
 
 				return [date1 compare:date2];
 			}];
@@ -194,10 +203,10 @@
 - (void)setupCell:(UITableViewCell *)c withIndexPath:(NSIndexPath *)indexPath
 {
     AgendaTeacherClassTableViewCell *cell = (AgendaTeacherClassTableViewCell *)c;
-    //NSLog(@">>>>> Asking for cellForRowAtIndexPath : %@", indexPath);
+    AgendaAssignment *assignment = [self assignmentForIndexPath:indexPath];
 
-    cell.workTitle.text = [[[self.sections objectForKey:[self.sortedSections  objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"title"];
-    cell.dueLabel.text = [[[self.sections objectForKey:[self.sortedSections objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row] objectForKey:@"deadline"];
+    cell.workTitle.text = assignment.title;
+    cell.dueLabel.text = [[CloudDateConverter sharedMager] stringFromDate:assignment.dueDate];
 }
 
 - (void)tableViewWillReloadData:(UITableView *)tableView
@@ -217,7 +226,47 @@
     [self.refreshControl endRefreshing];
 }
 
-/*
+- (NSArray*)getArrayOfAssignmentsForPosition:(NSInteger)position {
+    int counter = -1;
+
+    for (NSString *dateKey in self.sortedSections) {
+        NSArray *assignments = [self.sections objectForKey:dateKey];
+
+        for (AgendaAssignment *__unused assignment in assignments) {
+            ++counter;
+            if (counter == position)
+                return assignments;
+        }
+    }
+    
+    return nil;
+}
+
+- (AgendaAssignment*)assignmentInArrayOfAssignements:(NSArray*)assignments
+                                          atPosition:(NSInteger)position
+{
+    int cnt = -1;
+
+    for (AgendaAssignment *assignment in assignments) {
+        ++cnt;
+        if (cnt == position)
+            return assignment;
+    }
+    return nil;
+}
+
+- (AgendaAssignment*)assignmentForIndexPath:(NSIndexPath*)indexPath {
+    int *indexes = malloc(sizeof(int) * [indexPath length]);
+    [indexPath getIndexes:(NSUInteger*)indexes];
+
+    NSArray *assignments = [self getArrayOfAssignmentsForPosition:indexes[0]];
+
+    AgendaAssignment *assignment;
+    assignment = [self assignmentInArrayOfAssignements:assignments atPosition:indexes[1]];
+    return assignment;
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -226,6 +275,10 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
+- (IBAction)newAssignment:(UIBarButtonItem *)sender {
+    AgendaTeacherEditAssignmentViewController *vc = [[AgendaTeacherEditAssignmentViewController alloc] initWithDisciplineID:self.disciplineID withClassID:self.classID andAssignment:nil];
+    [self presentViewController:vc animated:YES completion:^{}];
+}
 
 @end

@@ -46,6 +46,22 @@
     [operation start];
 }
 
++ (void) requestPostToPath:(NSString *)path
+                withParams:(NSDictionary *)params
+                 onSuccess:(HTTPSuccessHandler)success
+                 onFailure:(HTTPFailureHandler)failure {
+
+    User *user = [User sharedUser];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"accept"];
+    [manager.requestSerializer setValue:user.email forHTTPHeaderField:@"X-User-Email"];
+    [manager.requestSerializer setValue:user.token forHTTPHeaderField:@"X-User-Token"];
+    AFHTTPRequestOperation *operation = [manager POST:path parameters:params success:success failure:failure];
+    [operation start];
+}
+
 #pragma mark - HTTP request for logging in, getting current user info, authentcating server
 
 +(void) loginWithId:(NSString *)userName
@@ -160,4 +176,41 @@
 	[IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
 }
 
++ (void)postAssignmentWithTitle:(NSString *)title
+                    withDueDate:(NSString *)dueDate
+                    withDueTime:(NSString *)dueTime
+                withDescription:(NSString *)description
+               withDisciplineID:(int)disciplineID
+                    withClassID:(int)classID
+                      onSuccess:(HTTPSuccessHandler)success
+                      onFailure:(HTTPFailureHandler)failure {
+    NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *path = [uDefaults objectForKey:@"server"];
+    NSString *role = @"";
+    User *user = [User sharedUser];
+    if (user.roles.count > 1) {
+        role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+    }
+    path = [NSString stringWithFormat:@"%@/agenda/assignments/%@", path, role];
+
+    NSDictionary *params;
+    if (dueTime)
+        params = [[NSMutableDictionary alloc] initWithDictionary:@{@"assignment" : @{@"title" : title,
+                                                                                     @"deadline" : dueDate,
+                                                                                     @"duetime" : dueTime,
+                                                                                     @"wording" : description,
+                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
+                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     }
+                                                                   }];
+    else
+        params = [[NSMutableDictionary alloc] initWithDictionary:@{@"assignment" : @{@"title" : title,
+                                                                                     @"deadline" : dueDate,
+                                                                                     @"wording" : description,
+                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
+                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     }
+                                                                   }];
+    [IOSRequest requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
+}
 @end

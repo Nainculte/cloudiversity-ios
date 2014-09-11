@@ -81,6 +81,7 @@
 		E478BB7818A0E8290068DEB1 /* CloudiversityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E478BB7718A0E8290068DEB1 /* CloudiversityTests.m */; };
 		FD0F98751923ED72002DF049 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD0F98741923ED72002DF049 /* Main.storyboard */; };
 		FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = FD19FB2119059006000B4688 /* UIColor+Cloud.m */; };
+		FD1EEBF0197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1EEBEF197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m */; };
 		FD24147F1973C1890069618E /* AgendaTeacherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD24147E1973C1890069618E /* AgendaTeacherViewController.m */; };
 		FD241486197412210069618E /* AbstractTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD241485197412210069618E /* AbstractTableViewController.m */; };
 		FD24148919741B8B0069618E /* AgendaTeacherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD24148819741B8B0069618E /* AgendaTeacherTableViewCell.m */; };
@@ -152,7 +153,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FD2C4E2C19BDD8B300D66D40 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudiversityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cloudiversity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		48782694031E469197773748 /* Pods-Cloudiversity.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.xcconfig"; path = "Pods/Pods-Cloudiversity.xcconfig"; sourceTree = "<group>"; };
 		9244EC56196DAF55004E8434 /* DSLCalendarDayCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSLCalendarDayCalloutView.h; sourceTree = "<group>"; };
 		9244EC57196DAF55004E8434 /* DSLCalendarDayCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSLCalendarDayCalloutView.m; sourceTree = "<group>"; };
 		9244EC58196DAF55004E8434 /* DSLCalendarDayCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSLCalendarDayCalloutView.xib; sourceTree = "<group>"; };
@@ -184,9 +201,6 @@
 		9244EC73196DAF55004E8434 /* NSDate+DSLCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DSLCalendarView.h"; sourceTree = "<group>"; };
 		9244EC74196DAF55004E8434 /* NSDate+DSLCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DSLCalendarView.m"; sourceTree = "<group>"; };
 		9244ECA6196DAFA2004E8434 /* LICENSE.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.markdown; sourceTree = "<group>"; };
-		0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudiversityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cloudiversity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		48782694031E469197773748 /* Pods-Cloudiversity.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.xcconfig"; path = "Pods/Pods-Cloudiversity.xcconfig"; sourceTree = "<group>"; };
 		928721071944658500C70168 /* AMPieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPieChartView.h; sourceTree = "<group>"; };
 		928721081944658500C70168 /* AMPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPieChartView.m; sourceTree = "<group>"; };
 		9287210B194466A200C70168 /* AgendaFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaFilterViewController.h; sourceTree = "<group>"; };
@@ -217,6 +231,8 @@
 		FD19FB2119059006000B4688 /* UIColor+Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Cloud.m"; sourceTree = "<group>"; };
 		FD1D4F01191E79ED008B530E /* Cloudiversity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloudiversity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudiversityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD1EEBEE197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaTeacherEditAssignmentViewController.h; sourceTree = "<group>"; };
+		FD1EEBEF197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaTeacherEditAssignmentViewController.m; sourceTree = "<group>"; };
 		FD24147D1973C1890069618E /* AgendaTeacherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaTeacherViewController.h; sourceTree = "<group>"; };
 		FD24147E1973C1890069618E /* AgendaTeacherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaTeacherViewController.m; sourceTree = "<group>"; };
 		FD241484197412210069618E /* AbstractTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTableViewController.h; sourceTree = "<group>"; };
@@ -227,6 +243,7 @@
 		FD29512A197C01A800833473 /* AgendaTeacherClassTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaTeacherClassTableViewCell.m; sourceTree = "<group>"; };
 		FD29512C197C051400833473 /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
 		FD29512D197C051400833473 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		FD2C4E1A19BDD8B200D66D40 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		FD35BC371955F27200091678 /* filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filter.png; sourceTree = "<group>"; };
 		FD35BC381955F27200091678 /* filter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter@2x.png"; sourceTree = "<group>"; };
 		FD3FA7C818FC2F0A0072B731 /* Logo_29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo_29x29.png; sourceTree = "<group>"; };
@@ -419,6 +436,7 @@
 				E478BB6B18A0E8290068DEB1 /* XCTest.framework */,
 				30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */,
 				0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */,
+				FD2C4E1A19BDD8B200D66D40 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -598,6 +616,8 @@
 				FDBF7CF0197BF06900C43B33 /* AgendaTeacherClassViewController.m */,
 				FD295129197C01A800833473 /* AgendaTeacherClassTableViewCell.h */,
 				FD29512A197C01A800833473 /* AgendaTeacherClassTableViewCell.m */,
+				FD1EEBEE197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.h */,
+				FD1EEBEF197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m */,
 			);
 			name = Teacher;
 			sourceTree = "<group>";
@@ -748,6 +768,7 @@
 				E478BB4618A0E8290068DEB1 /* Frameworks */,
 				E478BB4718A0E8290068DEB1 /* Resources */,
 				2A8E39AF451D41CBB822BAF8 /* Copy Pods Resources */,
+				FD2C4E2C19BDD8B300D66D40 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -989,6 +1010,7 @@
 				92C2120D19471D510059B6B4 /* AgendaStudentTableViewCell.m in Sources */,
 				9244EC83196DAF55004E8434 /* DSLCalendarView.m in Sources */,
 				FD6717D01972B586001C81B3 /* EGOCache.m in Sources */,
+				FD1EEBF0197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m in Sources */,
 				FDC90844192A863E00646A68 /* CloudLabel.m in Sources */,
 				FDEA48DB19509A270026210D /* NavigationViewController.m in Sources */,
 				FDC90845192A863E00646A68 /* CloudTextField.m in Sources */,

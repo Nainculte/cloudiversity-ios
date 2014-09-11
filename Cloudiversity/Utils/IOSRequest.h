@@ -17,8 +17,6 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 @interface IOSRequest : NSObject
 
-@property (nonatomic, strong) NSDictionary *user;
-
 #pragma mark - HTTP request for logging in, getting current user info, authentcating server
 
 + (void)loginWithId:(NSString *)userName
@@ -51,5 +49,14 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
                withProgression:(int)progress
                      onSuccess:(HTTPSuccessHandler)success
                      onFailure:(HTTPFailureHandler)failure;
+
++ (void)postAssignmentWithTitle:(NSString *)title
+                    withDueDate:(NSString *)dueDate
+                    withDueTime:(NSString *)dueTime
+                withDescription:(NSString *)description
+               withDisciplineID:(int)disciplineID
+                    withClassID:(int)classID
+                      onSuccess:(HTTPSuccessHandler)success
+                      onFailure:(HTTPFailureHandler)failure;
 
 @end
