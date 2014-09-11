@@ -8,7 +8,6 @@
 
 #import "User.h"
 #import "CloudKeyChainManager.h"
-#import "EGOCache.h"
 
 @interface User()
 
@@ -66,7 +65,6 @@ static User *user;
     [userDefaults removeObjectForKey:@"roles"];
     [userDefaults removeObjectForKey:@"currentRole"];
     [userDefaults synchronize];
-    [[EGOCache globalCache] clearCache];
 }
 
 @end

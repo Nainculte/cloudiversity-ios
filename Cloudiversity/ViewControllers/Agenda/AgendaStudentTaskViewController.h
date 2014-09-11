@@ -7,18 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AgendaAssignment.h"
-
-@protocol AgendaStudentTaskDataSource <NSObject>
-
-- (AgendaAssignment*)getSelectedAssignment;
-- (void)assignmentProgressUpdated:(AgendaAssignment*)assignment;
-
-@end
 
 @interface AgendaStudentTaskViewController : UIViewController
-
 @property (weak, nonatomic) IBOutlet UINavigationItem *backButton;
-@property (nonatomic) id <AgendaStudentTaskDataSource>dataSource;
 
 @end

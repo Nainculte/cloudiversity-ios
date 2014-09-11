@@ -146,7 +146,7 @@ withPercentageOfCompletion:(float)percentageCompletion
 
 #pragma mark - NSCoding protocol implementation
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+-(id)initWithCoder:(NSCoder *)aDecoder {
 	self = [super init];
 	if(self) {
         //decode properties, other class vars
@@ -166,7 +166,7 @@ withPercentageOfCompletion:(float)percentageCompletion
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder {
+-(void)encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeObject:self.title forKey:@"title"];
 	[aCoder encodeObject:self.assignmentDescription forKey:@"assignmentDescription"];
 	[aCoder encodeObject:self.dissiplineInformation forKey:@"field"];
@@ -179,10 +179,6 @@ withPercentageOfCompletion:(float)percentageCompletion
 
 	[aCoder encodeBool:self.isMarked forKey:@"isMarked"];
 	[aCoder encodeBool:self.isExam forKey:@"isExam"];
-}
-
-- (NSString*)debugDescription {
-	return [NSString stringWithFormat:@"%@ <%p> : \n\ttitle => %@; id => %d, discipline's name => %@, discipline's id => %d, dueDate => %@; progress => %d", self.class, &self, self.title, self.assignmentId, [self.dissiplineInformation objectForKey:@"name"], [[self.dissiplineInformation objectForKey:@"id"] intValue], self.dueDate, self.progress];
 }
 
 @end

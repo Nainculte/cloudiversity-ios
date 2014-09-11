@@ -17,7 +17,9 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 @interface IOSRequest : NSObject
 
-#pragma mark - HTTP request for logging in, getting current user info, authentcating server
+@property (nonatomic, strong) NSDictionary *user;
+
+#pragma mark - HTTP request for loging in
 
 + (void)loginWithId:(NSString *)userName
         andPassword:(NSString *)password
@@ -33,30 +35,30 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 #pragma mark - HTTP requests for Agenda
 
-+ (void)getAssignmentsForUserOnSuccess:(HTTPSuccessHandler)success
-                             onFailure:(HTTPFailureHandler)failure;
+#pragma GET Requests
 
-+ (void)getAssignmentsForClass:(int)classID
-                 andDiscipline:(int)disciplineID
-                     onSuccess:(HTTPSuccessHandler)success
-                     onFailure:(HTTPFailureHandler)failure;
++(void) requestGetToPath:(NSString *)path
+			  withParams:(NSDictionary *)params
+			   onSuccess:(HTTPSuccessHandler)success
+			   onFailure:(HTTPFailureHandler)failure;
 
-+ (void)getAssignmentInformation:(int)assignmentId
-                       onSuccess:(HTTPSuccessHandler)success
-                       onFailure:(HTTPFailureHandler)failure;
++(void)getAssignmentsForUserOnSuccess:(HTTPSuccessHandler)success
+                           onFailure:(HTTPFailureHandler)failure;
 
-+ (void)updateAssignmentWithId:(int)assignmentId
-               withProgression:(int)progress
-                     onSuccess:(HTTPSuccessHandler)success
-                     onFailure:(HTTPFailureHandler)failure;
++(void)getAssignmentInformation:(int)assignmentId
+					 onSuccess:(HTTPSuccessHandler)success
+					 onFailure:(HTTPFailureHandler)failure;
 
-+ (void)postAssignmentWithTitle:(NSString *)title
-                    withDueDate:(NSString *)dueDate
-                    withDueTime:(NSString *)dueTime
-                withDescription:(NSString *)description
-               withDisciplineID:(int)disciplineID
-                    withClassID:(int)classID
-                      onSuccess:(HTTPSuccessHandler)success
-                      onFailure:(HTTPFailureHandler)failure;
+#pragma Updating Progress Requests
+
++(void)requestPatchToPath:(NSString*)path
+			   withParams:(NSDictionary *)params
+				onSuccess:(HTTPSuccessHandler)success
+				onFailure:(HTTPFailureHandler)failure;
+
++(void)updateAssignmentWithId:(int)assignmentId
+			  withProgression:(int)progress
+					onSuccess:(HTTPSuccessHandler)success
+					onFailure:(HTTPFailureHandler)failure;
 
 @end

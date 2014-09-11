@@ -7,6 +7,7 @@
 //
 
 #import "AgendaStudentTaskViewController.h"
+#import "AgendaAssignment.h"
 #import "UICloud.h"
 #import "CloudDateConverter.h"
 #import "AMPieChartView.h"
@@ -28,8 +29,6 @@
 #define DICO_SCHOOL_CLASS 		@"school_class"
 #define DICO_SCHOOL_CLASS_ID		@"id"
 #define DICO_SCHOOL_CLASS_NAME		@"name"
-
-#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaStudentVC"]
 
 @interface AgendaStudentTaskViewController ()
 
@@ -78,20 +77,17 @@
 		self.pieChartView.percentage = [[response objectForKey:DICO_PROGRESS] intValue];
 		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
 		[self.progressBarInput setValue:[[response objectForKey:DICO_PROGRESS] intValue]];
-		[self.dataSource assignmentProgressUpdated:self.assignment];
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
+        NSLog(@"Error: %@", error);
         switch (operation.response.statusCode) {
             default:
                 break;
         }
 	};
-	if (self.progressBarInput.value != self.assignment.progress) {
-		[DejalActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
-		[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
-	}
+	[DejalActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+	[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
 	
 	[super viewWillDisappear:animated];
 }
@@ -107,7 +103,9 @@
 #define SAVING_PLACE_ASSIGNMENT	@"agendaTmpPlaceForAssignment"
 
 - (void)initAssignment {
-	self.assignment = [self.dataSource getSelectedAssignment];
+	NSUserDefaults *uDefault = [NSUserDefaults standardUserDefaults];
+	NSData *data = [uDefault objectForKey:SAVING_PLACE_ASSIGNMENT];
+	self.assignment = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 	
 	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		NSDictionary *response = (NSDictionary *)responseObject;
@@ -137,13 +135,13 @@
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
+        NSLog(@"Error: %@", error);
         switch (operation.response.statusCode) {
             default:
                 break;
         }
 	};
-    [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
 	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
 }
 

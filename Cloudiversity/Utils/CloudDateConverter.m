@@ -22,12 +22,6 @@
 
 @implementation CloudDateConverter
 
-- (NSDateFormatter*)getDateFormatterUsingFormat:(CloudDateConverterFormat)format {
-	NSArray *dateFormatters = @[self.dateAndTimeFormatter, self.dateAtTimeFormatter, self.fullDateAtTimeFormatter, self.dateFormatter, self.fullDateFormatter, self.timeFormatter];
-	
-	return [dateFormatters objectAtIndex:format];
-}
-
 + (CloudDateConverter*)sharedMager {
     static CloudDateConverter *sharedCloudDateConverter = nil;
     static dispatch_once_t pred;
@@ -126,12 +120,6 @@
 
 - (NSString*)stringFromDateAndTimeWithSeconds:(NSDate *)dateAndTimeWithSeconds {
 	return [self.dateAndTimeWithSecondsFormatter stringFromDate:dateAndTimeWithSeconds];
-}
-
-#pragma mark - Converting NSDate to another NSDate
-- (NSDate*)convertDate:(NSDate *)date toFormat:(CloudDateConverterFormat)outputFormat {
-	
-	return [[self getDateFormatterUsingFormat:outputFormat] dateFromString:[[self getDateFormatterUsingFormat:outputFormat] stringFromDate:date]];
 }
 
 @end

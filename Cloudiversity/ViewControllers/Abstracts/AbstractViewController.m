@@ -34,7 +34,9 @@
     self.view.backgroundColor = [UIColor cloudGrey];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.leftButton.tintColor = [UIColor whiteColor];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    
 
 }
 
@@ -42,22 +44,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)setRightViewController:(NSString *)name withButton:(UIBarButtonItem *)button
-{
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-
-    self.revealViewController.rightViewController = [sb instantiateViewControllerWithIdentifier:name];
-    if (button) {
-        button.target = self.revealViewController;
-        button.action = @selector(rightRevealToggle:);
-    }
-}
-
-- (void)setRightViewController:(NSString *)name
-{
-    [self setRightViewController:name withButton:nil];
 }
 
 /*

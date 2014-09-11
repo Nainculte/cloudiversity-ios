@@ -8,7 +8,7 @@
 
 #import "NavigationViewController.h"
 #import "SWRevealViewController.h"
-#import "AgendaStudentViewController.h"
+#import "AgendaViewController.h"
 #import "UIColor+Cloud.h"
 #import "UICloud.h"
 #import "User.h"
@@ -16,19 +16,11 @@
 
 @interface NavigationViewController ()
 
-@property (nonatomic)int current;
-
-- (IBAction)agendaClicked:(id)sender;
+@property (nonatomic, strong)NSString *current;
 
 @end
 
 @implementation NavigationViewController
-
-typedef enum {
-    homeScreen = 0,
-    agendaStudent,
-    agendaTeacher
-} state;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,12 +67,7 @@ typedef enum {
     } else {
         self.roleSwitcher.hidden = YES;
     }
-    user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
-        self.agendaButton.hidden = YES;
-    } else {
-        self.agendaButton.hidden = NO;
-    }
+    [self changeRole];
 }
 
 - (void)changeRole {
@@ -92,23 +79,6 @@ typedef enum {
         self.agendaButton.hidden = NO;
     }
 
-    switch (self.current) {
-        case agendaStudent:
-            if ([user.currentRole isEqualToString:@"Teacher"]) {
-                [self performSegueWithIdentifier:@"AgendaTeacher" sender:self];
-            } else {
-                [self performSegueWithIdentifier:@"HomeScreen" sender:self];
-            }
-            break;
-        case agendaTeacher:
-            if ([user.currentRole isEqualToString:@"Student"]) {
-                [self performSegueWithIdentifier:@"AgendaStudent" sender:self];
-            } else {
-                [self performSegueWithIdentifier:@"HomeScreen" sender:self];
-            }
-            break;
-    }
-
     //do stuff to change the front view controller depending on the role
 }
 
@@ -116,15 +86,16 @@ typedef enum {
 {
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
 
-    if ([segue.identifier isEqualToString:@"AgendaStudent"]) {
+    if ([segue.identifier isEqualToString:@"Agenda"]) {
         dest.title = @"Agenda";
         self.current = @"Agenda";
     } else if ([segue.identifier isEqualToString:@"Evaluation"]) {
-	dest.title = @"Evaluation";
-	self.current = @"Evaluation";
-    } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
+		dest.title = @"Evaluation";
+		self.current = @"Evaluation";
+	} else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         self.current = @"HomeScreen";
     } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
+        self.current = @"HomeScreen";
         User *u = [User sharedUser];
         [CloudKeychainManager deleteTokenWithEmail:u.email];
         [u deleteUser];
@@ -137,8 +108,7 @@ typedef enum {
 
             UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
             [navController setViewControllers: @[dest] animated: NO ];
-            if (sender != self)
-                [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+            [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
         };
 
     }
@@ -149,11 +119,4 @@ typedef enum {
     return UIStatusBarStyleLightContent;
 }
 
-- (IBAction)agendaClicked:(id)sender {
-    if ([[User sharedUser].currentRole isEqualToString:@"Student"]) {
-        [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
-    } else {
-        [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];
-    }
-}
 @end

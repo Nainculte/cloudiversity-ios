@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DSLCalendarView.h"
-#import "SWRevealViewController.h"
-#import "AgendaStudentViewController.h"
 
-@interface AgendaFilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DSLCalendarViewDelegate, AgendaStudentDataSource>
+@interface AgendaFilterViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UISwitch *controlSwitchFilter;
+@property (weak, nonatomic) IBOutlet UISwitch *exercicesSwitchFilter;
+@property (weak, nonatomic) IBOutlet UISwitch *markesTasksSwitchFilter;
 
 @end
