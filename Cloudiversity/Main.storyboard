@@ -437,7 +437,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="JMd-lt-Pop" kind="push" id="sUn-Vp-Adi"/>
+                                            <segue destination="JMd-lt-Pop" kind="push" identifier="evalAverageSegue" id="sUn-Vp-Adi"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="evaluationCellMark" textLabel="io2-et-zAG" detailTextLabel="M65-Mf-uwI" style="IBUITableViewCellStyleValue1" id="gIK-tM-wGF">
@@ -464,7 +464,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="lEz-wi-wMN" kind="push" id="UQM-LF-wDd"/>
+                                            <segue destination="lEz-wi-wMN" kind="push" identifier="evalMarkSegue" id="UQM-LF-wDd"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
