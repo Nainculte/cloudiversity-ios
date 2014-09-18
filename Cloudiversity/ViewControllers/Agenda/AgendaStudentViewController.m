@@ -330,7 +330,15 @@
 	for (AgendaAssignment *assignmentObj in assignments) {
 		if (assignmentObj.assignmentId == assignment.assignmentId) {
 			assignmentObj.progress = assignment.progress;
-			[self.tableView reloadRowsAtIndexPaths:@[self.selectedRowPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+			if ((self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo && assignment.progress != 100) || (self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll)) {
+				[self.tableView reloadRowsAtIndexPaths:@[self.selectedRowPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+			} else {
+				if (![self haveToShowSection:assignments]) {
+					[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.selectedRowPath indexAtPosition:0]] withRowAnimation:UITableViewRowAnimationNone];
+				} else {
+					[self.tableView deleteRowsAtIndexPaths:@[self.selectedRowPath] withRowAnimation:UITableViewRowAnimationNone];
+				}
+			}
 			[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:self.sections] forKey:@"assignmentsStudentList"];
 			break;
 		}
@@ -356,6 +364,15 @@
 }
 
 #pragma mark - Some methodes to make it easy !
+
+- (BOOL)haveToShowSection:(NSArray *)section {
+	for (AgendaAssignment *assignment in section) {
+		if ((self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo && assignment.progress != 100) || (self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone && assignment.progress == 100)) {
+			return YES;
+		}
+	}
+	return NO;
+}
 
 #pragma mark boolean methodes
 

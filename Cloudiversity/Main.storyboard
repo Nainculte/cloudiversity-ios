@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="WZd-7V-rIF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="WZd-7V-rIF">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Server View Controller-->
@@ -340,7 +340,7 @@
             </objects>
             <point key="canvasLocation" x="551" y="387"/>
         </scene>
-        <!--Title-->
+        <!--Home Screen View Controller - Title-->
         <scene sceneID="VY2-AF-bVw">
             <objects>
                 <viewController storyboardIdentifier="HomeScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iHd-g5-stP" customClass="HomeScreenViewController" sceneMemberID="viewController">
@@ -349,7 +349,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8mP-CT-DQQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OCj-YX-QpA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home Screen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYF-QI-9Lo" customClass="CloudLabel">
@@ -372,7 +372,7 @@
             </objects>
             <point key="canvasLocation" x="1060" y="387"/>
         </scene>
-        <!--Title-->
+        <!--Agenda Teacher View Controller - Title-->
         <scene sceneID="Tuy-eh-Csk">
             <objects>
                 <tableViewController id="cXZ-Oz-7Aw" customClass="AgendaTeacherViewController" sceneMemberID="viewController">
@@ -430,7 +430,7 @@
             </objects>
             <point key="canvasLocation" x="1060" y="-962"/>
         </scene>
-        <!--Title-->
+        <!--Agenda Teacher Class View Controller - Title-->
         <scene sceneID="cz9-ER-yoa">
             <objects>
                 <tableViewController id="v1Y-yd-WR0" customClass="AgendaTeacherClassViewController" sceneMemberID="viewController">
@@ -482,7 +482,7 @@
             </objects>
             <point key="canvasLocation" x="1533" y="-962"/>
         </scene>
-        <!--Title-->
+        <!--Agenda Student View Controller - Title-->
         <scene sceneID="GbK-ra-Wne">
             <objects>
                 <tableViewController id="Xsx-OA-UlT" customClass="AgendaStudentViewController" sceneMemberID="viewController">
@@ -841,10 +841,7 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4">
-            <size key="portraitSize" width="320" height="568"/>
-            <size key="landscapeSize" width="568" height="320"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="BNK-RA-z8p"/>
