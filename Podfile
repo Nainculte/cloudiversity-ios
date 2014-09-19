@@ -5,12 +5,14 @@ platform :ios, "7.0"
 target "Cloudiversity" do
 
 pod 'AFNetworking', '~> 2.3.1'
+pod 'XLForm', '~> 2.0'
 
 end
 
 target "CloudiversityTests" do
 
 pod 'AFNetworking', '~> 2.3.1'
+pod 'XLForm', '~> 2.0'
 
 end
 

@@ -12,22 +12,34 @@
 	<dict>
 		<key>7D683EAD-ACA3-482A-8BB8-1ECDE45BEEAD</key>
 		<string>ssh://phabricator.adaedra.eu:2213/diffusion/CLOUDIOS/cloudios.git</string>
+		<key>A25EA1EE50F8B6822ACD66B92CABBBC10AE8D63A</key>
+		<string>ssh://phabricator.adaedra.eu:2213/diffusion/CLOUDIOS/cloudios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Cloudiversity.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>7D683EAD-ACA3-482A-8BB8-1ECDE45BEEAD</key>
+		<string>../../ios</string>
+		<key>A25EA1EE50F8B6822ACD66B92CABBBC10AE8D63A</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://phabricator.adaedra.eu:2213/diffusion/CLOUDIOS/cloudios.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7D683EAD-ACA3-482A-8BB8-1ECDE45BEEAD</string>
+	<string>A25EA1EE50F8B6822ACD66B92CABBBC10AE8D63A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A25EA1EE50F8B6822ACD66B92CABBBC10AE8D63A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>cloudios</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
