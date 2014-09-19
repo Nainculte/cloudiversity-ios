@@ -360,11 +360,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8mP-CT-DQQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OCj-YX-QpA">
-<<<<<<< HEAD
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-=======
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
->>>>>>> parent of 7e0376a... Crash when tableviw deosn't have to show row fixed
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home Screen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYF-QI-9Lo" customClass="CloudLabel">
@@ -387,7 +383,6 @@
             </objects>
             <point key="canvasLocation" x="1060" y="387"/>
         </scene>
-<<<<<<< HEAD
         <!--Evaluation View Controller-->
         <scene sceneID="y28-2s-taT">
             <objects>
@@ -509,10 +504,8 @@
         </scene>
         <!--Agenda View Controller - Title-->
         <scene sceneID="44A-2p-BAu">
-=======
         <!--Title-->
         <scene sceneID="Tuy-eh-Csk">
->>>>>>> parent of 7e0376a... Crash when tableviw deosn't have to show row fixed
             <objects>
                 <tableViewController id="cXZ-Oz-7Aw" customClass="AgendaTeacherViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="5Rl-Bs-Mlv" customClass="CloudTableView">
