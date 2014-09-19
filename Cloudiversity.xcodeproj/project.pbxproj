@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9234452D19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */; };
+		9234452E19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */; };
+		9234453119C1D314008E4957 /* EvaluationMarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234453019C1D314008E4957 /* EvaluationMarkViewController.m */; };
+		9234453219C1D314008E4957 /* EvaluationMarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234453019C1D314008E4957 /* EvaluationMarkViewController.m */; };
 		9244EC75196DAF55004E8434 /* DSLCalendarDayCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9244EC57196DAF55004E8434 /* DSLCalendarDayCalloutView.m */; };
 		9244EC76196DAF55004E8434 /* DSLCalendarDayCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9244EC57196DAF55004E8434 /* DSLCalendarDayCalloutView.m */; };
 		9244EC77196DAF55004E8434 /* DSLCalendarDayCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9244EC58196DAF55004E8434 /* DSLCalendarDayCalloutView.xib */; };
@@ -69,6 +73,12 @@
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
 		92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
+		92F0E74019B9BE5500F30BE2 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */; };
+		92F0E74119B9BE5500F30BE2 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */; };
+		92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
+		92F0E74419B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
+		92F0E74619B9C17300F30BE2 /* combo_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */; };
+		92F0E74719B9C17300F30BE2 /* combo_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */; };
 		CE5DACE308E34EB6B7960896 /* libPods-Cloudiversity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */; };
 		DF8DEFCA714840E8879CAA58 /* libPods-CloudiversityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
@@ -172,6 +182,10 @@
 		0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudiversityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cloudiversity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48782694031E469197773748 /* Pods-Cloudiversity.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.xcconfig"; path = "Pods/Pods-Cloudiversity.xcconfig"; sourceTree = "<group>"; };
+		9234452B19C1D2FF008E4957 /* EvaluationAverageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAverageViewController.h; path = Evaluation/EvaluationAverageViewController.h; sourceTree = "<group>"; };
+		9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAverageViewController.m; path = Evaluation/EvaluationAverageViewController.m; sourceTree = "<group>"; };
+		9234452F19C1D314008E4957 /* EvaluationMarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationMarkViewController.h; path = Evaluation/EvaluationMarkViewController.h; sourceTree = "<group>"; };
+		9234453019C1D314008E4957 /* EvaluationMarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationMarkViewController.m; path = Evaluation/EvaluationMarkViewController.m; sourceTree = "<group>"; };
 		9244EC56196DAF55004E8434 /* DSLCalendarDayCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSLCalendarDayCalloutView.h; sourceTree = "<group>"; };
 		9244EC57196DAF55004E8434 /* DSLCalendarDayCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSLCalendarDayCalloutView.m; sourceTree = "<group>"; };
 		9244EC58196DAF55004E8434 /* DSLCalendarDayCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSLCalendarDayCalloutView.xib; sourceTree = "<group>"; };
@@ -218,6 +232,10 @@
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
 		92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTaskViewController.m; sourceTree = "<group>"; };
+		92F0E73E19B9BE5500F30BE2 /* EvaluationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationViewController.h; path = Evaluation/EvaluationViewController.h; sourceTree = "<group>"; };
+		92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationViewController.m; path = Evaluation/EvaluationViewController.m; sourceTree = "<group>"; };
+		92F0E74219B9C16100F30BE2 /* combo_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combo_chart.png; sourceTree = "<group>"; };
+		92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "combo_chart@2x.png"; sourceTree = "<group>"; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E478BB5018A0E8290068DEB1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -415,6 +433,19 @@
 			path = AMPieChartView;
 			sourceTree = "<group>";
 		};
+		92F0E73D19B9BDF300F30BE2 /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				92F0E73E19B9BE5500F30BE2 /* EvaluationViewController.h */,
+				92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */,
+				9234452B19C1D2FF008E4957 /* EvaluationAverageViewController.h */,
+				9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */,
+				9234452F19C1D314008E4957 /* EvaluationMarkViewController.h */,
+				9234453019C1D314008E4957 /* EvaluationMarkViewController.m */,
+			);
+			name = Evaluation;
+			sourceTree = "<group>";
+		};
 		E478BB4018A0E8290068DEB1 = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +533,8 @@
 		FD3FA7BE18FC2D8B0072B731 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				92F0E74219B9C16100F30BE2 /* combo_chart.png */,
+				92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */,
 				FD29512C197C051400833473 /* plus@2x.png */,
 				FD29512D197C051400833473 /* plus.png */,
 				FD35BC371955F27200091678 /* filter.png */,
@@ -681,6 +714,7 @@
 				FD854A441952DB0A008F046D /* Server */,
 				FDEA48D8195099920026210D /* Navigation */,
 				FDC90835192A851600646A68 /* Agenda */,
+				92F0E73D19B9BDF300F30BE2 /* Evaluation */,
 				FDC90810192A847000646A68 /* Authentication */,
 				FDC90816192A847000646A68 /* HomeScreen */,
 			);
@@ -848,6 +882,7 @@
 				FDDA095418F5BA9F000A1029 /* FiraSansOT-LightItalic.otf in Resources */,
 				9244EC99196DAF55004E8434 /* DSLCalendarDaySelection-right.png in Resources */,
 				FDF8DDFC19280AFE00237054 /* menu@2x.png in Resources */,
+				92F0E74619B9C17300F30BE2 /* combo_chart@2x.png in Resources */,
 				FD3FA7CD18FC2F0A0072B731 /* Logo_40x40.png in Resources */,
 				E478BB6518A0E8290068DEB1 /* Images.xcassets in Resources */,
 				FDDA095818F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf in Resources */,
@@ -855,6 +890,7 @@
 				FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */,
 				FDC90833192A847000646A68 /* HomeScreenVC.strings in Resources */,
 				FD35BC391955F27200091678 /* filter.png in Resources */,
+				92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */,
 				FDDA095318F5BA9F000A1029 /* FiraSansOT-Light.otf in Resources */,
 				FDAFAFDF1951D4F40070F396 /* calendar.png in Resources */,
 				FDAFAFDA1951D2C90070F396 /* Icon_clear_42x42.png in Resources */,
@@ -904,6 +940,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92F0E74719B9C17300F30BE2 /* combo_chart@2x.png in Resources */,
+				92F0E74419B9C16100F30BE2 /* combo_chart.png in Resources */,
 				9244EC90196DAF55004E8434 /* DSLCalendarDayCallout@2x.png in Resources */,
 				9244ECA8196DAFA2004E8434 /* LICENSE.markdown in Resources */,
 				9244EC8A196DAF55004E8434 /* DSLCalendar-previousMonth.png in Resources */,
@@ -1009,6 +1047,7 @@
 				FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */,
 				FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
+				9234453119C1D314008E4957 /* EvaluationMarkViewController.m in Sources */,
 				FD854A471952DB37008F046D /* ServerViewController.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,
 				9244EC7F196DAF55004E8434 /* DSLCalendarMonthView.m in Sources */,
@@ -1025,6 +1064,7 @@
 				FDC9081D192A847000646A68 /* CloudKeychainManager.m in Sources */,
 				9244ECA1196DAF55004E8434 /* NSDate+DSLCalendarView.m in Sources */,
 				928721091944658500C70168 /* AMPieChartView.m in Sources */,
+				9234452D19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */,
 				FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */,
 				E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */,
 				9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */,
@@ -1032,6 +1072,7 @@
 				929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
 				FDCEE15E196D8B9D002B3579 /* AbstractViewController.m in Sources */,
+				92F0E74019B9BE5500F30BE2 /* EvaluationViewController.m in Sources */,
 				FD241486197412210069618E /* AbstractTableViewController.m in Sources */,
 				92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */,
 				FD24147F1973C1890069618E /* AgendaTeacherViewController.m in Sources */,
@@ -1042,7 +1083,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9234452E19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */,
 				9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */,
+				92C2120E19471D510059B6B4 /* AgendaTableViewCell.m in Sources */,
+				92F0E74119B9BE5500F30BE2 /* EvaluationViewController.m in Sources */,
 				9244EC7A196DAF55004E8434 /* DSLCalendarDayView.m in Sources */,
 				92C2120E19471D510059B6B4 /* AgendaStudentTableViewCell.m in Sources */,
 				9287210A1944658500C70168 /* AMPieChartView.m in Sources */,
@@ -1057,6 +1101,7 @@
 				9244EC7C196DAF55004E8434 /* DSLCalendarMonthSelectorView.m in Sources */,
 				92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */,
 				92C21212194731CC0059B6B4 /* AgendaAssignment.m in Sources */,
+				9234453219C1D314008E4957 /* EvaluationMarkViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
