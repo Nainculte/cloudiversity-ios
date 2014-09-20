@@ -118,12 +118,12 @@ typedef enum {
 
     if ([segue.identifier isEqualToString:@"AgendaStudent"]) {
         dest.title = @"Agenda";
-        self.current = agendaStudent;
-    } else if ([segue.identifier isEqualToString:@"AgendaTeacher"]) {
-        dest.title = @"Agenda";
-        self.current = agendaTeacher;
-    } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
-        self.current = homeScreen;
+        self.current = @"Agenda";
+    } else if ([segue.identifier isEqualToString:@"Evaluation"]) {
+		dest.title = @"Evaluation";
+		self.current = @"Evaluation";
+	} else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
+        self.current = @"HomeScreen";
     } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
         self.current = homeScreen;
         User *u = [User sharedUser];
