@@ -1,14 +1,14 @@
 //
-//  AgendaTableViewCell.m
+//  AgendaTeacherTableViewCell.m
 //  Cloudiversity
 //
-//  Created by Anthony MERLE on 10/06/2014.
+//  Created by Nainculte on 14/07/2014.
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "AgendaTableViewCell.h"
+#import "AgendaTeacherTableViewCell.h"
 
-@implementation AgendaTableViewCell
+@implementation AgendaTeacherTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

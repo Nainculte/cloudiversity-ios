@@ -7,15 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CloudiversityAppDelegate.h"
 #import "UICloud.h"
 #import "UIColor+Cloud.h"
 #import "IOSRequest.h"
 #import "DejalActivityView.h"
 #import "SWRevealViewController.h"
+#import "EGOCache.h"
 #import "User.h"
 
-@interface AbstractViewController : UIViewController
+#define BSELF(ptr) __weak typeof(ptr) bself = ptr;
+
+@interface AbstractViewController : UIViewController <SWRevealViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
+
+- (void)setRightViewController:(NSString *)name withButton:(UIBarButtonItem *)button;
+- (void)setRightViewController:(NSString *)name;
 
 @end
