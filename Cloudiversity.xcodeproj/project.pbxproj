@@ -1085,7 +1085,6 @@
 			files = (
 				9234452E19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */,
 				9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */,
-				92A0237219CD6D72009C7188 /* AgendaStudentTableViewCell.m in Sources */,
 				92F0E74119B9BE5500F30BE2 /* EvaluationViewController.m in Sources */,
 				9244EC7A196DAF55004E8434 /* DSLCalendarDayView.m in Sources */,
 				9287210A1944658500C70168 /* AMPieChartView.m in Sources */,
