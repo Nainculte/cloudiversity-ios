@@ -158,7 +158,7 @@
 
 - (void)calendarView:(DSLCalendarView *)calendarView didSelectRange:(DSLCalendarRange *)range {
     if (range != nil) {
-        NSLog( @"Selected %d/%d - %d/%d", range.startDay.day, range.startDay.month, range.endDay.day, range.endDay.month);
+        NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
 		if ([self.selectedDay.date compare:range.startDay.date] == NSOrderedSame &&
 			self.selectedDay != nil) {
 			[self.calendarView deselectSelectedDay:self.calendarView.selectedRange.startDay];
@@ -217,7 +217,7 @@
 	NSMutableDictionary *filters = [NSMutableDictionary dictionary];
 
 	if (self.selectedDay) {
-		NSString *dateString = [NSString stringWithFormat:@"%d-%d-%d", self.selectedDay.year, self.selectedDay.month, self.selectedDay.day];
+		NSString *dateString = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)self.selectedDay.year, (long)self.selectedDay.month, (long)self.selectedDay.day];
 		[filters setObject:[[CloudDateConverter sharedMager] dateFromString:dateString] forKey:DATE_FILTER_KEY];
 	} else {
 		[filters removeObjectForKey:DATE_FILTER_KEY];
