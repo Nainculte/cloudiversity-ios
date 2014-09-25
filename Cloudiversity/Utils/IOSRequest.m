@@ -213,4 +213,138 @@
                                                                    }];
     [IOSRequest requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
 }
+
+#pragma mark - HTTP requests for Evaluation
+
++ (void)getAssessmentsForUserOnSuccess:(HTTPSuccessHandler)success
+							 onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [defaults objectForKey:@"server"];
+	NSString *role = @"";
+	User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+	}
+	path = [NSString stringWithFormat:@"%@/evaluations/assessments%@", path, role];
+	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
++ (void)getAssessmentInformation:(int)assessmentID
+					   onSuccess:(HTTPSuccessHandler)success
+					   onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [defaults objectForKey:@"server"];
+	NSString *role = @"";
+	User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+	}
+	path = [NSString stringWithFormat:@"%@/evaluations/assessments/%d%@", path, assessmentID, role];
+	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
++ (void)postAssessment:(NSString*)assessment
+	  withDisciplineID:(int)disciplineID
+		   withClassID:(int)classID
+		  withPeriodID:(int)periodID
+	  isClassAssesment:(BOOL)isClassAssessment
+		 withStudentID:(int)studentID
+			 onSuccess:(HTTPSuccessHandler)success
+			 onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [uDefaults objectForKey:@"server"];
+
+	path = [NSString stringWithFormat:@"%@/evaluations/assessments", path];
+	
+	NSDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"grade_assessment" : @{@"assessment" : assessment,
+																							   @"discipline_id" : [NSNumber numberWithInt:disciplineID],
+																							   @"school_class_id" : [NSNumber numberWithInt:classID],
+																							   @"period_id" : [NSNumber numberWithInt:periodID],
+																							   @"school_class_assessment" : [NSNumber numberWithBool:isClassAssessment],
+																							   @"student_id" : [NSNumber numberWithInt:studentID]
+																							   }
+																			 }];
+	[IOSRequest requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
++ (void)updateAssessment:(int)assessmentID
+		withInformations:(NSDictionary*)assessmentInfos
+			   onSuccess:(HTTPSuccessHandler)success
+			   onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [uDefaults objectForKey:@"server"];
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assessmentID];
+	
+	NSDictionary *params = @{@"grade_assessment": assessmentInfos};
+	
+	[IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
++ (void)getGradesForUserOnSuccess:(HTTPSuccessHandler)success
+						onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [defaults objectForKey:@"server"];
+	NSString *role = @"";
+	User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+	}
+	path = [NSString stringWithFormat:@"%@/evaluations/grades%@", path, role];
+	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
++ (void)getGradeInformation:(int)gradeID
+				  onSuccess:(HTTPSuccessHandler)success
+				  onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [defaults objectForKey:@"server"];
+	NSString *role = @"";
+	User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+	}
+	path = [NSString stringWithFormat:@"%@/evaluations/grades/%d%@", path, gradeID, role];
+	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
++ (void)postGradeWithAssessment:(NSString*)assessment
+					   withMark:(int)mark
+					   withCoef:(int)coef
+			   withDisciplineID:(int)disciplineID
+					withClassID:(int)classID
+				   withPeriodID:(int)periodID
+				  withStudentID:(int)studentID
+					  onSuccess:(HTTPSuccessHandler)success
+					  onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [uDefaults objectForKey:@"server"];
+	
+	path = [NSString stringWithFormat:@"%@/evaluations/grades", path];
+	
+	NSDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"grade_grade" : @{
+																					 @"assessment": assessment,
+																					 @"note": [NSNumber numberWithInt:mark],
+																					 @"coefficient": [NSNumber numberWithInt:coef],
+																					 @"discipline_id": [NSNumber numberWithInt:disciplineID],
+																					 @"school_class_id": [NSNumber numberWithInt:classID],
+																					 @"period_id": [NSNumber numberWithInt:periodID],
+																					 @"student_id": [NSNumber numberWithInt:studentID]
+																					 }
+																			 }];
+	[IOSRequest requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
++ (void)updateGrade:(int)gradeID
+   withInformations:(NSDictionary*)gradeInfos
+		  onSuccess:(HTTPSuccessHandler)success
+		  onFailure:(HTTPFailureHandler)failure {
+	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *path = [uDefaults objectForKey:@"server"];
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, gradeID];
+	
+	NSDictionary *params = @{@"grade_assessment": gradeInfos};
+	
+	[IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
 @end

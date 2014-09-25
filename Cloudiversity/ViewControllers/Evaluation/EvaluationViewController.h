@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "AbstractViewController.h"
+#import "AbstractTableViewController.h"
 
-@interface EvaluationViewController : AbstractViewController <UITableViewDataSource, UITableViewDelegate>
+@interface EvaluationViewController : AbstractTableViewController
 
 @end

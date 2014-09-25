@@ -8,7 +8,12 @@
 
 #import "EvaluationViewController.h"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"EvaluationVC"]
+
 @interface EvaluationViewController ()
+
+@property (nonatomic, strong) HTTPSuccessHandler success;
+@property (nonatomic, strong) HTTPFailureHandler failure;
 
 @end
 
@@ -21,6 +26,21 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)setupHandlers {
+	self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
+		
+	};
+	self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+		NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
+		switch (operation.response.statusCode) {
+			default:
+				break;
+		}
+		[DejalActivityView removeView];
+		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+	};
 }
 
 - (void)viewDidLoad
