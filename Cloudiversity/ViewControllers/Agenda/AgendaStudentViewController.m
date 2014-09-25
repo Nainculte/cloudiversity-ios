@@ -300,7 +300,7 @@
 															 inArrayOfAssignments:assignments];
 		}
 	} else {
-		assignmentsCounter = [self numberOfAssignmentsThatMatchTheProgressFilterInArrayOfAssignments:assignments];
+		assignmentsCounter = (int)[self numberOfAssignmentsThatMatchTheProgressFilterInArrayOfAssignments:assignments];
 	}
 	
 	return assignmentsCounter;
