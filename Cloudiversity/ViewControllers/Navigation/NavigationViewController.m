@@ -27,7 +27,8 @@
 typedef enum {
     homeScreen = 0,
     agendaStudent,
-    agendaTeacher
+    agendaTeacher,
+    evaluation
 } state;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -117,22 +118,22 @@ typedef enum {
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
 
     if ([segue.identifier isEqualToString:@"AgendaStudent"]) {
-      dest.title = @"Agenda";
-      self.current = @"Agenda";
+        dest.title = @"Agenda";
+        self.current = agendaStudent;
     } else if ([segue.identifier isEqualToString:@"Evaluation"]) {
-      dest.title = @"Evaluation";
-      self.current = @"Evaluation";
+        dest.title = @"Evaluation";
+        self.current = evaluation;
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
-      self.current = @"HomeScreen";
-      self.current = agendaStudent;
+        self.current = homeScreen;
+        dest.title = @"Homescreen";
     } else if ([segue.identifier isEqualToString:@"AgendaTeacher"]) {
-      dest.title = @"Agenda";
-      self.current = agendaTeacher;
+        dest.title = @"Agenda";
+        self.current = agendaTeacher;
     } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
-      self.current = homeScreen;
-      User *u = [User sharedUser];
-      [CloudKeychainManager deleteTokenWithEmail:u.email];
-      [u deleteUser];
+        self.current = homeScreen;
+        User *u = [User sharedUser];
+        [CloudKeychainManager deleteTokenWithEmail:u.email];
+        [u deleteUser];
     }
 
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
