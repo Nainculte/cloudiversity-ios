@@ -10,12 +10,15 @@
 #import "XLForm.h"
 #import "UIColor+Cloud.h"
 #import "AgendaAssignment.h"
+#import "AgendaTeacherClassViewController.h"
 
 @interface AgendaTeacherEditAssignmentViewController : UINavigationController
 
-- (id)initWithDisciplineID:(int)disciplineID withClassID:(int)classID andAssignment:(AgendaAssignment *)assignment;
+- (id)initWithDisciplineID:(int)disciplineID withClassID:(int)classID andAssignment:(AgendaAssignment *)assignment presenter:(AgendaTeacherClassViewController *)presenter;
 
 @property (nonatomic, assign) AgendaAssignment *assignment;
+
+@property (nonatomic, assign) AgendaTeacherClassViewController *presenter;
 
 @property (nonatomic) int disciplineID;
 @property (nonatomic) int classID;
@@ -26,8 +29,15 @@
 
 @property (nonatomic, retain) AgendaAssignment *assignment;
 
+@property (nonatomic, assign) AgendaTeacherClassViewController *superPresenter;
+
 @property (nonatomic) int disciplineID;
 @property (nonatomic) int classID;
+
+- (void)postInit;
+
+- (id)initAdd;
+- (id)initEdit;
 
 #define BSELF(ptr) __weak typeof(ptr) bself = ptr;
 

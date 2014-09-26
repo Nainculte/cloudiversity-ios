@@ -214,6 +214,45 @@
     [IOSRequest requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
 }
 
++ (void)patchAssignmentWithTitle:(NSString *)title
+                     withDueDate:(NSString *)dueDate
+                     withDueTime:(NSString *)dueTime
+                 withDescription:(NSString *)description
+                withDisciplineID:(int)disciplineID
+                     withClassID:(int)classID
+                 andAssignmentID:(int)assignmentID
+                       onSuccess:(HTTPSuccessHandler)success
+                       onFailure:(HTTPFailureHandler)failure {
+    NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *path = [uDefaults objectForKey:@"server"];
+    NSString *role = @"";
+    User *user = [User sharedUser];
+    if (user.roles.count > 1) {
+        role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
+    }
+    path = [NSString stringWithFormat:@"%@/agenda/assignments/%d%@", path, assignmentID, role];
+
+    NSDictionary *params;
+    if (dueTime)
+        params = [[NSMutableDictionary alloc] initWithDictionary:@{@"assignment" : @{@"title" : title,
+                                                                                     @"deadline" : dueDate,
+                                                                                     @"duetime" : dueTime,
+                                                                                     @"wording" : description,
+                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
+                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     }
+                                                                   }];
+    else
+        params = [[NSMutableDictionary alloc] initWithDictionary:@{@"assignment" : @{@"title" : title,
+                                                                                     @"deadline" : dueDate,
+                                                                                     @"wording" : description,
+                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
+                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     }
+                                                                   }];
+    [IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
 #pragma mark - HTTP requests for Evaluation
 
 + (void)getAssessmentsForUserOnSuccess:(HTTPSuccessHandler)success

@@ -14,7 +14,8 @@
 // For student
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
-			dueDate:(NSDate*)dueDate
+            dueDate:(NSDate*)dueDate
+       timePrecised:(BOOL)timePrecised
 		   progress:(int)progress
 	  forDissipline:(NSDictionary*)dissipline {
 	self = [super init];
@@ -22,7 +23,8 @@
 	if (self) {
 		self.title = title;
 		self.assignmentId = assignmentId;
-		self.dueDate = dueDate;
+        self.dueDate = dueDate;
+        self.timePrecised = timePrecised;
 		self.progress = progress;
 		self.dissiplineInformation = dissipline;
 	}
@@ -33,7 +35,8 @@
 // For teacher
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
-			dueDate:(NSDate*)dueDate
+            dueDate:(NSDate*)dueDate
+       timePrecised:(BOOL)timePrecised
 	  forDissipline:(NSDictionary*)dissipline
 			inClass:(NSDictionary*)classInfo {
 	self = [super init];
@@ -41,7 +44,8 @@
 	if (self) {
 		self.title = title;
 		self.assignmentId = assignmentId;
-		self.dueDate = dueDate;
+        self.dueDate = dueDate;
+        self.timePrecised = timePrecised;
 		self.dissiplineInformation = dissipline;
 		self.classInformation = classInfo;
 	}
@@ -53,7 +57,8 @@
 // For teacher
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
-			dueTime:(NSDate*)dueTime
+            dueTime:(NSDate*)dueTime
+       timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
    withCreationDate:(NSDate*)creationDate
 	  andLastUpdate:(NSDate*)lastUpdate
@@ -64,7 +69,8 @@
 	if (self) {
 		self.title = title;
 		self.assignmentId = assignmentId;
-		self.dueDate = dueTime;
+        self.dueDate = dueTime;
+        self.timePrecised = timePrecised;
 		self.assignmentDescription = description;
 		self.creationDate = creationDate;
 		self.lastUpdate = lastUpdate;
@@ -78,7 +84,8 @@
 // For student
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
-			dueTime:(NSDate*)dueTime
+            dueTime:(NSDate*)dueTime
+       timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
 		andProgress:(int)progress {
 	self = [super init];
@@ -87,6 +94,7 @@
 		self.title = title;
 		self.assignmentId = assignmentId;
 		self.dueDate = dueTime;
+        self.timePrecised = timePrecised;
 		self.assignmentDescription = description;
 		self.progress = progress;
 	}
@@ -155,6 +163,7 @@ withPercentageOfCompletion:(float)percentageCompletion
 		self.dissiplineInformation = [aDecoder decodeObjectForKey:@"field"];
 		self.classInformation = [aDecoder decodeObjectForKey:@"className"];
 		self.dueDate = [aDecoder decodeObjectForKey:@"dueDate"];
+        self.timePrecised = [[aDecoder decodeObjectForKey:@"timePrecised"] boolValue];
 		self.creationDate = [aDecoder decodeObjectForKey:@"creationDate"];
 		self.lastUpdate = [aDecoder decodeObjectForKey:@"lastUpdate"];
 		self.progress = [aDecoder decodeIntForKey:@"percentageCompletion"];
@@ -172,6 +181,7 @@ withPercentageOfCompletion:(float)percentageCompletion
 	[aCoder encodeObject:self.dissiplineInformation forKey:@"field"];
 	[aCoder encodeObject:self.classInformation forKey:@"className"];
 	[aCoder encodeObject:self.dueDate forKey:@"dueDate"];
+    [aCoder encodeObject:[NSNumber numberWithBool:self.timePrecised] forKey:@"timePrecised"];
 	[aCoder encodeObject:self.lastUpdate forKey:@"lastUpdate"];
 	[aCoder encodeObject:self.creationDate forKey:@"creationDate"];
 	[aCoder encodeInt:self.progress forKey:@"percentageCompletion"];
