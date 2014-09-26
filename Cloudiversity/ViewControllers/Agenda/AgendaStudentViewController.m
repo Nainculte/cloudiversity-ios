@@ -73,7 +73,11 @@
 			// First, we create the Assignment from the Dictionary entrie
 			NSString *dueTimeString = ([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : [assignmentDico objectForKey:DICO_DUETIME]);
 			NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", [assignmentDico objectForKey:DICO_DEADLINE], dueTimeString];
-			AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:[assignmentDico objectForKey:DICO_TITLE] withId:[[assignmentDico objectForKey:DICO_ID] intValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime] progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue] forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
+            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:[assignmentDico objectForKey:DICO_TITLE]
+                                                                            withId:[[assignmentDico objectForKey:DICO_ID] intValue] dueDate:[[CloudDateConverter sharedMager]  dateAndTimeFromString:fullDateAndTime]
+                                                                      timePrecised:[[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? NO : YES
+                                                                          progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue]
+                                                                     forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
 			         
 			NSDate* date = [[CloudDateConverter sharedMager] convertDate:assignment.dueDate toFormat:CloudDateConverterFormatDate];
             
@@ -510,61 +514,41 @@
 // Return the correct Array of assignments for the asked position to display in the tableView, when only disciplines are filtered
 - (NSArray*)getArrayOfAssignmentsForDisciplines:(NSArray*)disciplinesNames
 									 atPosition:(NSInteger)position {
-	int counter = -1;
-	
-	for (NSString *dateKey in self.sortedSections) {
-		NSArray *assignments = [self.sections objectForKey:dateKey];
-		
-		if ([self areDisciplines:self.disciplinesToFilter inArrayOfAssignments:assignments]) {
-			++counter;
-			if (counter == position)
-				return assignments;
-		}
-	}
-	
-	return nil;
+    NSArray *assignments = [self.sections objectForKey:[self.sortedSections objectAtIndex:position]];
+    NSMutableArray *filteredAssignments = [NSMutableArray array];
+    for (AgendaAssignment *assignment in assignments) {
+        for (NSString *disciplineName in disciplinesNames) {
+            if ([[assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME] isEqualToString:disciplineName]) {
+                [filteredAssignments addObject:assignment];
+            }
+        }
+    }
+    return filteredAssignments;
 }
 
 // Return the correct Array of assignments for the asked position to display when no filters are set
 - (NSArray*)getArrayOfAssignmentsForPosition:(NSInteger)position {
-	int counter = -1;
-	
-	for (NSString *dateKey in self.sortedSections) {
-		NSArray *assignments = [self.sections objectForKey:dateKey];
-		
-		for (AgendaAssignment *assignment in assignments) {
-			if ([self doesAssignmentMatchTheProgressFilterValue:assignment]) {
-				++counter;
-				if (counter == position)
-					return assignments;
-			}
-		}
-	}
-	
-	return nil;
+    return [self.sections objectForKey:[self.sortedSections objectAtIndex:position]];
 }
 
 #pragma mark NSDictionary methodes (for single assignment requests)
 
 // Return the asked assignment for the given NSIndexPath (Just for code factoring)
 - (AgendaAssignment*)assignmentForIndexPath:(NSIndexPath*)indexPath {
-	int *indexes = malloc(sizeof(int) * [indexPath length]);
-	[indexPath getIndexes:(NSUInteger*)indexes];
-	
 	NSArray *assignments;
 	if (self.dateToFilter) {
 		assignments = [self.sections objectForKey:self.dateToFilter];
 	} else if (self.disciplinesToFilter) {
-		assignments = [self getArrayOfAssignmentsForDisciplines:self.disciplinesToFilter atPosition:indexes[0]];
+		assignments = [self getArrayOfAssignmentsForDisciplines:self.disciplinesToFilter atPosition:indexPath.section];
 	} else {
-		assignments = [self getArrayOfAssignmentsForPosition:indexes[0]];
+		assignments = [self getArrayOfAssignmentsForPosition:indexPath.section];
 	}
 	
 	AgendaAssignment *assignment;
 	if (self.disciplinesToFilter && self.disciplinesToFilter.count > 0) {
-		assignment = [self assignmentForDisciplines:self.disciplinesToFilter atPosition:indexes[1] inArrayOfAssignments:assignments];
+		assignment = [self assignmentForDisciplines:self.disciplinesToFilter atPosition:indexPath.row inArrayOfAssignments:assignments];
 	} else {
-		assignment = [self assignmentInArrayOfAssignements:assignments atPosition:indexes[1]];
+		assignment = [self assignmentInArrayOfAssignements:assignments atPosition:indexPath.row];
 	}
 	
 	return assignment;

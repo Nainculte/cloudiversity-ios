@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="WZd-7V-rIF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="WZd-7V-rIF">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--Server View Controller-->
@@ -340,7 +340,7 @@
             </objects>
             <point key="canvasLocation" x="551" y="387"/>
         </scene>
-        <!--Home Screen View Controller - Title-->
+        <!--Title-->
         <scene sceneID="VY2-AF-bVw">
             <objects>
                 <viewController storyboardIdentifier="HomeScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iHd-g5-stP" customClass="HomeScreenViewController" sceneMemberID="viewController">
@@ -372,7 +372,7 @@
             </objects>
             <point key="canvasLocation" x="1060" y="387"/>
         </scene>
-        <!--Agenda Teacher View Controller - Title-->
+        <!--Title-->
         <scene sceneID="Tuy-eh-Csk">
             <objects>
                 <tableViewController id="cXZ-Oz-7Aw" customClass="AgendaTeacherViewController" sceneMemberID="viewController">
@@ -430,7 +430,7 @@
             </objects>
             <point key="canvasLocation" x="1060" y="-962"/>
         </scene>
-        <!--Agenda Teacher Class View Controller - Title-->
+        <!--Title-->
         <scene sceneID="cz9-ER-yoa">
             <objects>
                 <tableViewController id="v1Y-yd-WR0" customClass="AgendaTeacherClassViewController" sceneMemberID="viewController">
@@ -482,7 +482,7 @@
             </objects>
             <point key="canvasLocation" x="1533" y="-962"/>
         </scene>
-        <!--Agenda Student View Controller - Title-->
+        <!--Title-->
         <scene sceneID="GbK-ra-Wne">
             <objects>
                 <tableViewController id="Xsx-OA-UlT" customClass="AgendaStudentViewController" sceneMemberID="viewController">

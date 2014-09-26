@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSDate *lastUpdate;
 @property (nonatomic) int assignmentId;
 @property (nonatomic) int progress;
+@property (nonatomic) bool timePrecised;
 
 // In prevention for filtering assignments
 @property (nonatomic) BOOL	isMarked;
@@ -29,13 +30,15 @@
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
 			dueDate:(NSDate*)dueDate
+       timePrecised:(BOOL)timePrecised
 		   progress:(int)progress
 	  forDissipline:(NSDictionary*)dissipline;
 
 // For teacher
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
-			dueDate:(NSDate*)dueDate
+            dueDate:(NSDate*)dueDate
+       timePrecised:(BOOL)timePrecised
 	  forDissipline:(NSDictionary*)dissipline
 			inClass:(NSDictionary*)classInfo;
 
@@ -43,7 +46,8 @@
 // For teacher
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
-			dueTime:(NSDate*)dueTime
+            dueTime:(NSDate*)dueTime
+       timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
    withCreationDate:(NSDate*)creationDate
 	  andLastUpdate:(NSDate*)lastUpdate
@@ -53,7 +57,8 @@
 // For student
 - (id)initWithTitle:(NSString*)title
 			 withId:(int)assignmentId
-			dueTime:(NSDate*)dueTime
+            dueTime:(NSDate*)dueTime
+       timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
 		andProgress:(int)progress;
 

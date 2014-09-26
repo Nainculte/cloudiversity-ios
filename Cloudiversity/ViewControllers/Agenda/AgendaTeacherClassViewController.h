@@ -7,6 +7,7 @@
 //
 
 #import "AbstractTableViewController.h"
+#import "AgendaAssignment.h"
 
 @interface AgendaTeacherClassViewController : AbstractTableViewController
 
@@ -14,5 +15,8 @@
 @property (nonatomic, strong) NSString *classTitle;
 @property (nonatomic) int disciplineID;
 @property (nonatomic) int classID;
+
+@property (nonatomic, weak) AgendaAssignment *editedAssignment;
+@property (nonatomic, strong) NSMutableArray *assignments;
 
 @end

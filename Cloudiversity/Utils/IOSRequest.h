@@ -59,4 +59,14 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
                       onSuccess:(HTTPSuccessHandler)success
                       onFailure:(HTTPFailureHandler)failure;
 
++ (void)patchAssignmentWithTitle:(NSString *)title
+                     withDueDate:(NSString *)dueDate
+                     withDueTime:(NSString *)dueTime
+                 withDescription:(NSString *)description
+                withDisciplineID:(int)disciplineID
+                     withClassID:(int)classID
+                 andAssignmentID:(int)assignmentID
+                       onSuccess:(HTTPSuccessHandler)success
+                       onFailure:(HTTPFailureHandler)failure;
+
 @end
