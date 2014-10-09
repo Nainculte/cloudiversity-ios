@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Object : NSObject
+@interface CloudiversityObject : NSObject
 
-+ (Object *)fromJSON:(id)json;
++ (CloudiversityObject *)fromJSON:(id)json;
 + (NSArray *)fromJSONArray:(id)json;
 
 @end

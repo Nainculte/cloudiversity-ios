@@ -30,10 +30,10 @@
 
 - (void)setupHandlers {
 	self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
-		
+
 	};
 	self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
+		NSLog(@"%@: %@", LOCALIZEDSTRING(@"EVALUATION_STUDENT_ERROR"), error);
 		switch (operation.response.statusCode) {
 			default:
 				break;
@@ -43,10 +43,23 @@
 	};
 }
 
+- (void)initAssessmentsByHTTPRequest {
+	[DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"EVALUATION_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
+	[IOSRequest getGradesForUserOnSuccess:self.success onFailure:self.failure];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	
+	[self setupHandlers];
+
+	if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
+		[self.tableView reloadData];
+	} else {
+		[self initAssessmentsByHTTPRequest];
+	}
 }
 
 - (void)didReceiveMemoryWarning

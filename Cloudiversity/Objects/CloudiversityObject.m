@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "Object.h"
+#import "CloudiversityObject.h"
 
-@implementation Object
+@implementation CloudiversityObject
 
-+ (Object *)fromJSON:(id)json {
++ (CloudiversityObject *)fromJSON:(id)json {
     [NSException raise:@"Forbidden call to abstract method" format:@"fromJSON must be invoked from a subclass of DomainObject."];
     return nil;
 }
@@ -18,7 +18,7 @@
 + (NSArray *)fromJSONArray:(id)json {
     NSMutableArray *array = [NSMutableArray array];
     for (id jsonObject in json) {
-        Object *object = [self fromJSON:jsonObject];
+        CloudiversityObject *object = [self fromJSON:jsonObject];
         if (object != nil) {
             [array addObject:object];
         }
