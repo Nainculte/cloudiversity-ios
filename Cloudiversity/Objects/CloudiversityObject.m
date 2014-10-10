@@ -10,7 +10,7 @@
 
 @implementation CloudiversityObject
 
-+ (CloudiversityObject *)fromJSON:(id)json {
++ (instancetype)fromJSON:(id)json {
     [NSException raise:@"Forbidden call to abstract method" format:@"fromJSON must be invoked from a subclass of DomainObject."];
     return nil;
 }

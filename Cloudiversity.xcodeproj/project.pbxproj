@@ -74,6 +74,7 @@
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
 		92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
+		92EF8A7019E801FC006ECDF8 /* CloudEvaluationObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EF8A6F19E801FC006ECDF8 /* CloudEvaluationObjects.m */; };
 		92F0E74019B9BE5500F30BE2 /* EvaluationGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationGradesViewController.m */; };
 		92F0E74119B9BE5500F30BE2 /* EvaluationGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationGradesViewController.m */; };
 		92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
@@ -236,6 +237,8 @@
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
 		92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTaskViewController.m; sourceTree = "<group>"; };
+		92EF8A6E19E801FC006ECDF8 /* CloudEvaluationObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudEvaluationObjects.h; sourceTree = "<group>"; };
+		92EF8A6F19E801FC006ECDF8 /* CloudEvaluationObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudEvaluationObjects.m; sourceTree = "<group>"; };
 		92F0E73E19B9BE5500F30BE2 /* EvaluationGradesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradesViewController.h; path = Evaluation/EvaluationGradesViewController.h; sourceTree = "<group>"; };
 		92F0E73F19B9BE5500F30BE2 /* EvaluationGradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradesViewController.m; path = Evaluation/EvaluationGradesViewController.m; sourceTree = "<group>"; };
 		92F0E74219B9C16100F30BE2 /* combo_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combo_chart.png; sourceTree = "<group>"; };
@@ -680,6 +683,8 @@
 				9286559B19E6AE0800DCBECF /* CloudiversityObject.m */,
 				FDC907DA192A83D900646A68 /* User.h */,
 				FDC907DB192A83D900646A68 /* User.m */,
+				92EF8A6E19E801FC006ECDF8 /* CloudEvaluationObjects.h */,
+				92EF8A6F19E801FC006ECDF8 /* CloudEvaluationObjects.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1041,6 +1046,7 @@
 				9244EC75196DAF55004E8434 /* DSLCalendarDayCalloutView.m in Sources */,
 				FD29512B197C01A800833473 /* AgendaTeacherClassTableViewCell.m in Sources */,
 				9244EC81196DAF55004E8434 /* DSLCalendarRange.m in Sources */,
+				92EF8A7019E801FC006ECDF8 /* CloudEvaluationObjects.m in Sources */,
 				FD24148919741B8B0069618E /* AgendaTeacherTableViewCell.m in Sources */,
 				9244EC79196DAF55004E8434 /* DSLCalendarDayView.m in Sources */,
 				FDC9081E192A847000646A68 /* IOSRequest.m in Sources */,

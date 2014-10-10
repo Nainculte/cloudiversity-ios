@@ -15,6 +15,8 @@
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
+@property (nonatomic, strong) NSDictionary *grades; // Classed disciplines
+
 @end
 
 @implementation EvaluationGradesViewController
@@ -30,7 +32,7 @@
 
 - (void)setupHandlers {
 	self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
-
+		int toto = 0;
 	};
 	self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSLog(@"%@: %@", LOCALIZEDSTRING(@"EVALUATION_STUDENT_ERROR"), error);

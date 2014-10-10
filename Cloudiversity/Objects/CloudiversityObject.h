@@ -10,7 +10,7 @@
 
 @interface CloudiversityObject : NSObject
 
-+ (CloudiversityObject *)fromJSON:(id)json;
++ (instancetype)fromJSON:(id)json;
 + (NSArray *)fromJSONArray:(id)json;
 
 @end

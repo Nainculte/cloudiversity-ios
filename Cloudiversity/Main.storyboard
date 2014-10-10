@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="WZd-7V-rIF">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -381,7 +382,7 @@
             </objects>
             <point key="canvasLocation" x="1060" y="387"/>
         </scene>
-        <!--Marks-->
+        <!--Grades-->
         <scene sceneID="kXO-oP-SYC">
             <objects>
                 <tableViewController id="Tbg-Io-3hW" customClass="EvaluationGradesViewController" sceneMemberID="viewController">
@@ -444,7 +445,7 @@
                             <outlet property="delegate" destination="Tbg-Io-3hW" id="Fy4-Rb-0we"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Marks" id="nc6-dt-3f9"/>
+                    <tabBarItem key="tabBarItem" title="Grades" id="nc6-dt-3f9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAh-Vx-udR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -497,7 +498,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lo3-QX-tJS">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="assessmentCell" id="lo3-QX-tJS">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lo3-QX-tJS" id="y6Y-kn-iNR">
                                     <autoresizingMask key="autoresizingMask"/>
