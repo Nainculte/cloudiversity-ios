@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "EvaluationViewController.h"
+#import "EvaluationGradesViewController.h"
 
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"EvaluationVC"]
 
-@interface EvaluationViewController ()
+@interface EvaluationGradesViewController ()
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
 @end
 
-@implementation EvaluationViewController
+@implementation EvaluationGradesViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

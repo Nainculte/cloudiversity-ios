@@ -74,8 +74,8 @@
 		92DD1E0118FC4F2F000386EE /* UIColor+CloudColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */; };
 		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
 		92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
-		92F0E74019B9BE5500F30BE2 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */; };
-		92F0E74119B9BE5500F30BE2 /* EvaluationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */; };
+		92F0E74019B9BE5500F30BE2 /* EvaluationGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationGradesViewController.m */; };
+		92F0E74119B9BE5500F30BE2 /* EvaluationGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationGradesViewController.m */; };
 		92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
 		92F0E74419B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
 		92F0E74619B9C17300F30BE2 /* combo_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */; };
@@ -236,8 +236,8 @@
 		92DD1DFF18FC4F2F000386EE /* UIColor+CloudColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CloudColor.m"; sourceTree = "<group>"; };
 		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
 		92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTaskViewController.m; sourceTree = "<group>"; };
-		92F0E73E19B9BE5500F30BE2 /* EvaluationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationViewController.h; path = Evaluation/EvaluationViewController.h; sourceTree = "<group>"; };
-		92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationViewController.m; path = Evaluation/EvaluationViewController.m; sourceTree = "<group>"; };
+		92F0E73E19B9BE5500F30BE2 /* EvaluationGradesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradesViewController.h; path = Evaluation/EvaluationGradesViewController.h; sourceTree = "<group>"; };
+		92F0E73F19B9BE5500F30BE2 /* EvaluationGradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradesViewController.m; path = Evaluation/EvaluationGradesViewController.m; sourceTree = "<group>"; };
 		92F0E74219B9C16100F30BE2 /* combo_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combo_chart.png; sourceTree = "<group>"; };
 		92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "combo_chart@2x.png"; sourceTree = "<group>"; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -438,8 +438,8 @@
 		92F0E73D19B9BDF300F30BE2 /* Evaluation */ = {
 			isa = PBXGroup;
 			children = (
-				92F0E73E19B9BE5500F30BE2 /* EvaluationViewController.h */,
-				92F0E73F19B9BE5500F30BE2 /* EvaluationViewController.m */,
+				92F0E73E19B9BE5500F30BE2 /* EvaluationGradesViewController.h */,
+				92F0E73F19B9BE5500F30BE2 /* EvaluationGradesViewController.m */,
 				9234452B19C1D2FF008E4957 /* EvaluationAverageViewController.h */,
 				9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */,
 				9234452F19C1D314008E4957 /* EvaluationMarkViewController.h */,
@@ -1076,7 +1076,7 @@
 				929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
 				FDCEE15E196D8B9D002B3579 /* AbstractViewController.m in Sources */,
-				92F0E74019B9BE5500F30BE2 /* EvaluationViewController.m in Sources */,
+				92F0E74019B9BE5500F30BE2 /* EvaluationGradesViewController.m in Sources */,
 				FD241486197412210069618E /* AbstractTableViewController.m in Sources */,
 				92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */,
 				FD24147F1973C1890069618E /* AgendaTeacherViewController.m in Sources */,
@@ -1089,7 +1089,7 @@
 			files = (
 				9234452E19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */,
 				9287210E194466A200C70168 /* AgendaFilterViewController.m in Sources */,
-				92F0E74119B9BE5500F30BE2 /* EvaluationViewController.m in Sources */,
+				92F0E74119B9BE5500F30BE2 /* EvaluationGradesViewController.m in Sources */,
 				9244EC7A196DAF55004E8434 /* DSLCalendarDayView.m in Sources */,
 				9287210A1944658500C70168 /* AMPieChartView.m in Sources */,
 				9244ECA2196DAF55004E8434 /* NSDate+DSLCalendarView.m in Sources */,

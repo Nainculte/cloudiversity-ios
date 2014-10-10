@@ -8,6 +8,6 @@
 
 #import "AbstractTableViewController.h"
 
-@interface EvaluationViewController : AbstractTableViewController
+@interface EvaluationGradesViewController : AbstractTableViewController
 
 @end
