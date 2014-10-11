@@ -7,8 +7,10 @@
 */
 
 
-"ADDRESS" = "Addresse du serveur";
+"ADDRESS" = "Adresse du serveur";
 "SERVER" = "Choisir ce serveur";
+"CONNECTING" = "Vérification...";
 
+"ERROR" = "Erreur";
 "FILLITALL" = "Vous devez remplir le champ";
 "INVALIDSERVER" = "Ce n'est pas un serveur Cloudiversity";

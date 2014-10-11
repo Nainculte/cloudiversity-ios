@@ -42,4 +42,8 @@
     return [UIColor colorWithRed:0XC8/255.0f green:0XCE/255.0f blue:0XD8/255.0f alpha:1.0];
 }
 
++ (UIColor *)cloudGreen {
+    return [UIColor colorWithRed:0X7B/255.0f green:0X91/255.0f blue:0X4D/255.0f alpha:1.0];
+}
+
 @end

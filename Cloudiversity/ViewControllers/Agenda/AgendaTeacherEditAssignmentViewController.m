@@ -14,6 +14,9 @@
 #import "DejalActivityView.h"
 #import "CloudiversityAppDelegate.h"
 
+#import "CloudLogoCell.h"
+#import "CloudURLCellPicker.h"
+
 @interface AgendaTeacherEditAssignmentViewController ()
 
 @end
@@ -193,11 +196,13 @@ static NSString *descriptionTag = @"Description";
 
 - (void)cancel
 {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)saveAdd
 {
+    [self.view endEditing:YES];
     NSArray * validationErrors = [self formValidationErrors];
     if (validationErrors.count > 0){
         [self showFormValidationError:[validationErrors firstObject]];
@@ -274,6 +279,7 @@ static NSString *descriptionTag = @"Description";
 
 - (void)saveEdit
 {
+    [self.view endEditing:YES];
     NSArray * validationErrors = [self formValidationErrors];
     if (validationErrors.count > 0){
         [self showFormValidationError:[validationErrors firstObject]];

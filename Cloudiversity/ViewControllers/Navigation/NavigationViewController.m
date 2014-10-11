@@ -13,6 +13,7 @@
 #import "UICloud.h"
 #import "User.h"
 #import "CloudKeychainManager.h"
+#import "ServerViewController.h"
 
 @interface NavigationViewController ()
 
@@ -124,11 +125,6 @@ typedef enum {
         self.current = agendaTeacher;
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         self.current = homeScreen;
-    } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
-        self.current = homeScreen;
-        User *u = [User sharedUser];
-        [CloudKeychainManager deleteTokenWithEmail:u.email];
-        [u deleteUser];
     }
 
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
@@ -143,6 +139,16 @@ typedef enum {
         };
 
     }
+}
+- (IBAction)disconnect {
+    self.current = homeScreen;
+    User *u = [User sharedUser];
+    [CloudKeychainManager deleteTokenWithEmail:u.email];
+    [u deleteUser];
+    ServerRootViewController *vc = [[ServerRootViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:^{
+        
+    }];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle
