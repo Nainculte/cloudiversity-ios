@@ -108,6 +108,7 @@
     self.rightTextField.delegate = self;
     self.rightTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.rightTextField.text = self.text ? self.text : self.rowDescriptor.noValueDisplayText;
+    [self updateValue];
     [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", [self.leftSelectors objectAtIndex:[self.selectedIndex unsignedIntegerValue]], self.rowDescriptor.required ? @"*" : @""] forState:UIControlStateNormal];
     [self.leftButton addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }

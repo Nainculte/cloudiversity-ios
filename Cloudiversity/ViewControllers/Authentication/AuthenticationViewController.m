@@ -13,6 +13,7 @@
 #import "UIColor+Cloud.h"
 #import "CloudLogoCell.h"
 #import "CloudSeparatorCell.h"
+#import "CloudTextFieldCell.h"
 
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AuthenticationVC"]
 
@@ -42,7 +43,7 @@
 
 
 #pragma mark - AuthenticationViewController
-@interface AuthenticationViewController ()
+@interface AuthenticationViewController () <CloudTextFieldCellDelegate>
 
 @property (nonatomic, strong)NSString *username;
 @property (nonatomic, strong)NSString *password;
@@ -95,14 +96,19 @@ NSString *const sepaTag = @"Sep";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
     [section addFormRow:row];
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:userTag rowType:XLFormRowDescriptorTypeText];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:userTag rowType:@"CloudTextFieldCell"];
+    row.cellClass = [CloudTextFieldCell class];
     [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"USERNAME") forKey:@"textField.placeholder"];
+    [row.cellConfigAtConfigure setObject:@0 forKey:@"isPassword"];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
     [section addFormRow:row];
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:passwordTag rowType:XLFormRowDescriptorTypePassword];
-        [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"PASSWORD") forKey:@"textField.placeholder"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:passwordTag rowType:@"CloudTextFieldCell"];
+    row.cellClass = [CloudTextFieldCell class];
+    [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"PASSWORD") forKey:@"textField.placeholder"];
+    [row.cellConfigAtConfigure setObject:@1 forKey:@"isPassword"];
+    [row.cellConfigAtConfigure setObject:self forKey:@"delegate"];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
@@ -131,8 +137,14 @@ NSString *const sepaTag = @"Sep";
     self.form = form;
 }
 
+#pragma mark - CloudTextFieldCellDelegate
+
+- (void)textFieldReturned {
+    [self connect];
+}
+
 #pragma mark - Actions
--(void)didSelectFormRow:(XLFormRowDescriptor *)formRow {
+- (void)didSelectFormRow:(XLFormRowDescriptor *)formRow {
     [super didSelectFormRow:formRow];
 
     if ([formRow.tag isEqual:buttonCellTag]){
