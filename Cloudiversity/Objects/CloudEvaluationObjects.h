@@ -25,8 +25,25 @@
 @property (strong, nonatomic) NSDate *lastUpdateDate;
 @property (strong, nonatomic) NSValue *isForAllClass;
 @property (strong, nonatomic) CloudiversityPeriod *period;
-@property (strong, nonatomic) NSDictionary *student; // is nil if isForAllClass == YES
-@property (strong, nonatomic) NSDictionary *teacher;
-@property (strong, nonatomic) NSDictionary *schoolClass;
+@property (strong, nonatomic) CloudiversityDiscipline *discipline;
+@property (strong, nonatomic) CloudiversityStudent *student; // is nil if isForAllClass == YES
+@property (strong, nonatomic) CloudiversityTeacher *teacher;
+@property (strong, nonatomic) CloudiversityClass *schoolClass;
+
+@end
+
+@interface CloudiversityGrade : CloudiversityObject
+
+@property (strong, nonatomic) NSNumber *gradeID;
+@property (strong, nonatomic) NSString *assessment;
+@property (strong, nonatomic) NSNumber *note;
+@property (strong, nonatomic) NSNumber *coefficent;
+@property (strong, nonatomic) NSDate *creationDate;
+@property (strong, nonatomic) NSDate *lastUpdateDate;
+@property (strong, nonatomic) CloudiversityPeriod *period;
+@property (strong, nonatomic) CloudiversityDiscipline *discipline;
+@property (strong, nonatomic) CloudiversityStudent *student; // is nil if isForAllClass == YES
+@property (strong, nonatomic) CloudiversityTeacher *teacher;
+@property (strong, nonatomic) CloudiversityClass *schoolClass;
 
 @end

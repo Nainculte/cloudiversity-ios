@@ -8,6 +8,7 @@
 
 #import "EvaluationGradesViewController.h"
 
+#define CACHE_KEY	@"assessmentsStudentList"
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"EvaluationVC"]
 
 @interface EvaluationGradesViewController ()
@@ -15,7 +16,7 @@
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
-@property (nonatomic, strong) NSDictionary *grades; // Classed disciplines
+@property (nonatomic, strong) NSDictionary *grades; // Classed by disciplines
 
 @end
 
@@ -31,8 +32,34 @@
 }
 
 - (void)setupHandlers {
+	BSELF(self);
+
 	self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
-		int toto = 0;
+		NSDictionary *response = (NSDictionary*)responseObject;
+
+		for (NSDictionary *currentPeriodDico in [response objectForKey:@"periods"]) {
+			CloudiversityPeriod *currentPeriod = [CloudiversityPeriod fromJSON:[currentPeriodDico objectForKey:@"period"]];
+			for (NSDictionary *currentDisciplineDico in [currentPeriodDico objectForKey:@"disciplines"]) {
+				CloudiversityDiscipline *currentDiscipline = [CloudiversityDiscipline fromJSON:[currentDisciplineDico objectForKey:@"discipline"]];
+				NSMutableArray *grades = [NSMutableArray array];
+				
+				for (NSDictionary *currentGradeDico in [currentDisciplineDico objectForKey:@"grade"]) {
+					CloudiversityGrade *currentGrade = [CloudiversityGrade fromJSON:currentGradeDico];
+					currentGrade.period = currentPeriod;
+					currentGrade.discipline = currentDiscipline;
+					
+					[grades addObject:currentGrade];
+				}
+				
+				NSMutableArray *selfGrades;
+				if ((selfGrades = [bself.grades objectForKey:currentDiscipline])) {
+					[selfGrades addObjectsFromArray:grades];
+				}
+			}
+		}
+		
+		[DejalActivityView removeView];
+		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
 	};
 	self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSLog(@"%@: %@", LOCALIZEDSTRING(@"EVALUATION_STUDENT_ERROR"), error);
@@ -57,7 +84,7 @@
 	
 	[self setupHandlers];
 
-	if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
+	if ([[EGOCache globalCache] hasCacheForKey:CACHE_KEY]) {
 		[self.tableView reloadData];
 	} else {
 		[self initAssessmentsByHTTPRequest];

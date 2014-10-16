@@ -27,3 +27,63 @@
 }
 
 @end
+
+@implementation CloudiversityClass
+
++ (instancetype)fromJSON:(id)json {
+	NSDictionary *jsonObject = (NSDictionary*)json;
+	CloudiversityClass *newClass = [[CloudiversityClass alloc] init];
+	
+	newClass.classID = [jsonObject objectForKey:@"id"];
+	newClass.name = [jsonObject objectForKey:@"name"];
+	
+	return newClass;
+}
+
+@end
+
+@implementation CloudiversityDiscipline
+
++ (instancetype)fromJSON:(id)json {
+	NSDictionary *jsonObject = (NSDictionary*)json;
+	CloudiversityDiscipline *newDiscipline = [[CloudiversityDiscipline alloc] init];
+	
+	newDiscipline.disciplineID = [jsonObject objectForKey:@"id"];
+	newDiscipline.name = [jsonObject objectForKey:@"name"];
+	
+	return newDiscipline;
+}
+
+@end
+
+@implementation CloudiversityStudent
+
++ (instancetype)fromJSON:(id)json {
+	NSDictionary *jsonObject = (NSDictionary*)json;
+	CloudiversityStudent *newStudent = [[CloudiversityStudent alloc] init];
+	
+	newStudent.studentID = [jsonObject objectForKey:@"id"];
+	newStudent.userID = [jsonObject objectForKey:@"user_id"];
+	newStudent.login = [jsonObject objectForKey:@"login"];
+	newStudent.name = [jsonObject objectForKey:@"name"];
+	
+	return newStudent;
+}
+
+@end
+
+@implementation CloudiversityTeacher
+
++ (instancetype)fromJSON:(id)json {
+	NSDictionary *jsonObject = (NSDictionary*)json;
+	CloudiversityTeacher *newTeacher = [[CloudiversityTeacher alloc] init];
+	
+	newTeacher.teacherID = [jsonObject objectForKey:@"id"];
+	newTeacher.userID = [jsonObject objectForKey:@"user_id"];
+	newTeacher.login = [jsonObject objectForKey:@"login"];
+	newTeacher.name = [jsonObject objectForKey:@"name"];
+	
+	return newTeacher;
+}
+
+@end

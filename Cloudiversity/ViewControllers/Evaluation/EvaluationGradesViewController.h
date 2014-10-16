@@ -7,6 +7,7 @@
 //
 
 #import "AbstractTableViewController.h"
+#import "CloudEvaluationObjects.h"
 
 @interface EvaluationGradesViewController : AbstractTableViewController
 

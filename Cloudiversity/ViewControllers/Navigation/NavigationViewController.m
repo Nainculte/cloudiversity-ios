@@ -139,12 +139,11 @@ typedef enum {
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
         SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
 
-        swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* source, UIViewController* dest) {
-
+		swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* source, UIViewController* dest) {
             UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-            [navController setViewControllers: @[dest] animated: NO ];
+			[navController setViewControllers:@[dest] animated: NO ];
             if (sender != self)
-                [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+                [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated: YES];
         };
 
     }

@@ -14,3 +14,35 @@
 + (NSArray *)fromJSONArray:(id)json;
 
 @end
+
+@interface CloudiversityClass : CloudiversityObject
+
+@property (strong, nonatomic)	NSNumber *classID;
+@property (strong, nonatomic)	NSString *name;
+
+@end
+
+@interface CloudiversityDiscipline : CloudiversityObject
+
+@property (strong, nonatomic)	NSNumber *disciplineID;
+@property (strong, nonatomic)	NSString *name;
+
+@end
+
+@interface CloudiversityStudent : CloudiversityObject
+
+@property (strong, nonatomic)	NSNumber *studentID;
+@property (strong, nonatomic)	NSNumber *userID;
+@property (strong, nonatomic)	NSString *login;
+@property (strong, nonatomic)	NSString *name;
+
+@end
+
+@interface CloudiversityTeacher : CloudiversityObject
+
+@property (strong, nonatomic)	NSNumber *teacherID;
+@property (strong, nonatomic)	NSNumber *userID;
+@property (strong, nonatomic)	NSString *login;
+@property (strong, nonatomic)	NSString *name;
+
+@end
