@@ -27,15 +27,18 @@
 {
     [super viewDidLoad];
 
-    self.leftButton.target = self.revealViewController;
-    self.leftButton.action = @selector(revealToggle:);
-
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     self.view.backgroundColor = [UIColor cloudGrey];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
+	
+	if (self.showMenuButton) {
+		UIImage *barButtonImage = [UIImage imageNamed:@"menu.png"];
+		self.leftButton = [[UIBarButtonItem alloc] initWithImage:barButtonImage style:UIBarButtonItemStylePlain target:self.revealViewController action:@selector(revealToggle:)];
+		self.navigationController.navigationBar.topItem.leftBarButtonItem = self.leftButton;
+	}
 }
 
 - (void)didReceiveMemoryWarning

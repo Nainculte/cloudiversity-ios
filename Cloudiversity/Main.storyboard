@@ -371,12 +371,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="aep-yg-efu">
-                        <barButtonItem key="leftBarButtonItem" image="menu.png" id="qHs-jd-hCa"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="leftButton" destination="qHs-jd-hCa" id="nem-hl-fZq"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Title" id="aep-yg-efu"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showMenuButton" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQl-Zj-mUB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -442,6 +440,9 @@
                     <tabBarItem key="tabBarItem" title="Grades" id="nc6-dt-3f9"/>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showMenuButton" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAh-Vx-udR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -531,23 +532,17 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="showMenuButton" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="cXZ-Oz-7Aw" id="f55-zu-JLa"/>
                             <outlet property="delegate" destination="cXZ-Oz-7Aw" id="NUn-tg-ja0"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem image="menu.png" id="6G9-0h-BHG"/>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Title" id="rLk-A0-EUx">
-                        <connections>
-                            <outlet property="leftBarButtonItem" destination="6G9-0h-BHG" id="If2-Ac-6ep"/>
-                        </connections>
-                    </navigationItem>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="rLk-A0-EUx"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="leftButton" destination="6G9-0h-BHG" id="YeP-Gh-8zd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYu-7u-I0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -659,23 +654,20 @@
                             <outlet property="delegate" destination="Xsx-OA-UlT" id="non-YZ-lVg"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem image="menu.png" id="DB6-ss-3cP"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="pX1-fk-hdO">
                         <barButtonItem key="rightBarButtonItem" image="filter.png" id="YkN-af-eah">
                             <connections>
                                 <segue destination="zQ7-Eu-hVe" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegue" id="d6L-WG-j2p"/>
                             </connections>
                         </barButtonItem>
-                        <connections>
-                            <outlet property="leftBarButtonItem" destination="DB6-ss-3cP" id="ApK-ea-KrI"/>
-                        </connections>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showMenuButton" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="filters" destination="YkN-af-eah" id="nfJ-uM-LQv"/>
-                        <outlet property="leftButton" destination="DB6-ss-3cP" id="tqY-Fh-N16"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zPF-n7-m4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -959,7 +951,6 @@
         <image name="calendar.png" width="30" height="30"/>
         <image name="combo_chart.png" width="25" height="25"/>
         <image name="filter.png" width="24" height="24"/>
-        <image name="menu.png" width="24" height="20"/>
         <image name="plus.png" width="24" height="24"/>
         <image name="sign-out.png" width="30" height="30"/>
     </resources>

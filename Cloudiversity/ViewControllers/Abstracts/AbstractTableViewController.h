@@ -20,13 +20,15 @@
 
 @interface AbstractTableViewController : UITableViewController <UITableViewDataSource, CloudTableViewDelegate, SWRevealViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
+@property (strong, nonatomic) UIBarButtonItem *leftButton;
 
 - (void)setRightViewController:(NSString *)name withButton:(UIBarButtonItem *)button;
 - (void)setRightViewController:(NSString *)name;
 
 @property (nonatomic, strong) NSMutableDictionary *sections;
 @property (nonatomic, strong) NSArray *sortedSections;
+
+@property (nonatomic) BOOL showMenuButton;
 
 - (void)reloadTableView;
 
