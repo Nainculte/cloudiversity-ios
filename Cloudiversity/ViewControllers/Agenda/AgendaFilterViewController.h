@@ -7,10 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DSLCalendarView.h"
+#import "XLForm.h"
+
+//#import "DSLCalendarView.h"
 #import "SWRevealViewController.h"
 #import "AgendaStudentViewController.h"
+#import "AgendaFilterDelegate.h"
 
-@interface AgendaFilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DSLCalendarViewDelegate, AgendaStudentDataSource>
+//@interface AgendaFilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DSLCalendarViewDelegate, AgendaStudentDataSource>
+//
+//@end
+
+@class AgendaFilterViewController;
+
+@interface AgendaFilterRootViewController : UINavigationController
+
+@property (nonatomic, retain) AgendaFilterViewController *filterVC;
+
+@end
+
+@interface AgendaFilterViewController : XLFormViewController
+
+@property (nonatomic, weak) id<AgendaFilterDelegate> delegate;
+@property (nonatomic, weak) id<AgendaStudentDataSource> dataSource;
 
 @end

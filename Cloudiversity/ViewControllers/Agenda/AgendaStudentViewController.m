@@ -10,6 +10,7 @@
 #import "AgendaStudentTableViewCell.h"
 #import "AgendaAssignment.h"
 #import "CloudDateConverter.h"
+#import "AgendaFilterViewController.h"
 
 // id for cells in the tableView
 #define REUSE_IDENTIFIER	@"agendaCell"
@@ -42,8 +43,6 @@
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
-
-@property (nonatomic) id <AgendaStudentDataSource>dataSource;
 
 @end
 
@@ -148,7 +147,9 @@
 {
     [super viewDidLoad];
 
-    [self setRightViewController:@"AgendaFilterViewController" withButton:self.filters];
+    [self setRightViewController:@"AgendaFilterRootViewController" withButton:self.filters];
+    ((AgendaFilterRootViewController *)self.revealViewController.rightViewController).filterVC.delegate = self;
+    ((AgendaFilterRootViewController *)self.revealViewController.rightViewController).filterVC.dataSource = self;
 
 	[self.revealViewController setDelegate:self];
 
@@ -349,22 +350,36 @@
 	}
 }
 
+#pragma mark - AgendaFilterDelegate protocol
+
+- (void)filtersUpdated:(NSDictionary *)newFilters {
+    self.dateToFilter = [newFilters objectForKey:DATE_FILTER_KEY];
+    self.disciplinesToFilter = [newFilters objectForKey:DISCIPLINE_FILTER_KEY];
+    self.progressFilter = [[newFilters objectForKey:PROGRESS_FILTER_KEY] intValue];
+
+    [self reloadTableView];
+}
+
+#pragma mark - AgendaStudentDataSource protocol
+
+- (NSDictionary *)getFilters {
+    NSMutableDictionary *filters = [NSMutableDictionary dictionaryWithCapacity:3];
+    self.dateToFilter ? [filters setObject:self.dateToFilter forKey:DATE_FILTER_KEY] : nil;
+    self.disciplinesToFilter ? [filters setObject:self.disciplinesToFilter forKey:DISCIPLINE_FILTER_KEY] : nil;
+    [filters setObject:[NSNumber numberWithInt:self.progressFilter] forKey:PROGRESS_FILTER_KEY];
+    return filters;
+}
+
+- (NSArray *)getAvailableDisciplinesToFilter {
+    return self.allDisciplinesName;
+}
+
 #pragma mark - SWRevealViewControllerDelegate protocol
 
 - (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
-	id <AgendaStudentDataSource>filterViewController = (id <AgendaStudentDataSource>)self.revealViewController.rightViewController;
-
-	if (position == FrontViewPositionLeftSide) { // When the filterView is shown
-		[filterViewController setAvailableDisciplinesToFilter:self.allDisciplinesName];
-	} else if (position == FrontViewPositionLeft) { // When the filterView is hidden
-		NSDictionary *filters = [filterViewController getFilters];
-		
-		self.dateToFilter = [filters objectForKey:DATE_FILTER_KEY];
-		self.disciplinesToFilter = [filters objectForKey:DISCIPLINE_FILTER_KEY];
-		self.progressFilter = [[filters objectForKey:PROGRESS_FILTER_KEY] intValue];
-		
-		[self reloadTableView];
-	}
+	AgendaFilterViewController *filterViewController = ((AgendaFilterRootViewController *)self.revealViewController.rightViewController).filterVC;
+    filterViewController.delegate = self;
+    filterViewController.dataSource = self;
 }
 
 #pragma mark - Some methodes to make it easy !
@@ -378,7 +393,7 @@
 	return NO;
 }
 
-#pragma mark boolean methodes
+#pragma mark - boolean methodes
 
 // Return YES if the given Assignment's progress match the progressFilter value
 - (BOOL)doesAssignmentMatchTheProgressFilterValue:(AgendaAssignment*)assignment {
@@ -404,7 +419,7 @@
 	return NO;
 }
 
-#pragma mark NSInterger methodes (for number of sections and rows requests)
+#pragma mark - NSInterger methodes (for number of sections and rows requests)
 
 // Return the number of sections to display if only disciplines are filtered
 - (NSInteger)countNumberOfSectionsToReturnForDisciplinesNames:(NSArray*)disciplinesNames {
@@ -470,7 +485,7 @@
 	return numberOfAssignments;
 }
 
-#pragma mark NSInteger methodes (for index of section for header)
+#pragma mark - NSInteger methodes (for index of section for header)
 
 // Return the correct index of section for the asked position to display in the tableView, when only disciplines are filtered
 - (NSInteger)getIndexOfSectionForDisciplines:(NSArray*)disciplinesNames
@@ -509,7 +524,7 @@
 	return NSNotFound;
 }
 
-#pragma mark Array methodes (for array of assignments request)
+#pragma mark = Array methodes (for array of assignments request)
 
 // Return the correct Array of assignments for the asked position to display in the tableView, when only disciplines are filtered
 - (NSArray*)getArrayOfAssignmentsForDisciplines:(NSArray*)disciplinesNames
@@ -531,7 +546,7 @@
     return [self.sections objectForKey:[self.sortedSections objectAtIndex:position]];
 }
 
-#pragma mark NSDictionary methodes (for single assignment requests)
+#pragma mark = NSDictionary methodes (for single assignment requests)
 
 // Return the asked assignment for the given NSIndexPath (Just for code factoring)
 - (AgendaAssignment*)assignmentForIndexPath:(NSIndexPath*)indexPath {
