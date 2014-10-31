@@ -10,6 +10,8 @@
 #import "AgendaTeacherTableViewCell.h"
 #import "AgendaTeacherClassViewController.h"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaTeacherVC"]
+
 @interface AgendaTeacherViewController ()
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
@@ -54,7 +56,7 @@
 
 - (void)initAssignmentsByHTTPRequest
 {
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
     [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
@@ -63,7 +65,6 @@
     BSELF(self)
     self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *response = (NSArray *)responseObject;
-        NSLog(@"%@", response);
         NSMutableDictionary *disciplines = [NSMutableDictionary dictionary];
 
         for (NSDictionary *discipline in response) {
@@ -136,9 +137,9 @@
     cell.classLabel.text = [[[[self.sortedSections objectAtIndex:indexPath.section] objectForKey:@"school_classes"] objectAtIndex:indexPath.row] objectForKey:@"name"];
     int nbr = [[[[[self.sortedSections objectAtIndex:indexPath.section] objectForKey:@"school_classes"] objectAtIndex:indexPath.row] valueForKey:@"assignment_count"] intValue];
     if (nbr <= 1) {
-        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%d assignment", nbr];
+        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%d %@", nbr, LOCALIZEDSTRING(@"ASSIGNMENT")];
     } else {
-        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%d assignments", nbr];
+        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%d %@", nbr, LOCALIZEDSTRING(@"ASSIGNMENTS")];
     }
 }
 

@@ -11,6 +11,8 @@
 #import "AgendaTeacherEditAssignmentViewController.h"
 #import "CloudDateConverter.h"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaTeacherVC"]
+
 #define DICO_ID					@"id"
 #define DICO_TITLE 				@"title"
 #define DICO_DEADLINE 			@"deadline"

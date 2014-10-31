@@ -15,6 +15,8 @@
 #import "CloudKeychainManager.h"
 #import "ServerViewController.h"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"NavigationVC"]
+
 @interface NavigationViewController ()
 
 @property (nonatomic)int current;
@@ -65,8 +67,8 @@ typedef enum {
     if (user.roles.count > 1) {
         [self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
         [self.roleSwitcher removeAllSegments];
-        for (int i = 0; i < user.roles.count; i++) {
-            NSString *title = [user.roles[i] capitalizedString];
+        for (int i = 0; i < user.localizedRoles.count; i++) {
+            NSString *title = user.localizedRoles[i];
             [self.roleSwitcher insertSegmentWithTitle:title atIndex:i animated:NO];
             if ([user.currentRole isEqualToString:user.roles[i]]) {
                 self.roleSwitcher.selectedSegmentIndex = i;
@@ -76,8 +78,8 @@ typedef enum {
     } else {
         self.roleSwitcher.hidden = YES;
     }
-    user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
+    user.currentRole = user.localizedRoles[self.roleSwitcher.selectedSegmentIndex];
+    if (!user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")]) {
         self.agendaButton.hidden = YES;
     } else {
         self.agendaButton.hidden = NO;
@@ -87,7 +89,7 @@ typedef enum {
 - (void)changeRole {
     User *user = [User sharedUser];
     user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
+    if (!user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")]) {
         self.agendaButton.hidden = YES;
     } else {
         self.agendaButton.hidden = NO;
@@ -95,14 +97,14 @@ typedef enum {
 
     switch (self.current) {
         case agendaStudent:
-            if ([user.currentRole isEqualToString:@"Teacher"]) {
+            if ([user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_TEACHER")]) {
                 [self performSegueWithIdentifier:@"AgendaTeacher" sender:self];
             } else {
                 [self performSegueWithIdentifier:@"HomeScreen" sender:self];
             }
             break;
         case agendaTeacher:
-            if ([user.currentRole isEqualToString:@"Student"]) {
+            if ([user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
                 [self performSegueWithIdentifier:@"AgendaStudent" sender:self];
             } else {
                 [self performSegueWithIdentifier:@"HomeScreen" sender:self];
@@ -118,10 +120,10 @@ typedef enum {
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
 
     if ([segue.identifier isEqualToString:@"AgendaStudent"]) {
-        dest.title = @"Agenda";
+        dest.title = LOCALIZEDSTRING(@"AGENDA_TITLE");
         self.current = agendaStudent;
     } else if ([segue.identifier isEqualToString:@"AgendaTeacher"]) {
-        dest.title = @"Agenda";
+        dest.title = LOCALIZEDSTRING(@"AGENDA_TITLE");
         self.current = agendaTeacher;
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         self.current = homeScreen;
@@ -157,7 +159,7 @@ typedef enum {
 }
 
 - (IBAction)agendaClicked:(id)sender {
-    if ([[User sharedUser].currentRole isEqualToString:@"Student"]) {
+    if ([[User sharedUser].currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
         [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
     } else {
         [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];

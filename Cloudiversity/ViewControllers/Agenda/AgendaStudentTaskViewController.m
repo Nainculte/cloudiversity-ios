@@ -68,6 +68,8 @@
 	[self.workTitleLabel setFont:[UIFont fontWithName:CLOUD_FONT_BOLD size:self.workTitleLabel.font.pointSize]];
 
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.givenOnLabel.text = LOCALIZEDSTRING(@"TASK_GIVEN_ON");
+    self.dueToLabel.text = LOCALIZEDSTRING(@"TASK_DUE_TO");
     // Do any additional setup after loading the view.
 }
 
@@ -146,17 +148,6 @@
     [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
 	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)sliderValueChanged:(UISlider*)slider {
 	self.pieChartView.percentage = slider.value;

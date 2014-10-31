@@ -9,6 +9,8 @@
 #import "AgendaFilterViewController.h"
 #import "CloudDateConverter.h"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaStudentVC"]
+
 #pragma mark - AgendaFilterRootViewController
 @interface AgendaFilterRootViewController()
 
@@ -68,25 +70,24 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
         XLFormDescriptor * form;
         XLFormSectionDescriptor * section;
 
-#warning to localize
-        form = [XLFormDescriptor formDescriptorWithTitle:@"Filtres"];
+        form = [XLFormDescriptor formDescriptorWithTitle:LOCALIZEDSTRING(@"FILTERS_TITLE")];
 
         // dateFilter
         section = [XLFormSectionDescriptor formSection];
         [form addFormSection:section];
-        self.isFilteringDateRow = [XLFormRowDescriptor formRowDescriptorWithTag:isFilteringDateTag rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Filtrer par date"];
+        self.isFilteringDateRow = [XLFormRowDescriptor formRowDescriptorWithTag:isFilteringDateTag rowType:XLFormRowDescriptorTypeBooleanCheck title:LOCALIZEDSTRING(@"FILTERS_DATE")];
         [section addFormRow:self.isFilteringDateRow];
         self.dateFilterRow = [XLFormRowDescriptor formRowDescriptorWithTag:dateFilterTag rowType:XLFormRowDescriptorTypeDateInline title:@""];
         self.dateFilterRow.value = [NSDate new];
 
-        section = [XLFormSectionDescriptor formSection];
+        section = [XLFormSectionDescriptor formSectionWithTitle:LOCALIZEDSTRING(@"FILTERS_PROGRESS")];
         [form addFormSection:section];
         self.progressFilteringRow = [XLFormRowDescriptor formRowDescriptorWithTag:progressFilteringTag rowType:XLFormRowDescriptorTypeSelectorSegmentedControl];
         self.progressFilteringRow.selectorOptions = self.progresses;
         self.progressFilteringRow.value = [self.progresses objectAtIndex:0];
         [section addFormRow:self.progressFilteringRow];
 
-        self.disciplineFilterSection = [XLFormSectionDescriptor formSectionWithTitle:@"Disciplines à filtrer"];
+        self.disciplineFilterSection = [XLFormSectionDescriptor formSectionWithTitle:LOCALIZEDSTRING(@"FILTERS_DISCIPLINE")];
         [form addFormSection:self.disciplineFilterSection];
         self.form = form;
     }
@@ -95,12 +96,12 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
 
 - (void)viewWillAppear:(BOOL)animated {
     NSArray *disciplines = [self.dataSource getAvailableDisciplinesToFilter];
-    int i = 100;
     self.disciplinesRows = [NSMutableDictionary dictionaryWithCapacity:disciplines.count];
     for (NSInteger i = 0; i < self.disciplineFilterSection.formRows.count; ++i) {
         [self.disciplineFilterSection removeFormRowAtIndex:0];
     }
     XLFormRowDescriptor *row;
+    int i = 100;
     for (NSString *name in disciplines) {
         NSString *tag = [NSString stringWithFormat:@"%d", i++];
         row = [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:XLFormRowDescriptorTypeBooleanCheck title:name];
@@ -163,9 +164,9 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
 -(NSArray *)progresses {
     if (!_progresses) {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:3];
-        [array addObject:@"À faire"];
-        [array addObject:@"Tous"];
-        [array addObject:@"Terminés"];
+        [array addObject:LOCALIZEDSTRING(@"FILTERS_TODO")];
+        [array addObject:LOCALIZEDSTRING(@"FILTERS_ALL")];
+        [array addObject:LOCALIZEDSTRING(@"FILTERS_DONE")];
         _progresses = array;
     }
     return _progresses;

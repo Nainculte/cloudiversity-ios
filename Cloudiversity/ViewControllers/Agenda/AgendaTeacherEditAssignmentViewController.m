@@ -17,6 +17,8 @@
 #import "CloudLogoCell.h"
 #import "CloudURLCellPicker.h"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaTeacherVC"]
+
 @interface AgendaTeacherEditAssignmentViewController ()
 
 @end
@@ -120,7 +122,7 @@ static NSString *descriptionTag = @"Description";
 {
     self = [self init];
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAdd)];
-    [self initFormWithTitle:@"Add" andrightBarButtonItem:button];
+    [self initFormWithTitle:LOCALIZEDSTRING(@"ADD") andrightBarButtonItem:button];
     return self;
 }
 
@@ -128,7 +130,7 @@ static NSString *descriptionTag = @"Description";
 {
     self = [self init];
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveEdit)];
-    [self initFormWithTitle:@"Edit" andrightBarButtonItem:button];
+    [self initFormWithTitle:LOCALIZEDSTRING(@"EDIT") andrightBarButtonItem:button];
     return self;
 }
 
@@ -144,18 +146,18 @@ static NSString *descriptionTag = @"Description";
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
 
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:titleTag rowType:XLFormRowDescriptorTypeText title:@"Title"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:titleTag rowType:XLFormRowDescriptorTypeText title:LOCALIZEDSTRING(@"TITLE")];
     row.required = YES;
     [section addFormRow:row];
 
     //Due Date
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Due Date"];
+    section = [XLFormSectionDescriptor formSectionWithTitle:LOCALIZEDSTRING(@"DUE_DATE")];
     [form addFormSection:section];
 
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:timePrecisedTag rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Time precised"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:timePrecisedTag rowType:XLFormRowDescriptorTypeBooleanSwitch title:LOCALIZEDSTRING(@"TIME_PRECISED")];
     [section addFormRow:row];
 
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:dueDateTag rowType:XLFormRowDescriptorTypeDateInline title:@"Due date"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:dueDateTag rowType:XLFormRowDescriptorTypeDateInline title:LOCALIZEDSTRING(@"DUE_DATE")];
     row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
     [section addFormRow:row];
 
@@ -164,7 +166,7 @@ static NSString *descriptionTag = @"Description";
     [form addFormSection:section];
 
     row = [XLFormRowDescriptor formRowDescriptorWithTag:descriptionTag rowType:XLFormRowDescriptorTypeTextView];
-    [row.cellConfigAtConfigure setObject:@"Description" forKey:@"textView.placeholder"];
+    [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"DESCRIPTION") forKey:@"textView.placeholder"];
     row.required = YES;
     [section addFormRow:row];
 
@@ -357,7 +359,7 @@ static NSString *descriptionTag = @"Description";
                          andAssignmentID:self.assignment.assignmentId
                                onSuccess:success
                                onFailure:failure];
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
 }
 
 - (NSArray *)formValidationErrors

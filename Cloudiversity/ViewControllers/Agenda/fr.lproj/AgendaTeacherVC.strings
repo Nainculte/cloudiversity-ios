@@ -1,0 +1,18 @@
+/* 
+  AgendaTeacherVC.strings
+  Cloudiversity
+
+  Created by Nainculte on 31/10/2014.
+  Copyright (c) 2014 Cloudiversity. All rights reserved.
+*/
+
+"LOADING" = "Chargement...";
+"ASSIGNMENT" = "devoir";
+"ASSIGNMENTS" = "devoirs";
+
+"ADD" = "Nouveau";
+"EDIT" = "Édition";
+"TITLE" = "Titre";
+"DUE_DATE" = "Date de rendu";
+"TIME_PRECISED" = "Heure précisée";
+"DESCRIPTION" = "Description";

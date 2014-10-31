@@ -14,6 +14,8 @@
 
 @end
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"NavigationVC"]
+
 @implementation User
 
 static User *user;
@@ -67,6 +69,18 @@ static User *user;
     [userDefaults removeObjectForKey:@"currentRole"];
     [userDefaults synchronize];
     [[EGOCache globalCache] clearCache];
+}
+
+- (NSArray *)localizedRoles {
+    if (!_localizedRoles) {
+        NSMutableArray *a = [NSMutableArray array];
+        for (NSString *role in self.roles) {
+            NSString *s = [NSString stringWithFormat:@"ROLE_%@", role.uppercaseString];
+            [a addObject:LOCALIZEDSTRING(s)];
+        }
+        _localizedRoles = [NSArray arrayWithArray:a];
+    }
+    return _localizedRoles;
 }
 
 @end

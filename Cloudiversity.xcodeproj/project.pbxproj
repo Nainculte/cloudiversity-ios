@@ -49,6 +49,8 @@
 		FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */; };
 		FD6717D01972B586001C81B3 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717CE1972B586001C81B3 /* EGOCache.m */; };
 		FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717D31972C2AE001C81B3 /* CloudTableView.m */; };
+		FD7576D91A03AB8B00ABFA00 /* AgendaTeacherVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD7576DB1A03AB8B00ABFA00 /* AgendaTeacherVC.strings */; };
+		FD7576DF1A03C74500ABFA00 /* NavigationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD7576E11A03C74500ABFA00 /* NavigationVC.strings */; };
 		FD7AB96219DEEE450087D933 /* CloudLogoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7AB96119DEEE450087D933 /* CloudLogoCell.m */; };
 		FD854A471952DB37008F046D /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A461952DB37008F046D /* ServerViewController.m */; };
 		FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */; };
@@ -186,6 +188,10 @@
 		FD6717D21972C2AE001C81B3 /* CloudTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudTableView.h; sourceTree = "<group>"; };
 		FD6717D31972C2AE001C81B3 /* CloudTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudTableView.m; sourceTree = "<group>"; };
 		FD6717D51972C2F6001C81B3 /* CloudTableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudTableViewDelegate.h; sourceTree = "<group>"; };
+		FD7576DA1A03AB8B00ABFA00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/AgendaTeacherVC.strings; sourceTree = "<group>"; };
+		FD7576DC1A03AB8D00ABFA00 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AgendaTeacherVC.strings; sourceTree = "<group>"; };
+		FD7576E01A03C74500ABFA00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/NavigationVC.strings; sourceTree = "<group>"; };
+		FD7576E21A03C74C00ABFA00 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/NavigationVC.strings; sourceTree = "<group>"; };
 		FD7AB96019DEEE450087D933 /* CloudLogoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudLogoCell.h; sourceTree = "<group>"; };
 		FD7AB96119DEEE450087D933 /* CloudLogoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudLogoCell.m; sourceTree = "<group>"; };
 		FD854A451952DB37008F046D /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerViewController.h; sourceTree = "<group>"; };
@@ -503,6 +509,7 @@
 				FD29512A197C01A800833473 /* AgendaTeacherClassTableViewCell.m */,
 				FD1EEBEE197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.h */,
 				FD1EEBEF197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m */,
+				FD7576DB1A03AB8B00ABFA00 /* AgendaTeacherVC.strings */,
 			);
 			name = Teacher;
 			sourceTree = "<group>";
@@ -652,6 +659,7 @@
 			children = (
 				FDEA48D919509A270026210D /* NavigationViewController.h */,
 				FDEA48DA19509A270026210D /* NavigationViewController.m */,
+				FD7576E11A03C74500ABFA00 /* NavigationVC.strings */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -757,6 +765,7 @@
 				FDAFAFDA1951D2C90070F396 /* Icon_clear_42x42.png in Resources */,
 				92DB6AF3199D13DE00945122 /* AgendaStudentVC.strings in Resources */,
 				FDAFAFE01951D4F40070F396 /* calendar@2x.png in Resources */,
+				FD7576DF1A03C74500ABFA00 /* NavigationVC.strings in Resources */,
 				FD29512F197C051400833473 /* plus.png in Resources */,
 				FDDA095118F5BA9F000A1029 /* FiraSansOT-Bold.otf in Resources */,
 				FDF8DDFB19280AFE00237054 /* menu.png in Resources */,
@@ -770,6 +779,7 @@
 				FDDA095518F5BA9F000A1029 /* FiraSansOT-Medium.otf in Resources */,
 				FD0F98751923ED72002DF049 /* Main.storyboard in Resources */,
 				FD3FA7CC18FC2F0A0072B731 /* Logo_29x29.png in Resources */,
+				FD7576D91A03AB8B00ABFA00 /* AgendaTeacherVC.strings in Resources */,
 				FD3FA7D418FC3A160072B731 /* Icon_29x29.png in Resources */,
 				FDC90832192A847000646A68 /* AuthenticationVC.strings in Resources */,
 				FDDA095618F5BA9F000A1029 /* FiraSansOT-MediumItalic.otf in Resources */,
@@ -924,6 +934,24 @@
 				92DB6AF7199D13E300945122 /* fr */,
 			);
 			name = AgendaStudentVC.strings;
+			sourceTree = "<group>";
+		};
+		FD7576DB1A03AB8B00ABFA00 /* AgendaTeacherVC.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD7576DA1A03AB8B00ABFA00 /* Base */,
+				FD7576DC1A03AB8D00ABFA00 /* fr */,
+			);
+			name = AgendaTeacherVC.strings;
+			sourceTree = "<group>";
+		};
+		FD7576E11A03C74500ABFA00 /* NavigationVC.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FD7576E01A03C74500ABFA00 /* Base */,
+				FD7576E21A03C74C00ABFA00 /* fr */,
+			);
+			name = NavigationVC.strings;
 			sourceTree = "<group>";
 		};
 		FD854A501952E3FD008F046D /* ServerVC.strings */ = {

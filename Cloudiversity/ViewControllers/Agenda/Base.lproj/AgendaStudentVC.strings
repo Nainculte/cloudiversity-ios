@@ -10,3 +10,15 @@
 "AGENDA_STUDENT_LOADING" = "Loading";
 
 "AGENDA_STUDENT_MODULE_NAME" = "Agenda";
+
+"FILTERS_TITLE" = "Filters";
+"FILTERS_DATE" = "Filter by date";
+"FILTERS_DISCIPLINE" = "Disciplines to filter";
+"FILTERS_PROGRESS" = "Filter by progress";
+"FILTERS_TODO" = "To Do";
+"FILTERS_ALL" = "All";
+"FILTERS_DONE" = "Done";
+
+"TASK_GIVEN_ON" = "Given on:";
+"TASK_DUE_TO" = "Due on:";
+
