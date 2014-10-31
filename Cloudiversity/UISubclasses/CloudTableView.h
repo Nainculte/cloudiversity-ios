@@ -11,9 +11,9 @@
 
 @interface CloudTableView : UITableView {
     struct {
-        unsigned int delegateWillReloadData:1;
-        unsigned int delegateDidReloadData:1;
-        unsigned int reloading:1;
+        NSUInteger delegateWillReloadData:1;
+        NSUInteger delegateDidReloadData:1;
+        NSUInteger reloading:1;
     } _flags;
 }
 @end

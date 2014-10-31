@@ -30,7 +30,7 @@
 
 - (void)reloadTableView;
 
-- (NSString *)reuseIdentifier;
+@property (nonatomic, readonly, copy) NSString *reuseIdentifier;
 + (Class)cellClass;
 
 - (void)setupCell:(UITableViewCell *)cell withIndexPath:(NSIndexPath *)indexPath;

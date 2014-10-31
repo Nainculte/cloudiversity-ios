@@ -24,7 +24,7 @@
 
 @implementation AuthenticationRootViewController
 
-- (id) init {
+- (instancetype) init {
     AuthenticationViewController *vc = [[AuthenticationViewController alloc] init];
     self = [super initWithRootViewController:vc];
     return self;
@@ -63,11 +63,11 @@ NSString *const sepaTag = @"Sep";
 
 #pragma mark - Initialization
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         [self configureForm];
@@ -98,17 +98,17 @@ NSString *const sepaTag = @"Sep";
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:userTag rowType:@"CloudTextFieldCell"];
     row.cellClass = [CloudTextFieldCell class];
-    [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"USERNAME") forKey:@"textField.placeholder"];
-    [row.cellConfigAtConfigure setObject:@0 forKey:@"isPassword"];
+    (row.cellConfigAtConfigure)[@"textField.placeholder"] = LOCALIZEDSTRING(@"USERNAME");
+    (row.cellConfigAtConfigure)[@"isPassword"] = @0;
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:passwordTag rowType:@"CloudTextFieldCell"];
     row.cellClass = [CloudTextFieldCell class];
-    [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"PASSWORD") forKey:@"textField.placeholder"];
-    [row.cellConfigAtConfigure setObject:@1 forKey:@"isPassword"];
-    [row.cellConfigAtConfigure setObject:self forKey:@"delegate"];
+    (row.cellConfigAtConfigure)[@"textField.placeholder"] = LOCALIZEDSTRING(@"PASSWORD");
+    (row.cellConfigAtConfigure)[@"isPassword"] = @1;
+    (row.cellConfigAtConfigure)[@"delegate"] = self;
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
@@ -121,14 +121,14 @@ NSString *const sepaTag = @"Sep";
     row.cellClass = [CloudSeparatorCell class];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:buttonCellTag rowType:XLFormRowDescriptorTypeButton title:LOCALIZEDSTRING(@"CONNECT")];
-    [row.cellConfigAtConfigure setObject:[UIColor cloudLightBlue] forKey:@"textLabel.textColor"];
+    (row.cellConfigAtConfigure)[@"textLabel.textColor"] = [UIColor cloudLightBlue];
 //    row.disabled = YES;
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:cancelTag rowType:XLFormRowDescriptorTypeButton title:LOCALIZEDSTRING(@"CANCEL")];
-    [row.cellConfigAtConfigure setObject:[UIColor cloudRed] forKey:@"textLabel.textColor"];
+    (row.cellConfigAtConfigure)[@"textLabel.textColor"] = [UIColor cloudRed];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
@@ -178,7 +178,7 @@ NSString *const sepaTag = @"Sep";
     }
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
-        User *user = [User withEmail:[response objectForKey:@"email"] andToken:[response objectForKey:@"token"]];
+        User *user = [User withEmail:response[@"email"] andToken:response[@"token"]];
         self.user = user;
         [self endLoginWithSuccess:true];
     };
@@ -207,9 +207,9 @@ NSString *const sepaTag = @"Sep";
 - (void)checkLogin {
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
-        self.user.firstName = [response objectForKey:@"first_name"];
-        self.user.lastName = [response objectForKey:@"last_name"];
-        self.user.roles = [response objectForKey:@"roles"];
+        self.user.firstName = response[@"first_name"];
+        self.user.lastName = response[@"last_name"];
+        self.user.roles = response[@"roles"];
         if (!self.user.currentRole && self.user.roles.count) {
             self.user.currentRole = self.user.roles[0];
         }

@@ -99,8 +99,8 @@
 
     [self.rightTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 
-    [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", [self.leftSelectors objectAtIndex:0], self.rowDescriptor.required ? @"*" : @""] forState:UIControlStateNormal];
-    [self.leftButton setTitleColor:[self.colors objectAtIndex:[self.selectedIndex integerValue]] forState:UIControlStateNormal];
+    [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", (self.leftSelectors)[0], self.rowDescriptor.required ? @"*" : @""] forState:UIControlStateNormal];
+    [self.leftButton setTitleColor:(self.colors)[[self.selectedIndex integerValue]] forState:UIControlStateNormal];
 }
 
 - (void)update {
@@ -109,7 +109,7 @@
     self.rightTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.rightTextField.text = self.text ? self.text : self.rowDescriptor.noValueDisplayText;
     [self updateValue];
-    [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", [self.leftSelectors objectAtIndex:[self.selectedIndex unsignedIntegerValue]], self.rowDescriptor.required ? @"*" : @""] forState:UIControlStateNormal];
+    [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", (self.leftSelectors)[[self.selectedIndex unsignedIntegerValue]], self.rowDescriptor.required ? @"*" : @""] forState:UIControlStateNormal];
     [self.leftButton addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -155,8 +155,8 @@
     if (buttonIndex >= 0){
         NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
         [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", title, self.rowDescriptor.required ? @"*" : @""] forState:UIControlStateNormal];
-        [self.leftButton setTitleColor:[self.colors objectAtIndex:buttonIndex] forState:UIControlStateNormal];
-        self.selectedIndex = [NSNumber numberWithInteger:buttonIndex];
+        [self.leftButton setTitleColor:(self.colors)[buttonIndex] forState:UIControlStateNormal];
+        self.selectedIndex = @(buttonIndex);
         [self updateValue];
     }
 }
@@ -191,7 +191,7 @@
 
 - (void)updateValue {
     if (self.text.length) {
-        self.rowDescriptor.value = [NSString stringWithFormat:@"%@://%@", [self.leftSelectors objectAtIndex:[self.selectedIndex integerValue]], self.text];
+        self.rowDescriptor.value = [NSString stringWithFormat:@"%@://%@", (self.leftSelectors)[[self.selectedIndex integerValue]], self.text];
     } else {
         self.rowDescriptor.value = nil;
     }

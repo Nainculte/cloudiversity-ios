@@ -12,11 +12,11 @@
 
 // Creation of an Assignment with general informations
 // For student
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
             dueDate:(NSDate*)dueDate
        timePrecised:(BOOL)timePrecised
-		   progress:(int)progress
+		   progress:(NSInteger)progress
 	  forDissipline:(NSDictionary*)dissipline {
 	self = [super init];
 	
@@ -33,8 +33,8 @@
 }
 
 // For teacher
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
             dueDate:(NSDate*)dueDate
        timePrecised:(BOOL)timePrecised
 	  forDissipline:(NSDictionary*)dissipline
@@ -55,8 +55,8 @@
 
 // Creation of an Assignment with detailed informations
 // For teacher
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
             dueTime:(NSDate*)dueTime
        timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
@@ -82,12 +82,12 @@
 }
 
 // For student
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
             dueTime:(NSDate*)dueTime
        timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
-		andProgress:(int)progress {
+		andProgress:(NSInteger)progress {
 	self = [super init];
 	
 	if (self) {
@@ -104,7 +104,7 @@
 
 #pragma mark - Old initializers for testing
 
-- (id)initWithTitle:(NSString*)title
+- (instancetype)initWithTitle:(NSString*)title
 		description:(NSString*)description
 			DueDate:(NSDate*)dueDate
 			inField:(NSString*)field
@@ -126,7 +126,7 @@
 	return self;
 }
 
-- (id)initWithTitle:(NSString *)title
+- (instancetype)initWithTitle:(NSString *)title
 		description:(NSString *)description
 	DueDateByString:(NSString *)dueDateString
 			inField:(NSString*)field
@@ -154,7 +154,7 @@ withPercentageOfCompletion:(float)percentageCompletion
 
 #pragma mark - NSCoding protocol implementation
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
 	self = [super init];
 	if(self) {
         //decode properties, other class vars
@@ -181,18 +181,18 @@ withPercentageOfCompletion:(float)percentageCompletion
 	[aCoder encodeObject:self.dissiplineInformation forKey:@"field"];
 	[aCoder encodeObject:self.classInformation forKey:@"className"];
 	[aCoder encodeObject:self.dueDate forKey:@"dueDate"];
-    [aCoder encodeObject:[NSNumber numberWithBool:self.timePrecised] forKey:@"timePrecised"];
+    [aCoder encodeObject:@(self.timePrecised) forKey:@"timePrecised"];
 	[aCoder encodeObject:self.lastUpdate forKey:@"lastUpdate"];
 	[aCoder encodeObject:self.creationDate forKey:@"creationDate"];
-	[aCoder encodeInt:self.progress forKey:@"percentageCompletion"];
-	[aCoder encodeInt:self.assignmentId forKey:@"assignmentId"];
+	[aCoder encodeInteger:self.progress forKey:@"percentageCompletion"];
+	[aCoder encodeInteger:self.assignmentId forKey:@"assignmentId"];
 
 	[aCoder encodeBool:self.isMarked forKey:@"isMarked"];
 	[aCoder encodeBool:self.isExam forKey:@"isExam"];
 }
 
 - (NSString*)debugDescription {
-	return [NSString stringWithFormat:@"%@ <%p> : \n\ttitle => %@; id => %d, discipline's name => %@, discipline's id => %d, dueDate => %@; progress => %d", self.class, &self, self.title, self.assignmentId, [self.dissiplineInformation objectForKey:@"name"], [[self.dissiplineInformation objectForKey:@"id"] intValue], self.dueDate, self.progress];
+    return [NSString stringWithFormat:@"%@ <%p> : \n\ttitle => %@; id => %@, discipline's name => %@, discipline's id => %@, dueDate => %@; progress => %@", self.class, &self, self.title, @(self.assignmentId), (self.dissiplineInformation)[@"name"], @([(self.dissiplineInformation)[@"id"] integerValue]), self.dueDate, @(self.progress)];
 }
 
 @end

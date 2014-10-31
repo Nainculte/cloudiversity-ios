@@ -19,7 +19,7 @@
 
 @interface NavigationViewController ()
 
-@property (nonatomic)int current;
+@property (nonatomic, assign) NSInteger current;
 
 - (IBAction)agendaClicked:(id)sender;
 
@@ -27,13 +27,13 @@
 
 @implementation NavigationViewController
 
-typedef enum {
+typedef NS_ENUM(NSInteger, state) {
     homeScreen = 0,
     agendaStudent,
     agendaTeacher
-} state;
+} ;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -67,7 +67,7 @@ typedef enum {
     if (user.roles.count > 1) {
         [self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
         [self.roleSwitcher removeAllSegments];
-        for (int i = 0; i < user.localizedRoles.count; i++) {
+        for (NSInteger i = 0; i < user.localizedRoles.count; i++) {
             NSString *title = user.localizedRoles[i];
             [self.roleSwitcher insertSegmentWithTitle:title atIndex:i animated:NO];
             if ([user.currentRole isEqualToString:user.roles[i]]) {

@@ -32,7 +32,7 @@
 
 @implementation AgendaTeacherClassViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -101,13 +101,13 @@
 
         [bself.assignments removeAllObjects];
         for (NSDictionary *assignmentDico in response) {
-            NSString *dueTimeString = ([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : [assignmentDico objectForKey:DICO_DUETIME]);
-            NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", [assignmentDico objectForKey:DICO_DEADLINE], dueTimeString];
-            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:[assignmentDico objectForKey:DICO_TITLE]
-                                                                            withId:[[assignmentDico objectForKey:DICO_ID] intValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime]
-                                                                      timePrecised:[[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? NO : YES
-                                                                          progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue]
-                                                                     forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
+            NSString *dueTimeString = ([assignmentDico[DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : assignmentDico[DICO_DUETIME]);
+            NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", assignmentDico[DICO_DEADLINE], dueTimeString];
+            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:assignmentDico[DICO_TITLE]
+                                                                            withId:[assignmentDico[DICO_ID] integerValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime]
+                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] == [NSNull class] ? NO : YES
+                                                                          progress:[assignmentDico[DICO_PROGRESS] integerValue]
+                                                                     forDissipline:assignmentDico[DICO_DISCIPLINE]];
             [bself.assignments addObject:assignment];
         }
 
@@ -159,16 +159,16 @@
 - (void)sortAssignments
 {
     self.sections = [NSMutableDictionary dictionary];
-    self.sortedSections = [NSArray array];
+    self.sortedSections = @[];
 
     for (AgendaAssignment *assignment in self.assignments) {
         NSDate* date = [[CloudDateConverter sharedMager] convertDate:assignment.dueDate toFormat:CloudDateConverterFormatDate];
 
-        NSMutableArray *assignmentsByDatesArray = [self.sections objectForKey:date];
+        NSMutableArray *assignmentsByDatesArray = (self.sections)[date];
 
         if (assignmentsByDatesArray == nil) {
             assignmentsByDatesArray = [NSMutableArray array];
-            [self.sections setObject:assignmentsByDatesArray forKey:date];
+            (self.sections)[date] = assignmentsByDatesArray;
         }
 
         [assignmentsByDatesArray addObject:assignment];
@@ -180,7 +180,7 @@
     // Sorting assignments of each array by dueTime
 
     for (NSDate *date in self.sortedSections) {
-        NSArray *assignments = [self.sections objectForKey:date];
+        NSArray *assignments = (self.sections)[date];
 
         assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             AgendaAssignment *assignment1 = (AgendaAssignment *)obj1;
@@ -195,7 +195,7 @@
         // remove the unsorted array...
         [self.sections removeObjectForKey:date];
         // ...then replace it by the sorted one
-        [self.sections setObject:assignments forKey:date];
+        (self.sections)[date] = assignments;
     }
 }
 
@@ -216,7 +216,7 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     /* Create custom view to display section header... */
     CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:[self.sortedSections objectAtIndex:section]];
+    NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:(self.sortedSections)[section]];
     label.text = headerTitle;
     [view addSubview:label];
     view.backgroundColor = [UIColor cloudGrey];
@@ -242,7 +242,7 @@
     self.editedAssignment = [self assignmentForIndexPath:indexPath];
     [self.assignments removeObject:self.editedAssignment];
     HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.editedAssignment.assignmentDescription = [((NSDictionary *)(responseObject)) objectForKey:@"wording"];
+        self.editedAssignment.assignmentDescription = ((NSDictionary *)(responseObject))[@"wording"];
         AgendaTeacherEditAssignmentViewController *vc = [[AgendaTeacherEditAssignmentViewController alloc] initWithDisciplineID:self.disciplineID withClassID:self.classID andAssignment:self.editedAssignment presenter:self];
         [self presentViewController:vc animated:YES completion:^{
             //self.editedAssignment = vc.assignment;
@@ -265,13 +265,13 @@
 }
 
 - (NSArray*)getArrayOfAssignmentsForPosition:(NSInteger)position {
-    return [self.sections objectForKey:[self.sortedSections objectAtIndex:position]];
+    return (self.sections)[(self.sortedSections)[position]];
 }
 
 - (AgendaAssignment*)assignmentInArrayOfAssignements:(NSArray*)assignments
                                           atPosition:(NSInteger)position
 {
-    return [assignments objectAtIndex:position];
+    return assignments[position];
 }
 
 - (AgendaAssignment*)assignmentForIndexPath:(NSIndexPath*)indexPath {

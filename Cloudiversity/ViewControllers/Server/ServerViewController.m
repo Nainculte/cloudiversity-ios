@@ -25,7 +25,7 @@
 
 @implementation ServerRootViewController
 
-- (id)init {
+- (instancetype)init {
     ServerViewController *vc = [[ServerViewController alloc] init];
     self = [super initWithRootViewController:vc];
     return self;
@@ -59,7 +59,7 @@ NSString *const sepTag = @"Sep";
 
 #pragma mark - Initialization
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         [self configureForm];
@@ -91,23 +91,23 @@ NSString *const sepTag = @"Sep";
 
     row = [XLFormRowDescriptor formRowDescriptorWithTag:URLTag rowType:@"CloudURLCellPicker"];
     row.cellClass = [CloudURLCellPicker class];
-    [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"ADDRESS") forKey:@"rightTextField.placeholder"];
+    (row.cellConfigAtConfigure)[@"rightTextField.placeholder"] = LOCALIZEDSTRING(@"ADDRESS");
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *server = [defaults objectForKey:@"server"];
     NSRange range;
     if (!server || [server isEqualToString:@""]) {
-        [row.cellConfigAtConfigure setObject:@0 forKey:@"selectedIndex"];
+        (row.cellConfigAtConfigure)[@"selectedIndex"] = @0;
     } else {
         if ((range = [server rangeOfString:@"http://"]).location == NSNotFound) {
-            [row.cellConfigAtConfigure setObject:@0 forKey:@"selectedIndex"];
-            [row.cellConfigAtConfigure setObject:[server substringFromIndex:8] forKey:@"text"];
+            (row.cellConfigAtConfigure)[@"selectedIndex"] = @0;
+            (row.cellConfigAtConfigure)[@"text"] = [server substringFromIndex:8];
         } else {
-            [row.cellConfigAtConfigure setObject:@1 forKey:@"selectedIndex"];
-            [row.cellConfigAtConfigure setObject:[server substringFromIndex:7] forKey:@"text"];
+            (row.cellConfigAtConfigure)[@"selectedIndex"] = @1;
+            (row.cellConfigAtConfigure)[@"text"] = [server substringFromIndex:7];
         }
     }
-    [row.cellConfigAtConfigure setObject:self forKey:@"delegate"];
+    (row.cellConfigAtConfigure)[@"delegate"] = self;
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
@@ -120,7 +120,7 @@ NSString *const sepTag = @"Sep";
     row.cellClass = [CloudSeparatorCell class];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:buttonTag rowType:XLFormRowDescriptorTypeButton title:LOCALIZEDSTRING(@"SERVER")];
-    [row.cellConfigAtConfigure setObject:[UIColor cloudLightBlue] forKey:@"textLabel.textColor"];
+    (row.cellConfigAtConfigure)[@"textLabel.textColor"] = [UIColor cloudLightBlue];
     [section addFormRow:row];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:sepTag rowType:@"CloudSeparatorCell"];
     row.cellClass = [CloudSeparatorCell class];
@@ -162,7 +162,7 @@ NSString *const sepTag = @"Sep";
 
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
-        if ([response objectForKey:@"version"]) {
+        if (response[@"version"]) {
             [self validURL];
             return ;
         }

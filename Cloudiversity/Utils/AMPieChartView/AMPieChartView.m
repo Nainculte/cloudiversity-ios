@@ -23,7 +23,7 @@
 	self.externalColor = (self.externalColor ? self.externalColor : [UIColor grayColor]);
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -35,7 +35,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame andPercentage:(float)percentage
+- (instancetype)initWithFrame:(CGRect)frame andPercentage:(float)percentage
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -47,7 +47,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 		 percentage:(float)percentage
 	  internalColor:(UIColor *)internalColor
 	  externalColor:(UIColor *)externalColor

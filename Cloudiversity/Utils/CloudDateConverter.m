@@ -25,7 +25,7 @@
 - (NSDateFormatter*)getDateFormatterUsingFormat:(CloudDateConverterFormat)format {
 	NSArray *dateFormatters = @[self.dateAndTimeFormatter, self.dateAtTimeFormatter, self.fullDateAtTimeFormatter, self.dateFormatter, self.fullDateFormatter, self.timeFormatter];
 	
-	return [dateFormatters objectAtIndex:format];
+	return dateFormatters[format];
 }
 
 + (CloudDateConverter*)sharedMager {
@@ -42,7 +42,7 @@
 	return @"00:00";
 }
 
-- (id)init {
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		// setting the timeZone in UTC

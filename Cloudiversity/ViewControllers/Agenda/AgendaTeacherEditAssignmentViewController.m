@@ -25,7 +25,7 @@
 
 @implementation AgendaTeacherEditAssignmentViewController
 
-- (id)initWithDisciplineID:(int)disciplineID withClassID:(int)classID andAssignment:(AgendaAssignment *)assignment presenter:(AgendaTeacherClassViewController *)presenter
+- (instancetype)initWithDisciplineID:(NSInteger)disciplineID withClassID:(NSInteger)classID andAssignment:(AgendaAssignment *)assignment presenter:(AgendaTeacherClassViewController *)presenter
 {
     self.disciplineID = disciplineID;
     self.classID = classID;
@@ -34,7 +34,7 @@
     return [self init];
 }
 
-- (id)init
+- (instancetype)init
 {
     AgendaTeacherEditFormViewController *vc;
     if (self.assignment) {
@@ -95,12 +95,12 @@ static NSString *descriptionTag = @"Description";
             [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
             [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
             [dueDate setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
-            row.value = [NSNumber numberWithBool:YES];
+            row.value = @YES;
         } else {
             [dateFormatter setDateStyle:NSDateFormatterLongStyle];
             [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
             [dueDate setFormDatePickerMode:XLFormDateDatePickerModeDate];
-            row.value = [NSNumber numberWithBool:NO];
+            row.value = @NO;
         }
         dueDate.dateFormatter = dateFormatter;
         row = [self.form formRowWithTag:dueDateTag];
@@ -112,13 +112,13 @@ static NSString *descriptionTag = @"Description";
     }
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     return self;
 }
 
-- (id)initAdd
+- (instancetype)initAdd
 {
     self = [self init];
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAdd)];
@@ -126,7 +126,7 @@ static NSString *descriptionTag = @"Description";
     return self;
 }
 
-- (id)initEdit
+- (instancetype)initEdit
 {
     self = [self init];
     UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveEdit)];
@@ -166,7 +166,7 @@ static NSString *descriptionTag = @"Description";
     [form addFormSection:section];
 
     row = [XLFormRowDescriptor formRowDescriptorWithTag:descriptionTag rowType:XLFormRowDescriptorTypeTextView];
-    [row.cellConfigAtConfigure setObject:LOCALIZEDSTRING(@"DESCRIPTION") forKey:@"textView.placeholder"];
+    (row.cellConfigAtConfigure)[@"textView.placeholder"] = LOCALIZEDSTRING(@"DESCRIPTION");
     row.required = YES;
     [section addFormRow:row];
 
@@ -236,15 +236,15 @@ static NSString *descriptionTag = @"Description";
     HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
         NSDate *date;
-        if ([response objectForKey:@"duetime"] != [NSNull null]) {
+        if (response[@"duetime"] != [NSNull null]) {
             date = [[CloudDateConverter sharedMager] dateAndTimeFromString:[NSString stringWithFormat:@"%@ %@", response[@"deadline"], response[@"duetime"]]];
         } else {
             date = [[CloudDateConverter sharedMager] dateFromString:response[@"deadline"]];
         }
         bself.assignment = [[AgendaAssignment alloc] initWithTitle:response[@"title"]
-                                                            withId:[response[@"id"] intValue]
+                                                            withId:[response[@"id"] integerValue]
                                                            dueTime:date
-                                                      timePrecised:[response objectForKey:@"duetime"] == [NSNull null] ? NO : YES
+                                                      timePrecised:response[@"duetime"] == [NSNull null] ? NO : YES
                                                        description:response[@"wording"]
                                                   withCreationDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"created_at"]]
                                                      andLastUpdate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"updated_at"]]
@@ -313,15 +313,15 @@ static NSString *descriptionTag = @"Description";
     HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
         NSDate *date;
-        if ([response objectForKey:@"duetime"] != [NSNull null]) {
+        if (response[@"duetime"] != [NSNull null]) {
             date = [[CloudDateConverter sharedMager] dateAndTimeFromString:[NSString stringWithFormat:@"%@ %@", response[@"deadline"], response[@"duetime"]]];
         } else {
             date = [[CloudDateConverter sharedMager] dateFromString:response[@"deadline"]];
         }
         bself.assignment = [[AgendaAssignment alloc] initWithTitle:response[@"title"]
-                                                            withId:[response[@"id"] intValue]
+                                                            withId:[response[@"id"] integerValue]
                                                            dueTime:date
-                                                      timePrecised:[response objectForKey:@"duetime"] == [NSNull null] ? NO : YES
+                                                      timePrecised:response[@"duetime"] == [NSNull null] ? NO : YES
                                                        description:response[@"wording"]
                                                   withCreationDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"created_at"]]
                                                      andLastUpdate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"updated_at"]]

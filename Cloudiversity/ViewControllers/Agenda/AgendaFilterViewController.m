@@ -18,14 +18,14 @@
 
 @implementation AgendaFilterRootViewController
 
-- (id)init {
+- (instancetype)init {
     AgendaFilterViewController *vc = [[AgendaFilterViewController alloc] init];
     self = [self initWithRootViewController:vc];
     self.filterVC = vc;
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     return [self init];
 }
 
@@ -64,7 +64,7 @@ static NSString *const dateFilterTag = @"dateFilter";
 static NSString *const progressFilteringTag = @"progressFiltering";
 static NSString *const disciplineFilterTag = @"disciplineFilter";
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         XLFormDescriptor * form;
@@ -84,7 +84,7 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
         [form addFormSection:section];
         self.progressFilteringRow = [XLFormRowDescriptor formRowDescriptorWithTag:progressFilteringTag rowType:XLFormRowDescriptorTypeSelectorSegmentedControl];
         self.progressFilteringRow.selectorOptions = self.progresses;
-        self.progressFilteringRow.value = [self.progresses objectAtIndex:0];
+        self.progressFilteringRow.value = (self.progresses)[0];
         [section addFormRow:self.progressFilteringRow];
 
         self.disciplineFilterSection = [XLFormSectionDescriptor formSectionWithTitle:LOCALIZEDSTRING(@"FILTERS_DISCIPLINE")];
@@ -101,15 +101,15 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
         [self.disciplineFilterSection removeFormRowAtIndex:0];
     }
     XLFormRowDescriptor *row;
-    int i = 100;
+    NSInteger i = 100;
     for (NSString *name in disciplines) {
-        NSString *tag = [NSString stringWithFormat:@"%d", i++];
+        NSString *tag = [NSString stringWithFormat:@"%@", @(i++)];
         row = [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:XLFormRowDescriptorTypeBooleanCheck title:name];
         [self.disciplineFilterSection addFormRow:row];
-        [self.disciplinesRows setObject:row forKey:name];
+        (self.disciplinesRows)[name] = row;
     }
     self.filters = [[self.dataSource getFilters] mutableCopy];
-    self.disciplinesSelected = [NSMutableArray arrayWithArray:[self.filters objectForKey:DISCIPLINE_FILTER_KEY]];
+    self.disciplinesSelected = [NSMutableArray arrayWithArray:(self.filters)[DISCIPLINE_FILTER_KEY]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -124,7 +124,7 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
             NSDate *date = self.dateFilterRow.value;
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy-MM-dd"];
-            [self.filters setObject:[[CloudDateConverter sharedMager] dateFromString:[formatter stringFromDate:date]] forKey:DATE_FILTER_KEY];
+            (self.filters)[DATE_FILTER_KEY] = [[CloudDateConverter sharedMager] dateFromString:[formatter stringFromDate:date]];
         } else {
             [self.dateFilterRow.sectionDescriptor removeFormRow:self.dateFilterRow];
             [self.filters removeObjectForKey:DATE_FILTER_KEY];
@@ -133,7 +133,7 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
         NSDate *date = formRow.value;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy-MM-dd"];
-        [self.filters setObject:[[CloudDateConverter sharedMager] dateFromString:[formatter stringFromDate:date]] forKey:DATE_FILTER_KEY];
+        (self.filters)[DATE_FILTER_KEY] = [[CloudDateConverter sharedMager] dateFromString:[formatter stringFromDate:date]];
     } else if ([formRow.sectionDescriptor isEqual:self.disciplineFilterSection]) {
         NSSet *names = [self.disciplinesRows keysOfEntriesPassingTest:^BOOL(NSString *key, XLFormRowDescriptor *obj, BOOL *stop){
             if ([obj isEqual:formRow]) {
@@ -148,13 +148,13 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
             [self.disciplinesSelected removeObject:name];
         }
         if (self.disciplinesSelected.count) {
-            [self.filters setObject:self.disciplinesSelected forKey:DISCIPLINE_FILTER_KEY];
+            (self.filters)[DISCIPLINE_FILTER_KEY] = self.disciplinesSelected;
         } else {
             [self.filters removeObjectForKey:DISCIPLINE_FILTER_KEY];
         }
     } else if ([formRow.tag isEqual:progressFilteringTag]) {
         NSInteger index = [self.progresses indexOfObject:formRow.value];
-        [self.filters setObject:[NSNumber numberWithInteger:index] forKey:PROGRESS_FILTER_KEY];
+        (self.filters)[PROGRESS_FILTER_KEY] = @(index);
     }
     [self.delegate filtersUpdated:self.filters];
 }

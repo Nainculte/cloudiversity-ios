@@ -14,11 +14,11 @@
 #define DISCIPLINE_FILTER_KEY	@"disciplinesToFilter"
 #define PROGRESS_FILTER_KEY		@"progressFilter" // For To Do | All | Done filter
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, AgendaStudentViewControllerProgressFilterPosition) {
     AgendaStudentViewControllerProgressFilterPositionToDo = 0,
     AgendaStudentViewControllerProgressFilterPositionAll,
     AgendaStudentViewControllerProgressFilterPositionDone,
-} AgendaStudentViewControllerProgressFilterPosition;
+} ;
 
 @protocol AgendaStudentDataSource <NSObject>
 

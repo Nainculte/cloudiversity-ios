@@ -21,7 +21,7 @@
 
 @implementation AgendaTeacherViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -68,7 +68,7 @@
         NSMutableDictionary *disciplines = [NSMutableDictionary dictionary];
 
         for (NSDictionary *discipline in response) {
-            [disciplines setObject:discipline forKey:[discipline objectForKey:@"name"]];
+            disciplines[discipline[@"name"]] = discipline;
         }
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:disciplines] forKey:@"disciplinesTeacher"];
         [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:response] forKey:@"disciplinesArray"];
@@ -123,7 +123,7 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     /* Create custom view to display section header... */
     CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    NSString *headerTitle = [[self.sortedSections objectAtIndex:section] objectForKey:@"name"];
+    NSString *headerTitle = (self.sortedSections)[section][@"name"];
     label.text = headerTitle;
     [view addSubview:label];
     view.backgroundColor = [UIColor cloudGrey];
@@ -134,8 +134,8 @@
 {
     AgendaTeacherTableViewCell *cell = (AgendaTeacherTableViewCell *)c;
 
-    cell.classLabel.text = [[[[self.sortedSections objectAtIndex:indexPath.section] objectForKey:@"school_classes"] objectAtIndex:indexPath.row] objectForKey:@"name"];
-    int nbr = [[[[[self.sortedSections objectAtIndex:indexPath.section] objectForKey:@"school_classes"] objectAtIndex:indexPath.row] valueForKey:@"assignment_count"] intValue];
+    cell.classLabel.text = (self.sortedSections)[indexPath.section][@"school_classes"][indexPath.row][@"name"];
+    NSInteger nbr = [[(self.sortedSections)[indexPath.section][@"school_classes"][indexPath.row] valueForKey:@"assignment_count"] integerValue];
     if (nbr <= 1) {
         cell.assignmentsLabel.text = [NSString stringWithFormat:@"%d %@", nbr, LOCALIZEDSTRING(@"ASSIGNMENT")];
     } else {
@@ -162,7 +162,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[self.sortedSections objectAtIndex:section] objectForKey:@"school_classes"] count];
+    return [(self.sortedSections)[section][@"school_classes"] count];
 }
 
 
@@ -174,12 +174,12 @@
         AgendaTeacherClassViewController *dest = segue.destinationViewController;
 
         NSIndexPath *path  = [self.tableView indexPathForSelectedRow];
-        NSDictionary *discipline = [self.sortedSections objectAtIndex:path.section];
-        dest.disciplineTitle = [discipline objectForKey:@"name"];
-        dest.disciplineID = [[discipline objectForKey:@"id"] intValue];
-        NSDictionary *class = [[discipline objectForKey:@"school_classes"] objectAtIndex:path.row];
-        dest.classTitle = [class objectForKey:@"name"];
-        dest.classID = [[class objectForKey:@"id"] intValue];
+        NSDictionary *discipline = (self.sortedSections)[path.section];
+        dest.disciplineTitle = discipline[@"name"];
+        dest.disciplineID = [discipline[@"id"] integerValue];
+        NSDictionary *class = discipline[@"school_classes"][path.row];
+        dest.classTitle = class[@"name"];
+        dest.classID = [class[@"id"] integerValue];
     }
 }
 

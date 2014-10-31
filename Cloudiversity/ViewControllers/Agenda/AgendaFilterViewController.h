@@ -8,15 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "XLForm.h"
-
-//#import "DSLCalendarView.h"
 #import "SWRevealViewController.h"
 #import "AgendaStudentViewController.h"
 #import "AgendaFilterDelegate.h"
-
-//@interface AgendaFilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DSLCalendarViewDelegate, AgendaStudentDataSource>
-//
-//@end
 
 @class AgendaFilterViewController;
 
