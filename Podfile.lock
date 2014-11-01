@@ -20,14 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - EGOCache (2.1)
   - XLForm (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.3.1)
+  - EGOCache (~> 2.1)
   - XLForm (~> 2.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  EGOCache: bf414333c425fe47f5182351d1dd47ebf72d8352
   XLForm: e065ea92da75acb51a577c40f2bb540c814982a3
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.4

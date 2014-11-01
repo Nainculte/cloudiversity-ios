@@ -47,7 +47,6 @@
 		FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D318FC3A160072B731 /* Icon_500x500.png */; };
 		FD481CB819E0217F0078A7C3 /* CloudURLCellPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = FD481CB719E0217F0078A7C3 /* CloudURLCellPicker.m */; };
 		FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */; };
-		FD6717D01972B586001C81B3 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717CE1972B586001C81B3 /* EGOCache.m */; };
 		FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717D31972C2AE001C81B3 /* CloudTableView.m */; };
 		FD7576D91A03AB8B00ABFA00 /* AgendaTeacherVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD7576DB1A03AB8B00ABFA00 /* AgendaTeacherVC.strings */; };
 		FD7576DF1A03C74500ABFA00 /* NavigationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD7576E11A03C74500ABFA00 /* NavigationVC.strings */; };
@@ -120,8 +119,11 @@
 
 /* Begin PBXFileReference section */
 		0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudiversityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		245A4976133EA458238DF860 /* Pods-CloudiversityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests.release.xcconfig"; sourceTree = "<group>"; };
 		30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cloudiversity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		48782694031E469197773748 /* Pods-Cloudiversity.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.xcconfig"; path = "Pods/Pods-Cloudiversity.xcconfig"; sourceTree = "<group>"; };
+		8A2D6584010F8E186A9DAE23 /* Pods-Cloudiversity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.release.xcconfig"; sourceTree = "<group>"; };
+		8A5CBE49A2484E29DF08C0BB /* Pods-Cloudiversity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.debug.xcconfig"; sourceTree = "<group>"; };
+		925A8126A02A771C1B044395 /* Pods-CloudiversityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests.debug.xcconfig"; sourceTree = "<group>"; };
 		928721071944658500C70168 /* AMPieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPieChartView.h; sourceTree = "<group>"; };
 		928721081944658500C70168 /* AMPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPieChartView.m; sourceTree = "<group>"; };
 		9287210B194466A200C70168 /* AgendaFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaFilterViewController.h; sourceTree = "<group>"; };
@@ -147,7 +149,6 @@
 		E478BB6B18A0E8290068DEB1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E478BB7318A0E8290068DEB1 /* CloudiversityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudiversityTests-Info.plist"; sourceTree = "<group>"; };
 		E478BB7718A0E8290068DEB1 /* CloudiversityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudiversityTests.m; sourceTree = "<group>"; };
-		F48E33669C634B28AB409B52 /* Pods-CloudiversityTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.xcconfig"; path = "Pods/Pods-CloudiversityTests.xcconfig"; sourceTree = "<group>"; };
 		FD0F98741923ED72002DF049 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FD19FB2019059006000B4688 /* UIColor+Cloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Cloud.h"; sourceTree = "<group>"; };
 		FD19FB2119059006000B4688 /* UIColor+Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Cloud.m"; sourceTree = "<group>"; };
@@ -182,9 +183,6 @@
 		FD481CB719E0217F0078A7C3 /* CloudURLCellPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudURLCellPicker.m; sourceTree = "<group>"; };
 		FD49BC6B1927C92500AAA3A6 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		FD6717CD1972B586001C81B3 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
-		FD6717CE1972B586001C81B3 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
-		FD6717CF1972B586001C81B3 /* LICENSEEGOCache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSEEGOCache; sourceTree = "<group>"; };
 		FD6717D21972C2AE001C81B3 /* CloudTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudTableView.h; sourceTree = "<group>"; };
 		FD6717D31972C2AE001C81B3 /* CloudTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudTableView.m; sourceTree = "<group>"; };
 		FD6717D51972C2F6001C81B3 /* CloudTableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudTableViewDelegate.h; sourceTree = "<group>"; };
@@ -291,6 +289,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B7C7B353BCF06D72B6C16B1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8A5CBE49A2484E29DF08C0BB /* Pods-Cloudiversity.debug.xcconfig */,
+				8A2D6584010F8E186A9DAE23 /* Pods-Cloudiversity.release.xcconfig */,
+				925A8126A02A771C1B044395 /* Pods-CloudiversityTests.debug.xcconfig */,
+				245A4976133EA458238DF860 /* Pods-CloudiversityTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		928721061944658500C70168 /* AMPieChartView */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,8 +318,7 @@
 				E478BB7118A0E8290068DEB1 /* CloudiversityTests */,
 				E478BB4B18A0E8290068DEB1 /* Frameworks */,
 				FDDA094318F5BA62000A1029 /* Resources */,
-				48782694031E469197773748 /* Pods-Cloudiversity.xcconfig */,
-				F48E33669C634B28AB409B52 /* Pods-CloudiversityTests.xcconfig */,
+				8B7C7B353BCF06D72B6C16B1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -446,16 +454,6 @@
 			name = Fira;
 			sourceTree = "<group>";
 		};
-		FD6717CC1972B551001C81B3 /* EGOCache */ = {
-			isa = PBXGroup;
-			children = (
-				FD6717CD1972B586001C81B3 /* EGOCache.h */,
-				FD6717CE1972B586001C81B3 /* EGOCache.m */,
-				FD6717CF1972B586001C81B3 /* LICENSEEGOCache */,
-			);
-			path = EGOCache;
-			sourceTree = "<group>";
-		};
 		FD854A441952DB0A008F046D /* Server */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,7 +551,6 @@
 		FDC907E6192A847000646A68 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				FD6717CC1972B551001C81B3 /* EGOCache */,
 				FDC1FA61196C5C0200150F66 /* DejalActivityView */,
 				FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */,
 			);
@@ -814,7 +811,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Cloudiversity-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		88B09367F745417E89309DCC /* Check Pods Manifest.lock */ = {
@@ -859,7 +856,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-CloudiversityTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -885,7 +882,6 @@
 				FDC9083A192A851600646A68 /* AgendaStudentViewController.m in Sources */,
 				FDC90843192A863E00646A68 /* CloudButton.m in Sources */,
 				92C2120D19471D510059B6B4 /* AgendaStudentTableViewCell.m in Sources */,
-				FD6717D01972B586001C81B3 /* EGOCache.m in Sources */,
 				FD1EEBF0197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m in Sources */,
 				FDC90844192A863E00646A68 /* CloudLabel.m in Sources */,
 				FDEA48DB19509A270026210D /* NavigationViewController.m in Sources */,
@@ -1066,7 +1062,7 @@
 		};
 		E478BB7C18A0E8290068DEB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48782694031E469197773748 /* Pods-Cloudiversity.xcconfig */;
+			baseConfigurationReference = 8A5CBE49A2484E29DF08C0BB /* Pods-Cloudiversity.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1089,8 +1085,8 @@
 					SystemConfiguration,
 					"-framework",
 					UIKit,
-					"-v",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1099,7 +1095,7 @@
 		};
 		E478BB7D18A0E8290068DEB1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48782694031E469197773748 /* Pods-Cloudiversity.xcconfig */;
+			baseConfigurationReference = 8A2D6584010F8E186A9DAE23 /* Pods-Cloudiversity.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1117,7 +1113,7 @@
 		};
 		E478BB7F18A0E8290068DEB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F48E33669C634B28AB409B52 /* Pods-CloudiversityTests.xcconfig */;
+			baseConfigurationReference = 925A8126A02A771C1B044395 /* Pods-CloudiversityTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Cloudiversity.app/Cloudiversity";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1140,7 +1136,7 @@
 		};
 		E478BB8018A0E8290068DEB1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F48E33669C634B28AB409B52 /* Pods-CloudiversityTests.xcconfig */;
+			baseConfigurationReference = 245A4976133EA458238DF860 /* Pods-CloudiversityTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Cloudiversity.app/Cloudiversity";
 				FRAMEWORK_SEARCH_PATHS = (
