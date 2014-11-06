@@ -19,12 +19,14 @@
 
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaTeacherVC"]
 
+#pragma mark - AgendaTeacherEditAssignmentViewController
 @interface AgendaTeacherEditAssignmentViewController ()
 
 @end
 
 @implementation AgendaTeacherEditAssignmentViewController
 
+#pragma mark - AgendaTeacherEditAssignmentViewController Initilization
 - (instancetype)initWithDisciplineID:(NSInteger)disciplineID withClassID:(NSInteger)classID andAssignment:(AgendaAssignment *)assignment presenter:(AgendaTeacherClassViewController *)presenter
 {
     self.disciplineID = disciplineID;
@@ -51,6 +53,7 @@
     return self;
 }
 
+#pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -69,6 +72,7 @@
 
 @end
 
+#pragma mark - AgendaTeacherEditFormViewController
 @interface AgendaTeacherEditFormViewController ()
 
 @end
@@ -76,48 +80,13 @@
 
 @implementation AgendaTeacherEditFormViewController
 
+#pragma mark - Constants
 static NSString *titleTag = @"Title";
 static NSString *timePrecisedTag = @"Timeprecised";
 static NSString *dueDateTag = @"DueDate";
 static NSString *descriptionTag = @"Description";
 
-- (void)postInit
-{
-    XLFormRowDescriptor * row;
-    if (self.assignment) {
-        row = [self.form formRowWithTag:titleTag];
-        row.value = self.assignment.title;
-
-        row = [self.form formRowWithTag:timePrecisedTag];
-        XLFormDateCell *dueDate = (XLFormDateCell *)[[self.form formRowWithTag:dueDateTag] cellForFormController:self];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        if (self.assignment.timePrecised) {
-            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-            [dueDate setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
-            row.value = @YES;
-        } else {
-            [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-            [dueDate setFormDatePickerMode:XLFormDateDatePickerModeDate];
-            row.value = @NO;
-        }
-        dueDate.dateFormatter = dateFormatter;
-        row = [self.form formRowWithTag:dueDateTag];
-        row.value = self.assignment.dueDate;
-        [dueDate update];
-
-        row = [self.form formRowWithTag:descriptionTag];
-        row.value = self.assignment.assignmentDescription;
-    }
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    return self;
-}
-
+#pragma mark Initializers
 - (instancetype)initAdd
 {
     self = [self init];
@@ -176,6 +145,38 @@ static NSString *descriptionTag = @"Description";
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
 }
 
+- (void)postInit
+{
+    XLFormRowDescriptor * row;
+    if (self.assignment) {
+        row = [self.form formRowWithTag:titleTag];
+        row.value = self.assignment.title;
+
+        row = [self.form formRowWithTag:timePrecisedTag];
+        XLFormDateCell *dueDate = (XLFormDateCell *)[[self.form formRowWithTag:dueDateTag] cellForFormController:self];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        if (self.assignment.timePrecised) {
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            [dueDate setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
+            row.value = @YES;
+        } else {
+            [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+            [dueDate setFormDatePickerMode:XLFormDateDatePickerModeDate];
+            row.value = @NO;
+        }
+        dueDate.dateFormatter = dateFormatter;
+        row = [self.form formRowWithTag:dueDateTag];
+        row.value = self.assignment.dueDate;
+        [dueDate update];
+
+        row = [self.form formRowWithTag:descriptionTag];
+        row.value = self.assignment.assignmentDescription;
+    }
+}
+
+#pragma mark - Form methods
 - (void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
 {
     [super formRowDescriptorValueHasChanged:formRow oldValue:oldValue newValue:newValue];
@@ -196,6 +197,30 @@ static NSString *descriptionTag = @"Description";
     }
 }
 
+- (NSArray *)formValidationErrors
+{
+    NSMutableArray *result = [NSMutableArray array];
+    NSError *error;
+    XLFormRowDescriptor *row = [self.form formRowWithTag:titleTag];
+    if ((error = [[row cellForFormController:self] formDescriptorCellLocalValidation])) {
+        [result addObject:error];
+    }
+    row = [self.form formRowWithTag:descriptionTag];
+    row.title = @"Description";
+    if ((error = [[row cellForFormController:self] formDescriptorCellLocalValidation])) {
+        [result addObject:error];
+    }
+    row.title = @"";
+    return result;
+}
+
+-(void)showFormValidationError:(NSError *)error
+{
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_TEACHER_ERROR") message:error.localizedDescription delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+    [alertView show];
+}
+
+#pragma mark - Actions
 - (void)cancel
 {
     [self.view endEditing:YES];
@@ -327,11 +352,6 @@ static NSString *descriptionTag = @"Description";
                                                      andLastUpdate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"updated_at"]]
                                                      forDissipline:response[@"discipline"]
                                                            inClass:response[@"school_class"]];
-//        bself.assignment.title = response[@"title"];
-//        bself.assignment.dueDate = date;
-//        bself.assignment.timePrecised = [response objectForKey:@"duetime"] == [NSNull null] ? NO : YES;
-//        bself.assignment.assignmentDescription = response[@"wording"];
-//        bself.assignment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"updated_at"]];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
         [bself dismissViewControllerAnimated:YES completion:^{
@@ -360,29 +380,6 @@ static NSString *descriptionTag = @"Description";
                                onSuccess:success
                                onFailure:failure];
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
-}
-
-- (NSArray *)formValidationErrors
-{
-    NSMutableArray *result = [NSMutableArray array];
-    NSError *error;
-    XLFormRowDescriptor *row = [self.form formRowWithTag:titleTag];
-    if ((error = [[row cellForFormController:self] formDescriptorCellLocalValidation])) {
-        [result addObject:error];
-    }
-    row = [self.form formRowWithTag:descriptionTag];
-    row.title = @"Description";
-    if ((error = [[row cellForFormController:self] formDescriptorCellLocalValidation])) {
-        [result addObject:error];
-    }
-    row.title = @"";
-    return result;
-}
-
--(void)showFormValidationError:(NSError *)error
-{
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-    [alertView show];
 }
 
 @end

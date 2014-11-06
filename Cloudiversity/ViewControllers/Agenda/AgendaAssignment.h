@@ -62,25 +62,6 @@
 		description:(NSString*)description
 		andProgress:(NSInteger)progress;
 
-#pragma mark - Old initializers for testing
-
-- (instancetype)initWithTitle:(NSString*)title
-		description:(NSString*)description
-			DueDate:(NSDate*)dueDate
-			inField:(NSString*)field
-		andIsMarked:(BOOL)isMarked
-		   orAnExam:(BOOL)isExam
-		   forClass:(NSString*)className;
-
-- (instancetype)initWithTitle:(NSString*)title
-		description:(NSString*)description
-	DueDateByString:(NSString*)dueDateString
-			inField:(NSString*)field
-withPercentageOfCompletion:(float)percentageCompletion
-		andIsMarked:(BOOL)isMarked
-		   orAnExam:(BOOL)isExam
-		   forClass:(NSString*)className;
-
 #pragma mark - NSCoding protocol implemantation
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder;

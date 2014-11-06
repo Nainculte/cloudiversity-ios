@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractLogoViewViewController.h"
 #import "XLForm.h"
 
 @interface ServerRootViewController : UINavigationController

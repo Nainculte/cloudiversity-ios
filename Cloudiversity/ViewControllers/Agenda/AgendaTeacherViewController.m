@@ -21,15 +21,7 @@
 
 @implementation AgendaTeacherViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,7 +34,6 @@
     } else {
         [self initAssignmentsByHTTPRequest];
     }
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -54,6 +45,7 @@
     }
 }
 
+#pragma mark - HTTP handlers
 - (void)initAssignmentsByHTTPRequest
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
@@ -89,30 +81,7 @@
     };
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)reloadTableView
-{
-    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
-    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
-}
-
-- (NSString *)reuseIdentifier
-{
-    return @"AgendaTeacherCell";
-}
-
-+ (Class)cellClass
-{
-    return [AgendaTeacherTableViewCell class];
-}
-
 #pragma mark - UITableView Delegate / DataSource
-
 - (CGFloat)tableView:(UITableView *)tableView HeightForHeaderInSection:(NSInteger)section
 {
     return 18;
@@ -137,9 +106,9 @@
     cell.classLabel.text = (self.sortedSections)[indexPath.section][@"school_classes"][indexPath.row][@"name"];
     NSInteger nbr = [[(self.sortedSections)[indexPath.section][@"school_classes"][indexPath.row] valueForKey:@"assignment_count"] integerValue];
     if (nbr <= 1) {
-        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%d %@", nbr, LOCALIZEDSTRING(@"ASSIGNMENT")];
+        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%@ %@", @(nbr), LOCALIZEDSTRING(@"ASSIGNMENT")];
     } else {
-        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%d %@", nbr, LOCALIZEDSTRING(@"ASSIGNMENTS")];
+        cell.assignmentsLabel.text = [NSString stringWithFormat:@"%@ %@", @(nbr), LOCALIZEDSTRING(@"ASSIGNMENTS")];
     }
 }
 
@@ -166,8 +135,23 @@
 }
 
 
-#pragma mark - Navigation
+- (void)reloadTableView
+{
+    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
+    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
+}
 
+- (NSString *)reuseIdentifier
+{
+    return @"AgendaTeacherCell";
+}
+
++ (Class)cellClass
+{
+    return [AgendaTeacherTableViewCell class];
+}
+
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"AssignmentsByClass"]) {

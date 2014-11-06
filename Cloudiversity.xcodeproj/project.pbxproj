@@ -14,8 +14,6 @@
 		92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C21210194731CC0059B6B4 /* AgendaAssignment.m */; };
 		92DB6AF3199D13DE00945122 /* AgendaStudentVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92DB6AF6199D13DE00945122 /* AgendaStudentVC.strings */; };
 		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
-		CE5DACE308E34EB6B7960896 /* libPods-Cloudiversity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */; };
-		DF8DEFCA714840E8879CAA58 /* libPods-CloudiversityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
 		E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */; };
 		E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB5018A0E8290068DEB1 /* UIKit.framework */; };
@@ -52,7 +50,6 @@
 		FD7576DF1A03C74500ABFA00 /* NavigationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD7576E11A03C74500ABFA00 /* NavigationVC.strings */; };
 		FD7AB96219DEEE450087D933 /* CloudLogoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7AB96119DEEE450087D933 /* CloudLogoCell.m */; };
 		FD854A471952DB37008F046D /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A461952DB37008F046D /* ServerViewController.m */; };
-		FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */; };
 		FD854A4E1952E3FD008F046D /* ServerVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD854A501952E3FD008F046D /* ServerVC.strings */; };
 		FD8F82D819080AAA00EDBDBE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8F82D719080AAA00EDBDBE /* Security.framework */; };
 		FDAFAFCE1951CA030070F396 /* sign-out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFCC1951CA030070F396 /* sign-out@2x.png */; };
@@ -118,9 +115,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudiversityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		245A4976133EA458238DF860 /* Pods-CloudiversityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests.release.xcconfig"; sourceTree = "<group>"; };
-		30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cloudiversity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2D6584010F8E186A9DAE23 /* Pods-Cloudiversity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.release.xcconfig"; sourceTree = "<group>"; };
 		8A5CBE49A2484E29DF08C0BB /* Pods-Cloudiversity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.debug.xcconfig"; sourceTree = "<group>"; };
 		925A8126A02A771C1B044395 /* Pods-CloudiversityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -194,8 +189,6 @@
 		FD7AB96119DEEE450087D933 /* CloudLogoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudLogoCell.m; sourceTree = "<group>"; };
 		FD854A451952DB37008F046D /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerViewController.h; sourceTree = "<group>"; };
 		FD854A461952DB37008F046D /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
-		FD854A491952DDC2008F046D /* AbstractLogoViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractLogoViewViewController.h; sourceTree = "<group>"; };
-		FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractLogoViewViewController.m; sourceTree = "<group>"; };
 		FD854A4F1952E3FD008F046D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/ServerVC.strings; sourceTree = "<group>"; };
 		FD854A511952E404008F046D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ServerVC.strings; sourceTree = "<group>"; };
 		FD8F82D719080AAA00EDBDBE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -271,7 +264,6 @@
 				E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */,
 				E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */,
 				E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */,
-				CE5DACE308E34EB6B7960896 /* libPods-Cloudiversity.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +274,6 @@
 				E478BB6C18A0E8290068DEB1 /* XCTest.framework in Frameworks */,
 				E478BB6E18A0E8290068DEB1 /* UIKit.framework in Frameworks */,
 				E478BB6D18A0E8290068DEB1 /* Foundation.framework in Frameworks */,
-				DF8DEFCA714840E8879CAA58 /* libPods-CloudiversityTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,8 +322,6 @@
 				E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */,
 				E478BB5018A0E8290068DEB1 /* UIKit.framework */,
 				E478BB6B18A0E8290068DEB1 /* XCTest.framework */,
-				30F8BBF926834BFC8E391F42 /* libPods-Cloudiversity.a */,
-				0AB0D82D06D04141B568CACB /* libPods-CloudiversityTests.a */,
 				FD2C4E1A19BDD8B200D66D40 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -467,8 +456,6 @@
 		FD854A481952DD87008F046D /* Abstracts */ = {
 			isa = PBXGroup;
 			children = (
-				FD854A491952DDC2008F046D /* AbstractLogoViewViewController.h */,
-				FD854A4A1952DDC2008F046D /* AbstractLogoViewViewController.m */,
 				FDCEE15C196D8B9D002B3579 /* AbstractViewController.h */,
 				FDCEE15D196D8B9D002B3579 /* AbstractViewController.m */,
 				FD241484197412210069618E /* AbstractTableViewController.h */,
@@ -875,7 +862,6 @@
 				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
 				FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */,
 				FD7AB96219DEEE450087D933 /* CloudLogoCell.m in Sources */,
-				FD854A4B1952DDC2008F046D /* AbstractLogoViewViewController.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
 				FD854A471952DB37008F046D /* ServerViewController.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,

@@ -49,15 +49,7 @@
 
 @implementation AgendaStudentTaskViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View life
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,7 +62,6 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.givenOnLabel.text = LOCALIZEDSTRING(@"TASK_GIVEN_ON");
     self.dueToLabel.text = LOCALIZEDSTRING(@"TASK_DUE_TO");
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -98,13 +89,7 @@
 	[super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - testDatas
+#pragma mark - Assignment initialization
 
 #define SAVING_PLACE_ASSIGNMENT	@"agendaTmpPlaceForAssignment"
 
@@ -145,10 +130,11 @@
                           cancelButtonTitle:@"Ok"
                           otherButtonTitles:nil] show];
 	};
-    [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")].showNetworkActivityIndicator = YES;
 	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
 }
 
+#pragma mark - PieChart update
 - (void)sliderValueChanged:(UISlider*)slider {
 	self.pieChartView.percentage = slider.value;
 }

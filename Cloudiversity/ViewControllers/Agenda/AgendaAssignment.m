@@ -102,56 +102,6 @@
 	return self;
 }
 
-#pragma mark - Old initializers for testing
-
-- (instancetype)initWithTitle:(NSString*)title
-		description:(NSString*)description
-			DueDate:(NSDate*)dueDate
-			inField:(NSString*)field
-		andIsMarked:(BOOL)isMarked
-		   orAnExam:(BOOL)isExam
-		   forClass:(NSString*)className {
-	
-	self = [super init];
-
-	if (self) {
-		self.title = title;
-		self.assignmentDescription = description;
-		self.dueDate = dueDate;
-		self.progress = 0;
-		self.dissiplineInformation = @{@"name": field};
-		self.classInformation = @{@"name": className};
-	}
-	
-	return self;
-}
-
-- (instancetype)initWithTitle:(NSString *)title
-		description:(NSString *)description
-	DueDateByString:(NSString *)dueDateString
-			inField:(NSString*)field
-withPercentageOfCompletion:(float)percentageCompletion
-		andIsMarked:(BOOL)isMarked
-		   orAnExam:(BOOL)isExam
-		   forClass:(NSString*)className {
-	
-	NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-	[dateFormat setDateFormat:@"yyyy-MM-dd"];
-
-	self = [self initWithTitle:title
-				   description:description
-					   DueDate:[dateFormat dateFromString:dueDateString]
-					   inField:field
-				   andIsMarked:isMarked
-					  orAnExam:isExam
-					  forClass:className];
-	if (self) {
-		self.progress = percentageCompletion;
-	}
-	
-	return self;
-}
-
 #pragma mark - NSCoding protocol implementation
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {

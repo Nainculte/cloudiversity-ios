@@ -59,11 +59,13 @@
 
 @implementation AgendaFilterViewController
 
+#pragma mark - Constants
 static NSString *const isFilteringDateTag = @"isFilteringDate";
 static NSString *const dateFilterTag = @"dateFilter";
 static NSString *const progressFilteringTag = @"progressFiltering";
 static NSString *const disciplineFilterTag = @"disciplineFilter";
 
+#pragma mark - Initializers
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -94,6 +96,7 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
     return self;
 }
 
+#pragma mark - View life cycle
 - (void)viewWillAppear:(BOOL)animated {
     NSArray *disciplines = [self.dataSource getAvailableDisciplinesToFilter];
     self.disciplinesRows = [NSMutableDictionary dictionaryWithCapacity:disciplines.count];
@@ -117,6 +120,7 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
     self.tableView.frame = CGRectMake(52, self.tableView.frame.origin.y, self.tableView.frame.size.width - 52, self.tableView.frame.size.height);
 }
 
+#pragma mark - Form methods
 - (void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue {
     if ([formRow.tag isEqual:isFilteringDateTag]) {
         if ([formRow.value boolValue]) {
@@ -160,7 +164,6 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
 }
 
 #pragma mark - Properties
-
 -(NSArray *)progresses {
     if (!_progresses) {
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:3];

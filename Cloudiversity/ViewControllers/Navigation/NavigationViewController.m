@@ -33,22 +33,13 @@ typedef NS_ENUM(NSInteger, state) {
     agendaTeacher
 } ;
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor cloudDarkGrey];
 
     [self initRoleSwitcher];
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,12 +47,7 @@ typedef NS_ENUM(NSInteger, state) {
     [self initRoleSwitcher];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma Role management
 - (void)initRoleSwitcher {
     User *user = [User sharedUser];
     if (user.roles.count > 1) {
@@ -114,6 +100,15 @@ typedef NS_ENUM(NSInteger, state) {
     //do stuff to change the front view controller depending on the role
 }
 
+#pragma mark - Navigation
+- (IBAction)agendaClicked:(id)sender {
+    if ([[User sharedUser].currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
+        [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
+    } else {
+        [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
@@ -152,16 +147,9 @@ typedef NS_ENUM(NSInteger, state) {
     }];
 }
 
+#pragma mark - Styling
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-- (IBAction)agendaClicked:(id)sender {
-    if ([[User sharedUser].currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
-        [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
-    } else {
-        [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];
-    }
 }
 @end

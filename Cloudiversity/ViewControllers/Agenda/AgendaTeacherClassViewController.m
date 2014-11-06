@@ -27,20 +27,11 @@
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
-- (IBAction)newAssignment:(UIBarButtonItem *)sender;
 @end
 
 @implementation AgendaTeacherClassViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -69,6 +60,7 @@
     [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:self.assignments] forKey:[NSString stringWithFormat:@"%@/%@", self.disciplineTitle, self.classTitle]];
 }
 
+#pragma mark - Styling
 - (void)setupTitle
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 136, 44)];
@@ -92,6 +84,7 @@
     self.navigationItem.titleView = view;
 }
 
+#pragma mark - HTTP handlers
 - (void)setupHandlers
 {
     BSELF(self)
@@ -133,29 +126,7 @@
     [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
 }
 
-- (void)reloadTableView {
-    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
-    [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
-}
-
-- (NSString *)reuseIdentifier
-{
-    return @"AgendaTeacherAssignments";
-}
-
-+ (Class)cellClass
-{
-    return [AgendaTeacherClassTableViewCell class];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Generate sections / Sort assignments
-
 - (void)sortAssignments
 {
     self.sections = [NSMutableDictionary dictionary];
@@ -264,6 +235,22 @@
     [self.refreshControl endRefreshing];
 }
 
+- (void)reloadTableView {
+    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
+    [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
+}
+
+- (NSString *)reuseIdentifier
+{
+    return @"AgendaTeacherAssignments";
+}
+
++ (Class)cellClass
+{
+    return [AgendaTeacherClassTableViewCell class];
+}
+
+#pragma mark - Convenience methods
 - (NSArray*)getArrayOfAssignmentsForPosition:(NSInteger)position {
     return (self.sections)[(self.sortedSections)[position]];
 }
@@ -284,13 +271,6 @@
 
 
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
 
 - (IBAction)newAssignment:(UIBarButtonItem *)sender {
     AgendaTeacherEditAssignmentViewController *vc = [[AgendaTeacherEditAssignmentViewController alloc] initWithDisciplineID:self.disciplineID withClassID:self.classID andAssignment:nil presenter:self];

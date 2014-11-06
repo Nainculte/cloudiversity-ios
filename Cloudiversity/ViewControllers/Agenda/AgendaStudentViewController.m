@@ -48,101 +48,7 @@
 
 @implementation AgendaStudentViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)setupHandlers
-{
-    BSELF(self)
-    self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *response = (NSArray *)responseObject;
-        
-        NSMutableDictionary *assignmentsByDates = [NSMutableDictionary dictionary];
-        NSArray *sortedDates;
-		NSMutableArray *allDisciplinesName = [NSMutableArray array];
-        
-		// Adding assignments in Arrays grouped by date
-		for (NSDictionary *assignmentDico in response) {
-			// First, we create the Assignment from the Dictionary entrie
-			NSString *dueTimeString = ([assignmentDico[DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : assignmentDico[DICO_DUETIME]);
-			NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", assignmentDico[DICO_DEADLINE], dueTimeString];
-            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:assignmentDico[DICO_TITLE]
-                                                                            withId:[assignmentDico[DICO_ID] integerValue] dueDate:[[CloudDateConverter sharedMager]  dateAndTimeFromString:fullDateAndTime]
-                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] == [NSNull class] ? NO : YES
-                                                                          progress:[assignmentDico[DICO_PROGRESS] integerValue]
-                                                                     forDissipline:assignmentDico[DICO_DISCIPLINE]];
-			         
-			NSDate* date = [[CloudDateConverter sharedMager] convertDate:assignment.dueDate toFormat:CloudDateConverterFormatDate];
-            
-			NSMutableArray *assignmentsByDatesArray = assignmentsByDates[date];
-            
-			if (assignmentsByDatesArray == nil) {
-				assignmentsByDatesArray = [NSMutableArray array];
-				assignmentsByDates[date] = assignmentsByDatesArray;
-			}
-
-			[assignmentsByDatesArray addObject:assignment];
-			
-			// Geting discipline's name, and adding it in allDisciplines if it doesn't exist
-			NSString *disciplineName = (assignment.dissiplineInformation)[DICO_DISCIPLINE_NAME];
-			
-			if (![allDisciplinesName containsObject:disciplineName])
-				[allDisciplinesName addObject:disciplineName];
-		}
-
-		// Sorting keys from  earliest to latest
-		sortedDates = [assignmentsByDates allKeys];
-		sortedDates = [sortedDates sortedArrayUsingSelector:@selector(compare:)];
-
-		// Sorting assignments of each array by dueTime
-
-		for (NSDate *date in sortedDates) {
-			NSArray *assignments = assignmentsByDates[date];
-
-			assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-				AgendaAssignment *assignment1 = (AgendaAssignment *)obj1;
-				AgendaAssignment *assignment2 = (AgendaAssignment *)obj2;
-
-
-				NSDate *date1 = [[CloudDateConverter sharedMager] convertDate:assignment1.dueDate toFormat:CloudDateConverterFormatTime];
-				NSDate *date2 = [[CloudDateConverter sharedMager] convertDate:assignment2.dueDate toFormat:CloudDateConverterFormatTime];
-
-				return [date1 compare:date2];
-			}];
-
-			// remove the unsorted array...
-			[assignmentsByDates removeObjectForKey:date];
-			// ...then replace it by the sorted one
-			assignmentsByDates[date] = assignments;
-		}
-
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsStudentList"];
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedStudentDates"];
-		[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
-        bself.sections = assignmentsByDates;
-        bself.sortedSections = sortedDates;
-		bself.allDisciplinesName = allDisciplinesName;
-		[bself.tableView reloadData];
-        [DejalActivityView removeView];
-        [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
-    };
-    self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR")
-                                    message:error.localizedDescription
-                                   delegate:nil
-                          cancelButtonTitle:@"Ok"
-                          otherButtonTitles:nil] show];
-        [DejalActivityView removeView];
-        [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
-    };
-}
-
+#pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -164,37 +70,102 @@
     } else {
         [self initAssignmentsByHTTPRequest];
     }
-    // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (NSString *)reuseIdentifier
-{
-    return @"agendaStudentCell";
-}
-
-+ (Class)cellClass
-{
-    return [AgendaStudentTableViewCell class];
-}
-
-- (void)reloadTableView
-{
-    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
-    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
-}
-
+#pragma mark - HTTP handlers
 - (void)initAssignmentsByHTTPRequest
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
     [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
+- (void)setupHandlers
+{
+    BSELF(self)
+    self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *response = (NSArray *)responseObject;
+
+        NSMutableDictionary *assignmentsByDates = [NSMutableDictionary dictionary];
+        NSArray *sortedDates;
+        NSMutableArray *allDisciplinesName = [NSMutableArray array];
+
+        // Adding assignments in Arrays grouped by date
+        for (NSDictionary *assignmentDico in response) {
+            // First, we create the Assignment from the Dictionary entrie
+            NSString *dueTimeString = ([assignmentDico[DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : assignmentDico[DICO_DUETIME]);
+            NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", assignmentDico[DICO_DEADLINE], dueTimeString];
+            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:assignmentDico[DICO_TITLE]
+                                                                            withId:[assignmentDico[DICO_ID] integerValue] dueDate:[[CloudDateConverter sharedMager]  dateAndTimeFromString:fullDateAndTime]
+                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] == [NSNull class] ? NO : YES
+                                                                          progress:[assignmentDico[DICO_PROGRESS] integerValue]
+                                                                     forDissipline:assignmentDico[DICO_DISCIPLINE]];
+
+            NSDate* date = [[CloudDateConverter sharedMager] convertDate:assignment.dueDate toFormat:CloudDateConverterFormatDate];
+
+            NSMutableArray *assignmentsByDatesArray = assignmentsByDates[date];
+
+            if (assignmentsByDatesArray == nil) {
+                assignmentsByDatesArray = [NSMutableArray array];
+                assignmentsByDates[date] = assignmentsByDatesArray;
+            }
+
+            [assignmentsByDatesArray addObject:assignment];
+
+            // Geting discipline's name, and adding it in allDisciplines if it doesn't exist
+            NSString *disciplineName = (assignment.dissiplineInformation)[DICO_DISCIPLINE_NAME];
+
+            if (![allDisciplinesName containsObject:disciplineName])
+                [allDisciplinesName addObject:disciplineName];
+        }
+
+        // Sorting keys from  earliest to latest
+        sortedDates = [assignmentsByDates allKeys];
+        sortedDates = [sortedDates sortedArrayUsingSelector:@selector(compare:)];
+
+        // Sorting assignments of each array by dueTime
+
+        for (NSDate *date in sortedDates) {
+            NSArray *assignments = assignmentsByDates[date];
+
+            assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                AgendaAssignment *assignment1 = (AgendaAssignment *)obj1;
+                AgendaAssignment *assignment2 = (AgendaAssignment *)obj2;
+
+
+                NSDate *date1 = [[CloudDateConverter sharedMager] convertDate:assignment1.dueDate toFormat:CloudDateConverterFormatTime];
+                NSDate *date2 = [[CloudDateConverter sharedMager] convertDate:assignment2.dueDate toFormat:CloudDateConverterFormatTime];
+
+                return [date1 compare:date2];
+            }];
+
+            // remove the unsorted array...
+            [assignmentsByDates removeObjectForKey:date];
+            // ...then replace it by the sorted one
+            assignmentsByDates[date] = assignments;
+        }
+
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsStudentList"];
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedStudentDates"];
+        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
+        bself.sections = assignmentsByDates;
+        bself.sortedSections = sortedDates;
+        bself.allDisciplinesName = allDisciplinesName;
+        [bself.tableView reloadData];
+        [DejalActivityView removeView];
+        [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+    };
+    self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
+        [DejalActivityView removeView];
+        [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+    };
+}
+
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([[segue identifier] isEqualToString:@"segueForAssignmentDetails"]) {
 		AgendaStudentTaskViewController *assignmentDetailsVC = [segue destinationViewController];
@@ -213,6 +184,22 @@
 }
 
 #pragma mark - UITableView management
+
+- (NSString *)reuseIdentifier
+{
+    return @"agendaStudentCell";
+}
+
++ (Class)cellClass
+{
+    return [AgendaStudentTableViewCell class];
+}
+
+- (void)reloadTableView
+{
+    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
+    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -351,7 +338,6 @@
 }
 
 #pragma mark - AgendaFilterDelegate protocol
-
 - (void)filtersUpdated:(NSDictionary *)newFilters {
     self.dateToFilter = newFilters[DATE_FILTER_KEY];
     self.disciplinesToFilter = newFilters[DISCIPLINE_FILTER_KEY];
@@ -361,7 +347,6 @@
 }
 
 #pragma mark - AgendaStudentDataSource protocol
-
 - (NSDictionary *)getFilters {
     NSMutableDictionary *filters = [NSMutableDictionary dictionaryWithCapacity:3];
     self.dateToFilter ? filters[DATE_FILTER_KEY] = self.dateToFilter : nil;
@@ -375,15 +360,13 @@
 }
 
 #pragma mark - SWRevealViewControllerDelegate protocol
-
 - (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
 	AgendaFilterViewController *filterViewController = ((AgendaFilterRootViewController *)self.revealViewController.rightViewController).filterVC;
     filterViewController.delegate = self;
     filterViewController.dataSource = self;
 }
 
-#pragma mark - Some methodes to make it easy !
-
+#pragma mark - Some methods to make it easy !
 - (BOOL)haveToShowSection:(NSArray *)section {
 	for (AgendaAssignment *assignment in section) {
 		if ((self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo && assignment.progress != 100) || (self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone && assignment.progress == 100)) {
@@ -393,8 +376,7 @@
 	return NO;
 }
 
-#pragma mark - boolean methodes
-
+#pragma mark - boolean methods
 // Return YES if the given Assignment's progress match the progressFilter value
 - (BOOL)doesAssignmentMatchTheProgressFilterValue:(AgendaAssignment*)assignment {
 	if ((assignment.progress == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
@@ -415,12 +397,10 @@
 			}
 		}
 	}
-	
 	return NO;
 }
 
-#pragma mark - NSInterger methodes (for number of sections and rows requests)
-
+#pragma mark - NSInterger methods (for number of sections and rows requests)
 // Return the number of sections to display if only disciplines are filtered
 - (NSInteger)countNumberOfSectionsToReturnForDisciplinesNames:(NSArray*)disciplinesNames {
 	NSInteger numberOfSections = 0;
@@ -431,7 +411,6 @@
 		if ([self areDisciplines:self.disciplinesToFilter inArrayOfAssignments:assignments])
 			++numberOfSections;
 	}
-	
 	return numberOfSections;
 }
 
@@ -440,7 +419,6 @@
 	if (self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll) {
 		return self.sections.count;
 	}
-	
 	NSInteger numberOfSections = 0;
 	for (NSString *dateKey in self.sortedSections) {
 		NSArray *assignments = (self.sections)[dateKey];
@@ -453,7 +431,6 @@
 			}
 		}
 	}
-	
 	return numberOfSections;
 }
 
@@ -466,7 +443,6 @@
 			[self doesAssignmentMatchTheProgressFilterValue:assignment])
 			++assignmentCounter;
 	}
-	
 	return assignmentCounter;
 }
 
@@ -475,18 +451,15 @@
 	if (self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll) {
 		return assignments.count;
 	}
-	
 	NSInteger numberOfAssignments = 0;
 	for (AgendaAssignment *assignment in assignments) {
 		if ([self doesAssignmentMatchTheProgressFilterValue:assignment])
 			++numberOfAssignments;
 	}
-	
 	return numberOfAssignments;
 }
 
-#pragma mark - NSInteger methodes (for index of section for header)
-
+#pragma mark - NSInteger methods (for index of section for header)
 // Return the correct index of section for the asked position to display in the tableView, when only disciplines are filtered
 - (NSInteger)getIndexOfSectionForDisciplines:(NSArray*)disciplinesNames
 								   atPosition:(NSInteger)position {
@@ -501,7 +474,6 @@
 				return [self.sortedSections indexOfObject:dateKey];
 		}
 	}
-	
 	return NSNotFound;
 }
 
@@ -520,12 +492,10 @@
 			}
 		}
 	}
-	
 	return NSNotFound;
 }
 
-#pragma mark = Array methodes (for array of assignments request)
-
+#pragma mark = Array methods (for array of assignments request)
 // Return the correct Array of assignments for the asked position to display in the tableView, when only disciplines are filtered
 - (NSArray*)getArrayOfAssignmentsForDisciplines:(NSArray*)disciplinesNames
 									 atPosition:(NSInteger)position {
@@ -546,8 +516,7 @@
     return (self.sections)[(self.sortedSections)[position]];
 }
 
-#pragma mark = NSDictionary methodes (for single assignment requests)
-
+#pragma mark = NSDictionary methods (for single assignment requests)
 // Return the asked assignment for the given NSIndexPath (Just for code factoring)
 - (AgendaAssignment*)assignmentForIndexPath:(NSIndexPath*)indexPath {
 	NSArray *assignments;
@@ -589,7 +558,6 @@
 				return assignment;
 		}
 	}
-	
 	return nil;
 }
 
@@ -598,7 +566,6 @@
 									  atPosition:(NSInteger)position
 {
 	NSInteger cnt = -1;
-	
 	for (AgendaAssignment *assignment in assignments) {
 		if ([self doesAssignmentMatchTheProgressFilterValue:assignment]) {
 			++cnt;
@@ -606,19 +573,7 @@
 				return assignment;
 		}
 	}
-	
 	return nil;
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

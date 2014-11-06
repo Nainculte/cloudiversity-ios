@@ -52,23 +52,13 @@
 
 + (CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
-    // return custom cell size
     return 190.0f;
 }
 
 - (BOOL)formDescriptorCellBecomeFirstResponder
 {
-    // custom code
     [self resignFirstResponder];
     return NO;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end
