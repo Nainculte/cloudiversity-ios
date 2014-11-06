@@ -1085,8 +1085,8 @@
 					SystemConfiguration,
 					"-framework",
 					UIKit,
+					"$(inherited)",
 				);
-				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1104,7 +1104,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Cloudiversity/Cloudiversity-Prefix.pch";
 				INFOPLIST_FILE = "Cloudiversity/Cloudiversity-Info.plist";
-				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
