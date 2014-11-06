@@ -7,7 +7,7 @@
 */
 
 "AGENDA_STUDENT_ERROR" = "Error";
-"AGENDA_STUDENT_LOADING" = "Loading";
+"AGENDA_STUDENT_LOADING" = "Loading...";
 
 "AGENDA_STUDENT_MODULE_NAME" = "Agenda";
 

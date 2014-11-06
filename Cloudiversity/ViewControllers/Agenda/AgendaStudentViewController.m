@@ -133,11 +133,11 @@
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
     self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };

@@ -84,14 +84,14 @@
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
 	};
 	if (self.progressBarInput.value != self.assignment.progress) {
-		[DejalActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
+		[DejalActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")].showNetworkActivityIndicator = YES;
 		[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
 	}
 	
@@ -139,11 +139,11 @@
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
 	};
     [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
 	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];

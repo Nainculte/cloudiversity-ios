@@ -7,7 +7,7 @@
 */
 
 "AGENDA_STUDENT_ERROR" = "Erreur";
-"AGENDA_STUDENT_LOADING" = "Chargement";
+"AGENDA_STUDENT_LOADING" = "Chargement...";
 
 "AGENDA_STUDENT_MODULE_NAME" = "Cahier de Texte";
 

@@ -6,6 +6,7 @@
   Copyright (c) 2014 Cloudiversity. All rights reserved.
 */
 
+"AGENDA_TEACHER_ERROR" = "Error";
 "LOADING" = "Loading...";
 "ASSIGNMENT" = "assignment";
 "ASSIGNMENTS" = "assignments";

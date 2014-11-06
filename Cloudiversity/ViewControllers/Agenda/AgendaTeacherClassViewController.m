@@ -117,11 +117,11 @@
     };
 
     self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_TEACHER_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
@@ -129,7 +129,7 @@
 
 - (void)initAssignmentsByHTTPRequest
 {
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
     [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
 }
 
@@ -255,7 +255,7 @@
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
     [IOSRequest getAssignmentInformation:self.editedAssignment.assignmentId onSuccess:success onFailure:failure];
 }
 

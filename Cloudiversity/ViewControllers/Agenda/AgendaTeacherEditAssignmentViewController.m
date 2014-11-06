@@ -259,11 +259,11 @@ static NSString *descriptionTag = @"Description";
     };
 
     HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", operation.response);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_TEACHER_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
@@ -276,7 +276,7 @@ static NSString *descriptionTag = @"Description";
                             withClassID:self.classID
                               onSuccess:success
                               onFailure:failure];
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
 }
 
 - (void)saveEdit
@@ -341,11 +341,11 @@ static NSString *descriptionTag = @"Description";
     };
 
     HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", operation.response);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_TEACHER_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
