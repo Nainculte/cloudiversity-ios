@@ -9,229 +9,170 @@
 #import "AgendaFilterViewController.h"
 #import "CloudDateConverter.h"
 
-#define REUSE_IDENTIFIER	@"fieldCell"
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaStudentVC"]
 
-@interface AgendaFilterViewController ()
-
-@property (weak, nonatomic) IBOutlet DSLCalendarView *calendarView;
-
-// Not used yet, but maybe later
-@property (weak, nonatomic) IBOutlet UISwitch *controlSwitchFilter;
-@property (weak, nonatomic) IBOutlet UISwitch *exercicesSwitchFilter;
-@property (weak, nonatomic) IBOutlet UISwitch *markesTasksSwitchFilter;
-
-@property (strong, nonatomic) NSDateComponents *selectedDay;
-@property (strong, nonatomic) NSMutableArray *selectedDisciplines;
-@property (strong, nonatomic) NSArray *availableDisciplines;
-@property (strong, nonatomic) NSArray *selectedRows;
-@property (weak, nonatomic) IBOutlet UITableView *disciplinesTableView;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *progressFilter;
-
-@property BOOL dayIsSelected;
+#pragma mark - AgendaFilterRootViewController
+@interface AgendaFilterRootViewController()
 
 @end
 
-@implementation AgendaFilterViewController
+@implementation AgendaFilterRootViewController
 
-- (NSMutableArray *)selectedDisciplines {
-	if (_selectedDisciplines == nil) {
-		_selectedDisciplines = [NSMutableArray array];
-	}
-	
-	return _selectedDisciplines;
-}
-
--(void)setAvailableDisciplines:(NSArray *)availableDisciplines {
-	_availableDisciplines = availableDisciplines;
-	[self.disciplinesTableView reloadData];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
+- (instancetype)init {
+    AgendaFilterViewController *vc = [[AgendaFilterViewController alloc] init];
+    self = [self initWithRootViewController:vc];
+    self.filterVC = vc;
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    return [self init];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-	[self.controlSwitchFilter setOn:NO];
-	[self.exercicesSwitchFilter setOn:NO];
-	[self.markesTasksSwitchFilter setOn:NO];
-    self.view.backgroundColor = [UIColor whiteColor];
-	[self.calendarView setDelegate:self];
-
-	[self setDayIsSelected:NO];
+    self.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    self.navigationBar.translucent = NO;
+    [self.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
+    [self.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
+    self.navigationBar.tintColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor cloudGrey];
 }
 
+@end
+
+#pragma mark - AgendaFilterViewController
+@interface AgendaFilterViewController()
+
+@property (nonatomic, strong)XLFormRowDescriptor *isFilteringDateRow;
+@property (nonatomic, strong)XLFormRowDescriptor *dateFilterRow;
+@property (nonatomic, strong)XLFormRowDescriptor *progressFilteringRow;
+@property (nonatomic, strong)XLFormSectionDescriptor *disciplineFilterSection;
+@property (nonatomic, retain)NSMutableDictionary *disciplinesRows;
+
+@property (nonatomic, retain)NSArray *progresses;
+@property (nonatomic, retain)NSMutableDictionary *filters;
+@property (nonatomic, retain)NSMutableArray *disciplinesSelected;
+
+@end
+
+@implementation AgendaFilterViewController
+
+#pragma mark - Constants
+static NSString *const isFilteringDateTag = @"isFilteringDate";
+static NSString *const dateFilterTag = @"dateFilter";
+static NSString *const progressFilteringTag = @"progressFiltering";
+static NSString *const disciplineFilterTag = @"disciplineFilter";
+
+#pragma mark - Initializers
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        XLFormDescriptor * form;
+        XLFormSectionDescriptor * section;
+
+        form = [XLFormDescriptor formDescriptorWithTitle:LOCALIZEDSTRING(@"FILTERS_TITLE")];
+
+        // dateFilter
+        section = [XLFormSectionDescriptor formSection];
+        [form addFormSection:section];
+        self.isFilteringDateRow = [XLFormRowDescriptor formRowDescriptorWithTag:isFilteringDateTag rowType:XLFormRowDescriptorTypeBooleanCheck title:LOCALIZEDSTRING(@"FILTERS_DATE")];
+        [section addFormRow:self.isFilteringDateRow];
+        self.dateFilterRow = [XLFormRowDescriptor formRowDescriptorWithTag:dateFilterTag rowType:XLFormRowDescriptorTypeDateInline title:@""];
+        self.dateFilterRow.value = [NSDate new];
+
+        section = [XLFormSectionDescriptor formSectionWithTitle:LOCALIZEDSTRING(@"FILTERS_PROGRESS")];
+        [form addFormSection:section];
+        self.progressFilteringRow = [XLFormRowDescriptor formRowDescriptorWithTag:progressFilteringTag rowType:XLFormRowDescriptorTypeSelectorSegmentedControl];
+        self.progressFilteringRow.selectorOptions = self.progresses;
+        self.progressFilteringRow.value = (self.progresses)[0];
+        [section addFormRow:self.progressFilteringRow];
+
+        self.disciplineFilterSection = [XLFormSectionDescriptor formSectionWithTitle:LOCALIZEDSTRING(@"FILTERS_DISCIPLINE")];
+        [form addFormSection:self.disciplineFilterSection];
+        self.form = form;
+    }
+    return self;
+}
+
+#pragma mark - View life cycle
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	
-	CGRect newFrame = CGRectMake(self.calendarView.calendarMonthSelector.frame.origin.x, self.calendarView.calendarMonthSelector.frame.origin.y, self.calendarView.frame.size.width, self.calendarView.calendarMonthSelector.frame.size.height);
-	[self.calendarView.calendarMonthSelector setFrame:newFrame];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)updateSwitches:(id)sender {
-	if ([sender isEqual:self.controlSwitchFilter]) {
-		if ([self.controlSwitchFilter isOn]) {
-			[self.exercicesSwitchFilter setOn:NO animated:YES];
-			[self.markesTasksSwitchFilter setOn:NO animated:YES];
-		}
-	} else if ([sender isEqual:self.exercicesSwitchFilter]) {
-		if ([self.exercicesSwitchFilter isOn]) {
-			[self.controlSwitchFilter setOn:NO animated:YES];
-			[self.markesTasksSwitchFilter setOn:NO animated:YES];
-		}
-	} else {
-		if ([self.markesTasksSwitchFilter isOn]) {
-			[self.controlSwitchFilter setOn:NO animated:YES];
-			[self.exercicesSwitchFilter setOn:NO animated:YES];
-		}
-	}
-}
-
-- (IBAction)returnButton:(id)sender {
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-#pragma mark - UITableViewDelegate and dataSource protocol
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSLog(@">>>>>>>>\n%@\n<<<<<<<<<<", self.availableDisciplines);
-	
-	return self.availableDisciplines.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:REUSE_IDENTIFIER];
-	if (!cell) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:REUSE_IDENTIFIER];
-	}
-
-	cell.textLabel.text = [self.availableDisciplines objectAtIndex:[indexPath indexAtPosition:1]];
-	
-	return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *disciplineName = [self.availableDisciplines objectAtIndex:[indexPath indexAtPosition:1]];
-	
-	if (self.selectedDisciplines == nil)
-		self.selectedDisciplines = [NSMutableArray array];
-	if (![self.selectedDisciplines containsObject:disciplineName]) {
-		[self.selectedDisciplines addObject:disciplineName];
-	}
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSString *disciplineName = [self.availableDisciplines objectAtIndex:[indexPath indexAtPosition:1]];
-	
-	if (self.selectedDisciplines == nil)
-		self.selectedDisciplines = [NSMutableArray array];
-	if ([self.selectedDisciplines containsObject:disciplineName]) {
-		[self.selectedDisciplines removeObject:disciplineName];
-	}
-}
-
-#pragma mark - DSLCalendarViewDelegate methods
-
-- (void)calendarView:(DSLCalendarView *)calendarView didSelectRange:(DSLCalendarRange *)range {
-    if (range != nil) {
-        NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
-		if ([self.selectedDay.date compare:range.startDay.date] == NSOrderedSame &&
-			self.selectedDay != nil) {
-			[self.calendarView deselectSelectedDay:self.calendarView.selectedRange.startDay];
-			self.selectedDay = nil;
-		} else {
-			self.selectedDay = range.startDay;
-		}
+    NSArray *disciplines = [self.dataSource getAvailableDisciplinesToFilter];
+    self.disciplinesRows = [NSMutableDictionary dictionaryWithCapacity:disciplines.count];
+    NSUInteger count = self.disciplineFilterSection.formRows.count;
+    for (NSInteger i = 0; i < count; ++i) {
+        [self.disciplineFilterSection removeFormRowAtIndex:0];
     }
-    else {
-        NSLog( @"No selection" );
+    __block XLFormRowDescriptor *row;
+    [disciplines enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL *stop) {
+        NSString *tag = [NSString stringWithFormat:@"%@", @(100 + idx)];
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:XLFormRowDescriptorTypeBooleanCheck title:name];
+        [self.disciplineFilterSection addFormRow:row];
+        (self.disciplinesRows)[name] = row;
+    }];
+    self.filters = [[self.dataSource getFilters] mutableCopy];
+    self.disciplinesSelected = [NSMutableArray arrayWithArray:(self.filters)[DISCIPLINE_FILTER_KEY]];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.tableView.frame = CGRectMake(52, self.tableView.frame.origin.y, self.tableView.frame.size.width - 52, self.tableView.frame.size.height);
+}
+
+#pragma mark - Form methods
+- (void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue {
+    if ([formRow.tag isEqual:isFilteringDateTag]) {
+        if ([formRow.value boolValue]) {
+            [formRow.sectionDescriptor addFormRow:self.dateFilterRow afterRow:formRow];
+            NSDate *date = self.dateFilterRow.value;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd"];
+            (self.filters)[DATE_FILTER_KEY] = [[CloudDateConverter sharedMager] dateFromString:[formatter stringFromDate:date]];
+        } else {
+            [self.dateFilterRow.sectionDescriptor removeFormRow:self.dateFilterRow];
+            [self.filters removeObjectForKey:DATE_FILTER_KEY];
+        }
+    } else if ([formRow.tag isEqual:dateFilterTag]) {
+        NSDate *date = formRow.value;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+        (self.filters)[DATE_FILTER_KEY] = [[CloudDateConverter sharedMager] dateFromString:[formatter stringFromDate:date]];
+    } else if ([formRow.sectionDescriptor isEqual:self.disciplineFilterSection]) {
+        NSSet *names = [self.disciplinesRows keysOfEntriesPassingTest:^BOOL(NSString *key, XLFormRowDescriptor *obj, BOOL *stop){
+            if ([obj isEqual:formRow]) {
+                return YES;
+            }
+            return NO;
+        }];
+        NSString *name = [names anyObject];
+        if ([formRow.value boolValue]) {
+            [self.disciplinesSelected addObject:name];
+        } else {
+            [self.disciplinesSelected removeObject:name];
+        }
+        if (self.disciplinesSelected.count) {
+            (self.filters)[DISCIPLINE_FILTER_KEY] = self.disciplinesSelected;
+        } else {
+            [self.filters removeObjectForKey:DISCIPLINE_FILTER_KEY];
+        }
+    } else if ([formRow.tag isEqual:progressFilteringTag]) {
+        NSInteger index = [self.progresses indexOfObject:formRow.value];
+        (self.filters)[PROGRESS_FILTER_KEY] = @(index);
     }
+    [self.delegate filtersUpdated:self.filters];
 }
 
-- (DSLCalendarRange*)calendarView:(DSLCalendarView *)calendarView didDragToDay:(NSDateComponents *)day selectingRange:(DSLCalendarRange *)range {
-    // Only select a single day
-	return [[DSLCalendarRange alloc] initWithStartDay:day endDay:day];
-
-	// Don't allow selections before today
-	/*NSDateComponents *today = [[NSDate date] dslCalendarView_dayWithCalendar:calendarView.visibleMonth.calendar];
-	
-	NSDateComponents *startDate = range.startDay;
-	NSDateComponents *endDate = range.endDay;
-	
-	if ([self day:startDate isBeforeDay:today] && [self day:endDate isBeforeDay:today]) {
-		return nil;
-	}
-	else {
-		if ([self day:startDate isBeforeDay:today]) {
-			startDate = [today copy];
-		}
-		if ([self day:endDate isBeforeDay:today]) {
-			endDate = [today copy];
-		}
-		
-		return [[DSLCalendarRange alloc] initWithStartDay:startDate endDay:endDate];
-	}
-	return range;
-	*/
-}
-
-- (BOOL)day:(NSDateComponents*)day1 isBeforeDay:(NSDateComponents*)day2 {
-    return ([day1.date compare:day2.date] == NSOrderedAscending);
-}
-
-#pragma mark - AgendaStudentDataSource protocol
-
-- (void)setAvailableDisciplinesToFilter:(NSArray *)disciplines {
-	[self setAvailableDisciplines:disciplines];
-
-	for (NSIndexPath *indexPath in self.selectedRows) {
-		[self.disciplinesTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-	}
-}
-
-- (NSDictionary*)getFilters {
-	NSMutableDictionary *filters = [NSMutableDictionary dictionary];
-
-	if (self.selectedDay) {
-		NSString *dateString = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)self.selectedDay.year, (long)self.selectedDay.month, (long)self.selectedDay.day];
-		[filters setObject:[[CloudDateConverter sharedMager] dateFromString:dateString] forKey:DATE_FILTER_KEY];
-	} else {
-		[filters removeObjectForKey:DATE_FILTER_KEY];
-	}
-	
-	if (self.selectedDisciplines && self.selectedDisciplines.count > 0) {
-		[filters setObject:self.selectedDisciplines forKey:DISCIPLINE_FILTER_KEY];
-	} else {
-		[filters removeObjectForKey:DISCIPLINE_FILTER_KEY];
-	}
-	[filters setObject:[NSNumber numberWithInteger:self.progressFilter.selectedSegmentIndex] forKey:PROGRESS_FILTER_KEY];
-	self.selectedRows = [self.disciplinesTableView indexPathsForSelectedRows];
-	
-	return filters;
+#pragma mark - Properties
+-(NSArray *)progresses {
+    if (!_progresses) {
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:3];
+        [array addObject:LOCALIZEDSTRING(@"FILTERS_TODO")];
+        [array addObject:LOCALIZEDSTRING(@"FILTERS_ALL")];
+        [array addObject:LOCALIZEDSTRING(@"FILTERS_DONE")];
+        _progresses = array;
+    }
+    return _progresses;
 }
 
 @end

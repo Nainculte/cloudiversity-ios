@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSArray *roles;
+@property (nonatomic, retain) NSArray *localizedRoles;
 @property (nonatomic, strong) NSString *currentRole;
 
 + (User *)sharedUser;

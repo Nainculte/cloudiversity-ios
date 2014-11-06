@@ -8,28 +8,27 @@
 
 #import "AbstractTableViewController.h"
 #import "AgendaStudentTaskViewController.h"
+#import "AgendaFilterDelegate.h"
 
 #define DATE_FILTER_KEY			@"dateToFilter"
 #define DISCIPLINE_FILTER_KEY	@"disciplinesToFilter"
 #define PROGRESS_FILTER_KEY		@"progressFilter" // For To Do | All | Done filter
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, AgendaStudentViewControllerProgressFilterPosition) {
     AgendaStudentViewControllerProgressFilterPositionToDo = 0,
     AgendaStudentViewControllerProgressFilterPositionAll,
     AgendaStudentViewControllerProgressFilterPositionDone,
-} AgendaStudentViewControllerProgressFilterPosition;
+} ;
 
 @protocol AgendaStudentDataSource <NSObject>
 
-- (void)setAvailableDisciplinesToFilter:(NSArray*)disciplines;
+- (NSArray *)getAvailableDisciplinesToFilter;
 - (NSDictionary*)getFilters;
 
 @end
 
-@interface AgendaStudentViewController : AbstractTableViewController <UITableViewDataSource, AgendaStudentTaskDataSource, CloudTableViewDelegate, SWRevealViewControllerDelegate>
+@interface AgendaStudentViewController : AbstractTableViewController <AgendaStudentTaskDataSource, SWRevealViewControllerDelegate, AgendaFilterDelegate, AgendaStudentDataSource>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *filters;
 
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @end

@@ -23,7 +23,7 @@
 	self.externalColor = (self.externalColor ? self.externalColor : [UIColor grayColor]);
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -35,7 +35,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame andPercentage:(float)percentage
+- (instancetype)initWithFrame:(CGRect)frame andPercentage:(float)percentage
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -47,14 +47,13 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 		 percentage:(float)percentage
 	  internalColor:(UIColor *)internalColor
 	  externalColor:(UIColor *)externalColor
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
 		self.percentage = percentage;
 		self.internalColor = internalColor;
 		self.externalColor = externalColor;
@@ -67,8 +66,6 @@
 	[self setNeedsDisplay];
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code

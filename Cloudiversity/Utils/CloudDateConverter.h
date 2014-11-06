@@ -18,14 +18,14 @@
 // Bonus
 #define DATE_AND_TIME_FORMAT_WITH_SECONDS	@"yyyy-MM-dd HH:mm:ss"
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, CloudDateConverterFormat) {
     CloudDateConverterFormatDateAndTime = 0,
     CloudDateConverterFormatDateAtTime,
     CloudDateConverterFormatFullDateAtTime,
 	CloudDateConverterFormatDate,
 	CloudDateConverterFormatFullDate,
 	CloudDateConverterFormatTime
-} CloudDateConverterFormat;
+} ;
 
 @interface CloudDateConverter : NSObject
 

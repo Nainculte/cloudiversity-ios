@@ -49,15 +49,7 @@
 
 @implementation AgendaStudentTaskViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View life
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,41 +60,36 @@
 	[self.workTitleLabel setFont:[UIFont fontWithName:CLOUD_FONT_BOLD size:self.workTitleLabel.font.pointSize]];
 
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    // Do any additional setup after loading the view.
+    self.givenOnLabel.text = LOCALIZEDSTRING(@"TASK_GIVEN_ON");
+    self.dueToLabel.text = LOCALIZEDSTRING(@"TASK_DUE_TO");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		NSDictionary *response = (NSDictionary*)responseObject;
 		
-		self.pieChartView.percentage = [[response objectForKey:DICO_PROGRESS] intValue];
-		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
-		[self.progressBarInput setValue:[[response objectForKey:DICO_PROGRESS] intValue]];
+		self.pieChartView.percentage = [response[DICO_PROGRESS] integerValue];
+		self.assignment.progress = [response[DICO_PROGRESS] integerValue];
+		[self.progressBarInput setValue:[response[DICO_PROGRESS] integerValue]];
 		[self.dataSource assignmentProgressUpdated:self.assignment];
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
 	};
 	if (self.progressBarInput.value != self.assignment.progress) {
-		[DejalActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
+		[DejalActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")].showNetworkActivityIndicator = YES;
 		[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
 	}
 	
 	[super viewWillDisappear:animated];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - testDatas
+#pragma mark - Assignment initialization
 
 #define SAVING_PLACE_ASSIGNMENT	@"agendaTmpPlaceForAssignment"
 
@@ -112,14 +99,14 @@
 	void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		NSDictionary *response = (NSDictionary *)responseObject;
 
-		self.assignment.progress = [[response objectForKey:DICO_PROGRESS] intValue];
-		self.assignment.assignmentDescription = [response objectForKey:DICO_WORDING];
-		self.assignment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:[response objectForKey:DICO_CREATED_AT]];
+		self.assignment.progress = [response[DICO_PROGRESS] integerValue];
+		self.assignment.assignmentDescription = response[DICO_WORDING];
+		self.assignment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeFromString:response[DICO_CREATED_AT]];
 		if (self.assignment.creationDate == nil)
-			self.assignment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:[response objectForKey:DICO_CREATED_AT]];
-		self.assignment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeFromString:[response objectForKey:DICO_UPDATE_AT]];
+			self.assignment.creationDate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:response[DICO_CREATED_AT]];
+		self.assignment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeFromString:response[DICO_UPDATE_AT]];
 		if (self.assignment.lastUpdate == nil)
-			self.assignment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:[response objectForKey:DICO_UPDATE_AT]];
+			self.assignment.lastUpdate = [[CloudDateConverter sharedMager] dateAndTimeWithSecondsFromString:response[DICO_UPDATE_AT]];
 		
 		self.workTitleLabel.text = self.assignment.title;
 		self.assignmentDescriptionTextView.text = self.assignment.assignmentDescription;
@@ -130,34 +117,24 @@
 			self.dueToDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDateAtTime:self.assignment.dueDate];
 		}
 		self.givenDateLabel.text = [[CloudDateConverter sharedMager] stringFromFullDateAtTime:self.assignment.creationDate];
-		self.dissiplineNameLabel.text = [self.assignment.dissiplineInformation objectForKey:DICO_DISCIPLINE_NAME];
+		self.dissiplineNameLabel.text = (self.assignment.dissiplineInformation)[DICO_DISCIPLINE_NAME];
 		
 		[self.progressBarInput setValue:self.assignment.progress];
 		[self.progressBarInput addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [DejalActivityView removeView];
 	};
 	void (^failure)(AFHTTPRequestOperation *, NSError*) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@: %@", LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR"), error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_STUDENT_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
 	};
-    [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")].showNetworkActivityIndicator = YES;
 	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+#pragma mark - PieChart update
 - (void)sliderValueChanged:(UISlider*)slider {
 	self.pieChartView.percentage = slider.value;
 }

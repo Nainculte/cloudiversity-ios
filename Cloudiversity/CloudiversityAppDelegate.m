@@ -9,6 +9,7 @@
 #import "CloudiversityAppDelegate.h"
 #import "CloudKeychainManager.h"
 #import "User.h"
+#import "ServerViewController.h"
 
 @implementation CloudiversityAppDelegate
 
@@ -16,9 +17,9 @@
 {
     User *user = [User sharedUser];
     if (!user) {
-        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"ServerViewController"];
+//        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"ServerViewController"];
+        _window.rootViewController = [[ServerRootViewController alloc] init];
     } else if ((user.token = [CloudKeychainManager retrieveTokenWithEmail:user.email])) {
-
         _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"RevealViewController"];
     }
     return YES;
@@ -49,6 +50,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    [[User sharedUser] saveUser];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

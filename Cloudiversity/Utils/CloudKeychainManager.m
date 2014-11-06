@@ -13,11 +13,11 @@
 
 + (BOOL)saveToken:(NSString *)token forEmail:(NSString *)email {
     NSMutableDictionary *d = [NSMutableDictionary dictionary];
-    [d setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id<NSCopying>)(kSecClass)];
+    d[(__bridge id<NSCopying>)(kSecClass)] = (__bridge id)kSecClassGenericPassword;
     NSData *emailData = [email dataUsingEncoding:NSUTF8StringEncoding];
-    [d setObject:emailData forKey:(__bridge id<NSCopying>)(kSecAttrAccount)];
+    d[(__bridge id<NSCopying>)(kSecAttrAccount)] = emailData;
     NSData *tokenData = [token dataUsingEncoding:NSUTF8StringEncoding];
-    [d setObject:tokenData forKey:(__bridge id<NSCopying>)(kSecValueData)];
+    d[(__bridge id<NSCopying>)(kSecValueData)] = tokenData;
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)d, NULL);
     if (status == errSecSuccess) {
         return YES;
@@ -27,11 +27,11 @@
 
 + (NSString *)retrieveTokenWithEmail:(NSString *)email {
     NSMutableDictionary *d = [NSMutableDictionary dictionary];
-    [d setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id<NSCopying>)(kSecClass)];
+    d[(__bridge id<NSCopying>)(kSecClass)] = (__bridge id)kSecClassGenericPassword;
     NSData *emailData = [email dataUsingEncoding:NSUTF8StringEncoding];
-    [d setObject:emailData forKey:(__bridge id<NSCopying>)(kSecAttrAccount)];
-    [d setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
-    [d setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];
+    d[(__bridge id<NSCopying>)(kSecAttrAccount)] = emailData;
+    d[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
+    d[(__bridge id)kSecReturnData] = (id)kCFBooleanTrue;
     CFTypeRef result = nil;
     SecItemCopyMatching((__bridge CFDictionaryRef)d, &result);
     if (result) {
@@ -43,9 +43,9 @@
 
 + (void)deleteTokenWithEmail:(NSString *)email {
     NSMutableDictionary *d = [NSMutableDictionary dictionary];
-    [d setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id<NSCopying>)(kSecClass)];
+    d[(__bridge id<NSCopying>)(kSecClass)] = (__bridge id)kSecClassGenericPassword;
     NSData *emailData = [email dataUsingEncoding:NSUTF8StringEncoding];
-    [d setObject:emailData forKey:(__bridge id<NSCopying>)(kSecAttrAccount)];
+    d[(__bridge id<NSCopying>)(kSecAttrAccount)] = emailData;
     SecItemDelete((__bridge CFDictionaryRef)(d));
 }
 

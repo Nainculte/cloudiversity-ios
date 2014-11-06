@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AbstractLogoViewViewController.h"
+#import "XLForm.h"
 
-@interface ServerViewController : AbstractLogoViewViewController
-@property (weak, nonatomic) IBOutlet CloudTextField *serverField;
+@interface ServerRootViewController : UINavigationController
 
-- (IBAction)chooseServer;
+@end
+
+@interface ServerViewController : XLFormViewController
+
 @end

@@ -13,10 +13,13 @@
 #import "UICloud.h"
 #import "User.h"
 #import "CloudKeychainManager.h"
+#import "ServerViewController.h"
+
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"NavigationVC"]
 
 @interface NavigationViewController ()
 
-@property (nonatomic)int current;
+@property (nonatomic, assign) NSInteger current;
 
 - (IBAction)agendaClicked:(id)sender;
 
@@ -24,29 +27,20 @@
 
 @implementation NavigationViewController
 
-typedef enum {
+typedef NS_ENUM(NSInteger, state) {
     homeScreen = 0,
     agendaStudent,
     agendaTeacher,
     evaluation
-} state;
+} ;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark - View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor cloudDarkGrey];
 
     [self initRoleSwitcher];
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -54,30 +48,24 @@ typedef enum {
     [self initRoleSwitcher];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma Role management
 - (void)initRoleSwitcher {
     User *user = [User sharedUser];
     if (user.roles.count > 1) {
         [self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
         [self.roleSwitcher removeAllSegments];
-        for (int i = 0; i < user.roles.count; i++) {
-            NSString *title = [user.roles[i] capitalizedString];
-            [self.roleSwitcher insertSegmentWithTitle:title atIndex:i animated:NO];
-            if ([user.currentRole isEqualToString:user.roles[i]]) {
-                self.roleSwitcher.selectedSegmentIndex = i;
+        [user.localizedRoles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
+            [self.roleSwitcher insertSegmentWithTitle:title atIndex:idx animated:NO];
+            if ([user.currentRole isEqualToString:user.roles[idx]]) {
+                self.roleSwitcher.selectedSegmentIndex = idx;
             }
-        }
+        }];
         self.roleSwitcher.hidden = NO;
     } else {
         self.roleSwitcher.hidden = YES;
     }
-    user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
+    user.currentRole = user.localizedRoles[self.roleSwitcher.selectedSegmentIndex];
+    if (!user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")]) {
         self.agendaButton.hidden = YES;
     } else {
         self.agendaButton.hidden = NO;
@@ -87,7 +75,7 @@ typedef enum {
 - (void)changeRole {
     User *user = [User sharedUser];
     user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
+    if (!user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")]) {
         self.agendaButton.hidden = YES;
     } else {
         self.agendaButton.hidden = NO;
@@ -95,14 +83,14 @@ typedef enum {
 
     switch (self.current) {
         case agendaStudent:
-            if ([user.currentRole isEqualToString:@"Teacher"]) {
+            if ([user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_TEACHER")]) {
                 [self performSegueWithIdentifier:@"AgendaTeacher" sender:self];
             } else {
                 [self performSegueWithIdentifier:@"HomeScreen" sender:self];
             }
             break;
         case agendaTeacher:
-            if ([user.currentRole isEqualToString:@"Student"]) {
+            if ([user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
                 [self performSegueWithIdentifier:@"AgendaStudent" sender:self];
             } else {
                 [self performSegueWithIdentifier:@"HomeScreen" sender:self];
@@ -113,27 +101,30 @@ typedef enum {
     //do stuff to change the front view controller depending on the role
 }
 
+#pragma mark - Navigation
+- (IBAction)agendaClicked:(id)sender {
+    if ([[User sharedUser].currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
+        [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
+    } else {
+        [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UINavigationController *dest = (UINavigationController *)segue.destinationViewController;
 
     if ([segue.identifier isEqualToString:@"AgendaStudent"]) {
-        dest.title = @"Agenda";
+        dest.title = LOCALIZEDSTRING(@"AGENDA_TITLE");
         self.current = agendaStudent;
     } else if ([segue.identifier isEqualToString:@"Evaluation"]) {
         dest.title = @"Evaluation";
         self.current = evaluation;
+    } else if ([segue.identifier isEqualToString:@"AgendaTeacher"]) {
+        dest.title = LOCALIZEDSTRING(@"AGENDA_TITLE");
+        self.current = agendaTeacher;
     } else if ([segue.identifier isEqualToString:@"HomeScreen"]) {
         self.current = homeScreen;
-        dest.title = @"Homescreen";
-    } else if ([segue.identifier isEqualToString:@"AgendaTeacher"]) {
-        dest.title = @"Agenda";
-        self.current = agendaTeacher;
-    } else if ([segue.identifier isEqualToString:@"Disconnect"]) {
-        self.current = homeScreen;
-        User *u = [User sharedUser];
-        [CloudKeychainManager deleteTokenWithEmail:u.email];
-        [u deleteUser];
     }
 
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
@@ -148,17 +139,20 @@ typedef enum {
 
     }
 }
+- (IBAction)disconnect {
+    self.current = homeScreen;
+    User *u = [User sharedUser];
+    [CloudKeychainManager deleteTokenWithEmail:u.email];
+    [u deleteUser];
+    ServerRootViewController *vc = [[ServerRootViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:^{
+        
+    }];
+}
 
+#pragma mark - Styling
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-- (IBAction)agendaClicked:(id)sender {
-    if ([[User sharedUser].currentRole isEqualToString:@"Student"]) {
-        [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
-    } else {
-        [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];
-    }
 }
 @end

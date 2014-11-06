@@ -9,13 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "UICloud.h"
-#import "AbstractLogoViewViewController.h"
+#import "XLForm.h"
 
-@interface AuthenticationViewController : AbstractLogoViewViewController <UITextFieldDelegate>
+@interface AuthenticationRootViewController : UINavigationController
 
-- (IBAction)loginBtn:(id)sender;
+@end
 
-@property (weak, nonatomic) IBOutlet CloudTextField *loginField;
-@property (weak, nonatomic) IBOutlet CloudTextField *passwordField;
+@interface AuthenticationViewController : XLFormViewController
+
+//#import "AbstractLogoViewViewController.h"
+//
+//@interface AuthenticationViewController : AbstractLogoViewViewController <UITextFieldDelegate>
+//
+//- (IBAction)loginBtn:(id)sender;
+//
+//@property (weak, nonatomic) IBOutlet CloudTextField *loginField;
+//@property (weak, nonatomic) IBOutlet CloudTextField *passwordField;
 
 @end

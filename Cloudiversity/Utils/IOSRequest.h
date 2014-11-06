@@ -36,17 +36,17 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 + (void)getAssignmentsForUserOnSuccess:(HTTPSuccessHandler)success
                              onFailure:(HTTPFailureHandler)failure;
 
-+ (void)getAssignmentsForClass:(int)classID
-                 andDiscipline:(int)disciplineID
++ (void)getAssignmentsForClass:(NSInteger)classID
+                 andDiscipline:(NSInteger)disciplineID
                      onSuccess:(HTTPSuccessHandler)success
                      onFailure:(HTTPFailureHandler)failure;
 
-+ (void)getAssignmentInformation:(int)assignmentId
++ (void)getAssignmentInformation:(NSInteger)assignmentId
                        onSuccess:(HTTPSuccessHandler)success
                        onFailure:(HTTPFailureHandler)failure;
 
-+ (void)updateAssignmentWithId:(int)assignmentId
-               withProgression:(int)progress
++ (void)updateAssignmentWithId:(NSInteger)assignmentId
+               withProgression:(NSInteger)progress
                      onSuccess:(HTTPSuccessHandler)success
                      onFailure:(HTTPFailureHandler)failure;
 
@@ -54,8 +54,8 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
                     withDueDate:(NSString *)dueDate
                     withDueTime:(NSString *)dueTime
                 withDescription:(NSString *)description
-               withDisciplineID:(int)disciplineID
-                    withClassID:(int)classID
+               withDisciplineID:(NSInteger)disciplineID
+                    withClassID:(NSInteger)classID
                       onSuccess:(HTTPSuccessHandler)success
                       onFailure:(HTTPFailureHandler)failure;
 
@@ -63,9 +63,9 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
                      withDueDate:(NSString *)dueDate
                      withDueTime:(NSString *)dueTime
                  withDescription:(NSString *)description
-                withDisciplineID:(int)disciplineID
-                     withClassID:(int)classID
-                 andAssignmentID:(int)assignmentID
+                withDisciplineID:(NSInteger)disciplineID
+                     withClassID:(NSInteger)classID
+                 andAssignmentID:(NSInteger)assignmentID
                        onSuccess:(HTTPSuccessHandler)success
                        onFailure:(HTTPFailureHandler)failure;
 

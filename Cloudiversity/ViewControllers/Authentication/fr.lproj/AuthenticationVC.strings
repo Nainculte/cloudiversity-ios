@@ -11,8 +11,10 @@
 "USERNAME" = "Nom d'utilisateur";
 "PASSWORD" = "Mot de passe";
 "CONNECT" = "Connexion";
+"CANCEL" = "Annuler";
 "CONNECTING" = "Connexion...";
 
 //Error messages
+"ERROR" = "Erreur";
 "FILLITALL" = "Vous devez remplir tout les champs";
 "FAILCHECKLOGIN" = "Erreur lors de la récupération de vous informations. Réessayez";

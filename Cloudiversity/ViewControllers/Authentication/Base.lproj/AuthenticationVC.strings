@@ -10,8 +10,10 @@
 "USERNAME" = "Username";
 "PASSWORD" = "Password";
 "CONNECT" = "Connect";
+"CANCEL" = "Cancel";
 "CONNECTING" = "Connecting...";
 
 //Error messages
+"ERROR" = "Error";
 "FILLITALL" = "You have to fill every field";
 "FAILCHECKLOGIN" = "Could not retrieve your information. Try again";

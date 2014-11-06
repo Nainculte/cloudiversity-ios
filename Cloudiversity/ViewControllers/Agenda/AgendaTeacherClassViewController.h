@@ -13,8 +13,8 @@
 
 @property (nonatomic, strong) NSString *disciplineTitle;
 @property (nonatomic, strong) NSString *classTitle;
-@property (nonatomic) int disciplineID;
-@property (nonatomic) int classID;
+@property (nonatomic, assign) NSInteger disciplineID;
+@property (nonatomic, assign) NSInteger classID;
 
 @property (nonatomic, weak) AgendaAssignment *editedAssignment;
 @property (nonatomic, strong) NSMutableArray *assignments;

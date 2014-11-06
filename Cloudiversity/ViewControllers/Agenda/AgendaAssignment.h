@@ -17,9 +17,9 @@
 @property (strong, nonatomic) NSString *assignmentDescription;
 @property (strong, nonatomic) NSDate *creationDate;
 @property (strong, nonatomic) NSDate *lastUpdate;
-@property (nonatomic) int assignmentId;
-@property (nonatomic) int progress;
-@property (nonatomic) bool timePrecised;
+@property (nonatomic, assign) NSInteger assignmentId;
+@property (nonatomic, assign) NSInteger progress;
+@property (nonatomic, assign) bool timePrecised;
 
 // In prevention for filtering assignments
 @property (nonatomic) BOOL	isMarked;
@@ -27,16 +27,16 @@
 
 // Creation of an Assignment with general informations
 // For student
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
 			dueDate:(NSDate*)dueDate
        timePrecised:(BOOL)timePrecised
-		   progress:(int)progress
+		   progress:(NSInteger)progress
 	  forDissipline:(NSDictionary*)dissipline;
 
 // For teacher
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
             dueDate:(NSDate*)dueDate
        timePrecised:(BOOL)timePrecised
 	  forDissipline:(NSDictionary*)dissipline
@@ -44,8 +44,8 @@
 
 // Creation of an Assignment with detailed informations
 // For teacher
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
             dueTime:(NSDate*)dueTime
        timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
@@ -55,35 +55,16 @@
 			inClass:(NSDictionary*)classInfo;
 
 // For student
-- (id)initWithTitle:(NSString*)title
-			 withId:(int)assignmentId
+- (instancetype)initWithTitle:(NSString*)title
+			 withId:(NSInteger)assignmentId
             dueTime:(NSDate*)dueTime
        timePrecised:(BOOL)timePrecised
 		description:(NSString*)description
-		andProgress:(int)progress;
-
-#pragma mark - Old initializers for testing
-
-- (id)initWithTitle:(NSString*)title
-		description:(NSString*)description
-			DueDate:(NSDate*)dueDate
-			inField:(NSString*)field
-		andIsMarked:(BOOL)isMarked
-		   orAnExam:(BOOL)isExam
-		   forClass:(NSString*)className;
-
-- (id)initWithTitle:(NSString*)title
-		description:(NSString*)description
-	DueDateByString:(NSString*)dueDateString
-			inField:(NSString*)field
-withPercentageOfCompletion:(float)percentageCompletion
-		andIsMarked:(BOOL)isMarked
-		   orAnExam:(BOOL)isExam
-		   forClass:(NSString*)className;
+		andProgress:(NSInteger)progress;
 
 #pragma mark - NSCoding protocol implemantation
 
--(id)initWithCoder:(NSCoder *)aDecoder;
+-(instancetype)initWithCoder:(NSCoder *)aDecoder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;
 
 @end

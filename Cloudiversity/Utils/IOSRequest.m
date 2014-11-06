@@ -128,8 +128,8 @@
 	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
-+ (void)getAssignmentsForClass:(int)classID
-                 andDiscipline:(int)disciplineID
++ (void)getAssignmentsForClass:(NSInteger)classID
+                 andDiscipline:(NSInteger)disciplineID
                      onSuccess:(HTTPSuccessHandler)success
                      onFailure:(HTTPFailureHandler)failure {
 
@@ -140,11 +140,11 @@
 	if (user.roles.count > 1) {
 		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
 	}
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d/%d%@", path, disciplineID, classID, role];
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%@/%@%@", path, @(disciplineID), @(classID), role];
 	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
-+(void)getAssignmentInformation:(int)assignmentId
++(void)getAssignmentInformation:(NSInteger)assignmentId
 					 onSuccess:(HTTPSuccessHandler)success
 					 onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -154,12 +154,12 @@
 	if (user.roles.count > 1) {
 		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
 	}
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d%@", path, assignmentId, role];
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%@%@", path, @(assignmentId), role];
 	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
-+(void)updateAssignmentWithId:(int)assignmentId
-			  withProgression:(int)progress
++(void)updateAssignmentWithId:(NSInteger)assignmentId
+			  withProgression:(NSInteger)progress
 					onSuccess:(HTTPSuccessHandler)success
 					onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
@@ -169,9 +169,9 @@
 	if (user.roles.count > 1) {
 		role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
 	}
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d%@", path, assignmentId, role];
+	path = [NSString stringWithFormat:@"%@/agenda/assignments/%@%@", path, @(assignmentId), role];
 	
-	NSDictionary *params = @{@"assignment": @{@"progress": [NSNumber numberWithInt:progress]}};
+	NSDictionary *params = @{@"assignment": @{@"progress": @(progress)}};
 	
 	[IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
 }
@@ -180,8 +180,8 @@
                     withDueDate:(NSString *)dueDate
                     withDueTime:(NSString *)dueTime
                 withDescription:(NSString *)description
-               withDisciplineID:(int)disciplineID
-                    withClassID:(int)classID
+               withDisciplineID:(NSInteger)disciplineID
+                    withClassID:(NSInteger)classID
                       onSuccess:(HTTPSuccessHandler)success
                       onFailure:(HTTPFailureHandler)failure {
     NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
@@ -199,16 +199,16 @@
                                                                                      @"deadline" : dueDate,
                                                                                      @"duetime" : dueTime,
                                                                                      @"wording" : description,
-                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
-                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     @"discipline_id" : @(disciplineID),
+                                                                                     @"school_class_id" : @(classID)
                                                                                      }
                                                                    }];
     else
         params = [[NSMutableDictionary alloc] initWithDictionary:@{@"assignment" : @{@"title" : title,
                                                                                      @"deadline" : dueDate,
                                                                                      @"wording" : description,
-                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
-                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     @"discipline_id" : @(disciplineID),
+                                                                                     @"school_class_id" : @(classID)
                                                                                      }
                                                                    }];
     [IOSRequest requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
@@ -218,9 +218,9 @@
                      withDueDate:(NSString *)dueDate
                      withDueTime:(NSString *)dueTime
                  withDescription:(NSString *)description
-                withDisciplineID:(int)disciplineID
-                     withClassID:(int)classID
-                 andAssignmentID:(int)assignmentID
+                withDisciplineID:(NSInteger)disciplineID
+                     withClassID:(NSInteger)classID
+                 andAssignmentID:(NSInteger)assignmentID
                        onSuccess:(HTTPSuccessHandler)success
                        onFailure:(HTTPFailureHandler)failure {
     NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
@@ -230,7 +230,7 @@
     if (user.roles.count > 1) {
         role = [@"?as=" stringByAppendingString:[user.currentRole lowercaseString]];
     }
-    path = [NSString stringWithFormat:@"%@/agenda/assignments/%d%@", path, assignmentID, role];
+    path = [NSString stringWithFormat:@"%@/agenda/assignments/%@%@", path, @(assignmentID), role];
 
     NSDictionary *params;
     if (dueTime)
@@ -238,16 +238,16 @@
                                                                                      @"deadline" : dueDate,
                                                                                      @"duetime" : dueTime,
                                                                                      @"wording" : description,
-                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
-                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     @"discipline_id" : @(disciplineID),
+                                                                                     @"school_class_id" : @(classID)
                                                                                      }
                                                                    }];
     else
         params = [[NSMutableDictionary alloc] initWithDictionary:@{@"assignment" : @{@"title" : title,
                                                                                      @"deadline" : dueDate,
                                                                                      @"wording" : description,
-                                                                                     @"discipline_id" : [NSNumber numberWithInt:disciplineID],
-                                                                                     @"school_class_id" : [NSNumber numberWithInt:classID]
+                                                                                     @"discipline_id" : @(disciplineID),
+                                                                                     @"school_class_id" : @(classID)
                                                                                      }
                                                                    }];
     [IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];

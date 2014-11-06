@@ -7,6 +7,17 @@
 */
 
 "AGENDA_STUDENT_ERROR" = "Erreur";
-"AGENDA_STUDENT_LOADING" = "Chargement";
+"AGENDA_STUDENT_LOADING" = "Chargement...";
 
 "AGENDA_STUDENT_MODULE_NAME" = "Cahier de Texte";
+
+"FILTERS_TITLE" = "Filtres";
+"FILTERS_DATE" = "Filtrer par date";
+"FILTERS_DISCIPLINE" = "Disciplines à filtrer";
+"FILTERS_PROGRESS" = "Filtrer par avancement";
+"FILTERS_TODO" = "À faire";
+"FILTERS_ALL" = "Tous";
+"FILTERS_DONE" = "Terminés";
+
+"TASK_GIVEN_ON" = "Donné le :";
+"TASK_DUE_TO" = "À rendre le :";

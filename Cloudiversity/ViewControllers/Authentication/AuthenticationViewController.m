@@ -10,143 +10,227 @@
 #import "IOSRequest.h"
 #import "CloudKeychainManager.h"
 #import "DejalActivityView.h"
+#import "UIColor+Cloud.h"
+#import "CloudLogoCell.h"
+#import "CloudSeparatorCell.h"
+#import "CloudTextFieldCell.h"
 
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AuthenticationVC"]
 
-@interface AuthenticationViewController ()
+#pragma mark - AuthenticationRootViewController
+@interface AuthenticationRootViewController ()
 
-@property (nonatomic) BOOL shouldSegue;
+@end
+
+@implementation AuthenticationRootViewController
+
+- (instancetype) init {
+    AuthenticationViewController *vc = [[AuthenticationViewController alloc] init];
+    self = [super initWithRootViewController:vc];
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationBarHidden = YES;
+    self.navigationBar.translucent = NO;
+    [self.navigationBar setBackgroundColor:[UIColor cloudLightBlue]];
+    [self.navigationBar setBarTintColor:[UIColor cloudLightBlue]];
+    self.navigationBar.tintColor = [UIColor whiteColor];
+}
+
+@end
+
+
+#pragma mark - AuthenticationViewController
+@interface AuthenticationViewController () <CloudTextFieldCellDelegate>
+
+@property (nonatomic, strong)NSString *username;
+@property (nonatomic, strong)NSString *password;
+
 @property (nonatomic, strong)User *user;
 
 @end
 
 @implementation AuthenticationViewController
 
-@synthesize loginField;
-@synthesize passwordField;
+NSString *const logoCellTag = @"Logo";
+NSString *const userTag = @"User";
+NSString *const passwordTag = @"Password";
+NSString *const buttonCellTag = @"Connect";
+NSString *const cancelTag = @"Cancel";
+NSString *const sepaTag = @"Sep";
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self localize];
+#pragma mark - Initialization
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.loginField performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self configureForm];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return self;
 }
 
-- (void)localize {
-    self.loginField.placeholder = LOCALIZEDSTRING(@"USERNAME");
-    self.passwordField.placeholder = LOCALIZEDSTRING(@"PASSWORD");
-    NSString *title = LOCALIZEDSTRING(@"CONNECT");
-    [self.button setTitle:title forState:UIControlStateNormal];
-    [self.button setTitle:title forState:UIControlStateApplication];
-    [self.button setTitle:title forState:UIControlStateDisabled];
-    [self.button setTitle:title forState:UIControlStateHighlighted];
-    [self.button setTitle:title forState:UIControlStateReserved];
-    [self.button setTitle:title forState:UIControlStateSelected];
+- (void)configureForm {
+    XLFormDescriptor *form;
+    XLFormSectionDescriptor *section;
+    XLFormRowDescriptor *row;
+
+    form = [XLFormDescriptor formDescriptor];
+
+    //Logo
+    section = [XLFormSectionDescriptor formSection];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:logoCellTag rowType:@"CloudLogoCell"];
+    row.cellClass = [CloudLogoCell class];
+    [section addFormRow:row];
+
+    //Username and Password
+    section = [XLFormSectionDescriptor formSection];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
+    row.cellClass = [CloudSeparatorCell class];
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:userTag rowType:@"CloudTextFieldCell"];
+    row.cellClass = [CloudTextFieldCell class];
+    (row.cellConfigAtConfigure)[@"textField.placeholder"] = LOCALIZEDSTRING(@"USERNAME");
+    (row.cellConfigAtConfigure)[@"isPassword"] = @0;
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
+    row.cellClass = [CloudSeparatorCell class];
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:passwordTag rowType:@"CloudTextFieldCell"];
+    row.cellClass = [CloudTextFieldCell class];
+    (row.cellConfigAtConfigure)[@"textField.placeholder"] = LOCALIZEDSTRING(@"PASSWORD");
+    (row.cellConfigAtConfigure)[@"isPassword"] = @1;
+    (row.cellConfigAtConfigure)[@"delegate"] = self;
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
+    row.cellClass = [CloudSeparatorCell class];
+    [section addFormRow:row];;
+
+    //Connect button
+    section = [XLFormSectionDescriptor formSection];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
+    row.cellClass = [CloudSeparatorCell class];
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:buttonCellTag rowType:XLFormRowDescriptorTypeButton title:LOCALIZEDSTRING(@"CONNECT")];
+    (row.cellConfigAtConfigure)[@"textLabel.textColor"] = [UIColor cloudLightBlue];
+//    row.disabled = YES;
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
+    row.cellClass = [CloudSeparatorCell class];
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:cancelTag rowType:XLFormRowDescriptorTypeButton title:LOCALIZEDSTRING(@"CANCEL")];
+    (row.cellConfigAtConfigure)[@"textLabel.textColor"] = [UIColor cloudRed];
+    [section addFormRow:row];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:sepaTag rowType:@"CloudSeparatorCell"];
+    row.cellClass = [CloudSeparatorCell class];
+    [section addFormRow:row];
+
+    self.form = form;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - CloudTextFieldCellDelegate
+
+- (void)textFieldReturned {
+    [self connect];
 }
 
-- (void) startLogin {
-    self.shouldAnimate = YES;
-    self.hasSelected = NO;
-    [self.view endEditing:YES];
-    self.button.enabled = NO;
+#pragma mark - Actions
+- (void)didSelectFormRow:(XLFormRowDescriptor *)formRow {
+    [super didSelectFormRow:formRow];
+
+    if ([formRow.tag isEqual:buttonCellTag]){
+        [self connect];
+        [self deselectFormRow:formRow];
+    } else if ([formRow.tag isEqual:cancelTag]) {
+        [self cancel];
+        [self deselectFormRow:formRow];
+    }
+}
+
+- (void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue {
+
+    [super formRowDescriptorValueHasChanged:formRow oldValue:oldValue newValue:newValue];
+
+    if ([formRow.tag isEqual:userTag]) {
+        self.username = formRow.value;
+    } else if ([formRow.tag isEqual:passwordTag]) {
+        self.password = formRow.value;
+    }
+}
+
+- (void)connect {
+    if (!self.username || !self.password) {
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"ERROR")
+                                    message:LOCALIZEDSTRING(@"FILLITALL")
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
+        return;
+    }
+    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *response = (NSDictionary *)responseObject;
+        User *user = [User withEmail:response[@"email"] andToken:response[@"token"]];
+        self.user = user;
+        [self endLoginWithSuccess:true];
+    };
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
+        [self endLoginWithSuccess:false];
+    };
     [DejalActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"CONNECTING")].showNetworkActivityIndicator = YES;
+    [IOSRequest loginWithId:self.username andPassword:self.password onSuccess:success onFailure:failure];
 }
 
 - (void) endLoginWithSuccess:(BOOL)success {
     if (success) {
-        self.shouldSegue = YES;
-        self.errorLabel.alpha = 0.0;
         [CloudKeychainManager saveToken:_user.token forEmail:_user.email];
         [self checkLogin];
     } else {
         [DejalActivityView removeView];
-        self.shouldSegue = NO;
-        [UIView animateWithDuration:0.3 animations:^{
-            self.errorLabel.alpha = 1.0;
-        }];
     }
-    self.button.enabled = YES;
+
 }
 
 - (void)checkLogin {
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
-        self.user.firstName = [response objectForKey:@"first_name"];
-        self.user.lastName = [response objectForKey:@"last_name"];
-        self.user.roles = [response objectForKey:@"roles"];
+        self.user.firstName = response[@"first_name"];
+        self.user.lastName = response[@"last_name"];
+        self.user.roles = response[@"roles"];
         if (!self.user.currentRole && self.user.roles.count) {
             self.user.currentRole = self.user.roles[0];
         }
         [self.user saveUser];
         [DejalActivityView removeView];
-        [self performSegueWithIdentifier:@"login_success" sender:self];
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        [self presentViewController:[sb instantiateViewControllerWithIdentifier:@"RevealViewController"] animated:YES completion:nil];
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.errorLabel.text = LOCALIZEDSTRING(@"FAILCHECKLOGIN");
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
         [DejalActivityView removeView];
-        self.shouldSegue = NO;
-        [UIView animateWithDuration:0.3 animations:^{
-            self.errorLabel.alpha = 1.0;
-        }];
     };
     [IOSRequest getCurrentUserOnSuccess:success onFailure:failure];
 }
 
-- (IBAction)loginBtn:(id)sender {
-    if ([self.loginField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""]) {
-        self.errorLabel.text = LOCALIZEDSTRING(@"FILLITALL");
-        [self endLoginWithSuccess:false];
-        return ;
-    }
-    [self startLogin];
-    void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *response = (NSDictionary *)responseObject;
-        User *user = [User withEmail:[response objectForKey:@"email"] andToken:[response objectForKey:@"token"]];
-        self.user = user;
-        [self endLoginWithSuccess:true];
-    };
-    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.errorLabel.text = [((NSDictionary *)operation.responseObject) objectForKey:@"error"];
-        [self endLoginWithSuccess:false];
-    };
-    [IOSRequest loginWithId:loginField.text andPassword:self.passwordField.text onSuccess:success onFailure:failure];
-}
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([self.loginField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""]) {
-        self.errorLabel.text = LOCALIZEDSTRING(@"FILLITALL");
-        [self endLoginWithSuccess:false];
-        return NO;
-    } else if (!self.shouldSegue) {
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ([loginField isFirstResponder]) {
-        self.shouldAnimate = NO;
-        [self.loginField resignFirstResponder];
-        [passwordField becomeFirstResponder];
-    } else if ([passwordField isFirstResponder]) {
-        self.shouldAnimate = YES;
-        self.hasSelected = NO;
-        [self loginBtn:nil];
-        [self.passwordField resignFirstResponder];
-    }
-    return NO;
+- (void)cancel {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

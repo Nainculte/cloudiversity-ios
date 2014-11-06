@@ -11,6 +11,8 @@
 #import "AgendaTeacherEditAssignmentViewController.h"
 #import "CloudDateConverter.h"
 
+#define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaTeacherVC"]
+
 #define DICO_ID					@"id"
 #define DICO_TITLE 				@"title"
 #define DICO_DEADLINE 			@"deadline"
@@ -25,20 +27,11 @@
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
-- (IBAction)newAssignment:(UIBarButtonItem *)sender;
 @end
 
 @implementation AgendaTeacherClassViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
+#pragma mark View life cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -67,6 +60,7 @@
     [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:self.assignments] forKey:[NSString stringWithFormat:@"%@/%@", self.disciplineTitle, self.classTitle]];
 }
 
+#pragma mark - Styling
 - (void)setupTitle
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 136, 44)];
@@ -90,6 +84,7 @@
     self.navigationItem.titleView = view;
 }
 
+#pragma mark - HTTP handlers
 - (void)setupHandlers
 {
     BSELF(self)
@@ -99,13 +94,13 @@
 
         [bself.assignments removeAllObjects];
         for (NSDictionary *assignmentDico in response) {
-            NSString *dueTimeString = ([[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : [assignmentDico objectForKey:DICO_DUETIME]);
-            NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", [assignmentDico objectForKey:DICO_DEADLINE], dueTimeString];
-            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:[assignmentDico objectForKey:DICO_TITLE]
-                                                                            withId:[[assignmentDico objectForKey:DICO_ID] intValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime]
-                                                                      timePrecised:[[assignmentDico objectForKey:DICO_DUETIME] class] == [NSNull class] ? NO : YES
-                                                                          progress:[[assignmentDico objectForKey:DICO_PROGRESS] intValue]
-                                                                     forDissipline:[assignmentDico objectForKey:DICO_DISCIPLINE]];
+            NSString *dueTimeString = ([assignmentDico[DICO_DUETIME] class] == [NSNull class] ? [CloudDateConverter nullTime] : assignmentDico[DICO_DUETIME]);
+            NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", assignmentDico[DICO_DEADLINE], dueTimeString];
+            AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:assignmentDico[DICO_TITLE]
+                                                                            withId:[assignmentDico[DICO_ID] integerValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime]
+                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] == [NSNull class] ? NO : YES
+                                                                          progress:[assignmentDico[DICO_PROGRESS] integerValue]
+                                                                     forDissipline:assignmentDico[DICO_DISCIPLINE]];
             [bself.assignments addObject:assignment];
         }
 
@@ -115,11 +110,11 @@
     };
 
     self.failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        switch (operation.response.statusCode) {
-            default:
-                break;
-        }
+        [[[UIAlertView alloc] initWithTitle:LOCALIZEDSTRING(@"AGENDA_TEACHER_ERROR")
+                                    message:error.localizedDescription
+                                   delegate:nil
+                          cancelButtonTitle:@"Ok"
+                          otherButtonTitles:nil] show];
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
@@ -127,46 +122,24 @@
 
 - (void)initAssignmentsByHTTPRequest
 {
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
     [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
-}
-
-- (void)reloadTableView {
-    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
-    [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
-}
-
-- (NSString *)reuseIdentifier
-{
-    return @"AgendaTeacherAssignments";
-}
-
-+ (Class)cellClass
-{
-    return [AgendaTeacherClassTableViewCell class];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Generate sections / Sort assignments
-
 - (void)sortAssignments
 {
     self.sections = [NSMutableDictionary dictionary];
-    self.sortedSections = [NSArray array];
+    self.sortedSections = @[];
 
     for (AgendaAssignment *assignment in self.assignments) {
         NSDate* date = [[CloudDateConverter sharedMager] convertDate:assignment.dueDate toFormat:CloudDateConverterFormatDate];
 
-        NSMutableArray *assignmentsByDatesArray = [self.sections objectForKey:date];
+        NSMutableArray *assignmentsByDatesArray = (self.sections)[date];
 
         if (assignmentsByDatesArray == nil) {
             assignmentsByDatesArray = [NSMutableArray array];
-            [self.sections setObject:assignmentsByDatesArray forKey:date];
+            (self.sections)[date] = assignmentsByDatesArray;
         }
 
         [assignmentsByDatesArray addObject:assignment];
@@ -178,7 +151,7 @@
     // Sorting assignments of each array by dueTime
 
     for (NSDate *date in self.sortedSections) {
-        NSArray *assignments = [self.sections objectForKey:date];
+        NSArray *assignments = (self.sections)[date];
 
         assignments = [assignments sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             AgendaAssignment *assignment1 = (AgendaAssignment *)obj1;
@@ -193,7 +166,7 @@
         // remove the unsorted array...
         [self.sections removeObjectForKey:date];
         // ...then replace it by the sorted one
-        [self.sections setObject:assignments forKey:date];
+        (self.sections)[date] = assignments;
     }
 }
 
@@ -214,7 +187,7 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 25)];
     /* Create custom view to display section header... */
     CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width, 25)];
-    NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:[self.sortedSections objectAtIndex:section]];
+    NSString *headerTitle = [[CloudDateConverter sharedMager] stringFromDate:(self.sortedSections)[section]];
     label.text = headerTitle;
 	label.font = [UIFont fontWithName:@"FiraSansOt-Bold" size:label.font.pointSize];
     [view addSubview:label];
@@ -241,7 +214,7 @@
     self.editedAssignment = [self assignmentForIndexPath:indexPath];
     [self.assignments removeObject:self.editedAssignment];
     HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.editedAssignment.assignmentDescription = [((NSDictionary *)(responseObject)) objectForKey:@"wording"];
+        self.editedAssignment.assignmentDescription = ((NSDictionary *)(responseObject))[@"wording"];
         AgendaTeacherEditAssignmentViewController *vc = [[AgendaTeacherEditAssignmentViewController alloc] initWithDisciplineID:self.disciplineID withClassID:self.classID andAssignment:self.editedAssignment presenter:self];
         [self presentViewController:vc animated:YES completion:^{
             //self.editedAssignment = vc.assignment;
@@ -254,7 +227,7 @@
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
-    [DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading..."].showNetworkActivityIndicator = YES;
+    [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
     [IOSRequest getAssignmentInformation:self.editedAssignment.assignmentId onSuccess:success onFailure:failure];
 }
 
@@ -263,14 +236,30 @@
     [self.refreshControl endRefreshing];
 }
 
+- (void)reloadTableView {
+    [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
+    [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
+}
+
+- (NSString *)reuseIdentifier
+{
+    return @"AgendaTeacherAssignments";
+}
+
++ (Class)cellClass
+{
+    return [AgendaTeacherClassTableViewCell class];
+}
+
+#pragma mark - Convenience methods
 - (NSArray*)getArrayOfAssignmentsForPosition:(NSInteger)position {
-    return [self.sections objectForKey:[self.sortedSections objectAtIndex:position]];
+    return (self.sections)[(self.sortedSections)[position]];
 }
 
 - (AgendaAssignment*)assignmentInArrayOfAssignements:(NSArray*)assignments
                                           atPosition:(NSInteger)position
 {
-    return [assignments objectAtIndex:position];
+    return assignments[position];
 }
 
 - (AgendaAssignment*)assignmentForIndexPath:(NSIndexPath*)indexPath {
@@ -283,13 +272,6 @@
 
 
 #pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
 
 - (IBAction)newAssignment:(UIBarButtonItem *)sender {
     AgendaTeacherEditAssignmentViewController *vc = [[AgendaTeacherEditAssignmentViewController alloc] initWithDisciplineID:self.disciplineID withClassID:self.classID andAssignment:nil presenter:self];

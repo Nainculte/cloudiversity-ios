@@ -1,0 +1,14 @@
+/* 
+  NavigationVC.strings
+  Cloudiversity
+
+  Created by Nainculte on 31/10/2014.
+  Copyright (c) 2014 Cloudiversity. All rights reserved.
+*/
+
+"ROLE_STUDENT" = "Étudiant";
+"ROLE_TEACHER" = "Prof.";
+"ROLE_PARENT" = "Parent";
+"ROLE_ADMIN" = "Admin";
+
+"AGENDA_TITLE" = "Agenda";
