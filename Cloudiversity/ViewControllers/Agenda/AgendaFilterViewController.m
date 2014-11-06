@@ -97,17 +97,17 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
 - (void)viewWillAppear:(BOOL)animated {
     NSArray *disciplines = [self.dataSource getAvailableDisciplinesToFilter];
     self.disciplinesRows = [NSMutableDictionary dictionaryWithCapacity:disciplines.count];
-    for (NSInteger i = 0; i < self.disciplineFilterSection.formRows.count; ++i) {
+    NSUInteger count = self.disciplineFilterSection.formRows.count;
+    for (NSInteger i = 0; i < count; ++i) {
         [self.disciplineFilterSection removeFormRowAtIndex:0];
     }
-    XLFormRowDescriptor *row;
-    NSInteger i = 100;
-    for (NSString *name in disciplines) {
-        NSString *tag = [NSString stringWithFormat:@"%@", @(i++)];
+    __block XLFormRowDescriptor *row;
+    [disciplines enumerateObjectsUsingBlock:^(NSString *name, NSUInteger idx, BOOL *stop) {
+        NSString *tag = [NSString stringWithFormat:@"%@", @(100 + idx)];
         row = [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:XLFormRowDescriptorTypeBooleanCheck title:name];
         [self.disciplineFilterSection addFormRow:row];
         (self.disciplinesRows)[name] = row;
-    }
+    }];
     self.filters = [[self.dataSource getFilters] mutableCopy];
     self.disciplinesSelected = [NSMutableArray arrayWithArray:(self.filters)[DISCIPLINE_FILTER_KEY]];
 }

@@ -67,13 +67,12 @@ typedef NS_ENUM(NSInteger, state) {
     if (user.roles.count > 1) {
         [self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
         [self.roleSwitcher removeAllSegments];
-        for (NSInteger i = 0; i < user.localizedRoles.count; i++) {
-            NSString *title = user.localizedRoles[i];
-            [self.roleSwitcher insertSegmentWithTitle:title atIndex:i animated:NO];
-            if ([user.currentRole isEqualToString:user.roles[i]]) {
-                self.roleSwitcher.selectedSegmentIndex = i;
+        [user.localizedRoles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
+            [self.roleSwitcher insertSegmentWithTitle:title atIndex:idx animated:NO];
+            if ([user.currentRole isEqualToString:user.roles[idx]]) {
+                self.roleSwitcher.selectedSegmentIndex = idx;
             }
-        }
+        }];
         self.roleSwitcher.hidden = NO;
     } else {
         self.roleSwitcher.hidden = YES;
