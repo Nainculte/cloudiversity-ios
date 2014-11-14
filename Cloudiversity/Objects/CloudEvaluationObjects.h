@@ -15,6 +15,8 @@
 @property (strong, nonatomic) NSDate *startDate;
 @property (strong, nonatomic) NSDate *endDate;
 
++ (NSArray *)sortPeriods:(NSArray *)periods;
+
 @end
 
 @interface CloudiversityAssessment : CloudiversityObject

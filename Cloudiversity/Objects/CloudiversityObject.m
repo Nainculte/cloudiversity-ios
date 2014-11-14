@@ -26,6 +26,10 @@
     return array;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+	return self;
+}
+
 @end
 
 @implementation CloudiversityClass
@@ -53,6 +57,15 @@
 	
 	return newDiscipline;
 }
+
+//- (id)copyWithZone:(NSZone *)zone {
+//	CloudiversityDiscipline *discipline = [[CloudiversityDiscipline alloc] init];
+//	
+//	discipline.disciplineID = self.disciplineID;
+//	discipline.name = self.name;
+//	
+//	return discipline;
+//}
 
 @end
 

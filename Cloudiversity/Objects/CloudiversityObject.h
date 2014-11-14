@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CloudiversityObject : NSObject
+@interface CloudiversityObject : NSObject <NSCopying>
 
 + (instancetype)fromJSON:(id)json;
 + (NSArray *)fromJSONArray:(id)json;

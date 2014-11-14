@@ -16,10 +16,8 @@
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
-@property (nonatomic, strong) NSMutableDictionary *grades; // Classed by disciplines name
-@property (nonatomic, strong) NSMutableDictionary *averages; // Classed by disciplines name
+@property (nonatomic, strong) NSIndexPath *selectedRowPath;
 
-@property NSInteger plop;
 @end
 
 @implementation EvaluationGradesViewController
@@ -39,39 +37,26 @@
 	self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		NSDictionary *response = (NSDictionary*)responseObject;
 
-		bself.grades = [NSMutableDictionary dictionary];
-		bself.averages = [NSMutableDictionary dictionary];
+		NSMutableDictionary *periods = [NSMutableDictionary dictionary];
 		for (NSDictionary *currentPeriodDico in [response objectForKey:@"periods"]) {
 			CloudiversityPeriod *currentPeriod = [CloudiversityPeriod fromJSON:[currentPeriodDico objectForKey:@"period"]];
+			
+			NSMutableDictionary *disciplines = [NSMutableDictionary dictionary];
 			for (NSDictionary *currentDisciplineDico in [currentPeriodDico objectForKey:@"disciplines"]) {
 				CloudiversityDiscipline *currentDiscipline = [CloudiversityDiscipline fromJSON:[currentDisciplineDico objectForKey:@"discipline"]];
-				NSMutableArray *grades = [NSMutableArray array];
 				
+				NSMutableArray *grades = [NSMutableArray array];
 				for (NSDictionary *currentGradeDico in [currentDisciplineDico objectForKey:@"grades"]) {
 					CloudiversityGrade *currentGrade = [CloudiversityGrade fromJSON:currentGradeDico];
-					currentGrade.period = currentPeriod;
-					currentGrade.discipline = currentDiscipline;
 					
 					[grades addObject:currentGrade];
 				}
-				
-				NSMutableArray *selfGrades;
-				if ((selfGrades = [bself.grades objectForKey:currentDiscipline.name])) {
-					[selfGrades addObjectsFromArray:grades];
-				} else {
-					selfGrades = grades;
-				}
-				[bself.grades setObject:selfGrades forKey:currentDiscipline.name];
-				
-				// Calculating average
-				double total = 0;
-				for (CloudiversityGrade *grade in selfGrades) {
-					total += ([grade.note integerValue] * [grade.coefficent integerValue]);
-				}
-				[bself.averages setObject:[NSNumber numberWithDouble:(total/selfGrades.count)] forKey:currentDiscipline.name];
+				[disciplines setObject:grades forKey:currentDiscipline];
 			}
+			[periods setObject:disciplines forKey:currentPeriod];
 		}
 		
+		bself.sections = periods;
 		[bself reloadTableView];
 		[DejalActivityView removeView];
 		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
@@ -97,7 +82,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	self.plop = NSNotFound;
 	[self setupHandlers];
 
 	if ([[EGOCache globalCache] hasCacheForKey:CACHE_KEY]) {
@@ -125,109 +109,112 @@
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 25)];
-	CloudLabel *disciplineNameLabel = [[CloudLabel alloc] initWithFrame:CGRectMake(10, 0, self.tableView.bounds.size.width, 25)];
-	
-	[headerView setBackgroundColor:[UIColor cloudGrey]];
-	disciplineNameLabel.font = [UIFont fontWithName:@"FiraSansOt-Bold" size:disciplineNameLabel.font.pointSize];
+	CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(10, 0, self.tableView.bounds.size.width - 20, 25)];
+	__block CloudiversityPeriod *period;
 	
 	__block NSInteger count = 0;
-	[self.grades enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+	[self.sections enumerateKeysAndObjectsUsingBlock:^(CloudiversityPeriod *key, id obj, BOOL *stop) {
 		if (count == section) {
-			[disciplineNameLabel setText:(NSString*)key];
+			period = key;
 			*stop = YES;
 		}
-		*stop = NO;
 		count++;
 	}];
-	[headerView addSubview:disciplineNameLabel];
+	
+	[label setText:period.name];
+	[headerView addSubview:label];
+	[headerView setBackgroundColor:[UIColor cloudGrey]];
 	
 	return headerView;
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 25)];
-	CloudLabel *disciplineNameLabel = [[CloudLabel alloc] initWithFrame:CGRectMake(10, 0, self.tableView.bounds.size.width, 25)];
-	
-	[headerView setBackgroundColor:[UIColor cloudGrey]];
-	disciplineNameLabel.font = [UIFont fontWithName:@"FiraSansOt-Bold" size:disciplineNameLabel.font.pointSize];
-	
-	__block NSInteger count = 0;
-	[self.grades enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		if (count == section) {
-			[disciplineNameLabel setText:(NSString*)key];
-			*stop = YES;
-		}
-		*stop = NO;
-		count++;
-	}];
-	[headerView addSubview:disciplineNameLabel];
-	
-	return headerView;
+	UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 25)];
+	// Put average of the period
+	return footerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"markCell"];
-	
-	__block NSInteger count = 0;
-
-	[self.grades enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *obj, BOOL *stop) {
-		if (count == [indexPath section]) {
-
-			CloudiversityGrade *grade = [obj objectAtIndex:([indexPath row])];
-			
-			cell.textLabel.text = [grade.note stringValue];
-			cell.detailTextLabel.text = [NSString stringWithFormat:@"(Coefficient: %ld)", [grade.coefficent integerValue]];
-			*stop = YES;
-		}
-		*stop = NO;
-		count++;
-	}];
 
 	return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.grades.count;
+	return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	__block NSInteger count = 0;
-	__block NSArray *grades;
-	
-	[self.grades enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+	__block NSUInteger nbRows = 0;
+
+	[self.sections enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableDictionary *disciplines, BOOL *stop) {
 		if (count == section) {
-			grades = obj;
+			nbRows = disciplines.count;
+			
+			if (self.selectedRowPath) {
+				nbRows += [self numberOfGradesAtPosition:[self.selectedRowPath row] inDisciplines:disciplines];
+			}
 			*stop = YES;
 		}
-		*stop = NO;
 		count++;
 	}];
-	
-	switch (self.plop) {
-  case 0:
-			return grades.count - 2;
-			break;
-			
-  default:
-			return grades.count;
-			break;
-	}
+
+	return nbRows;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSMutableArray *array = [NSMutableArray array];
-	
-	for (int cnt = 0; cnt < 2; cnt++) {
-		[array addObject:[NSIndexPath indexPathForRow:(indexPath.row + cnt) inSection:indexPath.section]];
+	if (self.selectedRowPath == nil) {
+		self.selectedRowPath = indexPath;
+		NSUInteger gradesToAdd = [self numberOfGradesAtPosition:[indexPath row] inDisciplines:[self disciplinesInSection:[indexPath section]]];
+		
+		NSMutableArray *array = [NSMutableArray array];
+		for (int cnt = 1; cnt <= gradesToAdd; cnt++) {
+			[array addObject:[NSIndexPath indexPathForRow:([indexPath row] + cnt) inSection:[indexPath section]]];
+		}
+		[self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationLeft];
+	} else if (self.selectedRowPath.section == indexPath.section && self.selectedRowPath.row == indexPath.row) {
+		self.selectedRowPath = nil;
+		NSUInteger gradesToRemove = [self numberOfGradesAtPosition:[indexPath row] inDisciplines:[self disciplinesInSection:[indexPath section]]];
+		
+		NSMutableArray *array = [NSMutableArray array];
+		for (int cnt = 1; cnt <= gradesToRemove; cnt++) {
+			[array addObject:[NSIndexPath indexPathForRow:([indexPath row] + cnt) inSection:[indexPath section]]];
+		}
+		[self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationRight];
+		
 	}
+}
+
+#pragma mark - reusable methods
+
+- (NSUInteger)numberOfGradesAtPosition:(NSUInteger)position inDisciplines:(NSDictionary*)disciplines {
+	__block NSUInteger nbGrades = 0;
+	__block NSUInteger gradesCount = 0;
+	[disciplines enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableArray *grades, BOOL *stop) {
+		if (gradesCount == position) {
+			nbGrades = grades.count;
+			*stop = YES;
+		}
+		gradesCount++;
+	}];
+
+	return nbGrades;
+}
+
+- (NSDictionary*)disciplinesInSection:(NSUInteger)section {
+	__block NSInteger count = 0;
+	__block NSDictionary *disciplinesToReturn;
 	
-	if (self.plop != 0) {
-		self.plop = 0;
-		[self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationNone];
-	} else if (self.plop == 0) {
-		self.plop = 1;
-		[self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationNone];
-	}
+	[self.sections enumerateKeysAndObjectsUsingBlock:^(id key, NSMutableDictionary *disciplines, BOOL *stop) {
+		if (count == section) {
+			disciplinesToReturn = disciplines;
+			*stop = YES;
+		}
+		count++;
+	}];
+	
+	return disciplinesToReturn;
 }
 
 /*

@@ -753,9 +753,6 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Cloudiversity;
 				TargetAttributes = {
-					E478BB4818A0E8290068DEB1 = {
-						DevelopmentTeam = G3WA6Y3A28;
-					};
 					E478BB6918A0E8290068DEB1 = {
 						TestTargetID = E478BB4818A0E8290068DEB1;
 					};

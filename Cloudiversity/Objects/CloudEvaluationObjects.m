@@ -22,6 +22,13 @@
 	return newPeriod;
 }
 
++ (NSArray *)sortPeriods:(NSArray *)periods {
+	return [periods sortedArrayUsingComparator:^NSComparisonResult(CloudiversityPeriod *period1,
+																   CloudiversityPeriod *period2) {
+		return [period1.startDate compare:period2.startDate];
+	}];
+}
+
 @end
 
 @implementation CloudiversityAssessment
