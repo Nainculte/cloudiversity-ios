@@ -7,7 +7,7 @@
 //
 
 #import "AuthenticationViewController.h"
-#import "IOSRequest.h"
+#import "NetworkManager.h"
 #import "CloudKeychainManager.h"
 #import "DejalActivityView.h"
 #import "UIColor+Cloud.h"
@@ -180,6 +180,7 @@ NSString *const sepaTag = @"Sep";
         NSDictionary *response = (NSDictionary *)responseObject;
         User *user = [User withEmail:response[@"email"] andToken:response[@"token"]];
         self.user = user;
+        [NetworkManager manager].loggedIn = YES;
         [self endLoginWithSuccess:true];
     };
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -191,7 +192,7 @@ NSString *const sepaTag = @"Sep";
         [self endLoginWithSuccess:false];
     };
     [DejalActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"CONNECTING")].showNetworkActivityIndicator = YES;
-    [IOSRequest loginWithId:self.username andPassword:self.password onSuccess:success onFailure:failure];
+    [[NetworkManager manager] loginWithId:self.username andPassword:self.password onSuccess:success onFailure:failure];
 }
 
 - (void) endLoginWithSuccess:(BOOL)success {
@@ -226,7 +227,7 @@ NSString *const sepaTag = @"Sep";
                           otherButtonTitles:nil] show];
         [DejalActivityView removeView];
     };
-    [IOSRequest getCurrentUserOnSuccess:success onFailure:failure];
+    [[NetworkManager manager] getCurrentUserOnSuccess:success onFailure:failure];
 }
 
 - (void)cancel {

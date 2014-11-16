@@ -76,7 +76,7 @@
 - (void)initAssignmentsByHTTPRequest
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
-    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
+    [[NetworkManager manager] getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
 - (void)setupHandlers
@@ -198,7 +198,7 @@
 - (void)reloadTableView
 {
     [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
-    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
+    [[NetworkManager manager] getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

@@ -11,7 +11,7 @@
 #import "CloudDateConverter.h"
 #import "AMPieChartView.h"
 #import "UIColor+Cloud.h"
-#import "IOSRequest.h"
+#import "NetworkManager.h"
 #import "DejalActivityView.h"
 
 #define DICO_ID					@"id"
@@ -83,7 +83,7 @@
 	};
 	if (self.progressBarInput.value != self.assignment.progress) {
 		[DejalActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")].showNetworkActivityIndicator = YES;
-		[IOSRequest updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
+		[[NetworkManager manager] updateAssignmentWithId:self.assignment.assignmentId withProgression:self.progressBarInput.value onSuccess:success onFailure:failure];
 	}
 	
 	[super viewWillDisappear:animated];
@@ -131,7 +131,7 @@
                           otherButtonTitles:nil] show];
 	};
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"AGENDA_STUDENT_LOADING")].showNetworkActivityIndicator = YES;
-	[IOSRequest getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
+	[[NetworkManager manager] getAssignmentInformation:self.assignment.assignmentId onSuccess:success onFailure:failure];
 }
 
 #pragma mark - PieChart update

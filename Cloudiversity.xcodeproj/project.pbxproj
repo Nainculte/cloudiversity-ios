@@ -65,7 +65,7 @@
 		FDC907DD192A83D900646A68 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907DB192A83D900646A68 /* User.m */; };
 		FDC9081C192A847000646A68 /* HTTPErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = FDC907DF192A847000646A68 /* HTTPErrors.strings */; };
 		FDC9081D192A847000646A68 /* CloudKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907E2192A847000646A68 /* CloudKeychainManager.m */; };
-		FDC9081E192A847000646A68 /* IOSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907E5192A847000646A68 /* IOSRequest.m */; };
+		FDC9081E192A847000646A68 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907E5192A847000646A68 /* NetworkManager.m */; };
 		FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC90812192A847000646A68 /* AuthenticationViewController.m */; };
 		FDC90832192A847000646A68 /* AuthenticationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FDC90813192A847000646A68 /* AuthenticationVC.strings */; };
 		FDC90833192A847000646A68 /* HomeScreenVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FDC90817192A847000646A68 /* HomeScreenVC.strings */; };
@@ -127,8 +127,8 @@
 		929F47311955CB2B003CC61B /* CloudDateConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudDateConverter.m; sourceTree = "<group>"; };
 		92C2120B19471D510059B6B4 /* AgendaStudentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTableViewCell.h; sourceTree = "<group>"; };
 		92C2120C19471D510059B6B4 /* AgendaStudentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTableViewCell.m; sourceTree = "<group>"; };
-		92C2120F194731CC0059B6B4 /* AgendaAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaAssignment.h; sourceTree = "<group>"; };
-		92C21210194731CC0059B6B4 /* AgendaAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaAssignment.m; sourceTree = "<group>"; };
+		92C2120F194731CC0059B6B4 /* AgendaAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AgendaAssignment.h; path = ../ViewControllers/Agenda/AgendaAssignment.h; sourceTree = "<group>"; };
+		92C21210194731CC0059B6B4 /* AgendaAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AgendaAssignment.m; path = ../ViewControllers/Agenda/AgendaAssignment.m; sourceTree = "<group>"; };
 		92DB6AF5199D13DE00945122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/AgendaStudentVC.strings; sourceTree = "<group>"; };
 		92DB6AF7199D13E300945122 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AgendaStudentVC.strings; sourceTree = "<group>"; };
 		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
@@ -214,8 +214,8 @@
 		FDC907E1192A847000646A68 /* CloudKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKeychainManager.h; sourceTree = "<group>"; };
 		FDC907E2192A847000646A68 /* CloudKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKeychainManager.m; sourceTree = "<group>"; };
 		FDC907E3192A847000646A68 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/HTTPErrors.strings; sourceTree = "<group>"; };
-		FDC907E4192A847000646A68 /* IOSRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSRequest.h; sourceTree = "<group>"; };
-		FDC907E5192A847000646A68 /* IOSRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOSRequest.m; sourceTree = "<group>"; };
+		FDC907E4192A847000646A68 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		FDC907E5192A847000646A68 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		FDC90811192A847000646A68 /* AuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
 		FDC90812192A847000646A68 /* AuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
 		FDC90814192A847000646A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/AuthenticationVC.strings; sourceTree = "<group>"; };
@@ -512,6 +512,8 @@
 		FDC907D7192A83D900646A68 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				92C2120F194731CC0059B6B4 /* AgendaAssignment.h */,
+				92C21210194731CC0059B6B4 /* AgendaAssignment.m */,
 				FDC907D8192A83D900646A68 /* Object.h */,
 				FDC907D9192A83D900646A68 /* Object.m */,
 				FDC907DA192A83D900646A68 /* User.h */,
@@ -526,8 +528,8 @@
 				FDC907DF192A847000646A68 /* HTTPErrors.strings */,
 				FDC907E1192A847000646A68 /* CloudKeychainManager.h */,
 				FDC907E2192A847000646A68 /* CloudKeychainManager.m */,
-				FDC907E4192A847000646A68 /* IOSRequest.h */,
-				FDC907E5192A847000646A68 /* IOSRequest.m */,
+				FDC907E4192A847000646A68 /* NetworkManager.h */,
+				FDC907E5192A847000646A68 /* NetworkManager.m */,
 				928721061944658500C70168 /* AMPieChartView */,
 				929F47301955CB2B003CC61B /* CloudDateConverter.h */,
 				929F47311955CB2B003CC61B /* CloudDateConverter.m */,
@@ -582,8 +584,6 @@
 			children = (
 				FDBF7CED197BEFF400C43B33 /* Student */,
 				FDBF7CEE197BF00E00C43B33 /* Teacher */,
-				92C2120F194731CC0059B6B4 /* AgendaAssignment.h */,
-				92C21210194731CC0059B6B4 /* AgendaAssignment.m */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -857,7 +857,7 @@
 				FD29512B197C01A800833473 /* AgendaTeacherClassTableViewCell.m in Sources */,
 				FD24148919741B8B0069618E /* AgendaTeacherTableViewCell.m in Sources */,
 				FDC907DC192A83D900646A68 /* Object.m in Sources */,
-				FDC9081E192A847000646A68 /* IOSRequest.m in Sources */,
+				FDC9081E192A847000646A68 /* NetworkManager.m in Sources */,
 				FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */,
 				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
 				FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */,

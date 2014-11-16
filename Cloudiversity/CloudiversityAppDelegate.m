@@ -10,6 +10,7 @@
 #import "CloudKeychainManager.h"
 #import "User.h"
 #import "ServerViewController.h"
+#import "NetworkManager.h"
 
 @implementation CloudiversityAppDelegate
 
@@ -17,9 +18,9 @@
 {
     User *user = [User sharedUser];
     if (!user) {
-//        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"ServerViewController"];
         _window.rootViewController = [[ServerRootViewController alloc] init];
     } else if ((user.token = [CloudKeychainManager retrieveTokenWithEmail:user.email])) {
+        [NetworkManager manager].loggedIn = YES;
         _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"RevealViewController"];
     }
     return YES;

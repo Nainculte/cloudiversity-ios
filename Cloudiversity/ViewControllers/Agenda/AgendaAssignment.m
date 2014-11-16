@@ -7,6 +7,7 @@
 //
 
 #import "AgendaAssignment.h"
+#import "CloudDateConverter.h"
 
 @implementation AgendaAssignment
 
@@ -100,6 +101,42 @@
 	}
 	
 	return self;
+}
+
+- (NSMutableDictionary *)parametersForHTTP {
+    NSMutableDictionary *params;
+    NSString *date = [[CloudDateConverter sharedMager] stringFromDate:self.dueDate];
+    if (self.timePrecised) {
+        NSString *time = [[CloudDateConverter sharedMager] stringFromTime:self.dueDate];
+        params = [[NSMutableDictionary alloc] initWithDictionary:@{@"title" : self.title,
+                                                                   @"deadline" : date,
+                                                                   @"duetime" : time,
+                                                                   @"wording" : self.assignmentDescription
+                                                                   }];
+    } else {
+        params = [[NSMutableDictionary alloc] initWithDictionary:@{@"title" : self.title,
+                                                                   @"deadline" : date,
+                                                                   @"wording" : self.assignmentDescription
+                                                                   }];
+    }
+    return params;
+}
+
+- (instancetype)initWithOther:(AgendaAssignment *)other {
+    self = [super init];
+    if (self) {
+        self.title = other.title;
+        self.assignmentDescription = other.assignmentDescription;
+        self.dissiplineInformation = other.dissiplineInformation;
+        self.classInformation = other.classInformation;
+        self.dueDate = other.dueDate;
+        self.timePrecised = other.timePrecised;
+        self.creationDate = other.creationDate;
+        self.lastUpdate = other.lastUpdate;
+        self.progress = other.progress;
+        self.assignmentId = other.assignmentId;
+    }
+    return self;
 }
 
 #pragma mark - NSCoding protocol implementation

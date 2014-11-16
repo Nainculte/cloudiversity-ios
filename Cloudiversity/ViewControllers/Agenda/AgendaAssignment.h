@@ -62,6 +62,10 @@
 		description:(NSString*)description
 		andProgress:(NSInteger)progress;
 
+- (NSMutableDictionary *)parametersForHTTP;
+
+- (instancetype)initWithOther:(AgendaAssignment *)other;
+
 #pragma mark - NSCoding protocol implemantation
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder;
