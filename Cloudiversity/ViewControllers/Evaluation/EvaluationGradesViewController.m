@@ -17,6 +17,7 @@
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
 @property (nonatomic, strong) NSIndexPath *selectedRowPath;
+@property (nonatomic, strong) NSMutableArray *disciplinesIndexPaths; // A memory view of the indexPaths of disciplines (Array of Arrays of IndexPaths)
 
 @end
 
@@ -57,6 +58,7 @@
 		}
 		
 		bself.sections = periods;
+//		[bself initDisciplinesIndexPaths];
 		[bself reloadTableView];
 		[DejalActivityView removeView];
 		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
@@ -81,6 +83,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	
+	self.disciplinesIndexPaths = [NSMutableArray array];
 	
 	[self setupHandlers];
 
@@ -137,6 +141,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"markCell"];
 
+	cell.textLabel.text = [NSString stringWithFormat:@"{%ld - %ld}", (long)indexPath.section, (long)indexPath.row];
+	
 	return cell;
 }
 
@@ -165,6 +171,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.selectedRowPath == nil) {
+		// Uncollapse discipline
 		self.selectedRowPath = indexPath;
 		NSUInteger gradesToAdd = [self numberOfGradesAtPosition:[indexPath row] inDisciplines:[self disciplinesInSection:[indexPath section]]];
 		
@@ -173,7 +180,9 @@
 			[array addObject:[NSIndexPath indexPathForRow:([indexPath row] + cnt) inSection:[indexPath section]]];
 		}
 		[self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationLeft];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	} else if (self.selectedRowPath.section == indexPath.section && self.selectedRowPath.row == indexPath.row) {
+		// Collapse discipline
 		self.selectedRowPath = nil;
 		NSUInteger gradesToRemove = [self numberOfGradesAtPosition:[indexPath row] inDisciplines:[self disciplinesInSection:[indexPath section]]];
 		
@@ -181,12 +190,63 @@
 		for (int cnt = 1; cnt <= gradesToRemove; cnt++) {
 			[array addObject:[NSIndexPath indexPathForRow:([indexPath row] + cnt) inSection:[indexPath section]]];
 		}
-		[self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationRight];
+		[self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationLeft];
+	} else if ((self.selectedRowPath.row != indexPath.row && self.selectedRowPath.section == indexPath.section) ||
+			   self.selectedRowPath.section != indexPath.section) {
+		// Collapse previous uncollapsed discipline, and uncollapse selected discipline
+		NSIndexPath *newIndexPath;
+		NSUInteger gradesToAdd;
+		NSUInteger gradesToRemove = [self numberOfGradesAtPosition:[self.selectedRowPath row] inDisciplines:[self disciplinesInSection:[self.selectedRowPath section]]];
 		
+		if (self.selectedRowPath.section == indexPath.section && self.selectedRowPath.row < indexPath.row) {
+			newIndexPath = [NSIndexPath indexPathForRow:(indexPath.row - gradesToRemove) inSection:indexPath.section];
+		} else {
+			newIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+		}
+		
+		gradesToAdd = [self numberOfGradesAtPosition:newIndexPath.row inDisciplines:[self disciplinesInSection:newIndexPath.section]];
+
+		NSMutableArray *array = [NSMutableArray array];
+		for (int cnt = 1; cnt <= gradesToRemove; cnt++) {
+			[array addObject:[NSIndexPath indexPathForRow:([self.selectedRowPath row] + cnt) inSection:[self.selectedRowPath section]]];
+		}
+		self.selectedRowPath = nil;
+		[self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationLeft];
+
+		array = [NSMutableArray array];
+		for (int cnt = 1; cnt <= gradesToAdd; cnt++) {
+			[array addObject:[NSIndexPath indexPathForRow:([newIndexPath row] + cnt) inSection:[newIndexPath section]]];
+		}
+		self.selectedRowPath = newIndexPath;
+		[self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationLeft];
 	}
 }
 
 #pragma mark - reusable methods
+
+- (void)initDisciplinesIndexPaths {
+	BSELF(self);
+	
+	__block NSUInteger section = 0;
+	[self.sections enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary *disciplines, BOOL *stop) {
+		NSMutableArray *disciplinesIndexes = [NSMutableArray array];
+		__block NSUInteger row = 0;
+		[disciplines enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+			[disciplinesIndexes addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+			row++;
+		}];
+		[bself.disciplinesIndexPaths addObject:disciplinesIndexes];
+		section++;
+	}];
+}
+
+- (void)updateDisciplinesIndexPathsWithExpandingIndexPath:(NSIndexPath*)expandingIndexPath
+								   andCollapsingIndexPath:(NSIndexPath*)collapsingIndexPath {
+	NSMutableArray *disciplinesIndexes = [self.disciplinesIndexPaths objectAtIndex:[collapsingIndexPath section]];
+	NSUInteger nbGrades = [self numberOfGradesAtPosition:[collapsingIndexPath row] inDisciplines:[self disciplinesInSection:[collapsingIndexPath section]]];
+	for (NSUInteger cnt = [collapsingIndexPath row]; cnt < disciplinesIndexes.count; cnt++) {
+	}
+}
 
 - (NSUInteger)numberOfGradesAtPosition:(NSUInteger)position inDisciplines:(NSDictionary*)disciplines {
 	__block NSUInteger nbGrades = 0;
