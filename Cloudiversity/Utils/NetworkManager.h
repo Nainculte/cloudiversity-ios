@@ -16,11 +16,28 @@
 typedef void (^HTTPSuccessHandler)(AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *error);
 
+@protocol NetworkManagerDelegate
+
+- (void)internetReachable;
+- (void)internetUnreachable;
+
+@end
+
 @interface NetworkManager : NSObject
 
 @property (nonatomic, assign)BOOL loggedIn;
+@property (nonatomic, assign, getter=isConnected)BOOL connected;
 
 + (instancetype)manager;
+
+#pragma mark - NetworkManagerDelegate
+
+- (void)addDelegate:(id<NetworkManagerDelegate>)delegate;
+- (void)removeDelegate:(id<NetworkManagerDelegate>)delegate;
+
+#pragma mark - Reachability Management
+- (void)startMonitoringReachability;
+- (void)stopMonitoringReachability;
 
 #pragma mark - HTTP request for logging in, getting current user info, authentcating server
 
