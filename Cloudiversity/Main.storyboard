@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="WZd-7V-rIF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="WZd-7V-rIF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--Server Root View Controller-->
@@ -317,6 +317,7 @@
                     </view>
                     <connections>
                         <outlet property="agendaButton" destination="Tbo-B9-sMm" id="iDy-QG-Xoq"/>
+                        <outlet property="disconnectButton" destination="RdI-6V-3K8" id="wE3-f5-FeT"/>
                         <outlet property="roleSwitcher" destination="Jhs-ht-Xik" id="s2R-nQ-C6C"/>
                         <segue destination="cXZ-Oz-7Aw" kind="custom" identifier="AgendaTeacher" customClass="SWRevealViewControllerSegue" id="s6c-lu-sbO"/>
                         <segue destination="Xsx-OA-UlT" kind="custom" identifier="AgendaStudent" customClass="SWRevealViewControllerSegue" id="Uy6-RM-pqk"/>
@@ -350,7 +351,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8mP-CT-DQQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OCj-YX-QpA">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home Screen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYF-QI-9Lo" customClass="CloudLabel">
@@ -731,6 +732,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BNK-RA-z8p"/>
+        <segue reference="G1a-sa-Ja5"/>
     </inferredMetricsTieBreakers>
 </document>

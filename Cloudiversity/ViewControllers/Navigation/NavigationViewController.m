@@ -19,6 +19,7 @@
 @property (nonatomic, assign) NSInteger current;
 
 - (IBAction)agendaClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *disconnectButton;
 
 @end
 
@@ -35,7 +36,8 @@ typedef NS_ENUM(NSInteger, state) {
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor cloudDarkGrey];
-
+    [self.agendaButton setTitle:LOCALIZEDSTRING(@"AGENDA_TITLE") forState:UIControlStateNormal];
+    [self.disconnectButton setTitle:LOCALIZEDSTRING(@"DISCONNECT") forState:UIControlStateNormal];
     [self initRoleSwitcher];
 }
 
@@ -50,48 +52,54 @@ typedef NS_ENUM(NSInteger, state) {
     if (user.roles.count > 1) {
         [self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
         [self.roleSwitcher removeAllSegments];
-        [user.localizedRoles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
+        NSUInteger idx = 0;
+        self.roleSwitcher.selectedSegmentIndex = 0;
+        for (NSString *title in user.localizedRoles) {
             [self.roleSwitcher insertSegmentWithTitle:title atIndex:idx animated:NO];
             if ([user.currentRole isEqualToString:user.roles[idx]]) {
+                user.currentRole = user.roles[idx];
                 self.roleSwitcher.selectedSegmentIndex = idx;
             }
-        }];
+            idx++;
+        }
         self.roleSwitcher.hidden = NO;
     } else {
         self.roleSwitcher.hidden = YES;
     }
-    user.currentRole = user.localizedRoles[self.roleSwitcher.selectedSegmentIndex];
-    self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")];
+    self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"];
 }
 
 - (void)changeRole {
     User *user = [User sharedUser];
     user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")];
+    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
+        self.agendaButton.hidden = YES;
+    } else {
+        self.agendaButton.hidden = NO;
+    }
 
     switch (self.current) {
         case agendaStudent:
-            if ([user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_TEACHER")]) {
+            if ([user.currentRole isEqualToString:@"Teacher"]) {
                 [self performSegueWithIdentifier:@"AgendaTeacher" sender:self];
             } else {
                 [self performSegueWithIdentifier:@"HomeScreen" sender:self];
             }
             break;
         case agendaTeacher:
-            if ([user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
+            if ([user.currentRole isEqualToString:@"Student"]) {
                 [self performSegueWithIdentifier:@"AgendaStudent" sender:self];
             } else {
                 [self performSegueWithIdentifier:@"HomeScreen" sender:self];
             }
             break;
     }
-
     //do stuff to change the front view controller depending on the role
 }
 
 #pragma mark - Navigation
 - (IBAction)agendaClicked:(id)sender {
-    if ([[User sharedUser].currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
+    if ([[User sharedUser].currentRole isEqualToString:@"Student"]) {
         [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
     } else {
         [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];

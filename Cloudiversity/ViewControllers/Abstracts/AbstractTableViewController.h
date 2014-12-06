@@ -16,8 +16,6 @@
 #import "EGOCache.h"
 #import "User.h"
 
-#define BSELF(ptr) __weak typeof(ptr) bself = ptr;
-
 @interface AbstractTableViewController : UITableViewController <UITableViewDataSource, CloudTableViewDelegate, SWRevealViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;

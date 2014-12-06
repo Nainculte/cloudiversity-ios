@@ -39,6 +39,4 @@
 - (instancetype)initAdd;
 - (instancetype)initEdit;
 
-#define BSELF(ptr) __weak typeof(ptr) bself = ptr;
-
 @end
