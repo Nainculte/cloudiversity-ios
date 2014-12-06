@@ -10,7 +10,7 @@
 #import "CloudiversityAppDelegate.h"
 #import "UICloud.h"
 #import "UIColor+Cloud.h"
-#import "IOSRequest.h"
+#import "NetworkManager.h"
 #import "DejalActivityView.h"
 #import "SWRevealViewController.h"
 #import "EGOCache.h"

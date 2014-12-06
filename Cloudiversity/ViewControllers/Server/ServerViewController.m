@@ -7,7 +7,7 @@
 //
 
 #import "ServerViewController.h"
-#import "IOSRequest.h"
+#import "NetworkManager.h"
 #import "CloudLogoCell.h"
 #import "CloudURLCellPicker.h"
 #import "UIColor+Cloud.h"
@@ -156,6 +156,7 @@ NSString *const sepTag = @"Sep";
         return;
     }
     self.server = adress;
+    [self saveServer];
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *response = (NSDictionary *)responseObject;
 
@@ -173,7 +174,7 @@ NSString *const sepTag = @"Sep";
         [self invalidURL];
     };
     [DejalActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"CONNECTING")].showNetworkActivityIndicator = YES;
-    [IOSRequest isCloudiversityServer:self.server onSuccess:success onFailure:failure];
+    [[NetworkManager manager] isCloudiversityServerOnSuccess:success onFailure:failure];
 }
 
 - (void)saveServer {
@@ -183,7 +184,6 @@ NSString *const sepTag = @"Sep";
 }
 
 - (void)validURL {
-    [self saveServer];
     AuthenticationRootViewController *vc = [[AuthenticationRootViewController alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
 }

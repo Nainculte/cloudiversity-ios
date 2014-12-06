@@ -236,18 +236,20 @@ static NSString *descriptionTag = @"Description";
     NSString *title = row.value;
 
     row = [self.form formRowWithTag:dueDateTag];
-    NSDate *duedate = row.value;
-    NSString *date = [[CloudDateConverter sharedMager] stringFromDate:duedate];
+    NSDate *dueDate = row.value;
 
     row = [self.form formRowWithTag:timePrecisedTag];
     bool timePrecised = [row.value boolValue];
-    NSString *time = nil;
-    if (timePrecised) {
-        time = [[CloudDateConverter sharedMager] stringFromTime:duedate];
-    }
 
     row = [self.form formRowWithTag:descriptionTag];
     NSString *description = row.value;
+
+    AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:title
+                                                                    withId:0
+                                                                   dueTime:dueDate
+                                                              timePrecised:timePrecised
+                                                               description:description
+                                                               andProgress:0];
 
     BSELF(self)
     HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -285,14 +287,11 @@ static NSString *descriptionTag = @"Description";
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
 
-    [IOSRequest postAssignmentWithTitle:title
-                            withDueDate:date
-                            withDueTime:time
-                        withDescription:description
-                       withDisciplineID:self.disciplineID
-                            withClassID:self.classID
-                              onSuccess:success
-                              onFailure:failure];
+    [[NetworkManager  manager] postAssignmentWithAssignment:assignment
+                                           withDisciplineID:self.disciplineID
+                                                withClassID:self.classID
+                                                  onSuccess:success
+                                                  onFailure:failure];
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
 }
 
@@ -313,18 +312,19 @@ static NSString *descriptionTag = @"Description";
     NSString *title = row.value;
 
     row = [self.form formRowWithTag:dueDateTag];
-    NSDate *duedate = row.value;
-    NSString *date = [[CloudDateConverter sharedMager] stringFromDate:duedate];
+    NSDate *dueDate = row.value;
 
     row = [self.form formRowWithTag:timePrecisedTag];
     bool timePrecised = [row.value boolValue];
-    NSString *time = nil;
-    if (timePrecised) {
-        time = [[CloudDateConverter sharedMager] stringFromTime:duedate];
-    }
 
     row = [self.form formRowWithTag:descriptionTag];
     NSString *description = row.value;
+
+    AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithOther:self.assignment];
+    assignment.title = title;
+    assignment.timePrecised = timePrecised;
+    assignment.dueDate = dueDate;
+    assignment.assignmentDescription = description;
 
     BSELF(self)
     HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -347,7 +347,7 @@ static NSString *descriptionTag = @"Description";
         [DejalActivityView removeView];
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
         [bself dismissViewControllerAnimated:YES completion:^{
-            [bself.superPresenter.assignments addObject:self.assignment];
+            [bself.superPresenter.assignments addObject:bself.assignment];
             [bself.superPresenter.tableView reloadData];
         }];
     };
@@ -362,15 +362,11 @@ static NSString *descriptionTag = @"Description";
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
 
-    [IOSRequest patchAssignmentWithTitle:title
-                             withDueDate:date
-                             withDueTime:time
-                         withDescription:description
-                        withDisciplineID:self.disciplineID
-                             withClassID:self.classID
-                         andAssignmentID:self.assignment.assignmentId
-                               onSuccess:success
-                               onFailure:failure];
+    [[NetworkManager manager] patchAssignmentWithAssignment:assignment
+                                           withDisciplineID:self.disciplineID
+                                                withClassID:self.classID
+                                                  onSuccess:success
+                                                  onFailure:failure];
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
 }
 

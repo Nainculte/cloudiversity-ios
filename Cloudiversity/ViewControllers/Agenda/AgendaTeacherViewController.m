@@ -49,7 +49,7 @@
 - (void)initAssignmentsByHTTPRequest
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
-    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
+    [[NetworkManager manager] getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
 - (void)setupHandlers
@@ -138,7 +138,7 @@
 - (void)reloadTableView
 {
     [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
-    [IOSRequest getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
+    [[NetworkManager manager] getAssignmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
 - (NSString *)reuseIdentifier

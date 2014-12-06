@@ -10,6 +10,7 @@
 #import "CloudKeychainManager.h"
 #import "User.h"
 #import "ServerViewController.h"
+#import "NetworkManager.h"
 
 @implementation CloudiversityAppDelegate
 
@@ -17,9 +18,9 @@
 {
     User *user = [User sharedUser];
     if (!user) {
-//        _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"ServerViewController"];
         _window.rootViewController = [[ServerRootViewController alloc] init];
     } else if ((user.token = [CloudKeychainManager retrieveTokenWithEmail:user.email])) {
+        [NetworkManager manager].loggedIn = YES;
         _window.rootViewController = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"RevealViewController"];
     }
     return YES;
@@ -34,6 +35,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [[User sharedUser] saveUser];
+    [[NetworkManager manager] stopMonitoringReachability];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -45,12 +47,15 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"server"])
+        [[NetworkManager manager] startMonitoringReachability];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [[User sharedUser] saveUser];
+    [[NetworkManager manager] stopMonitoringReachability];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

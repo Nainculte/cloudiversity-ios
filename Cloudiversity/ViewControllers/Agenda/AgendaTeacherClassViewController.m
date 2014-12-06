@@ -123,7 +123,7 @@
 - (void)initAssignmentsByHTTPRequest
 {
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
-    [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
+    [[NetworkManager manager] getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
 }
 
 #pragma mark - Generate sections / Sort assignments
@@ -227,7 +227,7 @@
         [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
     };
     [DejalBezelActivityView activityViewForView:self.view withLabel:LOCALIZEDSTRING(@"LOADING")].showNetworkActivityIndicator = YES;
-    [IOSRequest getAssignmentInformation:self.editedAssignment.assignmentId onSuccess:success onFailure:failure];
+    [[NetworkManager manager] getAssignmentInformation:self.editedAssignment.assignmentId onSuccess:success onFailure:failure];
 }
 
 - (void)tableViewDidReloadData:(UITableView *)tableView
@@ -237,7 +237,7 @@
 
 - (void)reloadTableView {
     [((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:YES];
-    [IOSRequest getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
+    [[NetworkManager manager] getAssignmentsForClass:self.classID andDiscipline:self.disciplineID onSuccess:self.success onFailure:self.failure];
 }
 
 - (NSString *)reuseIdentifier
