@@ -95,11 +95,10 @@ NSString *const sepTag = @"Sep";
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *server = [defaults objectForKey:@"server"];
-    NSRange range;
     if (!server || [server isEqualToString:@""]) {
         (row.cellConfigAtConfigure)[@"selectedIndex"] = @0;
     } else {
-        if ((range = [server rangeOfString:@"http://"]).location == NSNotFound) {
+        if ([server rangeOfString:@"http://"].location == NSNotFound) {
             (row.cellConfigAtConfigure)[@"selectedIndex"] = @0;
             (row.cellConfigAtConfigure)[@"text"] = [server substringFromIndex:8];
         } else {

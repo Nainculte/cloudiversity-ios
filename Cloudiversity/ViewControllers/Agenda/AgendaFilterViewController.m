@@ -63,7 +63,6 @@
 static NSString *const isFilteringDateTag = @"isFilteringDate";
 static NSString *const dateFilterTag = @"dateFilter";
 static NSString *const progressFilteringTag = @"progressFiltering";
-static NSString *const disciplineFilterTag = @"disciplineFilter";
 
 #pragma mark - Initializers
 - (instancetype)init {
@@ -98,6 +97,7 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
 
 #pragma mark - View life cycle
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     NSArray *disciplines = [self.dataSource getAvailableDisciplinesToFilter];
     self.disciplinesRows = [NSMutableDictionary dictionaryWithCapacity:disciplines.count];
     NSUInteger count = self.disciplineFilterSection.formRows.count;
@@ -140,10 +140,7 @@ static NSString *const disciplineFilterTag = @"disciplineFilter";
         (self.filters)[DATE_FILTER_KEY] = [[CloudDateConverter sharedMager] dateFromString:[formatter stringFromDate:date]];
     } else if ([formRow.sectionDescriptor isEqual:self.disciplineFilterSection]) {
         NSSet *names = [self.disciplinesRows keysOfEntriesPassingTest:^BOOL(NSString *key, XLFormRowDescriptor *obj, BOOL *stop){
-            if ([obj isEqual:formRow]) {
-                return YES;
-            }
-            return NO;
+            return [obj isEqual:formRow];
         }];
         NSString *name = [names anyObject];
         if ([formRow.value boolValue]) {

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import <Security/Security.h>
 #import "CloudKeychainManager.h"
 
 @implementation CloudKeychainManager
@@ -19,10 +18,7 @@
     NSData *tokenData = [token dataUsingEncoding:NSUTF8StringEncoding];
     d[(__bridge id<NSCopying>)(kSecValueData)] = tokenData;
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)d, NULL);
-    if (status == errSecSuccess) {
-        return YES;
-    }
-    return NO;
+    return status == errSecSuccess;
 }
 
 + (NSString *)retrieveTokenWithEmail:(NSString *)email {

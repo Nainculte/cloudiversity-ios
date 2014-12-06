@@ -8,7 +8,6 @@
 
 #import "AgendaStudentViewController.h"
 #import "AgendaStudentTableViewCell.h"
-#import "AgendaAssignment.h"
 #import "CloudDateConverter.h"
 #import "AgendaFilterViewController.h"
 
@@ -29,17 +28,12 @@
 @interface AgendaStudentViewController ()
 
 // Properties for filtering
-@property BOOL isFilteringExams;
-@property BOOL isFilteringExercices;
-@property BOOL isFilteringNotedTasks;
 @property (nonatomic, strong) NSDate *dateToFilter;
 @property (nonatomic, strong) NSArray *disciplinesToFilter;
 @property (nonatomic) AgendaStudentViewControllerProgressFilterPosition progressFilter;
 
 @property (nonatomic, strong) NSMutableArray *allDisciplinesName;
 @property (nonatomic, strong) NSIndexPath *selectedRowPath;
-
-@property (nonatomic) BOOL recievedResponseFromServer;
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
@@ -96,7 +90,7 @@
             NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", assignmentDico[DICO_DEADLINE], dueTimeString];
             AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:assignmentDico[DICO_TITLE]
                                                                             withId:[assignmentDico[DICO_ID] integerValue] dueDate:[[CloudDateConverter sharedMager]  dateAndTimeFromString:fullDateAndTime]
-                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] == [NSNull class] ? NO : YES
+                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] != [NSNull class]
                                                                           progress:[assignmentDico[DICO_PROGRESS] integerValue]
                                                                      forDissipline:assignmentDico[DICO_DISCIPLINE]];
 
@@ -177,10 +171,8 @@
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-	if (self.revealViewController.frontViewPosition == FrontViewPositionLeftSide)
-		return NO;
-	
-	return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
+    return self.revealViewController.frontViewPosition != FrontViewPositionLeftSide && [super shouldPerformSegueWithIdentifier:identifier sender:sender];
+
 }
 
 #pragma mark - UITableView management
@@ -341,7 +333,7 @@
 - (void)filtersUpdated:(NSDictionary *)newFilters {
     self.dateToFilter = newFilters[DATE_FILTER_KEY];
     self.disciplinesToFilter = newFilters[DISCIPLINE_FILTER_KEY];
-    self.progressFilter = [newFilters[PROGRESS_FILTER_KEY] integerValue];
+    self.progressFilter = (AgendaStudentViewControllerProgressFilterPosition) [newFilters[PROGRESS_FILTER_KEY] integerValue];
 
     [self reloadTableView];
 }
@@ -351,7 +343,7 @@
     NSMutableDictionary *filters = [NSMutableDictionary dictionaryWithCapacity:3];
     self.dateToFilter ? filters[DATE_FILTER_KEY] = self.dateToFilter : nil;
     self.disciplinesToFilter ? filters[DISCIPLINE_FILTER_KEY] = self.disciplinesToFilter : nil;
-    filters[PROGRESS_FILTER_KEY] = [NSNumber numberWithInt:self.progressFilter];
+    filters[PROGRESS_FILTER_KEY] = @(self.progressFilter);
     return filters;
 }
 
@@ -379,12 +371,10 @@
 #pragma mark - boolean methods
 // Return YES if the given Assignment's progress match the progressFilter value
 - (BOOL)doesAssignmentMatchTheProgressFilterValue:(AgendaAssignment*)assignment {
-	if ((assignment.progress == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
-		(assignment.progress != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo) ||
-		self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll)
-		return YES;
-	
-	return NO;
+    return (assignment.progress == 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionDone) ||
+    (assignment.progress != 100 && self.progressFilter == AgendaStudentViewControllerProgressFilterPositionToDo) ||
+    self.progressFilter == AgendaStudentViewControllerProgressFilterPositionAll;
+
 }
 
 // Return YES if an Array of assignments contains at least one assignment in the filtered disciplines

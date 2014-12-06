@@ -10,8 +10,6 @@
 #import "XLFormRightImageButton.h"
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormRowDescriptor.h"
-#import "XLForm.h"
-#import "UICloud.h"
 #import "UIColor+Cloud.h"
 #import "CloudURLCellPicker.h"
 
@@ -38,13 +36,13 @@
     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
     [imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_leftButton addSubview:imageView];
-    [_leftButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image(8)]|" options:0 metrics:0 views:@{@"image": imageView}]];
+    [_leftButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image(8)]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:@{@"image" : imageView}]];
 
     UIView * separatorTop = [UIView autolayoutView];
     UIView * separatorBottom = [UIView autolayoutView];
     [_leftButton addSubview:separatorTop];
     [_leftButton addSubview:separatorBottom];
-    [_leftButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[separatorTop(separatorBottom)][image][separatorBottom]|" options:0 metrics:0 views:@{@"image": imageView, @"separatorTop": separatorTop, @"separatorBottom": separatorBottom}]];
+    [_leftButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[separatorTop(separatorBottom)][image][separatorBottom]|" options:0 metrics:nil views:@{@"image": imageView, @"separatorTop": separatorTop, @"separatorBottom": separatorBottom}]];
 
     _leftButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
 
@@ -93,7 +91,7 @@
     [self.contentView addConstraint:[self.rightTextField layoutConstraintSameHeightOf:self.contentView]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightTextField]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightTextField]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[separatorView]-8-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[separatorView]-8-|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
 
     [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
 

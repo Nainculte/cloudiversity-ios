@@ -7,15 +7,7 @@
 //
 
 #import "AgendaTeacherEditAssignmentViewController.h"
-#import "AgendaTeacherClassViewController.h"
-#import "AgendaAssignment.h"
-#import "IOSRequest.h"
 #import "CloudDateConverter.h"
-#import "DejalActivityView.h"
-#import "CloudiversityAppDelegate.h"
-
-#import "CloudLogoCell.h"
-#import "CloudURLCellPicker.h"
 
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"AgendaTeacherVC"]
 
@@ -67,7 +59,7 @@
 - (void) viewWillUnload
 {
     ((AgendaTeacherClassViewController *)self.presentingViewController).editedAssignment = self.assignment;
-    [super viewWillUnload];
+    [super viewDidUnload];
 }
 
 @end
@@ -183,7 +175,7 @@ static NSString *descriptionTag = @"Description";
     if ([formRow.tag isEqualToString:timePrecisedTag]) {
         XLFormDateCell *dueDate = (XLFormDateCell *)[[self.form formRowWithTag:dueDateTag] cellForFormController:self];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        if ([[formRow.value valueData] boolValue] == YES) {
+        if ([[formRow.value valueData] boolValue]) {
             [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
             [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
             [dueDate setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
@@ -269,7 +261,7 @@ static NSString *descriptionTag = @"Description";
         bself.assignment = [[AgendaAssignment alloc] initWithTitle:response[@"title"]
                                                             withId:[response[@"id"] integerValue]
                                                            dueTime:date
-                                                      timePrecised:response[@"duetime"] == [NSNull null] ? NO : YES
+                                                      timePrecised:response[@"duetime"] != [NSNull null]
                                                        description:response[@"wording"]
                                                   withCreationDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"created_at"]]
                                                      andLastUpdate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"updated_at"]]
@@ -346,7 +338,7 @@ static NSString *descriptionTag = @"Description";
         bself.assignment = [[AgendaAssignment alloc] initWithTitle:response[@"title"]
                                                             withId:[response[@"id"] integerValue]
                                                            dueTime:date
-                                                      timePrecised:response[@"duetime"] == [NSNull null] ? NO : YES
+                                                      timePrecised:response[@"duetime"] != [NSNull null]
                                                        description:response[@"wording"]
                                                   withCreationDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"created_at"]]
                                                      andLastUpdate:[[CloudDateConverter sharedMager] dateAndTimeFromString:response[@"updated_at"]]

@@ -98,7 +98,7 @@
             NSString *fullDateAndTime = [NSString stringWithFormat:@"%@ %@", assignmentDico[DICO_DEADLINE], dueTimeString];
             AgendaAssignment *assignment = [[AgendaAssignment alloc] initWithTitle:assignmentDico[DICO_TITLE]
                                                                             withId:[assignmentDico[DICO_ID] integerValue] dueDate:[[CloudDateConverter sharedMager] dateAndTimeFromString:fullDateAndTime]
-                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] == [NSNull class] ? NO : YES
+                                                                      timePrecised:[assignmentDico[DICO_DUETIME] class] != [NSNull class]
                                                                           progress:[assignmentDico[DICO_PROGRESS] integerValue]
                                                                      forDissipline:assignmentDico[DICO_DISCIPLINE]];
             [bself.assignments addObject:assignment];

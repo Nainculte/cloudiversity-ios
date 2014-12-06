@@ -9,9 +9,6 @@
 #import "NavigationViewController.h"
 #import "SWRevealViewController.h"
 #import "AgendaStudentViewController.h"
-#import "UIColor+Cloud.h"
-#import "UICloud.h"
-#import "User.h"
 #import "CloudKeychainManager.h"
 #import "ServerViewController.h"
 
@@ -64,21 +61,13 @@ typedef NS_ENUM(NSInteger, state) {
         self.roleSwitcher.hidden = YES;
     }
     user.currentRole = user.localizedRoles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")]) {
-        self.agendaButton.hidden = YES;
-    } else {
-        self.agendaButton.hidden = NO;
-    }
+    self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")];
 }
 
 - (void)changeRole {
     User *user = [User sharedUser];
     user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")]) {
-        self.agendaButton.hidden = YES;
-    } else {
-        self.agendaButton.hidden = NO;
-    }
+    self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_ADMIN")] || [user.currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_PARENT")];
 
     switch (self.current) {
         case agendaStudent:
