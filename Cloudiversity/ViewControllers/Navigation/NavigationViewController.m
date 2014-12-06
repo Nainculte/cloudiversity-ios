@@ -101,7 +101,7 @@ typedef NS_ENUM(NSInteger, state) {
 
 #pragma mark - Navigation
 - (IBAction)agendaClicked:(id)sender {
-    if ([[User sharedUser].currentRole isEqualToString:LOCALIZEDSTRING(@"ROLE_STUDENT")]) {
+    if ([[User sharedUser].currentRole isEqualToString:@"Student"]) {
         [self performSegueWithIdentifier:@"AgendaStudent" sender:sender];
     } else {
         [self performSegueWithIdentifier:@"AgendaTeacher" sender:sender];
