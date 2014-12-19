@@ -1,14 +1,14 @@
 //
-//  EvaluationViewController.h
+//  EvaluationAssessmentsViewController.h
 //  Cloudiversity
 //
-//  Created by Anthony MERLE on 05/09/2014.
+//  Created by Anthony MERLE on 19/12/2014.
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
 #import "AbstractTableViewController.h"
 #import "CloudEvaluationObjects.h"
 
-@interface EvaluationDisciplinesViewController : AbstractTableViewController
+@interface EvaluationAllAssessmentsViewController : AbstractTableViewController
 
 @end

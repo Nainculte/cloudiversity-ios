@@ -1,41 +1,40 @@
 //
-//  EvaluationViewController.m
+//  EvaluationAssessmentsViewController.m
 //  Cloudiversity
 //
-//  Created by Anthony MERLE on 05/09/2014.
+//  Created by Anthony MERLE on 19/12/2014.
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "EvaluationDisciplinesViewController.h"
-#import "EvaluationGradesViewController.h"
+#import "EvaluationAllAssessmentsViewController.h"
+#import "EvaluationAssessmentsViewController.h"
 
 #define CACHE_KEY	@"assessmentsStudentList"
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"EvaluationVC"]
 
-@interface EvaluationDisciplinesViewController ()
+@interface EvaluationAllAssessmentsViewController ()
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
 
 @end
 
-@implementation EvaluationDisciplinesViewController
+@implementation EvaluationAllAssessmentsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
 - (void)setupHandlers {
 	BSELF(self);
-
+	
 	self.success = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		NSDictionary *response = (NSDictionary*)responseObject;
-
+		
 		NSMutableDictionary *periods = [NSMutableDictionary dictionary];
 		for (NSDictionary *currentPeriodDico in [response objectForKey:@"periods"]) {
 			CloudiversityPeriod *currentPeriod = [CloudiversityPeriod fromJSON:[currentPeriodDico objectForKey:@"period"]];
@@ -44,13 +43,13 @@
 			for (NSDictionary *currentDisciplineDico in [currentPeriodDico objectForKey:@"disciplines"]) {
 				CloudiversityDiscipline *currentDiscipline = [CloudiversityDiscipline fromJSON:[currentDisciplineDico objectForKey:@"discipline"]];
 				
-				NSMutableArray *grades = [NSMutableArray array];
-				for (NSDictionary *currentGradeDico in [currentDisciplineDico objectForKey:@"grades"]) {
-					CloudiversityGrade *currentGrade = [CloudiversityGrade fromJSON:currentGradeDico];
+				NSMutableArray *assessments = [NSMutableArray array];
+				for (NSDictionary *currentAssessmentDico in [currentDisciplineDico objectForKey:@"assessments"]) {
+					CloudiversityAssessment *currentAssessment = [CloudiversityAssessment fromJSON:currentAssessmentDico];
 					
-					[grades addObject:currentGrade];
+					[assessments addObject:currentAssessment];
 				}
-				[disciplines setObject:grades forKey:currentDiscipline];
+				[disciplines setObject:assessments forKey:currentDiscipline];
 			}
 			[periods setObject:disciplines forKey:currentPeriod];
 		}
@@ -73,16 +72,16 @@
 
 - (void)initAssessmentsByHTTPRequest {
 	[DejalBezelActivityView activityViewForView:self.view withLabel:[NSString stringWithFormat:@"%@...", LOCALIZEDSTRING(@"EVALUATION_STUDENT_LOADING")]].showNetworkActivityIndicator = YES;
-	[IOSRequest getGradesForUserOnSuccess:self.success onFailure:self.failure];
+	[IOSRequest getAssessmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+	[super viewDidLoad];
+	// Do any additional setup after loading the view.
 	
 	[self setupHandlers];
-
+	
 	if ([[EGOCache globalCache] hasCacheForKey:CACHE_KEY]) {
 		[self.tableView reloadData];
 	} else {
@@ -92,8 +91,8 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UITableView protocols implementation
@@ -140,8 +139,8 @@
 	CloudiversityDiscipline *discipline = [self disciplineForRow:[indexPath row] inDisciplines:disciplines];
 	
 	cell.textLabel.text = [discipline.name capitalizedString];
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", [self averageOfGrades:[self gradesForRow:[indexPath row] inDisciplines:disciplines]]];
-
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld assessments", [self assessmentsForRow:[indexPath row] inDisciplines:disciplines].count];
+	
 	return cell;
 }
 
@@ -154,11 +153,11 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:@"showGradesSegue"]) {
+	if ([segue.identifier isEqualToString:@"showAssessmentsSegue"]) {
 		NSIndexPath *selectedRow = [self.tableView indexPathForSelectedRow];
 		NSDictionary *disciplines = [self displinesInSection:[selectedRow section]];
-		[((EvaluationGradesViewController*)segue.destinationViewController) setGrades:[self gradesForRow:[selectedRow row] inDisciplines:disciplines]];
-		[((EvaluationGradesViewController*)segue.destinationViewController) setDiscipline:[self disciplineForRow:[selectedRow row] inDisciplines:disciplines]];
+		[((EvaluationAssessmentsViewController*)segue.destinationViewController) setAssessments:[self assessmentsForRow:[selectedRow row] inDisciplines:disciplines]];
+		[((EvaluationAssessmentsViewController*)segue.destinationViewController) setDiscipline:[self disciplineForRow:[selectedRow row] inDisciplines:disciplines]];
 	}
 }
 
@@ -192,38 +191,25 @@
 	return discipline;
 }
 
-- (NSArray*)gradesForRow:(NSInteger)row inDisciplines:(NSDictionary*)disciplines {
-	__block NSArray *grades = nil;
+- (NSArray*)assessmentsForRow:(NSInteger)row inDisciplines:(NSDictionary*)disciplines {
+	__block NSArray *assessments = nil;
 	__block NSInteger cnt = 0;
 	[disciplines enumerateKeysAndObjectsUsingBlock:^(id key, NSArray *obj, BOOL *stop) {
 		if (cnt == row) {
-			grades = obj;
+			assessments = obj;
 			*stop = YES;
 		}
 		cnt++;
 	}];
 	
-	return grades;
-}
-
-- (CGFloat)averageOfGrades:(NSArray*)grades {
-	CGFloat total = 0;
-	CGFloat nbGrades = 0;
-	
-	for (CloudiversityGrade *grade in grades) {
-		total += [grade.note floatValue] * [grade.coefficent floatValue];
-		nbGrades += [grade.coefficent floatValue];
-	}
-	
-	return total / nbGrades;
+	return assessments;
 }
 
 /*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
