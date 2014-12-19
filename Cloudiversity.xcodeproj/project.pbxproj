@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		126C54B3599F0945E3AA5687 /* libPods-CloudiversityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC98AA62C1BB2ABBE711CA6B /* libPods-CloudiversityTests.a */; };
 		705079DFF92F686CC93BC053 /* libPods-Cloudiversity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35595D3716ABACBB84C7A29B /* libPods-Cloudiversity.a */; };
-		9234452D19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */; };
-		9234452E19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */; };
-		9234453119C1D314008E4957 /* EvaluationMarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234453019C1D314008E4957 /* EvaluationMarkViewController.m */; };
-		9234453219C1D314008E4957 /* EvaluationMarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9234453019C1D314008E4957 /* EvaluationMarkViewController.m */; };
+		9263E9701A432408006489C6 /* EvaluationGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */; };
+		9263E9731A432D42006489C6 /* EvaluationGradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */; };
 		9286559619E6A37400DCBECF /* EvaluationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9286559819E6A37400DCBECF /* EvaluationVC.strings */; };
 		9286559C19E6AE0800DCBECF /* CloudiversityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9286559B19E6AE0800DCBECF /* CloudiversityObject.m */; };
 		928721091944658500C70168 /* AMPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928721081944658500C70168 /* AMPieChartView.m */; };
@@ -134,11 +132,11 @@
 		35595D3716ABACBB84C7A29B /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cloudiversity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2D6584010F8E186A9DAE23 /* Pods-Cloudiversity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.release.xcconfig"; sourceTree = "<group>"; };
 		8A5CBE49A2484E29DF08C0BB /* Pods-Cloudiversity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.debug.xcconfig"; sourceTree = "<group>"; };
-		9234452B19C1D2FF008E4957 /* EvaluationAverageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAverageViewController.h; path = Evaluation/EvaluationAverageViewController.h; sourceTree = "<group>"; };
-		9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAverageViewController.m; path = Evaluation/EvaluationAverageViewController.m; sourceTree = "<group>"; };
-		9234452F19C1D314008E4957 /* EvaluationMarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationMarkViewController.h; path = Evaluation/EvaluationMarkViewController.h; sourceTree = "<group>"; };
-		9234453019C1D314008E4957 /* EvaluationMarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationMarkViewController.m; path = Evaluation/EvaluationMarkViewController.m; sourceTree = "<group>"; };
 		925A8126A02A771C1B044395 /* Pods-CloudiversityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9263E96E1A432408006489C6 /* EvaluationGradesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradesViewController.h; path = Evaluation/EvaluationGradesViewController.h; sourceTree = "<group>"; };
+		9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradesViewController.m; path = Evaluation/EvaluationGradesViewController.m; sourceTree = "<group>"; };
+		9263E9711A432D42006489C6 /* EvaluationGradeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradeDetailViewController.h; path = Evaluation/EvaluationGradeDetailViewController.h; sourceTree = "<group>"; };
+		9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradeDetailViewController.m; path = Evaluation/EvaluationGradeDetailViewController.m; sourceTree = "<group>"; };
 		9286559719E6A37400DCBECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/EvaluationVC.strings; sourceTree = "<group>"; };
 		9286559919E6A37600DCBECF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/EvaluationVC.strings; sourceTree = "<group>"; };
 		9286559A19E6AE0800DCBECF /* CloudiversityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudiversityObject.h; sourceTree = "<group>"; };
@@ -331,15 +329,31 @@
 			path = AMPieChartView;
 			sourceTree = "<group>";
 		};
-		92F0E73D19B9BDF300F30BE2 /* Evaluation */ = {
+		92D7F92A1A443045003FD598 /* Grades */ = {
 			isa = PBXGroup;
 			children = (
 				92F0E73E19B9BE5500F30BE2 /* EvaluationDisciplinesViewController.h */,
 				92F0E73F19B9BE5500F30BE2 /* EvaluationDisciplinesViewController.m */,
-				9234452B19C1D2FF008E4957 /* EvaluationAverageViewController.h */,
-				9234452C19C1D2FF008E4957 /* EvaluationAverageViewController.m */,
-				9234452F19C1D314008E4957 /* EvaluationMarkViewController.h */,
-				9234453019C1D314008E4957 /* EvaluationMarkViewController.m */,
+				9263E96E1A432408006489C6 /* EvaluationGradesViewController.h */,
+				9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */,
+				9263E9711A432D42006489C6 /* EvaluationGradeDetailViewController.h */,
+				9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */,
+			);
+			name = Grades;
+			sourceTree = "<group>";
+		};
+		92D7F92B1A44304C003FD598 /* Assessments */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Assessments;
+			sourceTree = "<group>";
+		};
+		92F0E73D19B9BDF300F30BE2 /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				92D7F92B1A44304C003FD598 /* Assessments */,
+				92D7F92A1A443045003FD598 /* Grades */,
 				9286559819E6A37400DCBECF /* EvaluationVC.strings */,
 			);
 			name = Evaluation;
@@ -918,7 +932,6 @@
 				FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */,
 				FD7AB96219DEEE450087D933 /* CloudLogoCell.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
-				9234453119C1D314008E4957 /* EvaluationMarkViewController.m in Sources */,
 				FD854A471952DB37008F046D /* ServerViewController.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,
 				FDC9083A192A851600646A68 /* AgendaStudentViewController.m in Sources */,
@@ -928,15 +941,16 @@
 				FDC90844192A863E00646A68 /* CloudLabel.m in Sources */,
 				FDEA48DB19509A270026210D /* NavigationViewController.m in Sources */,
 				FDC90845192A863E00646A68 /* CloudTextField.m in Sources */,
+				9263E9701A432408006489C6 /* EvaluationGradesViewController.m in Sources */,
 				FDC90834192A847000646A68 /* HomeScreenViewController.m in Sources */,
 				FDC9081D192A847000646A68 /* CloudKeychainManager.m in Sources */,
 				FD481CB819E0217F0078A7C3 /* CloudURLCellPicker.m in Sources */,
 				928721091944658500C70168 /* AMPieChartView.m in Sources */,
-				9234452D19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */,
 				FDE7DDEF19E8434600BD6C53 /* CloudSeparatorCell.m in Sources */,
 				FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */,
 				E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */,
 				9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */,
+				9263E9731A432D42006489C6 /* EvaluationGradeDetailViewController.m in Sources */,
 				FDBF7CF1197BF06900C43B33 /* AgendaTeacherClassViewController.m in Sources */,
 				929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
@@ -953,10 +967,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9234452E19C1D2FF008E4957 /* EvaluationAverageViewController.m in Sources */,
 				92F0E74119B9BE5500F30BE2 /* EvaluationDisciplinesViewController.m in Sources */,
 				92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
-				9234453219C1D314008E4957 /* EvaluationMarkViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

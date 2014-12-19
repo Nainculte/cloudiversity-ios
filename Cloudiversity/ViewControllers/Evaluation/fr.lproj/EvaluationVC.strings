@@ -8,3 +8,8 @@
 
 "EVALUATION_STUDENT_LOADING" = "Chargement...";
 "EVALUATION_STUDENT_ERROR" = "Erreur";
+
+"EVAL_GIVEN_BY" = "Donnée par :";
+"EVAL_FOR_DISCIPLINE" = "Pour la discipline :";
+"EVAL_GIVEN_ON" = "Donnée le :";
+"EVAL_COEFFICENT" = "(Coéfficient:%.1f)";

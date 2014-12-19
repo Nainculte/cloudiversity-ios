@@ -7,6 +7,7 @@
 //
 
 #import "EvaluationDisciplinesViewController.h"
+#import "EvaluationGradesViewController.h"
 
 #define CACHE_KEY	@"assessmentsStudentList"
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"EvaluationVC"]
@@ -135,6 +136,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"disciplineCell"];
 	
+	NSDictionary *disciplines = [self displinesInSection:[indexPath section]];
+	CloudiversityDiscipline *discipline = [self disciplineForRow:[indexPath row] inDisciplines:disciplines];
+	
+	cell.textLabel.text = [discipline.name capitalizedString];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f", [self averageOfGrades:[self gradesForRow:[indexPath row] inDisciplines:disciplines]]];
+
 	return cell;
 }
 
@@ -143,23 +150,73 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	__block NSInteger nbRows = 0;
+	return [self displinesInSection:section].count;;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"showGradesSegue"]) {
+		NSIndexPath *selectedRow = [self.tableView indexPathForSelectedRow];
+		NSDictionary *disciplines = [self displinesInSection:[selectedRow section]];
+		[((EvaluationGradesViewController*)segue.destinationViewController) setGrades:[self gradesForRow:[selectedRow row] inDisciplines:disciplines]];
+		[((EvaluationGradesViewController*)segue.destinationViewController) setDiscipline:[self disciplineForRow:[selectedRow row] inDisciplines:disciplines]];
+	}
+}
+
+#pragma mark - reusable methods
+
+- (NSDictionary*)displinesInSection:(NSInteger)section {
+	__block NSDictionary *disciplines = nil;
 	__block NSInteger cnt = 0;
 	[self.sections enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary *obj, BOOL *stop) {
 		if (cnt == section) {
-			nbRows = obj.count;
+			disciplines = obj;
 			*stop = YES;
 		}
 		cnt++;
 	}];
 	
-	return nbRows;
+	return disciplines;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CloudiversityDiscipline*)disciplineForRow:(NSInteger)row inDisciplines:(NSDictionary*)disciplines {
+	__block CloudiversityDiscipline *discipline = nil;
+	__block NSInteger cnt = 0;
+	[disciplines enumerateKeysAndObjectsUsingBlock:^(CloudiversityDiscipline *key, id obj, BOOL *stop) {
+		if (cnt == row) {
+			discipline = key;
+			*stop = YES;
+		}
+		cnt++;
+	}];
+	
+	return discipline;
 }
 
-#pragma mark - reusable methods
+- (NSArray*)gradesForRow:(NSInteger)row inDisciplines:(NSDictionary*)disciplines {
+	__block NSArray *grades = nil;
+	__block NSInteger cnt = 0;
+	[disciplines enumerateKeysAndObjectsUsingBlock:^(id key, NSArray *obj, BOOL *stop) {
+		if (cnt == row) {
+			grades = obj;
+			*stop = YES;
+		}
+		cnt++;
+	}];
+	
+	return grades;
+}
+
+- (CGFloat)averageOfGrades:(NSArray*)grades {
+	CGFloat total = 0;
+	CGFloat nbGrades = 0;
+	
+	for (CloudiversityGrade *grade in grades) {
+		total += [grade.note floatValue] * [grade.coefficent floatValue];
+		nbGrades += [grade.coefficent floatValue];
+	}
+	
+	return total / nbGrades;
+}
 
 /*
 #pragma mark - Navigation
