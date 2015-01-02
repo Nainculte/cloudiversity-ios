@@ -44,8 +44,10 @@
 		FD3FA7D518FC3A160072B731 /* Icon_40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D118FC3A160072B731 /* Icon_40x40.png */; };
 		FD3FA7D618FC3A160072B731 /* Icon_60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D218FC3A160072B731 /* Icon_60x60.png */; };
 		FD3FA7D718FC3A160072B731 /* Icon_500x500.png in Resources */ = {isa = PBXBuildFile; fileRef = FD3FA7D318FC3A160072B731 /* Icon_500x500.png */; };
+		FD455CDF1A447F9A007D9E40 /* DejalActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC1FA63196C5C3100150F66 /* DejalActivityView.m */; };
+		FD455CE31A448070007D9E40 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD455CE21A448070007D9E40 /* SWRevealViewController.m */; };
+		FD455CE41A4480A0007D9E40 /* libVendors.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD455CC81A447F65007D9E40 /* libVendors.a */; };
 		FD481CB819E0217F0078A7C3 /* CloudURLCellPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = FD481CB719E0217F0078A7C3 /* CloudURLCellPicker.m */; };
-		FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */; };
 		FD51996F1A33115800DBD994 /* libPods-Cloudiversity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD51996E1A33115800DBD994 /* libPods-Cloudiversity.a */; };
 		FD5199721A3316BD00DBD994 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FD5199711A3316BD00DBD994 /* NetworkManager.m */; };
 		FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717D31972C2AE001C81B3 /* CloudTableView.m */; };
@@ -63,7 +65,6 @@
 		FDAFAFE01951D4F40070F396 /* calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFDE1951D4F40070F396 /* calendar@2x.png */; };
 		FDBF7CF1197BF06900C43B33 /* AgendaTeacherClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FDBF7CF0197BF06900C43B33 /* AgendaTeacherClassViewController.m */; };
 		FDC1FA60196C488300150F66 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC1FA5F196C488300150F66 /* QuartzCore.framework */; };
-		FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC1FA63196C5C3100150F66 /* DejalActivityView.m */; };
 		FDC907DC192A83D900646A68 /* Object.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907D9192A83D900646A68 /* Object.m */; };
 		FDC907DD192A83D900646A68 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907DB192A83D900646A68 /* User.m */; };
 		FDC9081C192A847000646A68 /* HTTPErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = FDC907DF192A847000646A68 /* HTTPErrors.strings */; };
@@ -101,6 +102,13 @@
 			remoteGlobalIDString = E478BB4818A0E8290068DEB1;
 			remoteInfo = Cloudiversity;
 		};
+		FD455CE51A4480AD007D9E40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E478BB4118A0E8290068DEB1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FD455CC71A447F65007D9E40;
+			remoteInfo = Vendors;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -112,6 +120,15 @@
 			files = (
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD455CC61A447F65007D9E40 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -177,10 +194,12 @@
 		FD3FA7D118FC3A160072B731 /* Icon_40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_40x40.png; sourceTree = "<group>"; };
 		FD3FA7D218FC3A160072B731 /* Icon_60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_60x60.png; sourceTree = "<group>"; };
 		FD3FA7D318FC3A160072B731 /* Icon_500x500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_500x500.png; sourceTree = "<group>"; };
+		FD455CC81A447F65007D9E40 /* libVendors.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVendors.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD455CD81A447F66007D9E40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD455CE11A448070007D9E40 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		FD455CE21A448070007D9E40 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		FD481CB619E0217F0078A7C3 /* CloudURLCellPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudURLCellPicker.h; sourceTree = "<group>"; };
 		FD481CB719E0217F0078A7C3 /* CloudURLCellPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudURLCellPicker.m; sourceTree = "<group>"; };
-		FD49BC6B1927C92500AAA3A6 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
-		FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		FD51996E1A33115800DBD994 /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Cloudiversity.a"; path = "Pods/build/Debug-iphoneos/libPods-Cloudiversity.a"; sourceTree = "<group>"; };
 		FD5199701A3316BD00DBD994 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		FD5199711A3316BD00DBD994 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
@@ -210,7 +229,6 @@
 		FDC1FA5F196C488300150F66 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FDC1FA62196C5C3100150F66 /* DejalActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
 		FDC1FA63196C5C3100150F66 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
-		FDC1FA64196C5C3100150F66 /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = License.txt; sourceTree = "<group>"; };
 		FDC907D6192A83A700646A68 /* CloudiversityAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudiversityAppDelegate.h; sourceTree = "<group>"; };
 		FDC907D8192A83D900646A68 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
 		FDC907D9192A83D900646A68 /* Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Object.m; sourceTree = "<group>"; };
@@ -263,6 +281,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD455CE41A4480A0007D9E40 /* libVendors.a in Frameworks */,
 				FD51996F1A33115800DBD994 /* libPods-Cloudiversity.a in Frameworks */,
 				FDC1FA60196C488300150F66 /* QuartzCore.framework in Frameworks */,
 				FD8F82D819080AAA00EDBDBE /* Security.framework in Frameworks */,
@@ -280,6 +299,13 @@
 				E478BB6E18A0E8290068DEB1 /* UIKit.framework in Frameworks */,
 				E478BB6D18A0E8290068DEB1 /* Foundation.framework in Frameworks */,
 				6B299C21A9B3C939D64FB817 /* libPods-CloudiversityTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD455CC51A447F65007D9E40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,9 +339,12 @@
 				FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */,
 				E478BB5218A0E8290068DEB1 /* Cloudiversity */,
 				E478BB7118A0E8290068DEB1 /* CloudiversityTests */,
+				FD455CC91A447F65007D9E40 /* Vendors */,
+				FD455CD61A447F66007D9E40 /* VendorsTests */,
 				E478BB4B18A0E8290068DEB1 /* Frameworks */,
 				FDDA094318F5BA62000A1029 /* Resources */,
 				8B7C7B353BCF06D72B6C16B1 /* Pods */,
+				FD455CC81A447F65007D9E40 /* libVendors.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -341,7 +370,6 @@
 				FD0F98741923ED72002DF049 /* Main.storyboard */,
 				FDC9083B192A863E00646A68 /* UISubclasses */,
 				FDC907DE192A847000646A68 /* Utils */,
-				FDC907E6192A847000646A68 /* Vendors */,
 				FDC9080F192A847000646A68 /* ViewControllers */,
 				FDC907D7192A83D900646A68 /* Objects */,
 				FD1569D0190516B1002F8978 /* Categories */,
@@ -425,11 +453,36 @@
 			path = Logos;
 			sourceTree = "<group>";
 		};
+		FD455CC91A447F65007D9E40 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				FDC1FA61196C5C0200150F66 /* DejalActivityView */,
+				FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */,
+			);
+			path = Vendors;
+			sourceTree = "<group>";
+		};
+		FD455CD61A447F66007D9E40 /* VendorsTests */ = {
+			isa = PBXGroup;
+			children = (
+				FD455CD71A447F66007D9E40 /* Supporting Files */,
+			);
+			path = VendorsTests;
+			sourceTree = "<group>";
+		};
+		FD455CD71A447F66007D9E40 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FD455CD81A447F66007D9E40 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FD49BC6B1927C92500AAA3A6 /* SWRevealViewController.h */,
-				FD49BC6C1927C92500AAA3A6 /* SWRevealViewController.m */,
+				FD455CE11A448070007D9E40 /* SWRevealViewController.h */,
+				FD455CE21A448070007D9E40 /* SWRevealViewController.m */,
 			);
 			path = SWRevealViewController;
 			sourceTree = "<group>";
@@ -512,7 +565,6 @@
 			children = (
 				FDC1FA62196C5C3100150F66 /* DejalActivityView.h */,
 				FDC1FA63196C5C3100150F66 /* DejalActivityView.m */,
-				FDC1FA64196C5C3100150F66 /* License.txt */,
 			);
 			path = DejalActivityView;
 			sourceTree = "<group>";
@@ -541,15 +593,6 @@
 				929F47311955CB2B003CC61B /* CloudDateConverter.m */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		FDC907E6192A847000646A68 /* Vendors */ = {
-			isa = PBXGroup;
-			children = (
-				FDC1FA61196C5C0200150F66 /* DejalActivityView */,
-				FD49BC6A1927C91000AAA3A6 /* SWRevealViewController */,
-			);
-			path = Vendors;
 			sourceTree = "<group>";
 		};
 		FDC9080F192A847000646A68 /* ViewControllers */ = {
@@ -673,6 +716,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FD455CE61A4480AD007D9E40 /* PBXTargetDependency */,
 			);
 			name = Cloudiversity;
 			productName = Cloudiversity;
@@ -699,6 +743,23 @@
 			productReference = FD1D4F02191E79ED008B530E /* CloudiversityTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FD455CC71A447F65007D9E40 /* Vendors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD455CDD1A447F66007D9E40 /* Build configuration list for PBXNativeTarget "Vendors" */;
+			buildPhases = (
+				FD455CC41A447F65007D9E40 /* Sources */,
+				FD455CC51A447F65007D9E40 /* Frameworks */,
+				FD455CC61A447F65007D9E40 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Vendors;
+			productName = Vendors;
+			productReference = FD455CC81A447F65007D9E40 /* libVendors.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -714,6 +775,9 @@
 					};
 					E478BB6918A0E8290068DEB1 = {
 						TestTargetID = E478BB4818A0E8290068DEB1;
+					};
+					FD455CC71A447F65007D9E40 = {
+						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
 			};
@@ -733,6 +797,7 @@
 			targets = (
 				E478BB4818A0E8290068DEB1 /* Cloudiversity */,
 				E478BB6918A0E8290068DEB1 /* CloudiversityTests */,
+				FD455CC71A447F65007D9E40 /* Vendors */,
 			);
 		};
 /* End PBXProject section */
@@ -867,7 +932,6 @@
 				FDC907DC192A83D900646A68 /* Object.m in Sources */,
 				FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */,
 				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
-				FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */,
 				FD7AB96219DEEE450087D933 /* CloudLogoCell.m in Sources */,
 				FD5199721A3316BD00DBD994 /* NetworkManager.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
@@ -885,7 +949,6 @@
 				FD481CB819E0217F0078A7C3 /* CloudURLCellPicker.m in Sources */,
 				928721091944658500C70168 /* AMPieChartView.m in Sources */,
 				FDE7DDEF19E8434600BD6C53 /* CloudSeparatorCell.m in Sources */,
-				FD49BC6D1927C92500AAA3A6 /* SWRevealViewController.m in Sources */,
 				E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */,
 				9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */,
 				FDBF7CF1197BF06900C43B33 /* AgendaTeacherClassViewController.m in Sources */,
@@ -906,6 +969,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD455CC41A447F65007D9E40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD455CDF1A447F9A007D9E40 /* DejalActivityView.m in Sources */,
+				FD455CE31A448070007D9E40 /* SWRevealViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -913,6 +985,11 @@
 			isa = PBXTargetDependency;
 			target = E478BB4818A0E8290068DEB1 /* Cloudiversity */;
 			targetProxy = E478BB6F18A0E8290068DEB1 /* PBXContainerItemProxy */;
+		};
+		FD455CE61A4480AD007D9E40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FD455CC71A447F65007D9E40 /* Vendors */;
+			targetProxy = FD455CE51A4480AD007D9E40 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1154,6 +1231,38 @@
 			};
 			name = Release;
 		};
+		FD455CD91A447F66007D9E40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		FD455CDA1A447F66007D9E40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1180,6 +1289,15 @@
 			buildConfigurations = (
 				E478BB7F18A0E8290068DEB1 /* Debug */,
 				E478BB8018A0E8290068DEB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD455CDD1A447F66007D9E40 /* Build configuration list for PBXNativeTarget "Vendors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD455CD91A447F66007D9E40 /* Debug */,
+				FD455CDA1A447F66007D9E40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
