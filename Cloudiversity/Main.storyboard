@@ -457,9 +457,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="QWY-To-22E" kind="push" identifier="gradeDetailSegue" id="DoA-en-MTQ"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -468,10 +465,42 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="AGu-n9-AlV"/>
+                    <connections>
+                        <segue destination="QWY-To-22E" kind="push" identifier="gradeDetailSegue" id="Vx8-aN-2dO"/>
+                        <segue destination="cNH-VK-eUy" kind="push" identifier="gradeModifSegue" id="q5X-O1-Oac"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XO2-lq-3yu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1897" y="-2322"/>
+        </scene>
+        <!--Evaluation Grade Modification View Controller-->
+        <scene sceneID="YWE-5V-ZHI">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lpa-IT-PU7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="EvaluationGradeModificationViewController" id="cNH-VK-eUy" customClass="EvaluationGradeModificationViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Rm4-JN-Z7H">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="iLW-oc-euI">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iLW-oc-euI" id="fc1-Nw-IDG">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cNH-VK-eUy" id="UHf-3u-mRp"/>
+                            <outlet property="delegate" destination="cNH-VK-eUy" id="mOB-QV-hRJ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="cc1-uo-3kQ"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2330" y="-2954"/>
         </scene>
         <!--Evaluation Grade Detail View Controller-->
         <scene sceneID="m2Y-XP-WaP">
@@ -617,6 +646,7 @@
         <scene sceneID="iCg-m9-5xB">
             <objects>
                 <tabBarController id="pEq-94-17X" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="kzr-zi-0OI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -673,6 +703,9 @@
                     <tabBarItem key="tabBarItem" title="Assessments" id="Ows-Be-UN0"/>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showMenuButton" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A3C-11-V5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -700,9 +733,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="84g-0j-3jV" kind="push" identifier="assessmentDetailSegue" id="T9e-Pe-Kma"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -711,6 +741,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="O9W-NI-rEj"/>
+                    <connections>
+                        <segue destination="84g-0j-3jV" kind="push" identifier="assessmentDetailSegue" id="B50-4S-PEr"/>
+                        <segue destination="fTY-Wa-BRq" kind="push" identifier="assessmentModifSegue" id="0aS-kT-nOM"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oxh-mm-udk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1163,6 +1197,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXQ-b3-fr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1504" y="-185"/>
+        </scene>
+        <!--Evaluation Assessments Modification View Controller-->
+        <scene sceneID="C4m-RJ-hs4">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4oM-El-yqI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="EvaluationAssessmentsModificationViewController" id="fTY-Wa-BRq" customClass="EvaluationAssessmentsModificationViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="QXB-4G-OZ1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WjB-Zn-xuD">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WjB-Zn-xuD" id="Oxv-XJ-b2F">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fTY-Wa-BRq" id="jqI-a3-1Ex"/>
+                            <outlet property="delegate" destination="fTY-Wa-BRq" id="NjR-7M-3nm"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="voK-ee-OSW"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2330" y="-1011"/>
         </scene>
     </scenes>
     <resources>

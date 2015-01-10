@@ -35,6 +35,9 @@
 @implementation CloudiversityClass
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityClass *newClass = [[CloudiversityClass alloc] init];
 	
@@ -49,6 +52,9 @@
 @implementation CloudiversityDiscipline
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityDiscipline *newDiscipline = [[CloudiversityDiscipline alloc] init];
 	
@@ -58,20 +64,14 @@
 	return newDiscipline;
 }
 
-//- (id)copyWithZone:(NSZone *)zone {
-//	CloudiversityDiscipline *discipline = [[CloudiversityDiscipline alloc] init];
-//	
-//	discipline.disciplineID = self.disciplineID;
-//	discipline.name = self.name;
-//	
-//	return discipline;
-//}
-
 @end
 
 @implementation CloudiversityStudent
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityStudent *newStudent = [[CloudiversityStudent alloc] init];
 	
@@ -88,6 +88,9 @@
 @implementation CloudiversityTeacher
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityTeacher *newTeacher = [[CloudiversityTeacher alloc] init];
 	

@@ -312,7 +312,7 @@
 			   onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [uDefaults objectForKey:@"server"];
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, assessmentID];
+	path = [NSString stringWithFormat:@"%@/evaluations/assessments/%d", path, assessmentID];
 	
 	NSDictionary *params = @{@"grade_assessment": assessmentInfos};
 	
@@ -379,9 +379,9 @@
 		  onFailure:(HTTPFailureHandler)failure {
 	NSUserDefaults *uDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *path = [uDefaults objectForKey:@"server"];
-	path = [NSString stringWithFormat:@"%@/agenda/assignments/%d", path, gradeID];
+	path = [NSString stringWithFormat:@"%@/evaluations/grades/%d", path, gradeID];
 	
-	NSDictionary *params = @{@"grade_assessment": gradeInfos};
+	NSDictionary *params = @{@"grade_grade": gradeInfos};
 	
 	[IOSRequest requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
 }

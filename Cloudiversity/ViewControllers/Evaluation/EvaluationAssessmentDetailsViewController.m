@@ -31,9 +31,22 @@
 	self.disciplineNameLabel.text = self.discipline.name;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher]) {
+		UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editAssessment)];
+		[self.navigationController.navigationBar.topItem setRightBarButtonItem:editButton animated:YES];
+	}
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)editAssessment {
+	NSLog(@"prout.");
 }
 
 /*

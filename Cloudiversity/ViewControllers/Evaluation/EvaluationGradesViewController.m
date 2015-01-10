@@ -8,8 +8,11 @@
 
 #import "EvaluationGradesViewController.h"
 #import "EvaluationGradeDetailViewController.h"
+#import "EvaluationGradeModificationViewController.h"
 
 @interface EvaluationGradesViewController ()
+
+@property (strong, nonatomic) CloudiversityGrade *selectedGrade;
 
 @end
 
@@ -23,6 +26,8 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
+	UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(createGrade)];
+	[self.navigationController.navigationBar.topItem setRightBarButtonItem:editButton animated:NO];
 	[self.navigationController.navigationBar.topItem setTitle:self.discipline.name];
 }
 
@@ -58,7 +63,31 @@
 		
 		[((EvaluationGradeDetailViewController*)segue.destinationViewController) setGrade:[self.grades objectAtIndex:[selectedPath row]]];
 		[((EvaluationGradeDetailViewController*)segue.destinationViewController) setDiscipline:self.discipline];
+	} else if ([segue.identifier isEqualToString:@"gradeModifSegue"]) {
+		EvaluationGradeModificationViewController *modifVC = segue.destinationViewController;
+		
+		modifVC.isCreatingGrade = NO;
+		modifVC.grade = self.selectedGrade;
 	}
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher]) {
+		self.selectedGrade = [self.grades objectAtIndex:[indexPath row]];
+		
+		[self performSegueWithIdentifier:@"gradeModifSegue" sender:self];
+	} else {
+		[self performSegueWithIdentifier:@"gradeDetailSegue" sender:self];
+	}
+}
+
+- (void)createGrade {
+	EvaluationGradeModificationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"EvaluationGradeModificationViewController"];
+	
+	vc.isCreatingGrade = YES;
+	vc.grade = nil;
+	
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 /*

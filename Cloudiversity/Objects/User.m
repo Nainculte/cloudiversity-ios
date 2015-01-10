@@ -10,6 +10,10 @@
 #import "CloudKeyChainManager.h"
 #import "EGOCache.h"
 
+NSString *const UserRoleTeacher = @"Teacher";
+NSString *const UserRoleStudent = @"Student";
+NSString *const UserRoleAdmin = @"Admin";
+
 @interface User()
 
 @end

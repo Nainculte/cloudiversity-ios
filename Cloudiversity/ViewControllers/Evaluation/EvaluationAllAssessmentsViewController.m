@@ -8,6 +8,7 @@
 
 #import "EvaluationAllAssessmentsViewController.h"
 #import "EvaluationAssessmentsViewController.h"
+#import "User.h"
 
 #define CACHE_KEY	@"assessmentsStudentList"
 #define LOCALIZEDSTRING(s) [[NSBundle mainBundle] localizedStringForKey:s value:@"Localization error" table:@"EvaluationVC"]

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 #import "CloudEvaluationObjects.h"
 
 @interface EvaluationAssessmentDetailsViewController : UIViewController

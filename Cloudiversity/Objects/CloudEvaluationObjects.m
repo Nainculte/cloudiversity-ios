@@ -11,6 +11,9 @@
 @implementation CloudiversityPeriod
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = json;
 	CloudiversityPeriod *newPeriod = [[CloudiversityPeriod alloc] init];
 	
@@ -34,6 +37,9 @@
 @implementation CloudiversityAssessment
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = json;
 	CloudiversityAssessment *newAssessment = [[CloudiversityAssessment alloc] init];
 	
@@ -56,6 +62,9 @@
 @implementation CloudiversityGrade
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = json;
 	CloudiversityGrade *newGrade = [[CloudiversityGrade alloc] init];
 	

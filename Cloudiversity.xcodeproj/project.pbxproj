@@ -11,6 +11,7 @@
 		705079DFF92F686CC93BC053 /* libPods-Cloudiversity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35595D3716ABACBB84C7A29B /* libPods-Cloudiversity.a */; };
 		9263E9701A432408006489C6 /* EvaluationGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */; };
 		9263E9731A432D42006489C6 /* EvaluationGradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */; };
+		9268C5841A61616F00410B08 /* EvaluationGradeModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9268C5831A61616F00410B08 /* EvaluationGradeModificationViewController.m */; };
 		9286559619E6A37400DCBECF /* EvaluationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9286559819E6A37400DCBECF /* EvaluationVC.strings */; };
 		9286559C19E6AE0800DCBECF /* CloudiversityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9286559B19E6AE0800DCBECF /* CloudiversityObject.m */; };
 		928721091944658500C70168 /* AMPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928721081944658500C70168 /* AMPieChartView.m */; };
@@ -18,6 +19,7 @@
 		929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 929F47311955CB2B003CC61B /* CloudDateConverter.m */; };
 		92C2120D19471D510059B6B4 /* AgendaStudentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2120C19471D510059B6B4 /* AgendaStudentTableViewCell.m */; };
 		92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C21210194731CC0059B6B4 /* AgendaAssignment.m */; };
+		92D46F791A617CE000D2F680 /* EvaluationAssessmentsModificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D46F781A617CE000D2F680 /* EvaluationAssessmentsModificationViewController.m */; };
 		92D7F92E1A443276003FD598 /* EvaluationAllAssessmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7F92D1A443276003FD598 /* EvaluationAllAssessmentsViewController.m */; };
 		92D7F9311A443644003FD598 /* EvaluationAssessmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7F9301A443644003FD598 /* EvaluationAssessmentsViewController.m */; };
 		92D7F9341A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7F9331A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m */; };
@@ -140,6 +142,8 @@
 		9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradesViewController.m; path = Evaluation/EvaluationGradesViewController.m; sourceTree = "<group>"; };
 		9263E9711A432D42006489C6 /* EvaluationGradeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradeDetailViewController.h; path = Evaluation/EvaluationGradeDetailViewController.h; sourceTree = "<group>"; };
 		9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradeDetailViewController.m; path = Evaluation/EvaluationGradeDetailViewController.m; sourceTree = "<group>"; };
+		9268C5821A61616F00410B08 /* EvaluationGradeModificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradeModificationViewController.h; path = Evaluation/EvaluationGradeModificationViewController.h; sourceTree = "<group>"; };
+		9268C5831A61616F00410B08 /* EvaluationGradeModificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradeModificationViewController.m; path = Evaluation/EvaluationGradeModificationViewController.m; sourceTree = "<group>"; };
 		9286559719E6A37400DCBECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/EvaluationVC.strings; sourceTree = "<group>"; };
 		9286559919E6A37600DCBECF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/EvaluationVC.strings; sourceTree = "<group>"; };
 		9286559A19E6AE0800DCBECF /* CloudiversityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudiversityObject.h; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 		92C2120C19471D510059B6B4 /* AgendaStudentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTableViewCell.m; sourceTree = "<group>"; };
 		92C2120F194731CC0059B6B4 /* AgendaAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaAssignment.h; sourceTree = "<group>"; };
 		92C21210194731CC0059B6B4 /* AgendaAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaAssignment.m; sourceTree = "<group>"; };
+		92D46F771A617CE000D2F680 /* EvaluationAssessmentsModificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAssessmentsModificationViewController.h; path = Evaluation/EvaluationAssessmentsModificationViewController.h; sourceTree = "<group>"; };
+		92D46F781A617CE000D2F680 /* EvaluationAssessmentsModificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAssessmentsModificationViewController.m; path = Evaluation/EvaluationAssessmentsModificationViewController.m; sourceTree = "<group>"; };
 		92D7F92C1A443276003FD598 /* EvaluationAllAssessmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAllAssessmentsViewController.h; path = Evaluation/EvaluationAllAssessmentsViewController.h; sourceTree = "<group>"; };
 		92D7F92D1A443276003FD598 /* EvaluationAllAssessmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAllAssessmentsViewController.m; path = Evaluation/EvaluationAllAssessmentsViewController.m; sourceTree = "<group>"; };
 		92D7F92F1A443644003FD598 /* EvaluationAssessmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAssessmentsViewController.h; path = Evaluation/EvaluationAssessmentsViewController.h; sourceTree = "<group>"; };
@@ -347,6 +353,8 @@
 				9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */,
 				9263E9711A432D42006489C6 /* EvaluationGradeDetailViewController.h */,
 				9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */,
+				9268C5821A61616F00410B08 /* EvaluationGradeModificationViewController.h */,
+				9268C5831A61616F00410B08 /* EvaluationGradeModificationViewController.m */,
 			);
 			name = Grades;
 			sourceTree = "<group>";
@@ -360,6 +368,8 @@
 				92D7F9301A443644003FD598 /* EvaluationAssessmentsViewController.m */,
 				92D7F9321A44377A003FD598 /* EvaluationAssessmentDetailsViewController.h */,
 				92D7F9331A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m */,
+				92D46F771A617CE000D2F680 /* EvaluationAssessmentsModificationViewController.h */,
+				92D46F781A617CE000D2F680 /* EvaluationAssessmentsModificationViewController.m */,
 			);
 			name = Assessments;
 			sourceTree = "<group>";
@@ -950,6 +960,7 @@
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
 				FD854A471952DB37008F046D /* ServerViewController.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,
+				92D46F791A617CE000D2F680 /* EvaluationAssessmentsModificationViewController.m in Sources */,
 				92D7F9311A443644003FD598 /* EvaluationAssessmentsViewController.m in Sources */,
 				FDC9083A192A851600646A68 /* AgendaStudentViewController.m in Sources */,
 				FDC90843192A863E00646A68 /* CloudButton.m in Sources */,
@@ -976,6 +987,7 @@
 				92D7F9341A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m in Sources */,
 				FD241486197412210069618E /* AbstractTableViewController.m in Sources */,
 				92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */,
+				9268C5841A61616F00410B08 /* EvaluationGradeModificationViewController.m in Sources */,
 				FD24147F1973C1890069618E /* AgendaTeacherViewController.m in Sources */,
 				FD27D69919EFE0C500E79AED /* CloudTextFieldCell.m in Sources */,
 			);

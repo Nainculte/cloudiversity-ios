@@ -8,6 +8,10 @@
 
 #import "CloudiversityObject.h"
 
+extern NSString *const UserRoleTeacher;
+extern NSString *const UserRoleStudent;
+extern NSString *const UserRoleAdmin;
+
 @interface User : CloudiversityObject
 
 @property (nonatomic, copy) NSString *email;

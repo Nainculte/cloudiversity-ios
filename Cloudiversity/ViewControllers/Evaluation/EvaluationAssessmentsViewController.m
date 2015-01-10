@@ -8,9 +8,13 @@
 
 #import "EvaluationAssessmentsViewController.h"
 #import "EvaluationAssessmentDetailsViewController.h"
+#import "EvaluationAssessmentsModificationViewController.h"
 #import "CloudEvaluationObjects.h"
+#import "User.h"
 
 @interface EvaluationAssessmentsViewController ()
+
+@property (strong, nonatomic) CloudiversityAssessment *selectedAssessment;
 
 @end
 
@@ -23,11 +27,28 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
+	
+	[self.navigationController.navigationBar.topItem setTitle:self.discipline.name];
+	
+	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher] && self.navigationController.navigationBar.topItem.rightBarButtonItems.count == 0) {
+		UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(createAssessment)];
+		[self.navigationController.navigationBar.topItem setRightBarButtonItem:editButton animated:NO];
+	}
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
+}
+
+- (void)createAssessment {
+	EvaluationAssessmentsModificationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"EvaluationAssessmentsModificationViewController"];
+	
+	vc.isCreatingAssessment = YES;
+	vc.assessment = nil;
+	
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewController protocol
@@ -54,6 +75,20 @@
 		
 		[((EvaluationAssessmentDetailsViewController*)segue.destinationViewController) setAssessment:[self.assessments objectAtIndex:[selectedPath row]]];
 		[((EvaluationAssessmentDetailsViewController*)segue.destinationViewController) setDiscipline:self.discipline];
+	} else if ([segue.identifier isEqualToString:@"assessmentModifSegue"]) {
+		EvaluationAssessmentsModificationViewController *modifVC = segue.destinationViewController;
+		
+		modifVC.isCreatingAssessment = NO;
+		modifVC.assessment = self.selectedAssessment;
+	}
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher]) {
+		self.selectedAssessment = [self.assessments objectAtIndex:indexPath.row];
+		[self performSegueWithIdentifier:@"assessmentModifSegue" sender:self];
+	} else {
+		[self performSegueWithIdentifier:@"assessmentDetailSegue" sender:self];
 	}
 }
 
