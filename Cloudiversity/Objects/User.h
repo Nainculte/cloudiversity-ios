@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Cloudiversity. All rights reserved.
 //
 
-#import "Object.h"
+#import "CloudiversityObject.h"
 
-@interface User : Object
+@interface User : CloudiversityObject
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *firstName;

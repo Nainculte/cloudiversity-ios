@@ -84,16 +84,17 @@
 #pragma mark - UITableView Delegate / DataSource
 - (CGFloat)tableView:(UITableView *)tableView HeightForHeaderInSection:(NSInteger)section
 {
-    return 18;
+    return 25;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 25)];
     /* Create custom view to display section header... */
-    CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    CloudLabel *label = [[CloudLabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width, 25)];
     NSString *headerTitle = (self.sortedSections)[section][@"name"];
     label.text = headerTitle;
+	label.font = [UIFont fontWithName:@"FiraSansOt-Bold" size:label.font.pointSize];
     [view addSubview:label];
     view.backgroundColor = [UIColor cloudGrey];
     return view;

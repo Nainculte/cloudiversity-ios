@@ -32,6 +32,7 @@ typedef NS_ENUM(NSInteger, CloudDateConverterFormat) {
 + (CloudDateConverter*)sharedMager;
 
 + (NSString *)nullTime;
++ (BOOL)isStringDateNull:(NSString*)stringDate;
 
 #pragma mark - Converting NSString to NSDate
 - (NSDate*)dateAndTimeFromString:(NSString*)dateAndTimeString;	// Use a string in the DATE_AND_TIME_FORMAT format

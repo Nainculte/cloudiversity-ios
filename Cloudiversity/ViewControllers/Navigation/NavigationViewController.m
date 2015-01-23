@@ -28,7 +28,8 @@
 typedef NS_ENUM(NSInteger, state) {
     homeScreen = 0,
     agendaStudent,
-    agendaTeacher
+    agendaTeacher,
+    evaluation
 } ;
 
 #pragma mark - View life cycle
@@ -113,6 +114,9 @@ typedef NS_ENUM(NSInteger, state) {
     if ([segue.identifier isEqualToString:@"AgendaStudent"]) {
         dest.title = LOCALIZEDSTRING(@"AGENDA_TITLE");
         self.current = agendaStudent;
+    } else if ([segue.identifier isEqualToString:@"Evaluation"]) {
+        dest.title = @"Evaluation";
+        self.current = evaluation;
     } else if ([segue.identifier isEqualToString:@"AgendaTeacher"]) {
         dest.title = LOCALIZEDSTRING(@"AGENDA_TITLE");
         self.current = agendaTeacher;
@@ -123,12 +127,11 @@ typedef NS_ENUM(NSInteger, state) {
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
         SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
 
-        swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* source, UIViewController* dest) {
-
+		swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* source, UIViewController* dest) {
             UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
-            [navController setViewControllers: @[dest] animated: NO ];
+			[navController setViewControllers:@[dest] animated: NO ];
             if (sender != self)
-                [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
+                [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated: YES];
         };
 
     }

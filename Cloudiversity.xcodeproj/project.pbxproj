@@ -7,14 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B299C21A9B3C939D64FB817 /* libPods-CloudiversityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEC53E5B83FA2C2ED533A16 /* libPods-CloudiversityTests.a */; };
+		126C54B3599F0945E3AA5687 /* libPods-CloudiversityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC98AA62C1BB2ABBE711CA6B /* libPods-CloudiversityTests.a */; };
+		705079DFF92F686CC93BC053 /* libPods-Cloudiversity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35595D3716ABACBB84C7A29B /* libPods-Cloudiversity.a */; };
+		9263E9701A432408006489C6 /* EvaluationGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */; };
+		9263E9731A432D42006489C6 /* EvaluationGradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */; };
+		9286559619E6A37400DCBECF /* EvaluationVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9286559819E6A37400DCBECF /* EvaluationVC.strings */; };
+		9286559C19E6AE0800DCBECF /* CloudiversityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 9286559B19E6AE0800DCBECF /* CloudiversityObject.m */; };
 		928721091944658500C70168 /* AMPieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928721081944658500C70168 /* AMPieChartView.m */; };
 		9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9287210C194466A200C70168 /* AgendaFilterViewController.m */; };
 		929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 929F47311955CB2B003CC61B /* CloudDateConverter.m */; };
 		92C2120D19471D510059B6B4 /* AgendaStudentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C2120C19471D510059B6B4 /* AgendaStudentTableViewCell.m */; };
 		92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C21210194731CC0059B6B4 /* AgendaAssignment.m */; };
+		92D7F92E1A443276003FD598 /* EvaluationAllAssessmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7F92D1A443276003FD598 /* EvaluationAllAssessmentsViewController.m */; };
+		92D7F9311A443644003FD598 /* EvaluationAssessmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7F9301A443644003FD598 /* EvaluationAssessmentsViewController.m */; };
+		92D7F9341A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7F9331A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m */; };
 		92DB6AF3199D13DE00945122 /* AgendaStudentVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92DB6AF6199D13DE00945122 /* AgendaStudentVC.strings */; };
-		92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
+		92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
+		92EF8A7019E801FC006ECDF8 /* CloudEvaluationObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EF8A6F19E801FC006ECDF8 /* CloudEvaluationObjects.m */; };
+		92F0E74019B9BE5500F30BE2 /* EvaluationAllGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationAllGradesViewController.m */; };
+		92F0E74119B9BE5500F30BE2 /* EvaluationAllGradesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F0E73F19B9BE5500F30BE2 /* EvaluationAllGradesViewController.m */; };
+		92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
+		92F0E74419B9C16100F30BE2 /* combo_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74219B9C16100F30BE2 /* combo_chart.png */; };
+		92F0E74619B9C17300F30BE2 /* combo_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */; };
+		92F0E74719B9C17300F30BE2 /* combo_chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */; };
 		E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4C18A0E8290068DEB1 /* Foundation.framework */; };
 		E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */; };
 		E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E478BB5018A0E8290068DEB1 /* UIKit.framework */; };
@@ -29,7 +44,6 @@
 		FD1EEBF0197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1EEBEF197EAD2E00ACD48F /* AgendaTeacherEditAssignmentViewController.m */; };
 		FD24147F1973C1890069618E /* AgendaTeacherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD24147E1973C1890069618E /* AgendaTeacherViewController.m */; };
 		FD241486197412210069618E /* AbstractTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD241485197412210069618E /* AbstractTableViewController.m */; };
-		FD24148919741B8B0069618E /* AgendaTeacherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD24148819741B8B0069618E /* AgendaTeacherTableViewCell.m */; };
 		FD27D69919EFE0C500E79AED /* CloudTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD27D69819EFE0C500E79AED /* CloudTextFieldCell.m */; };
 		FD29512B197C01A800833473 /* AgendaTeacherClassTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD29512A197C01A800833473 /* AgendaTeacherClassTableViewCell.m */; };
 		FD29512E197C051400833473 /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD29512C197C051400833473 /* plus@2x.png */; };
@@ -56,6 +70,10 @@
 		FD7AB96219DEEE450087D933 /* CloudLogoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD7AB96119DEEE450087D933 /* CloudLogoCell.m */; };
 		FD854A471952DB37008F046D /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD854A461952DB37008F046D /* ServerViewController.m */; };
 		FD854A4E1952E3FD008F046D /* ServerVC.strings in Resources */ = {isa = PBXBuildFile; fileRef = FD854A501952E3FD008F046D /* ServerVC.strings */; };
+		FD8663911A0BF7F500288524 /* AgendaTeacherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD24148819741B8B0069618E /* AgendaTeacherTableViewCell.m */; };
+		FD8663921A0BF7F500288524 /* AgendaStudentTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */; };
+		FD8663931A0BF7F500288524 /* IOSRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FDC907E5192A847000646A68 /* IOSRequest.m */; };
+		FD8663941A0BF7F500288524 /* CloudTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6717D31972C2AE001C81B3 /* CloudTableView.m */; };
 		FD8F82D819080AAA00EDBDBE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD8F82D719080AAA00EDBDBE /* Security.framework */; };
 		FDAFAFCE1951CA030070F396 /* sign-out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFCC1951CA030070F396 /* sign-out@2x.png */; };
 		FDAFAFD41951CA180070F396 /* Icon_clear_500x500.png in Resources */ = {isa = PBXBuildFile; fileRef = FDAFAFD11951CA180070F396 /* Icon_clear_500x500.png */; };
@@ -135,9 +153,18 @@
 
 /* Begin PBXFileReference section */
 		245A4976133EA458238DF860 /* Pods-CloudiversityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests.release.xcconfig"; sourceTree = "<group>"; };
+		35595D3716ABACBB84C7A29B /* libPods-Cloudiversity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cloudiversity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2D6584010F8E186A9DAE23 /* Pods-Cloudiversity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.release.xcconfig"; sourceTree = "<group>"; };
 		8A5CBE49A2484E29DF08C0BB /* Pods-Cloudiversity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cloudiversity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cloudiversity/Pods-Cloudiversity.debug.xcconfig"; sourceTree = "<group>"; };
 		925A8126A02A771C1B044395 /* Pods-CloudiversityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudiversityTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudiversityTests/Pods-CloudiversityTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9263E96E1A432408006489C6 /* EvaluationGradesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradesViewController.h; path = Evaluation/EvaluationGradesViewController.h; sourceTree = "<group>"; };
+		9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradesViewController.m; path = Evaluation/EvaluationGradesViewController.m; sourceTree = "<group>"; };
+		9263E9711A432D42006489C6 /* EvaluationGradeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationGradeDetailViewController.h; path = Evaluation/EvaluationGradeDetailViewController.h; sourceTree = "<group>"; };
+		9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationGradeDetailViewController.m; path = Evaluation/EvaluationGradeDetailViewController.m; sourceTree = "<group>"; };
+		9286559719E6A37400DCBECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/EvaluationVC.strings; sourceTree = "<group>"; };
+		9286559919E6A37600DCBECF /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/EvaluationVC.strings; sourceTree = "<group>"; };
+		9286559A19E6AE0800DCBECF /* CloudiversityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudiversityObject.h; sourceTree = "<group>"; };
+		9286559B19E6AE0800DCBECF /* CloudiversityObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudiversityObject.m; sourceTree = "<group>"; };
 		928721071944658500C70168 /* AMPieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPieChartView.h; sourceTree = "<group>"; };
 		928721081944658500C70168 /* AMPieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPieChartView.m; sourceTree = "<group>"; };
 		9287210B194466A200C70168 /* AgendaFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaFilterViewController.h; sourceTree = "<group>"; };
@@ -148,11 +175,22 @@
 		92C2120C19471D510059B6B4 /* AgendaStudentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTableViewCell.m; sourceTree = "<group>"; };
 		92C2120F194731CC0059B6B4 /* AgendaAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaAssignment.h; sourceTree = "<group>"; };
 		92C21210194731CC0059B6B4 /* AgendaAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaAssignment.m; sourceTree = "<group>"; };
+		92D7F92C1A443276003FD598 /* EvaluationAllAssessmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAllAssessmentsViewController.h; path = Evaluation/EvaluationAllAssessmentsViewController.h; sourceTree = "<group>"; };
+		92D7F92D1A443276003FD598 /* EvaluationAllAssessmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAllAssessmentsViewController.m; path = Evaluation/EvaluationAllAssessmentsViewController.m; sourceTree = "<group>"; };
+		92D7F92F1A443644003FD598 /* EvaluationAssessmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAssessmentsViewController.h; path = Evaluation/EvaluationAssessmentsViewController.h; sourceTree = "<group>"; };
+		92D7F9301A443644003FD598 /* EvaluationAssessmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAssessmentsViewController.m; path = Evaluation/EvaluationAssessmentsViewController.m; sourceTree = "<group>"; };
+		92D7F9321A44377A003FD598 /* EvaluationAssessmentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAssessmentDetailsViewController.h; path = Evaluation/EvaluationAssessmentDetailsViewController.h; sourceTree = "<group>"; };
+		92D7F9331A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAssessmentDetailsViewController.m; path = Evaluation/EvaluationAssessmentDetailsViewController.m; sourceTree = "<group>"; };
 		92DB6AF5199D13DE00945122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/AgendaStudentVC.strings; sourceTree = "<group>"; };
 		92DB6AF7199D13E300945122 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AgendaStudentVC.strings; sourceTree = "<group>"; };
 		92E2A0881946CE1500679A24 /* AgendaStudentTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaStudentTaskViewController.h; sourceTree = "<group>"; };
 		92E2A0891946CE1500679A24 /* AgendaStudentTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaStudentTaskViewController.m; sourceTree = "<group>"; };
-		9FEC53E5B83FA2C2ED533A16 /* libPods-CloudiversityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudiversityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92EF8A6E19E801FC006ECDF8 /* CloudEvaluationObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudEvaluationObjects.h; sourceTree = "<group>"; };
+		92EF8A6F19E801FC006ECDF8 /* CloudEvaluationObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudEvaluationObjects.m; sourceTree = "<group>"; };
+		92F0E73E19B9BE5500F30BE2 /* EvaluationAllGradesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EvaluationAllGradesViewController.h; path = Evaluation/EvaluationAllGradesViewController.h; sourceTree = "<group>"; };
+		92F0E73F19B9BE5500F30BE2 /* EvaluationAllGradesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EvaluationAllGradesViewController.m; path = Evaluation/EvaluationAllGradesViewController.m; sourceTree = "<group>"; };
+		92F0E74219B9C16100F30BE2 /* combo_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = combo_chart.png; sourceTree = "<group>"; };
+		92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "combo_chart@2x.png"; sourceTree = "<group>"; };
 		E478BB4C18A0E8290068DEB1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E478BB4E18A0E8290068DEB1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E478BB5018A0E8290068DEB1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -164,6 +202,7 @@
 		E478BB6B18A0E8290068DEB1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E478BB7318A0E8290068DEB1 /* CloudiversityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CloudiversityTests-Info.plist"; sourceTree = "<group>"; };
 		E478BB7718A0E8290068DEB1 /* CloudiversityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudiversityTests.m; sourceTree = "<group>"; };
+		EC98AA62C1BB2ABBE711CA6B /* libPods-CloudiversityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudiversityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD0F98741923ED72002DF049 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		FD19FB2019059006000B4688 /* UIColor+Cloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Cloud.h"; sourceTree = "<group>"; };
 		FD19FB2119059006000B4688 /* UIColor+Cloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Cloud.m"; sourceTree = "<group>"; };
@@ -230,8 +269,6 @@
 		FDC1FA62196C5C3100150F66 /* DejalActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DejalActivityView.h; sourceTree = "<group>"; };
 		FDC1FA63196C5C3100150F66 /* DejalActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DejalActivityView.m; sourceTree = "<group>"; };
 		FDC907D6192A83A700646A68 /* CloudiversityAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudiversityAppDelegate.h; sourceTree = "<group>"; };
-		FDC907D8192A83D900646A68 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
-		FDC907D9192A83D900646A68 /* Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Object.m; sourceTree = "<group>"; };
 		FDC907DA192A83D900646A68 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		FDC907DB192A83D900646A68 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		FDC907E0192A847000646A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/HTTPErrors.strings; sourceTree = "<group>"; };
@@ -288,6 +325,7 @@
 				E478BB4F18A0E8290068DEB1 /* CoreGraphics.framework in Frameworks */,
 				E478BB5118A0E8290068DEB1 /* UIKit.framework in Frameworks */,
 				E478BB4D18A0E8290068DEB1 /* Foundation.framework in Frameworks */,
+				705079DFF92F686CC93BC053 /* libPods-Cloudiversity.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +370,42 @@
 			path = AMPieChartView;
 			sourceTree = "<group>";
 		};
+		92D7F92A1A443045003FD598 /* Grades */ = {
+			isa = PBXGroup;
+			children = (
+				92F0E73E19B9BE5500F30BE2 /* EvaluationAllGradesViewController.h */,
+				92F0E73F19B9BE5500F30BE2 /* EvaluationAllGradesViewController.m */,
+				9263E96E1A432408006489C6 /* EvaluationGradesViewController.h */,
+				9263E96F1A432408006489C6 /* EvaluationGradesViewController.m */,
+				9263E9711A432D42006489C6 /* EvaluationGradeDetailViewController.h */,
+				9263E9721A432D42006489C6 /* EvaluationGradeDetailViewController.m */,
+			);
+			name = Grades;
+			sourceTree = "<group>";
+		};
+		92D7F92B1A44304C003FD598 /* Assessments */ = {
+			isa = PBXGroup;
+			children = (
+				92D7F92C1A443276003FD598 /* EvaluationAllAssessmentsViewController.h */,
+				92D7F92D1A443276003FD598 /* EvaluationAllAssessmentsViewController.m */,
+				92D7F92F1A443644003FD598 /* EvaluationAssessmentsViewController.h */,
+				92D7F9301A443644003FD598 /* EvaluationAssessmentsViewController.m */,
+				92D7F9321A44377A003FD598 /* EvaluationAssessmentDetailsViewController.h */,
+				92D7F9331A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m */,
+			);
+			name = Assessments;
+			sourceTree = "<group>";
+		};
+		92F0E73D19B9BDF300F30BE2 /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				92D7F92B1A44304C003FD598 /* Assessments */,
+				92D7F92A1A443045003FD598 /* Grades */,
+				9286559819E6A37400DCBECF /* EvaluationVC.strings */,
+			);
+			name = Evaluation;
+			sourceTree = "<group>";
+		};
 		E478BB4018A0E8290068DEB1 = {
 			isa = PBXGroup;
 			children = (
@@ -359,7 +433,8 @@
 				E478BB5018A0E8290068DEB1 /* UIKit.framework */,
 				E478BB6B18A0E8290068DEB1 /* XCTest.framework */,
 				FD2C4E1A19BDD8B200D66D40 /* NotificationCenter.framework */,
-				9FEC53E5B83FA2C2ED533A16 /* libPods-CloudiversityTests.a */,
+				35595D3716ABACBB84C7A29B /* libPods-Cloudiversity.a */,
+				EC98AA62C1BB2ABBE711CA6B /* libPods-CloudiversityTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -420,6 +495,8 @@
 		FD3FA7BE18FC2D8B0072B731 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				92F0E74219B9C16100F30BE2 /* combo_chart.png */,
+				92F0E74519B9C17300F30BE2 /* combo_chart@2x.png */,
 				FD29512C197C051400833473 /* plus@2x.png */,
 				FD29512D197C051400833473 /* plus.png */,
 				FD35BC371955F27200091678 /* filter.png */,
@@ -572,10 +649,12 @@
 		FDC907D7192A83D900646A68 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				FDC907D8192A83D900646A68 /* Object.h */,
-				FDC907D9192A83D900646A68 /* Object.m */,
+				9286559A19E6AE0800DCBECF /* CloudiversityObject.h */,
+				9286559B19E6AE0800DCBECF /* CloudiversityObject.m */,
 				FDC907DA192A83D900646A68 /* User.h */,
 				FDC907DB192A83D900646A68 /* User.m */,
+				92EF8A6E19E801FC006ECDF8 /* CloudEvaluationObjects.h */,
+				92EF8A6F19E801FC006ECDF8 /* CloudEvaluationObjects.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -602,6 +681,7 @@
 				FD854A441952DB0A008F046D /* Server */,
 				FDEA48D8195099920026210D /* Navigation */,
 				FDC90835192A851600646A68 /* Agenda */,
+				92F0E73D19B9BDF300F30BE2 /* Evaluation */,
 				FDC90810192A847000646A68 /* Authentication */,
 				FDC90816192A847000646A68 /* HomeScreen */,
 			);
@@ -767,12 +847,9 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Cloud;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Cloudiversity;
 				TargetAttributes = {
-					E478BB4818A0E8290068DEB1 = {
-						DevelopmentTeam = G3WA6Y3A28;
-					};
 					E478BB6918A0E8290068DEB1 = {
 						TestTargetID = E478BB4818A0E8290068DEB1;
 					};
@@ -810,6 +887,7 @@
 				FDDA095018F5BA9F000A1029 /* FiraMonoOT-Regular.otf in Resources */,
 				FDDA095418F5BA9F000A1029 /* FiraSansOT-LightItalic.otf in Resources */,
 				FDF8DDFC19280AFE00237054 /* menu@2x.png in Resources */,
+				92F0E74619B9C17300F30BE2 /* combo_chart@2x.png in Resources */,
 				FD3FA7CD18FC2F0A0072B731 /* Logo_40x40.png in Resources */,
 				E478BB6518A0E8290068DEB1 /* Images.xcassets in Resources */,
 				FDDA095818F5BA9F000A1029 /* FiraSansOT-RegularItalic.otf in Resources */,
@@ -817,6 +895,7 @@
 				FD3FA7CE18FC2F0A0072B731 /* Logo_60x60.png in Resources */,
 				FDC90833192A847000646A68 /* HomeScreenVC.strings in Resources */,
 				FD35BC391955F27200091678 /* filter.png in Resources */,
+				92F0E74319B9C16100F30BE2 /* combo_chart.png in Resources */,
 				FDDA095318F5BA9F000A1029 /* FiraSansOT-Light.otf in Resources */,
 				FDAFAFDF1951D4F40070F396 /* calendar.png in Resources */,
 				FDAFAFDA1951D2C90070F396 /* Icon_clear_42x42.png in Resources */,
@@ -829,6 +908,7 @@
 				FD3FA7D618FC3A160072B731 /* Icon_60x60.png in Resources */,
 				FDAFAFCE1951CA030070F396 /* sign-out@2x.png in Resources */,
 				FDC9081C192A847000646A68 /* HTTPErrors.strings in Resources */,
+				9286559619E6A37400DCBECF /* EvaluationVC.strings in Resources */,
 				FDDA095718F5BA9F000A1029 /* FiraSansOT-Regular.otf in Resources */,
 				FD854A4E1952E3FD008F046D /* ServerVC.strings in Resources */,
 				FD29512E197C051400833473 /* plus@2x.png in Resources */,
@@ -853,6 +933,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92F0E74719B9C17300F30BE2 /* combo_chart@2x.png in Resources */,
+				92F0E74419B9C16100F30BE2 /* combo_chart.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,15 +1010,19 @@
 			files = (
 				E478BB5918A0E8290068DEB1 /* main.m in Sources */,
 				FD29512B197C01A800833473 /* AgendaTeacherClassTableViewCell.m in Sources */,
-				FD24148919741B8B0069618E /* AgendaTeacherTableViewCell.m in Sources */,
-				FDC907DC192A83D900646A68 /* Object.m in Sources */,
-				FD6717D41972C2AE001C81B3 /* CloudTableView.m in Sources */,
-				92E2A08A1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
+				92EF8A7019E801FC006ECDF8 /* CloudEvaluationObjects.m in Sources */,
+				FD8663911A0BF7F500288524 /* AgendaTeacherTableViewCell.m in Sources */,
+				FD8663941A0BF7F500288524 /* CloudTableView.m in Sources */,
+				FD8663921A0BF7F500288524 /* AgendaStudentTaskViewController.m in Sources */,
+				9286559C19E6AE0800DCBECF /* CloudiversityObject.m in Sources */,
+				92D7F92E1A443276003FD598 /* EvaluationAllAssessmentsViewController.m in Sources */,
+				FDC1FA65196C5C3100150F66 /* DejalActivityView.m in Sources */,
 				FD7AB96219DEEE450087D933 /* CloudLogoCell.m in Sources */,
 				FD5199721A3316BD00DBD994 /* NetworkManager.m in Sources */,
 				FDC90831192A847000646A68 /* AuthenticationViewController.m in Sources */,
 				FD854A471952DB37008F046D /* ServerViewController.m in Sources */,
 				FD19FB2219059006000B4688 /* UIColor+Cloud.m in Sources */,
+				92D7F9311A443644003FD598 /* EvaluationAssessmentsViewController.m in Sources */,
 				FDC9083A192A851600646A68 /* AgendaStudentViewController.m in Sources */,
 				FDC90843192A863E00646A68 /* CloudButton.m in Sources */,
 				92C2120D19471D510059B6B4 /* AgendaStudentTableViewCell.m in Sources */,
@@ -944,6 +1030,7 @@
 				FDC90844192A863E00646A68 /* CloudLabel.m in Sources */,
 				FDEA48DB19509A270026210D /* NavigationViewController.m in Sources */,
 				FDC90845192A863E00646A68 /* CloudTextField.m in Sources */,
+				9263E9701A432408006489C6 /* EvaluationGradesViewController.m in Sources */,
 				FDC90834192A847000646A68 /* HomeScreenViewController.m in Sources */,
 				FDC9081D192A847000646A68 /* CloudKeychainManager.m in Sources */,
 				FD481CB819E0217F0078A7C3 /* CloudURLCellPicker.m in Sources */,
@@ -951,10 +1038,13 @@
 				FDE7DDEF19E8434600BD6C53 /* CloudSeparatorCell.m in Sources */,
 				E478BB5D18A0E8290068DEB1 /* CloudiversityAppDelegate.m in Sources */,
 				9287210D194466A200C70168 /* AgendaFilterViewController.m in Sources */,
+				9263E9731A432D42006489C6 /* EvaluationGradeDetailViewController.m in Sources */,
 				FDBF7CF1197BF06900C43B33 /* AgendaTeacherClassViewController.m in Sources */,
 				929F47321955CB2B003CC61B /* CloudDateConverter.m in Sources */,
 				FDC907DD192A83D900646A68 /* User.m in Sources */,
 				FDCEE15E196D8B9D002B3579 /* AbstractViewController.m in Sources */,
+				92F0E74019B9BE5500F30BE2 /* EvaluationAllGradesViewController.m in Sources */,
+				92D7F9341A44377A003FD598 /* EvaluationAssessmentDetailsViewController.m in Sources */,
 				FD241486197412210069618E /* AbstractTableViewController.m in Sources */,
 				92C21211194731CC0059B6B4 /* AgendaAssignment.m in Sources */,
 				FD24147F1973C1890069618E /* AgendaTeacherViewController.m in Sources */,
@@ -966,6 +1056,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92F0E74119B9BE5500F30BE2 /* EvaluationAllGradesViewController.m in Sources */,
+				92E2A08B1946CE1500679A24 /* AgendaStudentTaskViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -994,6 +1086,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9286559819E6A37400DCBECF /* EvaluationVC.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9286559719E6A37400DCBECF /* Base */,
+				9286559919E6A37600DCBECF /* fr */,
+			);
+			name = EvaluationVC.strings;
+			path = Evaluation;
+			sourceTree = "<group>";
+		};
 		92DB6AF6199D13DE00945122 /* AgendaStudentVC.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1161,6 +1263,7 @@
 					"-framework",
 					UIKit,
 					"$(inherited)",
+					"-v",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

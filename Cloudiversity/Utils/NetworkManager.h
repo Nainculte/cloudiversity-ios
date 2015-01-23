@@ -83,4 +83,50 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
                             onSuccess:(HTTPSuccessHandler)success
                             onFailure:(HTTPFailureHandler)failure;
 
+#pragma mark - HTTP requests for Evaluation
+
+- (void)getAssessmentsForUserOnSuccess:(HTTPSuccessHandler)success
+							 onFailure:(HTTPFailureHandler)failure;
+
+- (void)getAssessmentInformation:(int)assessmentID
+					   onSuccess:(HTTPSuccessHandler)success
+					   onFailure:(HTTPFailureHandler)failure;
+
+- (void)postAssessment:(NSString*)assessment
+	  withDisciplineID:(int)disciplineID
+		   withClassID:(int)classID
+		  withPeriodID:(int)periodID
+	  isClassAssesment:(BOOL)isClassAssessment
+		 withStudentID:(int)studentID
+			 onSuccess:(HTTPSuccessHandler)success
+			 onFailure:(HTTPFailureHandler)failure;
+
+- (void)updateAssessment:(int)assessmentID
+		withInformations:(NSDictionary*)assessmentInfos
+			   onSuccess:(HTTPSuccessHandler)success
+			   onFailure:(HTTPFailureHandler)failure;
+
+- (void)getGradesForUserOnSuccess:(HTTPSuccessHandler)success
+						onFailure:(HTTPFailureHandler)failure;
+
+- (void)getGradeInformation:(int)gradeID
+				  onSuccess:(HTTPSuccessHandler)success
+				  onFailure:(HTTPFailureHandler)failure;
+
+- (void)postGradeWithAssessment:(NSString*)assessment
+					   withMark:(int)mark
+					   withCoef:(int)coef
+			   withDisciplineID:(int)disciplineID
+					withClassID:(int)classID
+				   withPeriodID:(int)periodID
+				  withStudentID:(int)studentID
+					  onSuccess:(HTTPSuccessHandler)success
+					  onFailure:(HTTPFailureHandler)failure;
+
+- (void)updateGrade:(int)gradeID
+   withInformations:(NSDictionary*)gradeInfos
+		  onSuccess:(HTTPSuccessHandler)success
+		  onFailure:(HTTPFailureHandler)failure;
+
+
 @end

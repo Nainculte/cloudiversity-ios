@@ -42,6 +42,10 @@
 	return @"00:00";
 }
 
++ (BOOL)isStringDateNull:(NSString*)stringDate {
+	return (stringDate == nil || [stringDate isKindOfClass:[NSNull class]] || stringDate.length == 0);
+}
+
 - (instancetype)init {
 	self = [super init];
 	if (self) {

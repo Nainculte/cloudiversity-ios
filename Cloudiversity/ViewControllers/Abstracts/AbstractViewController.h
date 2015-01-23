@@ -18,7 +18,8 @@
 
 @interface AbstractViewController : UIViewController <SWRevealViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *leftButton;
+@property (strong, nonatomic) UIBarButtonItem *leftButton;
+@property (nonatomic) BOOL showMenuButton;
 
 - (void)setRightViewController:(NSString *)name withButton:(UIBarButtonItem *)button;
 - (void)setRightViewController:(NSString *)name;

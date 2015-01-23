@@ -208,6 +208,114 @@ static NetworkManager *manager;
     [self requestPatchToPath:path withParams:@{@"assignment" : params} onSuccess:success onFailure:failure];
 }
 
+#pragma mark - HTTP requests for Evealuation
+
+- (void)getAssessmentsForUserOnSuccess:(HTTPSuccessHandler)success
+							 onFailure:(HTTPFailureHandler)failure {
+
+	NSString *role = [NetworkManager role];
+	NSString *path = [NSString stringWithFormat:@"/evaluations/assessments%@", role];
+	[self requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
+- (void)getAssessmentInformation:(int)assessmentID
+					   onSuccess:(HTTPSuccessHandler)success
+					   onFailure:(HTTPFailureHandler)failure {
+
+	NSString *role = [NetworkManager role];
+	NSString *path = [NSString stringWithFormat:@"/evaluations/assessments/%d%@", assessmentID, role];
+	[self requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
+- (void)postAssessment:(NSString*)assessment
+	  withDisciplineID:(int)disciplineID
+		   withClassID:(int)classID
+		  withPeriodID:(int)periodID
+	  isClassAssesment:(BOOL)isClassAssessment
+		 withStudentID:(int)studentID
+			 onSuccess:(HTTPSuccessHandler)success
+			 onFailure:(HTTPFailureHandler)failure {
+
+	NSString *path = @"/evaluations/assessments";
+	
+    NSDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"grade_assessment" : @{@"assessment" : assessment,
+                                                                                                     @"discipline_id" : @(disciplineID),
+                                                                                                     @"school_class_id" : @(classID),
+                                                                                                     @"period_id" : @(periodID),
+                                                                                                     @"school_class_assessment" : @(isClassAssessment),
+                                                                                                     @"student_id" : @(studentID)
+                                                                                                     }
+                                                                             }];
+    [self requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
+- (void)updateAssessment:(int)assessmentID
+		withInformations:(NSDictionary*)assessmentInfos
+			   onSuccess:(HTTPSuccessHandler)success
+			   onFailure:(HTTPFailureHandler)failure {
+
+	NSString *path = [NSString stringWithFormat:@"/agenda/assignments/%d", assessmentID];
+	
+	NSDictionary *params = @{@"grade_assessment": assessmentInfos};
+	
+	[self requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
+- (void)getGradesForUserOnSuccess:(HTTPSuccessHandler)success
+						onFailure:(HTTPFailureHandler)failure {
+
+	NSString *role = [NetworkManager role];
+	NSString *path = [NSString stringWithFormat:@"/evaluations/grades%@", role];
+	[self requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
+- (void)getGradeInformation:(int)gradeID
+				  onSuccess:(HTTPSuccessHandler)success
+				  onFailure:(HTTPFailureHandler)failure {
+
+	NSString *role = [NetworkManager role];
+	NSString *path = [NSString stringWithFormat:@"/evaluations/grades/%d%@", gradeID, role];
+    [self requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
+- (void)postGradeWithAssessment:(NSString*)assessment
+					   withMark:(int)mark
+					   withCoef:(int)coef
+			   withDisciplineID:(int)disciplineID
+					withClassID:(int)classID
+				   withPeriodID:(int)periodID
+				  withStudentID:(int)studentID
+					  onSuccess:(HTTPSuccessHandler)success
+					  onFailure:(HTTPFailureHandler)failure {
+
+    NSString *path = @"/evaluations/grades";
+	
+    NSDictionary *params = [[NSMutableDictionary alloc] initWithDictionary:@{@"grade_grade" : @{
+                                                                                     @"assessment": assessment,
+                                                                                     @"note": @(mark),
+                                                                                     @"coefficient": @(coef),
+                                                                                     @"discipline_id": @(disciplineID),
+                                                                                     @"school_class_id": @(classID),
+                                                                                     @"period_id": @(periodID),
+                                                                                     @"student_id": @(studentID)
+                                                                                     }
+                                                                             }];
+	[self requestPostToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
+- (void)updateGrade:(int)gradeID
+   withInformations:(NSDictionary*)gradeInfos
+		  onSuccess:(HTTPSuccessHandler)success
+		  onFailure:(HTTPFailureHandler)failure {
+
+    NSString *path = [NSString stringWithFormat:@"/agenda/assignments/%d", gradeID];
+	
+	NSDictionary *params = @{@"grade_assessment": gradeInfos};
+	
+	[self requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
+}
+
+
 #pragma mark - Convenience Methods
 + (NSString *)role {
     NSString *role = @"";

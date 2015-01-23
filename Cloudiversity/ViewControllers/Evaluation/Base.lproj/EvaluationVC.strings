@@ -1,0 +1,15 @@
+/* 
+  EvaluationVC.strings
+  Cloudiversity
+
+  Created by Anthony MERLE on 09/10/2014.
+  Copyright (c) 2014 Cloudiversity. All rights reserved.
+*/
+
+"EVALUATION_STUDENT_LOADING" = "Loading...";
+"EVALUATION_STUDENT_ERROR" = "Error";
+
+"EVAL_GIVEN_BY" = "Given by :";
+"EVAL_FOR_DISCIPLINE" = "For discipline :";
+"EVAL_GIVEN_ON" = "Given on :";
+"EVAL_COEFFICENT" = "(Coefficient:%.1f)";
