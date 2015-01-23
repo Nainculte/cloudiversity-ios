@@ -39,17 +39,18 @@ static NetworkManager *manager;
                               forHTTPHeaderField:@"accept"];
         self.loggedIn = NO;
         self.AFManager.reachabilityManager = [AFNetworkReachabilityManager managerForDomain:[NSURL URLWithString:path].host];
+        BSELF(self)
         [self.AFManager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
             switch (status) {
                 case AFNetworkReachabilityStatusNotReachable:
                 case AFNetworkReachabilityStatusUnknown:
-                    self.connected = NO;
-                    [self.AFManager.operationQueue setSuspended:YES];
+                    bself.connected = NO;
+                    [bself.AFManager.operationQueue setSuspended:YES];
                     break;
                 case AFNetworkReachabilityStatusReachableViaWiFi:
                 case AFNetworkReachabilityStatusReachableViaWWAN:
-                    self.connected = YES;
-                    [self.AFManager.operationQueue setSuspended:NO];
+                    bself.connected = YES;
+                    [bself.AFManager.operationQueue setSuspended:NO];
                     break;
             }
         }];
