@@ -7,7 +7,7 @@
 //
 
 #import "EvaluationAssessmentsModificationViewController.h"
-#import "IOSRequest.h"
+#import "NetworkManager.h"
 #import "DejalActivityView.h"
 #import "CloudiversityAppDelegate.h"
 
@@ -106,7 +106,7 @@
 	row = [self.form formRowWithTag:ALL_CLASS_TAG];
 	[informations setObject:row.value forKey:@"school_class_assessment"];
 	
-	[IOSRequest updateAssessment:[self.assessment.assessmentID intValue] withInformations:informations onSuccess:success onFailure:failure];
+	[[NetworkManager manager] updateAssessment:[self.assessment.assessmentID intValue] withInformations:informations onSuccess:success onFailure:failure];
 	[DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading"].showNetworkActivityIndicator = YES;
 }
 
@@ -324,8 +324,8 @@
 	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSLog(@"%@", error);
 	};
-	NSString *path = [[IOSRequest serverPath] stringByAppendingFormat:@"/school_class/%@/students", self.selectedClass.schoolClassId];
-	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+	NSString *path = [NSString stringWithFormat:@"/school_class/%@/students", self.selectedClass.schoolClassId];
+	[[NetworkManager manager] requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
 /*
