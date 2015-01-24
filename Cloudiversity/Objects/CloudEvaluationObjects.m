@@ -8,32 +8,12 @@
 
 #import "CloudEvaluationObjects.h"
 
-@implementation CloudiversityPeriod
-
-+ (instancetype)fromJSON:(id)json {
-	NSDictionary *jsonObject = json;
-	CloudiversityPeriod *newPeriod = [[CloudiversityPeriod alloc] init];
-	
-	newPeriod.name = [jsonObject objectForKey:@"name"];
-	newPeriod.periodID = [jsonObject objectForKey:@"id"];
-	newPeriod.startDate = [jsonObject objectForKey:@"start_date"];
-	newPeriod.endDate = [jsonObject objectForKey:@"end_date"];
-	
-	return newPeriod;
-}
-
-+ (NSArray *)sortPeriods:(NSArray *)periods {
-	return [periods sortedArrayUsingComparator:^NSComparisonResult(CloudiversityPeriod *period1,
-																   CloudiversityPeriod *period2) {
-		return [period1.startDate compare:period2.startDate];
-	}];
-}
-
-@end
-
 @implementation CloudiversityAssessment
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = json;
 	CloudiversityAssessment *newAssessment = [[CloudiversityAssessment alloc] init];
 	
@@ -56,6 +36,9 @@
 @implementation CloudiversityGrade
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = json;
 	CloudiversityGrade *newGrade = [[CloudiversityGrade alloc] init];
 	

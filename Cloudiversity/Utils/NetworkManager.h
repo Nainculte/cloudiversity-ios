@@ -39,6 +39,27 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 - (void)startMonitoringReachability;
 - (void)stopMonitoringReachability;
 
+#pragma mark - get server main path
+
++ (NSString*)serverPath;
+
+#pragma mark - HTTP requests method
+
++(void)requestPatchToPath:(NSString*)path
+			   withParams:(NSDictionary *)params
+				onSuccess:(HTTPSuccessHandler)success
+				onFailure:(HTTPFailureHandler)failure;
+
++(void) requestGetToPath:(NSString *)path
+			  withParams:(NSDictionary *)params
+			   onSuccess:(HTTPSuccessHandler)success
+			   onFailure:(HTTPFailureHandler)failure;
+
++ (void) requestPostToPath:(NSString *)path
+				withParams:(NSDictionary *)params
+				 onSuccess:(HTTPSuccessHandler)success
+				 onFailure:(HTTPFailureHandler)failure;
+
 #pragma mark - HTTP request for logging in, getting current user info, authentcating server
 
 - (void)loginWithId:(NSString *)userName

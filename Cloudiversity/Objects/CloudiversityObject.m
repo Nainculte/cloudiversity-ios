@@ -32,14 +32,50 @@
 
 @end
 
+@implementation CloudiversityPeriod
+
++ (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
+	NSDictionary *jsonObject = json;
+	CloudiversityPeriod *newPeriod = [[CloudiversityPeriod alloc] init];
+	
+	newPeriod.name = [jsonObject objectForKey:@"name"];
+	newPeriod.periodID = [jsonObject objectForKey:@"id"];
+	newPeriod.startDate = [jsonObject objectForKey:@"start_date"];
+	newPeriod.endDate = [jsonObject objectForKey:@"end_date"];
+	
+	return newPeriod;
+}
+
++ (NSArray *)sortPeriods:(NSArray *)periods {
+	return [periods sortedArrayUsingComparator:^NSComparisonResult(CloudiversityPeriod *period1,
+																   CloudiversityPeriod *period2) {
+		return [period1.startDate compare:period2.startDate];
+	}];
+}
+
+@end
+
 @implementation CloudiversityClass
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityClass *newClass = [[CloudiversityClass alloc] init];
 	
 	newClass.classID = [jsonObject objectForKey:@"id"];
 	newClass.name = [jsonObject objectForKey:@"name"];
+	
+	newClass.schoolClassId = [jsonObject objectForKey:@"school_class_id"];
+	newClass.schoolClassName = [jsonObject objectForKey:@"school_class_name"];
+
+	newClass.period = [[CloudiversityPeriod alloc] init];
+	newClass.period.periodID = [jsonObject objectForKey:@"period_id"];
+	newClass.period.name = [jsonObject objectForKey:@"period_name"];
 	
 	return newClass;
 }
@@ -49,6 +85,9 @@
 @implementation CloudiversityDiscipline
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityDiscipline *newDiscipline = [[CloudiversityDiscipline alloc] init];
 	
@@ -58,20 +97,14 @@
 	return newDiscipline;
 }
 
-//- (id)copyWithZone:(NSZone *)zone {
-//	CloudiversityDiscipline *discipline = [[CloudiversityDiscipline alloc] init];
-//	
-//	discipline.disciplineID = self.disciplineID;
-//	discipline.name = self.name;
-//	
-//	return discipline;
-//}
-
 @end
 
 @implementation CloudiversityStudent
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityStudent *newStudent = [[CloudiversityStudent alloc] init];
 	
@@ -88,6 +121,9 @@
 @implementation CloudiversityTeacher
 
 + (instancetype)fromJSON:(id)json {
+	if (json == nil || [json isKindOfClass:[NSNull class]])
+		return nil;
+	
 	NSDictionary *jsonObject = (NSDictionary*)json;
 	CloudiversityTeacher *newTeacher = [[CloudiversityTeacher alloc] init];
 	

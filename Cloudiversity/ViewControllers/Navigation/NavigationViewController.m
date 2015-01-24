@@ -49,53 +49,56 @@ typedef NS_ENUM(NSInteger, state) {
 
 #pragma Role management
 - (void)initRoleSwitcher {
-    User *user = [User sharedUser];
-    if (user.roles.count > 1) {
-        [self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
-        [self.roleSwitcher removeAllSegments];
-        NSUInteger idx = 0;
-        self.roleSwitcher.selectedSegmentIndex = 0;
-        for (NSString *title in user.localizedRoles) {
-            [self.roleSwitcher insertSegmentWithTitle:title atIndex:idx animated:NO];
-            if ([user.currentRole isEqualToString:user.roles[idx]]) {
-                user.currentRole = user.roles[idx];
-                self.roleSwitcher.selectedSegmentIndex = idx;
-            }
-            idx++;
-        }
-        self.roleSwitcher.hidden = NO;
-    } else {
-        self.roleSwitcher.hidden = YES;
-    }
-    self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"];
+	User *user = [User sharedUser];
+	if (user.roles.count > 1) {
+		[self.roleSwitcher addTarget:self action:@selector(changeRole) forControlEvents:UIControlEventValueChanged];
+		[self.roleSwitcher removeAllSegments];
+		NSUInteger idx = 0;
+		self.roleSwitcher.selectedSegmentIndex = 0;
+		for (NSString *title in user.localizedRoles) {
+			[self.roleSwitcher insertSegmentWithTitle:title atIndex:idx animated:NO];
+			if ([user.currentRole isEqualToString:user.roles[idx]]) {
+				user.currentRole = user.roles[idx];
+				self.roleSwitcher.selectedSegmentIndex = idx;
+			}
+			idx++;
+		}
+		self.roleSwitcher.hidden = NO;
+	} else {
+		self.roleSwitcher.hidden = YES;
+	}
+	self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"];
+	self.evaluationButton.hidden = !user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"];
 }
 
 - (void)changeRole {
-    User *user = [User sharedUser];
-    user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
-    if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
-        self.agendaButton.hidden = YES;
-    } else {
-        self.agendaButton.hidden = NO;
-    }
-
-    switch (self.current) {
-        case agendaStudent:
-            if ([user.currentRole isEqualToString:@"Teacher"]) {
-                [self performSegueWithIdentifier:@"AgendaTeacher" sender:self];
-            } else {
-                [self performSegueWithIdentifier:@"HomeScreen" sender:self];
-            }
-            break;
-        case agendaTeacher:
-            if ([user.currentRole isEqualToString:@"Student"]) {
-                [self performSegueWithIdentifier:@"AgendaStudent" sender:self];
-            } else {
-                [self performSegueWithIdentifier:@"HomeScreen" sender:self];
-            }
-            break;
-    }
-    //do stuff to change the front view controller depending on the role
+	User *user = [User sharedUser];
+	user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
+	if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
+		self.agendaButton.hidden = YES;
+		self.evaluationButton.hidden = YES;
+	} else {
+		self.agendaButton.hidden = NO;
+		self.evaluationButton.hidden = NO;
+	}
+	
+	switch (self.current) {
+		case agendaStudent:
+			if ([user.currentRole isEqualToString:@"Teacher"]) {
+				[self performSegueWithIdentifier:@"AgendaTeacher" sender:self];
+			} else {
+				[self performSegueWithIdentifier:@"HomeScreen" sender:self];
+			}
+			break;
+		case agendaTeacher:
+			if ([user.currentRole isEqualToString:@"Student"]) {
+				[self performSegueWithIdentifier:@"AgendaStudent" sender:self];
+			} else {
+				[self performSegueWithIdentifier:@"HomeScreen" sender:self];
+			}
+			break;
+	}
+	//do stuff to change the front view controller depending on the role
 }
 
 #pragma mark - Navigation

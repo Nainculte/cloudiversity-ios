@@ -8,8 +8,11 @@
 
 #import "EvaluationGradesViewController.h"
 #import "EvaluationGradeDetailViewController.h"
+#import "EvaluationGradeModificationViewController.h"
 
 @interface EvaluationGradesViewController ()
+
+@property (strong, nonatomic) CloudiversityGrade *selectedGrade;
 
 @end
 
@@ -58,8 +61,24 @@
 		
 		[((EvaluationGradeDetailViewController*)segue.destinationViewController) setGrade:[self.grades objectAtIndex:[selectedPath row]]];
 		[((EvaluationGradeDetailViewController*)segue.destinationViewController) setDiscipline:self.discipline];
+	} else if ([segue.identifier isEqualToString:@"gradeModifSegue"]) {
+		EvaluationGradeModificationViewController *modifVC = segue.destinationViewController;
+		
+		modifVC.isCreatingGrade = NO;
+		modifVC.grade = self.selectedGrade;
 	}
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher]) {
+		self.selectedGrade = [self.grades objectAtIndex:[indexPath row]];
+		
+		[self performSegueWithIdentifier:@"gradeModifSegue" sender:self];
+	} else {
+		[self performSegueWithIdentifier:@"gradeDetailSegue" sender:self];
+	}
+}
+
 
 /*
 #pragma mark - Navigation

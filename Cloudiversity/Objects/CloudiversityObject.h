@@ -15,10 +15,25 @@
 
 @end
 
+@interface CloudiversityPeriod : CloudiversityObject
+
+@property (strong, nonatomic) NSNumber *periodID;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSDate *startDate;
+@property (strong, nonatomic) NSDate *endDate;
+
++ (NSArray *)sortPeriods:(NSArray *)periods;
+
+@end
+
 @interface CloudiversityClass : CloudiversityObject
 
 @property (strong, nonatomic)	NSNumber *classID;
 @property (strong, nonatomic)	NSString *name;
+
+@property (strong, nonatomic)	NSNumber *schoolClassId;
+@property (strong, nonatomic)	NSString *schoolClassName;
+@property (strong, nonatomic)	CloudiversityPeriod *period;
 
 @end
 
