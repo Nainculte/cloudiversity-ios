@@ -11,6 +11,7 @@
 @interface NavigationViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *agendaButton;
+@property (weak, nonatomic) IBOutlet UIButton *evaluationButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *roleSwitcher;
 
 @end

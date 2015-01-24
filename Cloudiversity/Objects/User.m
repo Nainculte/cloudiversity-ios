@@ -47,6 +47,7 @@ static User *user;
     user.email = [userDefaults objectForKey:@"email"];
     user.roles = [userDefaults objectForKey:@"roles"];
     user.currentRole = [userDefaults objectForKey:@"currentRole"];
+	user.userId = [userDefaults objectForKey:@"id"];
     if (!user.email) {
         return nil;
     }
@@ -61,6 +62,7 @@ static User *user;
     [userDefaults setObject:self.email forKey:@"email"];
     [userDefaults setObject:self.roles forKey:@"roles"];
     [userDefaults setObject:self.currentRole forKey:@"currentRole"];
+	[userDefaults setObject:self.userId forKey:@"id"];
     [userDefaults synchronize];
 }
 
@@ -71,6 +73,7 @@ static User *user;
     [userDefaults removeObjectForKey:@"email"];
     [userDefaults removeObjectForKey:@"roles"];
     [userDefaults removeObjectForKey:@"currentRole"];
+	[userDefaults removeObjectForKey:@"id"];
     [userDefaults synchronize];
     [[EGOCache globalCache] clearCache];
 }

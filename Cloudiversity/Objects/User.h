@@ -14,6 +14,7 @@ extern NSString *const UserRoleAdmin;
 
 @interface User : CloudiversityObject
 
+@property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *firstName;
 @property (nonatomic, copy) NSString *lastName;

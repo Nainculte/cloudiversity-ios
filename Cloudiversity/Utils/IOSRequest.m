@@ -13,6 +13,13 @@
 
 @implementation IOSRequest
 
+#pragma mark - get server main path
+
++ (NSString*)serverPath {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	return [defaults objectForKey:@"server"];
+}
+
 #pragma mark - HTTP requests method
 
 +(void)requestPatchToPath:(NSString*)path

@@ -8,6 +8,7 @@
 
 #import "EvaluationAllAssessmentsViewController.h"
 #import "EvaluationAssessmentsViewController.h"
+#import "EvaluationAssessmentsModificationViewController.h"
 #import "User.h"
 
 #define CACHE_KEY	@"assessmentsStudentList"
@@ -17,6 +18,7 @@
 
 @property (nonatomic, strong) HTTPSuccessHandler success;
 @property (nonatomic, strong) HTTPFailureHandler failure;
+@property (nonatomic, strong) NSDictionary *teachings;
 
 @end
 
@@ -76,12 +78,53 @@
 	[IOSRequest getAssessmentsForUserOnSuccess:self.success onFailure:self.failure];
 }
 
+- (void)setupTeachings {
+#warning TOCHECK
+	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, NSArray *response) {
+		//		NSLog(@"%@", response);
+		
+		NSMutableDictionary *newTeachings = [NSMutableDictionary dictionary];
+		for (NSDictionary *teachings in response) {
+			CloudiversityDiscipline *discipline = [CloudiversityDiscipline fromJSON:[teachings objectForKey:@"discipline"]];
+			NSMutableArray *newClasses = [NSMutableArray array];
+			for (NSDictionary *classes in [teachings objectForKey:@"school_classes"]) {
+				CloudiversityClass *newClass = [CloudiversityClass fromJSON:classes];
+				[newClasses addObject:newClass];
+			}
+			[newTeachings setObject:newClasses forKey:discipline];
+		}
+		self.teachings = newTeachings;
+	};
+	
+	NSArray *response = @[
+						  @{@"discipline":@{@"id":@7,@"name":@"Transfiguration"},
+							@"school_classes":@[
+									@{@"school_class_id":@13,@"school_class_name":@"Gryffindor",@"period_id":@28,@"period_name":@"5th Year"},
+									@{@"school_class_id":@14,@"school_class_name":@"Gryffindor",@"period_id":@29,@"period_name":@"6th Year"},
+									@{@"school_class_id":@16,@"school_class_name":@"Slytherin",@"period_id":@28,@"period_name":@"5th Year"},
+									@{@"school_class_id":@17,@"school_class_name":@"Slytherin",@"period_id":@29,@"period_name":@"6th Year"},
+									@{@"school_class_id":@19,@"school_class_name":@"Ravenclaw",@"period_id":@28,@"period_name":@"5th Year"},
+									@{@"school_class_id":@20,@"school_class_name":@"Ravenclaw",@"period_id":@29,@"period_name":@"6th Year"},
+									@{@"school_class_id":@22,@"school_class_name":@"Hufflepuff",@"period_id":@28,@"period_name":@"5th Year"},
+									@{@"school_class_id":@23,@"school_class_name":@"Hufflepuff",@"period_id":@29,@"period_name":@"6th Year"}
+									]
+							}
+						  ];
+	success(nil, response);
+	//	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+	//		NSLog(@"%@: %@", LOCALIZEDSTRING(@"EVALUATION_STUDENT_ERROR"), error);
+	//	};
+	//	NSString *path = [NSString stringWithFormat:@"%@/teacher/%@/teachings", [IOSRequest serverPath], [User sharedUser].userId];
+	//	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+}
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
 	
 	[self setupHandlers];
+	[self setupTeachings];
 	
 	if ([[EGOCache globalCache] hasCacheForKey:CACHE_KEY]) {
 		[self.tableView reloadData];
@@ -90,10 +133,70 @@
 	}
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher] && self.navigationController.navigationBar.topItem.rightBarButtonItems.count == 0) {
+		UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(createAssessment)];
+		[self.navigationController.navigationBar.topItem setRightBarButtonItem:editButton animated:NO];
+	}
+}
+
+- (NSDictionary*)allowedTeachingsByPeriod {
+	NSMutableDictionary *teachings = [NSMutableDictionary dictionary];
+	
+	NSEnumerator *disciplineEnumerator = [self.teachings keyEnumerator];
+	CloudiversityDiscipline *discipline;
+	while (discipline = [disciplineEnumerator nextObject]) {
+		NSArray *classes = [self.teachings objectForKey:discipline];
+		
+		for (CloudiversityClass *currentClass in classes) {
+			CloudiversityPeriod *classPeriod;
+			if ((classPeriod = [self arrayOfPeriods:[teachings allKeys] getPeriod:currentClass.period])) {
+				NSMutableDictionary *classesByDisciplines = ((NSDictionary*)[teachings objectForKey:classPeriod]).mutableCopy;
+				
+				NSMutableArray *classesByDiscipline = ((NSArray*)[classesByDisciplines objectForKey:discipline]).mutableCopy;
+				if (classesByDiscipline) {
+					[classesByDiscipline addObject:currentClass];
+					[classesByDisciplines setObject:classesByDiscipline forKey:discipline];
+				} else {
+					[classesByDisciplines setObject:@[currentClass] forKey:discipline];
+				}
+				
+				[teachings setObject:classesByDisciplines forKey:classPeriod];
+			} else {
+				[teachings setObject:@{discipline: @[currentClass]} forKey:currentClass.period];
+			}
+		}
+	}
+	
+	return teachings;
+}
+
+- (CloudiversityPeriod*)arrayOfPeriods:(NSArray*)periods getPeriod:(CloudiversityPeriod*)period {
+	for (CloudiversityPeriod *periodInArray in periods) {
+		if ([periodInArray.periodID isEqualToNumber:period.periodID] &&
+			[periodInArray.name isEqualToString:period.name]) {
+			return periodInArray;
+		}
+	}
+	return nil;
+}
+
 - (void)didReceiveMemoryWarning
 {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
+}
+
+- (void)createAssessment {
+	EvaluationAssessmentsModificationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"EvaluationAssessmentsModificationViewController"];
+	
+	vc.isCreatingAssessment = YES;
+	vc.assessment = nil;
+	vc.allowedTeachings = [self allowedTeachingsByPeriod];
+
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableView protocols implementation

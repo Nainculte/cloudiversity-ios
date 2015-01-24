@@ -29,26 +29,12 @@
 	[super viewDidAppear:animated];
 	
 	[self.navigationController.navigationBar.topItem setTitle:self.discipline.name];
-	
-	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher] && self.navigationController.navigationBar.topItem.rightBarButtonItems.count == 0) {
-		UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(createAssessment)];
-		[self.navigationController.navigationBar.topItem setRightBarButtonItem:editButton animated:NO];
-	}
 }
 
 - (void)didReceiveMemoryWarning
 {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
-}
-
-- (void)createAssessment {
-	EvaluationAssessmentsModificationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"EvaluationAssessmentsModificationViewController"];
-	
-	vc.isCreatingAssessment = YES;
-	vc.assessment = nil;
-	
-	[self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewController protocol

@@ -8,17 +8,6 @@
 
 #import "CloudiversityObject.h"
 
-@interface CloudiversityPeriod : CloudiversityObject
-
-@property (strong, nonatomic) NSNumber *periodID;
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSDate *startDate;
-@property (strong, nonatomic) NSDate *endDate;
-
-+ (NSArray *)sortPeriods:(NSArray *)periods;
-
-@end
-
 @interface CloudiversityAssessment : CloudiversityObject
 
 @property (strong, nonatomic) NSNumber *assessmentID;

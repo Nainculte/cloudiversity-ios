@@ -11,11 +11,22 @@
 #import "DejalActivityView.h"
 #import "CloudiversityAppDelegate.h"
 
+#define PERIOD_TAG @"assessmentPeriod"
+#define DISCIPLINE_TAG @"assessmentDiscipline"
+#define CLASS_TAG @"assessmentClass"
+#define STUDENT_TAG	@"assessmentStudent"
+
 #define ASSESSMENT_TAG @"assessment"
 #define ALL_CLASS_TAG @"assessmentForAllClass"
-#define STUDENT_TAG @"assessmentForStudent"
 
 @interface EvaluationAssessmentsModificationViewController ()
+
+@property (nonatomic, strong) CloudiversityPeriod *selectedPeriod;
+@property (nonatomic, strong) CloudiversityDiscipline *selectedDiscipline;
+@property (nonatomic, strong) CloudiversityClass *selectedClass;
+@property (nonatomic, strong) CloudiversityStudent *selectedStudent;
+
+@property (nonatomic, strong) NSArray *students;
 
 @end
 
@@ -78,6 +89,9 @@
 	XLFormRowDescriptor *row;
 	
 	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
+		[DejalActivityView removeView];
+		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+
 		[self.navigationController popViewControllerAnimated:YES];
 	};
 	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -116,17 +130,202 @@
 	
 	row = [XLFormRowDescriptor formRowDescriptorWithTag:ALL_CLASS_TAG rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"for all class"];
 	[section addFormRow:row];
+	
+	// periods
+	row = [XLFormRowDescriptor formRowDescriptorWithTag:PERIOD_TAG rowType:XLFormRowDescriptorTypeSelectorPickerView title:@"Period"];
+	row.selectorOptions = [self periodNames];
+	[section addFormRow:row];
+	// disciplines
+	row = [XLFormRowDescriptor formRowDescriptorWithTag:DISCIPLINE_TAG rowType:XLFormRowDescriptorTypeSelectorPickerView title:@"Discipline"];
+	row.selectorOptions = nil;
+	row.disabled = YES;
+	[section addFormRow:row];
+	// classes
+	row = [XLFormRowDescriptor formRowDescriptorWithTag:CLASS_TAG rowType:XLFormRowDescriptorTypeSelectorPickerView title:@"Class"];
+	row.selectorOptions = nil;
+	row.disabled = YES;
+	[section addFormRow:row];
+	// students
 	row = [XLFormRowDescriptor formRowDescriptorWithTag:STUDENT_TAG rowType:XLFormRowDescriptorTypeSelectorPickerView title:@"Student"];
 	row.selectorOptions = @[@"Granger", @"Potter", @"Longbottom", @"And some others..."];
 	[section addFormRow:row];
+	row.selectorOptions = nil;
+	row.disabled = YES;
 	
+	form.delegate = self;
 	self.form = form;
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"done" style:UIBarButtonItemStylePlain target:self action:@selector(createAssessment)];
 }
 
 - (void)createAssessment {
+#warning TODO
+}
+
+- (void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow
+								oldValue:(id)oldValue
+								newValue:(id)newValue {
+	XLFormRowDescriptor *row;
 	
+	if ([formRow.tag isEqualToString:ALL_CLASS_TAG]) {
+		row = [self.form formRowWithTag:PERIOD_TAG];
+		row.disabled = [newValue boolValue];
+		[self reloadFormRow:row];
+
+		row = [self.form formRowWithTag:DISCIPLINE_TAG];
+		row.selectorOptions = nil;
+		row.value = nil;
+		row.disabled = YES;
+		[self reloadFormRow:row];
+		self.selectedDiscipline = nil;
+		
+		row = [self.form formRowWithTag:CLASS_TAG];
+		row.selectorOptions = nil;
+		row.value = nil;
+		row.disabled = YES;
+		[self reloadFormRow:row];
+		self.selectedClass = nil;
+		
+		row = [self.form formRowWithTag:STUDENT_TAG];
+		row.selectorOptions = nil;
+		row.value = nil;
+		row.disabled = YES;
+		[self reloadFormRow:row];
+		self.selectedStudent = nil;
+
+	} else if ([formRow.tag isEqualToString:PERIOD_TAG]) {
+		self.selectedPeriod = [self periodForName:formRow.value];
+		row = [self.form formRowWithTag:DISCIPLINE_TAG];
+		row.selectorOptions = [self disciplineNamesForSelectedPeriod];
+		row.disabled = NO;
+		[self reloadFormRow:row];
+		self.selectedDiscipline = nil;
+		
+		row = [self.form formRowWithTag:CLASS_TAG];
+		row.selectorOptions = nil;
+		row.value = nil;
+		row.disabled = YES;
+		[self reloadFormRow:row];
+		self.selectedClass = nil;
+		
+		row = [self.form formRowWithTag:STUDENT_TAG];
+		row.value = nil;
+		row.disabled = YES;
+		[self reloadFormRow:row];
+		self.selectedStudent = nil;
+	} else if ([formRow.tag isEqualToString:DISCIPLINE_TAG] && ![newValue isKindOfClass:[NSNull class]]) {
+		self.selectedDiscipline = [self disciplineForName:formRow.value];
+		row = [self.form formRowWithTag:CLASS_TAG];
+		row.selectorOptions = [self classNamesForSelectedDisciplineAndPeriod];
+		row.disabled = NO;
+		[self reloadFormRow:row];
+		self.selectedClass = nil;
+		
+		row = [self.form formRowWithTag:STUDENT_TAG];
+		row.value = nil;
+		row.disabled = YES;
+		[self reloadFormRow:row];
+		self.selectedStudent = nil;
+	} else if ([formRow.tag isEqualToString:CLASS_TAG] && ![newValue isKindOfClass:[NSNull class]]) {
+		self.selectedClass = [self classForName:formRow.value];
+		[self initStudentNames];
+	}
+}
+
+#pragma mark - helpers
+
+- (NSArray*)periodNames {
+	NSMutableArray *names = [NSMutableArray array];
+	
+	NSArray *periods = [self.allowedTeachings allKeys];
+	for (CloudiversityPeriod *period in periods) {
+		[names addObject:period.name];
+	}
+	
+	return names.copy;
+}
+
+- (NSArray*)disciplineNamesForSelectedPeriod {
+	NSMutableArray *names = [NSMutableArray array];
+	
+	NSArray *disciplines = [[self.allowedTeachings objectForKey:self.selectedPeriod] allKeys];
+	for (CloudiversityDiscipline *discipline in disciplines) {
+		[names addObject:discipline.name];
+	}
+	
+	return names.copy;
+}
+
+- (NSArray*)classNamesForSelectedDisciplineAndPeriod {
+	NSMutableArray *names = [NSMutableArray array];
+	
+	NSArray *classes = [[self.allowedTeachings objectForKey:self.selectedPeriod] objectForKey:self.selectedDiscipline];
+	for (CloudiversityClass *classe in classes) {
+		[names addObject:classe.schoolClassName];
+	}
+	
+	return names.copy;
+}
+
+- (CloudiversityPeriod*)periodForName:(NSString*)name {
+	NSArray *periods = [self.allowedTeachings allKeys];
+	
+	for (CloudiversityPeriod *period in periods) {
+		if ([period.name isEqualToString:name]) {
+			return period;
+		}
+	}
+	
+	return nil;
+}
+
+- (CloudiversityDiscipline*)disciplineForName:(NSString*)name {
+	NSArray *disciplines = [[self.allowedTeachings objectForKey:self.selectedPeriod] allKeys];
+	
+	for (CloudiversityDiscipline *discipline in disciplines) {
+		if ([discipline.name isEqualToString:name]) {
+			return discipline;
+		}
+	}
+	
+	return nil;
+}
+
+- (CloudiversityClass*)classForName:(NSString*)name {
+	NSArray *classes = [[self.allowedTeachings objectForKey:self.selectedPeriod] objectForKey:self.selectedDiscipline];
+	
+	for (CloudiversityClass *classe in classes) {
+		if ([classe.schoolClassName isEqualToString:name]) {
+			return classe;
+		}
+	}
+	
+	return nil;
+}
+
+- (void)initStudentNames {
+#warning TOCHECK
+	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, NSArray *students) {
+		NSMutableArray *newStudents = [NSMutableArray array];
+		NSMutableArray *studentNames = [NSMutableArray array];
+		for (NSDictionary *student in students) {
+			CloudiversityStudent *newStudent = [CloudiversityStudent fromJSON:student];
+			[newStudents addObject:newStudent];
+			[studentNames addObject:newStudent.name];
+		}
+		
+		self.students = newStudents;
+		
+		XLFormRowDescriptor *row = [self.form formRowWithTag:STUDENT_TAG];
+		row.selectorOptions = studentNames;
+		row.disabled = NO;
+		[self reloadFormRow:row];
+	};
+	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+		NSLog(@"%@", error);
+	};
+	NSString *path = [[IOSRequest serverPath] stringByAppendingFormat:@"/school_class/%@/students", self.selectedClass.schoolClassId];
+	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
 /*

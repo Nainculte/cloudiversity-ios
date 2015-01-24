@@ -69,6 +69,7 @@ typedef NS_ENUM(NSInteger, state) {
 		self.roleSwitcher.hidden = YES;
 	}
 	self.agendaButton.hidden = !user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"];
+	self.evaluationButton.hidden = !user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"];
 }
 
 - (void)changeRole {
@@ -76,8 +77,10 @@ typedef NS_ENUM(NSInteger, state) {
 	user.currentRole = user.roles[self.roleSwitcher.selectedSegmentIndex];
 	if (!user.roles.count || [user.currentRole isEqualToString:@"Admin"] || [user.currentRole isEqualToString:@"Parent"]) {
 		self.agendaButton.hidden = YES;
+		self.evaluationButton.hidden = YES;
 	} else {
 		self.agendaButton.hidden = NO;
+		self.evaluationButton.hidden = NO;
 	}
 	
 	switch (self.current) {

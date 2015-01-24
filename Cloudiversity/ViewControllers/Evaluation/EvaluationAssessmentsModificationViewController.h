@@ -14,4 +14,10 @@
 @property (nonatomic, strong) CloudiversityAssessment *assessment;
 @property BOOL isCreatingAssessment;
 
+// If creating grade
+//	Periods
+//		-> Disciplines
+//			-> Classes
+@property (strong, nonatomic) NSDictionary *allowedTeachings;
+
 @end

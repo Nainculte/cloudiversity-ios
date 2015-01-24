@@ -326,6 +326,7 @@
                     </view>
                     <connections>
                         <outlet property="agendaButton" destination="Tbo-B9-sMm" id="iDy-QG-Xoq"/>
+                        <outlet property="evaluationButton" destination="mue-nC-7Gd" id="JZa-rw-dpb"/>
                         <outlet property="roleSwitcher" destination="Jhs-ht-Xik" id="s2R-nQ-C6C"/>
                         <segue destination="cXZ-Oz-7Aw" kind="custom" identifier="AgendaTeacher" customClass="SWRevealViewControllerSegue" id="s6c-lu-sbO"/>
                         <segue destination="Xsx-OA-UlT" kind="custom" identifier="AgendaStudent" customClass="SWRevealViewControllerSegue" id="Uy6-RM-pqk"/>
@@ -359,7 +360,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8mP-CT-DQQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OCj-YX-QpA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home Screen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYF-QI-9Lo" customClass="CloudLabel">
@@ -477,7 +478,6 @@
         <!--Evaluation Grade Modification View Controller-->
         <scene sceneID="YWE-5V-ZHI">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lpa-IT-PU7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="EvaluationGradeModificationViewController" id="cNH-VK-eUy" customClass="EvaluationGradeModificationViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Rm4-JN-Z7H">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
@@ -499,6 +499,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="cc1-uo-3kQ"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lpa-IT-PU7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2330" y="-2954"/>
         </scene>
@@ -1201,7 +1202,6 @@
         <!--Evaluation Assessments Modification View Controller-->
         <scene sceneID="C4m-RJ-hs4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4oM-El-yqI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="EvaluationAssessmentsModificationViewController" id="fTY-Wa-BRq" customClass="EvaluationAssessmentsModificationViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="QXB-4G-OZ1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -1223,6 +1223,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="voK-ee-OSW"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4oM-El-yqI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2330" y="-1011"/>
         </scene>
@@ -1242,6 +1243,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BNK-RA-z8p"/>
+        <segue reference="G1a-sa-Ja5"/>
     </inferredMetricsTieBreakers>
 </document>

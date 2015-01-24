@@ -26,8 +26,6 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
-	UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(createGrade)];
-	[self.navigationController.navigationBar.topItem setRightBarButtonItem:editButton animated:NO];
 	[self.navigationController.navigationBar.topItem setTitle:self.discipline.name];
 }
 
@@ -81,14 +79,6 @@
 	}
 }
 
-- (void)createGrade {
-	EvaluationGradeModificationViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"EvaluationGradeModificationViewController"];
-	
-	vc.isCreatingGrade = YES;
-	vc.grade = nil;
-	
-	[self.navigationController pushViewController:vc animated:YES];
-}
 
 /*
 #pragma mark - Navigation

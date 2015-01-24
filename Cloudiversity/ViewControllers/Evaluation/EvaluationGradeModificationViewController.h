@@ -11,7 +11,14 @@
 
 @interface EvaluationGradeModificationViewController : XLFormViewController
 
+// If modifying grade
 @property (strong, nonatomic) CloudiversityGrade *grade;
+
+// If creating grade
+//	Periods
+//		-> Disciplines
+//			-> Classes
+@property (strong, nonatomic) NSDictionary *allowedTeachings;
 
 @property BOOL isCreatingGrade;
 
