@@ -59,11 +59,7 @@
 
     [self setupHandlers];
 
-    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
-        [self.tableView reloadData];
-    } else {
-        [self initAssignmentsByHTTPRequest];
-    }
+	[self initAssignmentsByHTTPRequest];
 }
 
 #pragma mark - HTTP handlers
@@ -138,9 +134,6 @@
             assignmentsByDates[date] = assignments;
         }
 
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:assignmentsByDates] forKey:@"assignmentsStudentList"];
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:sortedDates] forKey:@"sortedStudentDates"];
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:allDisciplinesName] forKey:@"allDisciplinesName"];
         bself.sections = assignmentsByDates;
         bself.sortedSections = sortedDates;
         bself.allDisciplinesName = allDisciplinesName;
@@ -251,16 +244,6 @@
 
 - (void)tableViewWillReloadData:(UITableView *)tableView
 {
-    if ([[EGOCache globalCache] hasCacheForKey:@"assignmentsStudentList"]) {
-        NSMutableDictionary *assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"assignmentsStudentList"]];
-        NSArray *dates = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"sortedStudentDates"]];
-		NSMutableArray *allDisciplinesName = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"allDisciplinesName"]];
-        if (assignments && dates && allDisciplinesName) {
-            self.sections = assignments;
-            self.sortedSections = dates;
-			self.allDisciplinesName = allDisciplinesName;
-        }
-    }
 }
 
 - (void)tableViewDidReloadData:(UITableView *)tableView
@@ -317,7 +300,6 @@
 		if (assignmentObj.assignmentId == assignment.assignmentId) {
 			assignmentObj.progress = assignment.progress;
 			[self.tableView reloadRowsAtIndexPaths:@[self.selectedRowPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-			[[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:self.sections] forKey:@"assignmentsStudentList"];
 			break;
 		}
 	}

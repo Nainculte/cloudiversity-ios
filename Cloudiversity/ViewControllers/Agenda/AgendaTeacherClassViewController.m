@@ -43,21 +43,7 @@
     [self setupTitle];
     [self setupHandlers];
 
-    NSString *key = [NSString stringWithFormat:@"%@/%@", self.disciplineTitle, self.classTitle];
-    if ([[EGOCache globalCache] hasCacheForKey:key]) {
-        self.assignments = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:key]];
-
-        [self.tableView reloadData];
-    } else {
-        [self initAssignmentsByHTTPRequest];
-    }
-
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:self.assignments] forKey:[NSString stringWithFormat:@"%@/%@", self.disciplineTitle, self.classTitle]];
+	[self initAssignmentsByHTTPRequest];
 }
 
 #pragma mark - Styling

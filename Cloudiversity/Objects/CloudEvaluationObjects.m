@@ -21,12 +21,17 @@
 	newAssessment.assessment = [jsonObject objectForKey:@"assessment"];
 	newAssessment.creationDate = [jsonObject objectForKey:@"created_at"];
 	newAssessment.lastUpdateDate = [jsonObject objectForKey:@"updated_at"];
-	newAssessment.isForAllClass = [jsonObject objectForKey:@"school_class_assessment"];
 	newAssessment.period = [CloudiversityPeriod fromJSON:[jsonObject objectForKey:@"period"]];
 	newAssessment.discipline = [CloudiversityDiscipline fromJSON:[jsonObject objectForKey:@"discipline"]];
 	newAssessment.student = [CloudiversityStudent fromJSON:[jsonObject objectForKey:@"student"]];
 	newAssessment.teacher = [CloudiversityTeacher fromJSON:[jsonObject objectForKey:@"teacher"]];
 	newAssessment.schoolClass = [CloudiversityClass fromJSON:[jsonObject objectForKey:@"school_class"]];
+
+	if ([[jsonObject objectForKey:@"school_class_assessment"] isKindOfClass:[NSNull class]]) {
+		newAssessment.isForAllClass = @NO;
+	} else {
+		newAssessment.isForAllClass = [jsonObject objectForKey:@"school_class_assessment"];
+	}
 	
 	return newAssessment;
 }

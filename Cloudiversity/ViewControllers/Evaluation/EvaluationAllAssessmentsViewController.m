@@ -111,17 +111,13 @@
 	[self setupHandlers];
 	[self setupTeachings];
 	
-	if ([[EGOCache globalCache] hasCacheForKey:CACHE_KEY]) {
-		[self.tableView reloadData];
-	} else {
-		[self initAssessmentsByHTTPRequest];
-	}
+	[self initAssessmentsByHTTPRequest];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
-	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher] && self.navigationController.navigationBar.topItem.rightBarButtonItems.count == 0) {
+	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher]) {
 		UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(createAssessment)];
 		[self.navigationController.navigationBar.topItem setRightBarButtonItem:editButton animated:NO];
 	}

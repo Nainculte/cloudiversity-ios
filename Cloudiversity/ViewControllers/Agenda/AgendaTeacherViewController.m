@@ -29,11 +29,7 @@
     [self setupHandlers];
     self.sections = [NSMutableDictionary dictionary];
 
-    if ([[EGOCache globalCache] hasCacheForKey:@"disciplinesTeacher"]) {
-        [self.tableView reloadData];
-    } else {
-        [self initAssignmentsByHTTPRequest];
-    }
+	[self initAssignmentsByHTTPRequest];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,8 +58,6 @@
         for (NSDictionary *discipline in response) {
             disciplines[discipline[@"name"]] = discipline;
         }
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:disciplines] forKey:@"disciplinesTeacher"];
-        [[EGOCache globalCache] setData:[NSKeyedArchiver archivedDataWithRootObject:response] forKey:@"disciplinesArray"];
         bself.sections = disciplines;
         bself.sortedSections = response;
 		[bself.tableView reloadData];
@@ -115,14 +109,6 @@
 
 - (void)tableViewWillReloadData:(UITableView *)tableView
 {
-    if ([[EGOCache globalCache] hasCacheForKey:@"disciplinesTeacher"]) {
-        NSMutableDictionary *disciplines = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"disciplinesTeacher"]];
-        NSArray *disciplinesArray = [NSKeyedUnarchiver unarchiveObjectWithData:[[EGOCache globalCache] dataForKey:@"disciplinesArray"]];
-        if (disciplines && disciplinesArray) {
-            self.sections = disciplines;
-            self.sortedSections = disciplinesArray;
-        }
-    }
 }
 
 - (void)tableViewDidReloadData:(UITableView *)tableView

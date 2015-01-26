@@ -13,7 +13,6 @@
 #import "NetworkManager.h"
 #import "DejalActivityView.h"
 #import "SWRevealViewController.h"
-#import "EGOCache.h"
 #import "User.h"
 
 @interface AbstractViewController : UIViewController <SWRevealViewControllerDelegate>

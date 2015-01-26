@@ -69,7 +69,7 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if ([[User sharedUser].currentRole isEqualToString:UserRoleTeacher]) {
 		self.selectedAssessment = [self.assessments objectAtIndex:indexPath.row];
 		[self performSegueWithIdentifier:@"assessmentModifSegue" sender:self];

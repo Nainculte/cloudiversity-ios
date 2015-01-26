@@ -8,7 +8,6 @@
 
 #import "User.h"
 #import "CloudKeyChainManager.h"
-#import "EGOCache.h"
 
 NSString *const UserRoleTeacher = @"Teacher";
 NSString *const UserRoleStudent = @"Student";
@@ -75,7 +74,6 @@ static User *user;
     [userDefaults removeObjectForKey:@"currentRole"];
 	[userDefaults removeObjectForKey:@"id"];
     [userDefaults synchronize];
-    [[EGOCache globalCache] clearCache];
 }
 
 - (NSArray *)localizedRoles {

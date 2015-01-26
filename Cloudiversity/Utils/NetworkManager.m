@@ -161,7 +161,7 @@ static NetworkManager *manager;
                      onFailure:(HTTPFailureHandler)failure {
 
     NSString *role = [NetworkManager role];
-	NSString *path = [NSString stringWithFormat:@"/agenda/assignments/%@/%@%@", @(disciplineID), @(classID), role];
+	NSString *path = [NSString stringWithFormat:@"/agenda/assignments/teaching/%@/%@%@", @(disciplineID), @(classID), role];
 	[self requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
@@ -259,7 +259,7 @@ static NetworkManager *manager;
 			   onSuccess:(HTTPSuccessHandler)success
 			   onFailure:(HTTPFailureHandler)failure {
 
-	NSString *path = [NSString stringWithFormat:@"/agenda/assignments/%d", assessmentID];
+	NSString *path = [NSString stringWithFormat:@"/evaluations/assessments/%d", assessmentID];
 	
 	NSDictionary *params = @{@"grade_assessment": assessmentInfos};
 	
@@ -313,9 +313,9 @@ static NetworkManager *manager;
 		  onSuccess:(HTTPSuccessHandler)success
 		  onFailure:(HTTPFailureHandler)failure {
 
-    NSString *path = [NSString stringWithFormat:@"/agenda/assignments/%d", gradeID];
+    NSString *path = [NSString stringWithFormat:@"/evaluations/grades/%d", gradeID];
 	
-	NSDictionary *params = @{@"grade_assessment": gradeInfos};
+	NSDictionary *params = @{@"grade_grade": gradeInfos};
 	
 	[self requestPatchToPath:path withParams:params onSuccess:success onFailure:failure];
 }

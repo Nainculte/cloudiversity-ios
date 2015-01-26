@@ -174,13 +174,15 @@
  */
 - (void)createAssessment {
 #warning TOCHECK
+	NSNumber *isForAllClass = ([self.form formRowWithTag:ALL_CLASS_TAG].value == nil ? @YES : @NO);
+	
 	NSDictionary *newAssessment = @{
 									@"grade_assessment": @{
 											@"assessment": (NSString*)[self.form formRowWithTag:ASSESSMENT_TAG].value,
 											@"discipline_id": self.selectedDiscipline.disciplineID,
 											@"school_class_id": self.selectedClass.schoolClassId,
 											@"period_id": self.selectedPeriod.periodID,
-											@"school_class_assessment": [self.form formRowWithTag:ALL_CLASS_TAG].value,
+											@"school_class_assessment": isForAllClass,
 											@"student_id": self.selectedStudent.studentID
 											}
 									};
