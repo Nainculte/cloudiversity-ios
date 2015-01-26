@@ -7,7 +7,7 @@
 //
 
 #import "EvaluationGradeModificationViewController.h"
-#import "IOSRequest.h"
+#import "NetworkManager.h"
 #import "DejalActivityView.h"
 #import "CloudiversityAppDelegate.h"
 
@@ -114,7 +114,7 @@
 	row = [self.form formRowWithTag:DESC_TAG];
 	[informations setObject:row.value forKey:@"assessment"];
 
-	[IOSRequest updateGrade:[self.grade.gradeID intValue] withInformations:informations onSuccess:success onFailure:failure];
+	[[NetworkManager manager] updateGrade:[self.grade.gradeID intValue] withInformations:informations onSuccess:success onFailure:failure];
 	[DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading"].showNetworkActivityIndicator = YES;
 }
 
@@ -168,8 +168,48 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"done" style:UIBarButtonItemStylePlain target:self action:@selector(createGrade)];
 }
 
+/*
+ {
+	 "grade_grade":{
+		 "assessment":string,
+		 "note":integer,
+		 "coefficient":integer,
+		 "discipline_id":integer,
+		 "school_class_id":integer,
+		 "period_id":integer,
+		 "student_id":integer,
+	 }
+ }
+ */
 - (void)createGrade {
 #warning TODO
+	NSDictionary *newGrade = @{
+							   @"grade_grade": @{
+									   @"assessment": (NSString*)[self.form formRowWithTag:DESC_TAG].value,
+									   @"note": [self.form formRowWithTag:NOTE_TAG].value,
+									   @"coefficient": [self.form formRowWithTag:COEF_TAG].value,
+									   @"discipline_id": self.selectedDiscipline.disciplineID,
+									   @"school_class_id": self.selectedClass.schoolClassId,
+									   @"period_id": self.selectedPeriod.periodID,
+									   @"student_id": self.selectedStudent.studentID
+									   }
+							   };
+	
+	
+	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
+		[DejalActivityView removeView];
+		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+		
+		[self.navigationController popViewControllerAnimated:YES];
+	};
+	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+		[DejalActivityView removeView];
+		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+		
+		NSLog(@"%@", error);
+	};
+	[[NetworkManager manager] requestPostToPath:@"/evaluations/grades" withParams:newGrade onSuccess:success onFailure:failure];
+	[DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading"].showNetworkActivityIndicator = YES;
 }
 
 - (void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow
@@ -213,6 +253,13 @@
 	} else if ([formRow.tag isEqualToString:CLASS_TAG] && ![newValue isKindOfClass:[NSNull class]]) {
 		self.selectedClass = [self classForName:formRow.value];
 		[self initStudentNames];
+	} else if ([formRow.tag isEqualToString:STUDENT_TAG] && ![newValue isKindOfClass:[NSNull class]]) {
+		for (CloudiversityStudent *student in self.students) {
+			if ([student.name isEqualToString:([self.form formRowWithTag:STUDENT_TAG].value)]) {
+				self.selectedStudent = student;
+				break;
+			}
+		}
 	}
 }
 
@@ -308,8 +355,8 @@
 	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSLog(@"%@", error);
 	};
-	NSString *path = [[IOSRequest serverPath] stringByAppendingFormat:@"/school_class/%@/students", self.selectedClass.schoolClassId];
-	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+	NSString *path = [NSString stringWithFormat:@"/school_class/%@/students", self.selectedClass.schoolClassId];
+	[[NetworkManager manager] requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
 /*

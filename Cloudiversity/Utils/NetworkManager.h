@@ -25,6 +25,8 @@ typedef void (^HTTPFailureHandler)(AFHTTPRequestOperation *operation, NSError *e
 
 @interface NetworkManager : NSObject
 
+- (void)baseURLDidChange;
+
 @property (nonatomic, assign)BOOL loggedIn;
 @property (nonatomic, assign, getter=isConnected)BOOL connected;
 

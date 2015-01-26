@@ -96,26 +96,11 @@
 		self.teachings = newTeachings;
 	};
 	
-	NSArray *response = @[
-						  @{@"discipline":@{@"id":@7,@"name":@"Transfiguration"},
-							@"school_classes":@[
-									@{@"school_class_id":@13,@"school_class_name":@"Gryffindor",@"period_id":@28,@"period_name":@"5th Year"},
-									@{@"school_class_id":@14,@"school_class_name":@"Gryffindor",@"period_id":@29,@"period_name":@"6th Year"},
-									@{@"school_class_id":@16,@"school_class_name":@"Slytherin",@"period_id":@28,@"period_name":@"5th Year"},
-									@{@"school_class_id":@17,@"school_class_name":@"Slytherin",@"period_id":@29,@"period_name":@"6th Year"},
-									@{@"school_class_id":@19,@"school_class_name":@"Ravenclaw",@"period_id":@28,@"period_name":@"5th Year"},
-									@{@"school_class_id":@20,@"school_class_name":@"Ravenclaw",@"period_id":@29,@"period_name":@"6th Year"},
-									@{@"school_class_id":@22,@"school_class_name":@"Hufflepuff",@"period_id":@28,@"period_name":@"5th Year"},
-									@{@"school_class_id":@23,@"school_class_name":@"Hufflepuff",@"period_id":@29,@"period_name":@"6th Year"}
-									]
-							}
-						  ];
-	success(nil, response);
-	//	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
-	//		NSLog(@"%@: %@", LOCALIZEDSTRING(@"EVALUATION_STUDENT_ERROR"), error);
-	//	};
-	//	NSString *path = [NSString stringWithFormat:@"%@/teacher/%@/teachings", [IOSRequest serverPath], [User sharedUser].userId];
-	//	[IOSRequest requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
+		HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+			NSLog(@"%@: %@", LOCALIZEDSTRING(@"EVALUATION_STUDENT_ERROR"), error);
+		};
+		NSString *path = [NSString stringWithFormat:@"/teacher/%@/teachings", [User sharedUser].userId];
+		[[NetworkManager manager] requestGetToPath:path withParams:nil onSuccess:success onFailure:failure];
 }
 
 - (void)viewDidLoad

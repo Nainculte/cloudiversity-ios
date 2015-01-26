@@ -158,8 +158,48 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"done" style:UIBarButtonItemStylePlain target:self action:@selector(createAssessment)];
 }
 
+/*
+ 
+ {
+	 "grade_assessment":{
+		 "assessment":string,
+		 "discipline_id":integer,
+		 "school_class_id":integer,
+		 "period_id":integer,
+		 "school_class_assessment":boolean
+		 "student_id":integer,
+	 }
+ }
+
+ */
 - (void)createAssessment {
-#warning TODO
+#warning TOCHECK
+	NSDictionary *newAssessment = @{
+									@"grade_assessment": @{
+											@"assessment": (NSString*)[self.form formRowWithTag:ASSESSMENT_TAG].value,
+											@"discipline_id": self.selectedDiscipline.disciplineID,
+											@"school_class_id": self.selectedClass.schoolClassId,
+											@"period_id": self.selectedPeriod.periodID,
+											@"school_class_assessment": [self.form formRowWithTag:ALL_CLASS_TAG].value,
+											@"student_id": self.selectedStudent.studentID
+											}
+									};
+	
+	
+	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
+		[DejalActivityView removeView];
+		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+		
+		[self.navigationController popViewControllerAnimated:YES];
+	};
+	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
+		[DejalActivityView removeView];
+		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
+		
+		NSLog(@"%@", error);
+	};
+	[[NetworkManager manager] requestPostToPath:@"/evaluations/assessments" withParams:newAssessment onSuccess:success onFailure:failure];
+	[DejalBezelActivityView activityViewForView:self.view withLabel:@"Loading"].showNetworkActivityIndicator = YES;
 }
 
 - (void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow
@@ -229,6 +269,13 @@
 	} else if ([formRow.tag isEqualToString:CLASS_TAG] && ![newValue isKindOfClass:[NSNull class]]) {
 		self.selectedClass = [self classForName:formRow.value];
 		[self initStudentNames];
+	} else if ([formRow.tag isEqualToString:STUDENT_TAG] && ![newValue isKindOfClass:[NSNull class]]) {
+		for (CloudiversityStudent *student in self.students) {
+			if ([student.name isEqualToString:([self.form formRowWithTag:STUDENT_TAG].value)]) {
+				self.selectedStudent = student;
+				break;
+			}
+		}
 	}
 }
 

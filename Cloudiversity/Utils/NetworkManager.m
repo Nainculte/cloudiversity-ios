@@ -60,6 +60,10 @@ static NetworkManager *manager;
     return self;
 }
 
+- (void)baseURLDidChange {
+	manager = [[NetworkManager alloc] init];
+}
+
 #pragma mark - Reachability Management
 
 - (void)startMonitoringReachability {

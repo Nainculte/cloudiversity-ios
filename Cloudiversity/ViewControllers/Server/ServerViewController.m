@@ -181,6 +181,7 @@ NSString *const sepTag = @"Sep";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:self.server forKey:@"server"];
     [defaults synchronize];
+	[[NetworkManager manager] baseURLDidChange];
 }
 
 - (void)validURL {

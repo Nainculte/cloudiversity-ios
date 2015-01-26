@@ -211,6 +211,7 @@ NSString *const sepaTag = @"Sep";
         self.user.firstName = response[@"first_name"];
         self.user.lastName = response[@"last_name"];
         self.user.roles = response[@"roles"];
+		self.user.userId = response[@"id"];
         if (!self.user.currentRole && self.user.roles.count) {
             self.user.currentRole = self.user.roles[0];
         }
