@@ -79,10 +79,7 @@
 }
 
 - (void)setupTeachings {
-#warning TOCHECK
 	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, NSArray *response) {
-//		NSLog(@"%@", response);
-		
 		NSMutableDictionary *newTeachings = [NSMutableDictionary dictionary];
 		for (NSDictionary *teachings in response) {
 			CloudiversityDiscipline *discipline = [CloudiversityDiscipline fromJSON:[teachings objectForKey:@"discipline"]];
@@ -129,6 +126,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)reloadgrades {
+	[self initAssessmentsByHTTPRequest];
+}
+
 #pragma mark - creation grade
 
 - (void)createGrade {
@@ -137,6 +138,7 @@
 	vc.isCreatingGrade = YES;
 	vc.grade = nil;
 	vc.allowedTeachings = [self allowedTeachingsByPeriod];
+	vc.gradeVC = self;
 	
 	[self.navigationController pushViewController:vc animated:YES];
 }

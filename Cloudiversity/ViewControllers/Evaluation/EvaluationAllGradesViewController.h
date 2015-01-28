@@ -11,4 +11,6 @@
 
 @interface EvaluationAllGradesViewController : AbstractTableViewController
 
+- (void)reloadgrades;
+
 @end

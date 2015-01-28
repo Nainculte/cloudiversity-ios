@@ -8,6 +8,7 @@
 
 #import <XLForm.h>
 #import "CloudEvaluationObjects.h"
+#import "EvaluationAllAssessmentsViewController.h"
 
 @interface EvaluationAssessmentsModificationViewController : XLFormViewController
 
@@ -19,5 +20,6 @@
 //		-> Disciplines
 //			-> Classes
 @property (strong, nonatomic) NSDictionary *allowedTeachings;
+@property (weak, nonatomic) EvaluationAllAssessmentsViewController *assessmentsVC;
 
 @end

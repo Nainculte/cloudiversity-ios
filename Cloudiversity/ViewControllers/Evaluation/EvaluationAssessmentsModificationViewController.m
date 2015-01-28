@@ -158,41 +158,36 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"done" style:UIBarButtonItemStylePlain target:self action:@selector(createAssessment)];
 }
 
-/*
- 
- {
-	 "grade_assessment":{
-		 "assessment":string,
-		 "discipline_id":integer,
-		 "school_class_id":integer,
-		 "period_id":integer,
-		 "school_class_assessment":boolean
-		 "student_id":integer,
-	 }
- }
-
- */
 - (void)createAssessment {
-#warning TOCHECK
-	NSNumber *isForAllClass = ([self.form formRowWithTag:ALL_CLASS_TAG].value == nil ? @YES : @NO);
+	NSNumber *isForAllClass = ([self.form formRowWithTag:ALL_CLASS_TAG].value == nil ? @NO : [self.form formRowWithTag:ALL_CLASS_TAG].value);
+
+	if (!self.selectedPeriod && !self.selectedDiscipline && !self.selectedClass)
+		return;
+	if (![isForAllClass boolValue] && !self.selectedStudent)
+		return;
+
+	id studentID = self.selectedStudent.studentID;
 	
-	NSDictionary *newAssessment = @{
-									@"grade_assessment": @{
-											@"assessment": (NSString*)[self.form formRowWithTag:ASSESSMENT_TAG].value,
-											@"discipline_id": self.selectedDiscipline.disciplineID,
-											@"school_class_id": self.selectedClass.schoolClassId,
-											@"period_id": self.selectedPeriod.periodID,
-											@"school_class_assessment": isForAllClass,
-											@"student_id": self.selectedStudent.studentID
-											}
-									};
+	NSMutableDictionary *assessmentInfo = [NSMutableDictionary dictionary];
+
+	[assessmentInfo setObject:[self.form formRowWithTag:ASSESSMENT_TAG].value forKey:@"assessment"];
+	[assessmentInfo setObject:self.selectedDiscipline.disciplineID forKey:@"discipline_id"];
+	[assessmentInfo setObject:self.selectedClass.schoolClassId forKey:@"school_class_id"];
+	[assessmentInfo setObject:self.selectedPeriod.periodID forKey:@"period_id"];
+	[assessmentInfo setObject:isForAllClass forKey:@"school_class_assessment"];
+	if (studentID) {
+		[assessmentInfo setObject:studentID forKey:@"student_id"];
+	}
+
+	NSDictionary *newAssessment = @{@"grade_assessment": assessmentInfo};
 	
 	
 	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
 		[DejalActivityView removeView];
 		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
-		
+
 		[self.navigationController popViewControllerAnimated:YES];
+		[self.assessmentsVC reloadAssessments];
 	};
 	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		[DejalActivityView removeView];
@@ -210,30 +205,21 @@
 	XLFormRowDescriptor *row;
 	
 	if ([formRow.tag isEqualToString:ALL_CLASS_TAG]) {
-		row = [self.form formRowWithTag:PERIOD_TAG];
-		row.disabled = [newValue boolValue];
-		[self reloadFormRow:row];
-
-		row = [self.form formRowWithTag:DISCIPLINE_TAG];
-		row.selectorOptions = nil;
-		row.value = nil;
-		row.disabled = YES;
-		[self reloadFormRow:row];
-		self.selectedDiscipline = nil;
-		
-		row = [self.form formRowWithTag:CLASS_TAG];
-		row.selectorOptions = nil;
-		row.value = nil;
-		row.disabled = YES;
-		[self reloadFormRow:row];
-		self.selectedClass = nil;
-		
 		row = [self.form formRowWithTag:STUDENT_TAG];
-		row.selectorOptions = nil;
-		row.value = nil;
-		row.disabled = YES;
-		[self reloadFormRow:row];
-		self.selectedStudent = nil;
+		if ([((NSNumber*)formRow.value) boolValue]) {
+			row.selectorOptions = nil;
+			row.value = nil;
+			row.disabled = YES;
+			[self reloadFormRow:row];
+			self.selectedStudent = nil;
+		} else {
+			if (self.selectedClass) {
+				row.disabled = NO;
+				row.selectorOptions = [self classNamesForSelectedDisciplineAndPeriod];
+				row.value = self.selectedStudent.name;
+				[self reloadFormRow:row];
+			}
+		}
 
 	} else if ([formRow.tag isEqualToString:PERIOD_TAG]) {
 		self.selectedPeriod = [self periodForName:formRow.value];
@@ -353,7 +339,6 @@
 }
 
 - (void)initStudentNames {
-#warning TOCHECK
 	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, NSArray *students) {
 		NSMutableArray *newStudents = [NSMutableArray array];
 		NSMutableArray *studentNames = [NSMutableArray array];
@@ -367,7 +352,13 @@
 		
 		XLFormRowDescriptor *row = [self.form formRowWithTag:STUDENT_TAG];
 		row.selectorOptions = studentNames;
-		row.disabled = NO;
+
+		if (![self.form formRowWithTag:ALL_CLASS_TAG].value ||
+			![[self.form formRowWithTag:ALL_CLASS_TAG].value boolValue]) {
+			row.disabled = NO;
+		} else {
+			row.disabled = YES;
+		}
 		[self reloadFormRow:row];
 	};
 	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {

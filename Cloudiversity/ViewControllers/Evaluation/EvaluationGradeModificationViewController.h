@@ -8,6 +8,7 @@
 
 #import <XLForm.h>
 #import "CloudEvaluationObjects.h"
+#import "EvaluationAllGradesViewController.h"
 
 @interface EvaluationGradeModificationViewController : XLFormViewController
 
@@ -19,6 +20,7 @@
 //		-> Disciplines
 //			-> Classes
 @property (strong, nonatomic) NSDictionary *allowedTeachings;
+@property (weak, nonatomic) EvaluationAllGradesViewController *gradeVC;
 
 @property BOOL isCreatingGrade;
 

@@ -79,10 +79,7 @@
 }
 
 - (void)setupTeachings {
-#warning TOCHECK
 	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, NSArray *response) {
-		//		NSLog(@"%@", response);
-		
 		NSMutableDictionary *newTeachings = [NSMutableDictionary dictionary];
 		for (NSDictionary *teachings in response) {
 			CloudiversityDiscipline *discipline = [CloudiversityDiscipline fromJSON:[teachings objectForKey:@"discipline"]];
@@ -176,8 +173,13 @@
 	vc.isCreatingAssessment = YES;
 	vc.assessment = nil;
 	vc.allowedTeachings = [self allowedTeachingsByPeriod];
-
+	vc.assessmentsVC = self;
+	
 	[self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)reloadAssessments {
+	[self initAssessmentsByHTTPRequest];
 }
 
 #pragma mark - UITableView protocols implementation

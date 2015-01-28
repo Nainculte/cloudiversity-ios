@@ -168,21 +168,7 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"done" style:UIBarButtonItemStylePlain target:self action:@selector(createGrade)];
 }
 
-/*
- {
-	 "grade_grade":{
-		 "assessment":string,
-		 "note":integer,
-		 "coefficient":integer,
-		 "discipline_id":integer,
-		 "school_class_id":integer,
-		 "period_id":integer,
-		 "student_id":integer,
-	 }
- }
- */
 - (void)createGrade {
-#warning TODO
 	NSDictionary *newGrade = @{
 							   @"grade_grade": @{
 									   @"assessment": (NSString*)[self.form formRowWithTag:DESC_TAG].value,
@@ -196,11 +182,12 @@
 							   };
 	
 	
-	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, id responseObject) {
+	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
 		[DejalActivityView removeView];
 		[((CloudiversityAppDelegate *)[[UIApplication sharedApplication] delegate]) setNetworkActivityIndicatorVisible:NO];
-		
+
 		[self.navigationController popViewControllerAnimated:YES];
+		[self.gradeVC reloadgrades];
 	};
 	HTTPFailureHandler failure = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		[DejalActivityView removeView];
@@ -335,7 +322,6 @@
 }
 
 - (void)initStudentNames {
-#warning TOCHECK
 	HTTPSuccessHandler success = ^(AFHTTPRequestOperation *operation, NSArray *students) {
 		NSMutableArray *newStudents = [NSMutableArray array];
 		NSMutableArray *studentNames = [NSMutableArray array];
